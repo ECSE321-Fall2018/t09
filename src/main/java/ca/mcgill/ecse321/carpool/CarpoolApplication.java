@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.carpool09.Carpool;
+package ca.mcgill.ecse321.carpool;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

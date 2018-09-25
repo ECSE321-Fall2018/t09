@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.carpool09.Carpool;
+package ca.mcgill.ecse321.carpool;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
