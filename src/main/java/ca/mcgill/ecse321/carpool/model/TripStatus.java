@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.carpool.model;
 
-import javax.persistence.Entity;
+public enum TripStatus {
+IN_PROGRESS, NOT_STARTED, COMPLETED;
 
-@Entity
-public enum TripStatus{
 }

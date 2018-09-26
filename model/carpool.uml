@@ -4,7 +4,7 @@
     <eAnnotations xmi:id="_GnINEMD2Eei16og3v9VsBA" source="http://ns.yatta.de/umllab">
       <contents xmi:type="ecore:EAnnotation" xmi:id="_GnINEcD2Eei16og3v9VsBA" source="codegen">
         <details xmi:id="_GnINEsD2Eei16og3v9VsBA" key="codegenDirectory" value="/carpool/src/main/java"/>
-        <details xmi:id="_rBgPsMEHEei16og3v9VsBA" key="AssociatedSourceCode" value="/carpool/src/main/java/ca/mcgill/ecse321/carpool/CarpoolApplication.java;948906736/1;/carpool/src/test/java/ca/mcgill/ecse321/carpool/CarpoolApplicationTests.java;2196017861/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Driver.java;1354754467/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Vehicle.java;1036411359/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Trip.java;1609003328/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Passenger.java;2741054720/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Stop.java;2408256796/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Advertisement.java;2505495915/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/TripStatus.java;975643588/1;"/>
+        <details xmi:id="_rBgPsMEHEei16og3v9VsBA" key="AssociatedSourceCode" value="/carpool/src/main/java/ca/mcgill/ecse321/carpool/CarpoolApplication.java;948906736/1;/carpool/src/test/java/ca/mcgill/ecse321/carpool/CarpoolApplicationTests.java;2196017861/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Driver.java;1354754467/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Vehicle.java;1036411359/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Trip.java;397083096/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Passenger.java;2741054720/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Stop.java;2408256796/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Advertisement.java;2505495915/1;"/>
       </contents>
     </eAnnotations>
     <elementImport xmi:id="_GtWw4MD2Eei16og3v9VsBA">
@@ -120,16 +120,16 @@
                   <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2egT8sEGEei16og3v9VsBA"/>
                   <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2eg7AMEGEei16og3v9VsBA" value="1"/>
                 </ownedAttribute>
-                <ownedAttribute xmi:id="_N3XHYMEgEeiUL4Rdl0sAQw" name="startTime" visibility="public" type="_V3C6wMEgEeiUL4Rdl0sAQw"/>
-                <ownedAttribute xmi:id="_YQ5uEMEgEeiUL4Rdl0sAQw" name="startDate" visibility="public" type="_eB_i8MEgEeiUL4Rdl0sAQw"/>
+                <ownedAttribute xmi:id="_N3XHYMEgEeiUL4Rdl0sAQw" name="startTime" visibility="public" type="_DZiNcMGrEeiIf96_MW4xhw"/>
+                <ownedAttribute xmi:id="_YQ5uEMEgEeiUL4Rdl0sAQw" name="startDate" visibility="public" type="_DZnF8cGrEeiIf96_MW4xhw"/>
                 <ownedAttribute xmi:id="_njCc8MGEEei4iPu1OCm8vg" name="startingAddress" visibility="public">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
                 </ownedAttribute>
-                <ownedAttribute xmi:id="_LMZFkMGGEei4iPu1OCm8vg" name="status" visibility="public" type="_7EJPoMGFEei4iPu1OCm8vg"/>
                 <ownedAttribute xmi:id="_gB30wMGIEei4iPu1OCm8vg" name="passenger" type="_9ikbUMEAEei16og3v9VsBA" association="_gB3NsMGIEei4iPu1OCm8vg">
                   <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gB-icMGIEei4iPu1OCm8vg"/>
                   <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_gB_JgMGIEei4iPu1OCm8vg" value="*"/>
                 </ownedAttribute>
+                <ownedAttribute xmi:id="__YL_QMGnEeiIf96_MW4xhw" name="status" visibility="public" type="_DZz6QMGrEeiIf96_MW4xhw" association="_DaAHgMGrEeiIf96_MW4xhw"/>
               </packagedElement>
               <packagedElement xmi:type="uml:Class" xmi:id="_9ikbUMEAEei16og3v9VsBA" name="Passenger">
                 <ownedAttribute xmi:id="_JGntUMEBEei16og3v9VsBA" name="username" visibility="public">
@@ -177,12 +177,11 @@
                 </ownedAttribute>
               </packagedElement>
               <packagedElement xmi:type="uml:Association" xmi:id="_2egT8MEGEei16og3v9VsBA" name="" memberEnd="_2egT8cEGEei16og3v9VsBA _2eg7AcEGEei16og3v9VsBA"/>
-              <packagedElement xmi:type="uml:Enumeration" xmi:id="_7EJPoMGFEei4iPu1OCm8vg" name="TripStatus">
-                <ownedLiteral xmi:id="_CElzkMGGEei4iPu1OCm8vg" name="IN_PROGRESS"/>
-                <ownedLiteral xmi:id="_iLPm8MGGEei4iPu1OCm8vg" name="NOT_STARTED"/>
-                <ownedLiteral xmi:id="_k0PpgMGGEei4iPu1OCm8vg" name="COMPLETED"/>
-              </packagedElement>
               <packagedElement xmi:type="uml:Association" xmi:id="_gB3NsMGIEei4iPu1OCm8vg" name="" memberEnd="_gB30wMGIEei4iPu1OCm8vg _gB_JgcGIEei4iPu1OCm8vg"/>
+              <packagedElement xmi:type="uml:Enumeration" xmi:id="_DZz6QMGrEeiIf96_MW4xhw" name="TripStatus"/>
+              <packagedElement xmi:type="uml:Association" xmi:id="_DaAHgMGrEeiIf96_MW4xhw" name="" memberEnd="__YL_QMGnEeiIf96_MW4xhw _DaDx4MGrEeiIf96_MW4xhw">
+                <ownedEnd xmi:id="_DaDx4MGrEeiIf96_MW4xhw" name="" type="_9NQvIMD_Eei16og3v9VsBA" association="_DaAHgMGrEeiIf96_MW4xhw"/>
+              </packagedElement>
             </packagedElement>
           </packagedElement>
         </packagedElement>
@@ -216,9 +215,27 @@
         <packagedElement xmi:type="uml:Interface" xmi:id="_Gt904MD2Eei16og3v9VsBA" name="Test"/>
       </packagedElement>
     </packagedElement>
-    <packagedElement xmi:type="uml:DataType" xmi:id="_TyclwMEgEeiUL4Rdl0sAQw" name="Time"/>
     <packagedElement xmi:type="uml:DataType" xmi:id="_V3C6wMEgEeiUL4Rdl0sAQw" name="java.sql.Time"/>
     <packagedElement xmi:type="uml:DataType" xmi:id="_eB_i8MEgEeiUL4Rdl0sAQw" name="java.sql.Date"/>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_D9bsEMGoEeiIf96_MW4xhw" name="Enum"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_DYjWAMGrEeiIf96_MW4xhw" name="javax">
+      <packagedElement xmi:type="uml:Package" xmi:id="_DYj9EMGrEeiIf96_MW4xhw" name="persistence">
+        <packagedElement xmi:type="uml:Interface" xmi:id="_DY9lsMGrEeiIf96_MW4xhw" name="Entity"/>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_DZGvoMGrEeiIf96_MW4xhw" name="ManyToOne"/>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_DZWAMMGrEeiIf96_MW4xhw" name="OneToMany"/>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_DZct4MGrEeiIf96_MW4xhw" name="OneToOne"/>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_DZr-ccGrEeiIf96_MW4xhw" name="ManyToMany"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_DYkkIMGrEeiIf96_MW4xhw" name="java">
+      <packagedElement xmi:type="uml:Package" xmi:id="_DYkkIcGrEeiIf96_MW4xhw" name="util">
+        <packagedElement xmi:type="uml:Interface" xmi:id="_DZOrccGrEeiIf96_MW4xhw" name="Set"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_DYlLMMGrEeiIf96_MW4xhw" name="sql">
+        <packagedElement xmi:type="uml:Class" xmi:id="_DZiNcMGrEeiIf96_MW4xhw" name="Time"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="_DZnF8cGrEeiIf96_MW4xhw" name="Date"/>
+      </packagedElement>
+    </packagedElement>
     <profileApplication xmi:id="_GnKCQMD2Eei16og3v9VsBA">
       <eAnnotations xmi:id="_GnOTsMD2Eei16og3v9VsBA" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://UMLLAB_PROFILES/UMLLab.profile.uml#UMLLabProfile-Annotation_2-UMLLabProfile"/>
@@ -265,7 +282,21 @@
   <UMLLabProfile:UnresolvedElement xmi:id="_JrjjMMD9Eei16og3v9VsBA"/>
   <UMLLabProfile:UnresolvedElement xmi:id="_spM8YMD-Eei16og3v9VsBA"/>
   <UMLLabProfile:UnresolvedElement xmi:id="_TqzEcMEGEei16og3v9VsBA"/>
-  <UMLLabProfile:UnresolvedElement xmi:id="_TyisYMEgEeiUL4Rdl0sAQw" base_Element="_TyclwMEgEeiUL4Rdl0sAQw"/>
   <UMLLabProfile:UnresolvedElement xmi:id="_V3KPgMEgEeiUL4Rdl0sAQw" base_Element="_V3C6wMEgEeiUL4Rdl0sAQw"/>
   <UMLLabProfile:UnresolvedElement xmi:id="_eCFCgMEgEeiUL4Rdl0sAQw" base_Element="_eB_i8MEgEeiUL4Rdl0sAQw"/>
+  <UMLLabProfile:UnresolvedElement xmi:id="_D9ogYMGoEeiIf96_MW4xhw" base_Element="_D9bsEMGoEeiIf96_MW4xhw"/>
+  <UMLLabProfile:StyledElement xmi:id="_DYwKUMGrEeiIf96_MW4xhw" base_Element="_Dq9LUMEAEei16og3v9VsBA"/>
+  <UMLLabProfile:StyledElement xmi:id="_DYwxYMGrEeiIf96_MW4xhw" base_Element="_N3XHYMEgEeiUL4Rdl0sAQw"/>
+  <UMLLabProfile:StyledElement xmi:id="_DYwxYcGrEeiIf96_MW4xhw" base_Element="_YQ5uEMEgEeiUL4Rdl0sAQw"/>
+  <UMLLabProfile:StyledElement xmi:id="_DYxYcMGrEeiIf96_MW4xhw" base_Element="_njCc8MGEEei4iPu1OCm8vg"/>
+  <UMLLabProfile:StyledElement xmi:id="_DYxYccGrEeiIf96_MW4xhw" base_Element="__YL_QMGnEeiIf96_MW4xhw"/>
+  <UMLLabProfile:Reference xmi:id="_DZFhgMGrEeiIf96_MW4xhw" base_Element="_DY9lsMGrEeiIf96_MW4xhw"/>
+  <UMLLabProfile:Reference xmi:id="_DZOrcMGrEeiIf96_MW4xhw" base_Element="_DZGvoMGrEeiIf96_MW4xhw"/>
+  <UMLLabProfile:Reference xmi:id="_DZVZIMGrEeiIf96_MW4xhw" base_Element="_DZOrccGrEeiIf96_MW4xhw"/>
+  <UMLLabProfile:Reference xmi:id="_DZcG0MGrEeiIf96_MW4xhw" base_Element="_DZWAMMGrEeiIf96_MW4xhw"/>
+  <UMLLabProfile:Reference xmi:id="_DZhmYMGrEeiIf96_MW4xhw" base_Element="_DZct4MGrEeiIf96_MW4xhw"/>
+  <UMLLabProfile:Reference xmi:id="_DZnF8MGrEeiIf96_MW4xhw" base_Element="_DZiNcMGrEeiIf96_MW4xhw"/>
+  <UMLLabProfile:Reference xmi:id="_DZr-cMGrEeiIf96_MW4xhw" base_Element="_DZnF8cGrEeiIf96_MW4xhw"/>
+  <UMLLabProfile:Reference xmi:id="_DZw28MGrEeiIf96_MW4xhw" base_Element="_DZr-ccGrEeiIf96_MW4xhw"/>
+  <UMLLabProfile:Reference xmi:id="_DZ9EMMGrEeiIf96_MW4xhw" base_Element="_DZz6QMGrEeiIf96_MW4xhw"/>
 </xmi:XMI>

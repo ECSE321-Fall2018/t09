@@ -87,6 +87,17 @@ public void setStartingAddress(String value) {
 public String getStartingAddress() {
     return this.startingAddress;
 }
+private Set<Passenger> passenger;
+
+@ManyToMany
+public Set<Passenger> getPassenger() {
+   return this.passenger;
+}
+
+public void setPassenger(Set<Passenger> passengers) {
+   this.passenger = passengers;
+}
+
 private TripStatus status;
 
 public void setStatus(TripStatus value) {
@@ -95,15 +106,4 @@ public void setStatus(TripStatus value) {
 public TripStatus getStatus() {
     return this.status;
 }
-   private Set<Passenger> passenger;
-   
-   @ManyToMany
-   public Set<Passenger> getPassenger() {
-      return this.passenger;
-   }
-   
-   public void setPassenger(Set<Passenger> passengers) {
-      this.passenger = passengers;
-   }
-   
-   }
+}
