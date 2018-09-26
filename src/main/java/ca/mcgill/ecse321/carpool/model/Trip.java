@@ -7,6 +7,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.sql.Time;
 import java.sql.Date;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Trip{
@@ -78,4 +79,31 @@ public void setStartDate(java.sql.Date value) {
 public java.sql.Date getStartDate() {
     return this.startDate;
 }
+private String startingAddress;
+
+public void setStartingAddress(String value) {
+    this.startingAddress = value;
 }
+public String getStartingAddress() {
+    return this.startingAddress;
+}
+private TripStatus status;
+
+public void setStatus(TripStatus value) {
+    this.status = value;
+}
+public TripStatus getStatus() {
+    return this.status;
+}
+   private Set<Passenger> passenger;
+   
+   @ManyToMany
+   public Set<Passenger> getPassenger() {
+      return this.passenger;
+   }
+   
+   public void setPassenger(Set<Passenger> passengers) {
+      this.passenger = passengers;
+   }
+   
+   }

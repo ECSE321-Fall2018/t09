@@ -38,17 +38,6 @@ public void setMaximumPassengerSeats(Integer value) {
 public Integer getMaximumPassengerSeats() {
     return this.maximumPassengerSeats;
 }
-   private Set<Passenger> passenger;
-   
-   @OneToMany(mappedBy="vehicle" )
-   public Set<Passenger> getPassenger() {
-      return this.passenger;
-   }
-   
-   public void setPassenger(Set<Passenger> passengers) {
-      this.passenger = passengers;
-   }
-   
    private Set<Trip> trip;
    
    @OneToMany(mappedBy="vehicle" )

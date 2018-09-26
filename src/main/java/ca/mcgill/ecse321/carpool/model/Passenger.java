@@ -1,7 +1,8 @@
 package ca.mcgill.ecse321.carpool.model;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import java.util.Set;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Passenger{
@@ -37,15 +38,15 @@ public void setPhoneNumber(Integer value) {
 public Integer getPhoneNumber() {
     return this.phoneNumber;
 }
-   private Vehicle vehicle;
+   private Set<Trip> trip;
    
-   @ManyToOne(optional=false)
-   public Vehicle getVehicle() {
-      return this.vehicle;
+   @ManyToMany(mappedBy="passenger" )
+   public Set<Trip> getTrip() {
+      return this.trip;
    }
    
-   public void setVehicle(Vehicle vehicle) {
-      this.vehicle = vehicle;
+   public void setTrip(Set<Trip> trips) {
+      this.trip = trips;
    }
    
    }
