@@ -126,6 +126,10 @@
                 </ownedAttribute>
                 <ownedAttribute xmi:id="_N3XHYMEgEeiUL4Rdl0sAQw" name="startTime" visibility="public" type="_V3C6wMEgEeiUL4Rdl0sAQw"/>
                 <ownedAttribute xmi:id="_YQ5uEMEgEeiUL4Rdl0sAQw" name="startDate" visibility="public" type="_eB_i8MEgEeiUL4Rdl0sAQw"/>
+                <ownedAttribute xmi:id="_njCc8MGEEei4iPu1OCm8vg" name="startingAddress" visibility="public">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+                </ownedAttribute>
+                <ownedAttribute xmi:id="_LMZFkMGGEei4iPu1OCm8vg" name="status" visibility="public" type="_7EJPoMGFEei4iPu1OCm8vg"/>
               </packagedElement>
               <packagedElement xmi:type="uml:Class" xmi:id="_9ikbUMEAEei16og3v9VsBA" name="Passenger">
                 <ownedAttribute xmi:id="_JGntUMEBEei16og3v9VsBA" name="username" visibility="public">
@@ -174,6 +178,11 @@
                 </ownedAttribute>
               </packagedElement>
               <packagedElement xmi:type="uml:Association" xmi:id="_2egT8MEGEei16og3v9VsBA" name="" memberEnd="_2egT8cEGEei16og3v9VsBA _2eg7AcEGEei16og3v9VsBA"/>
+              <packagedElement xmi:type="uml:Enumeration" xmi:id="_7EJPoMGFEei4iPu1OCm8vg" name="TripStatus">
+                <ownedLiteral xmi:id="_CElzkMGGEei4iPu1OCm8vg" name="IN_PROGRESS"/>
+                <ownedLiteral xmi:id="_iLPm8MGGEei4iPu1OCm8vg" name="NOT_STARTED"/>
+                <ownedLiteral xmi:id="_k0PpgMGGEei4iPu1OCm8vg" name="COMPLETED"/>
+              </packagedElement>
             </packagedElement>
           </packagedElement>
         </packagedElement>
