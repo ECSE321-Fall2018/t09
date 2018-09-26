@@ -3,56 +3,37 @@
   <modelElement href="carpool.uml#_GtLKsMD2Eei16og3v9VsBA"/>
   <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_jQokIMD2Eei16og3v9VsBA" sourceAnchor="1.0,30.0" targetAnchor="95.0,30.0" enclosingItem="_cde1UMD2Eei16og3v9VsBA" containedItem="_jQokIcD2Eei16og3v9VsBA"/>
   <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_FwXHsMD3Eei16og3v9VsBA" sourceAnchor="119.0,0.0" targetAnchor="47.0,67.0" enclosingItem="_jQokIcD2Eei16og3v9VsBA" containedItem="_ESNHocD3Eei16og3v9VsBA">
-    <bendpoints xmi:id="_wcdCwMGGEei4iPu1OCm8vg" sourceY="-34" targetX="-440" targetY="104"/>
-    <bendpoints xmi:id="_wcdCwcGGEei4iPu1OCm8vg" sourceX="440" sourceY="-34" targetY="104"/>
+    <bendpoints xmi:id="_m_iKcMGIEei4iPu1OCm8vg" sourceY="-32" targetX="-439" targetY="104"/>
+    <bendpoints xmi:id="_m_iKccGIEei4iPu1OCm8vg" sourceX="439" sourceY="-32" targetY="104"/>
   </edges>
   <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_ow7ugMD3Eei16og3v9VsBA" sourceAnchor="161.0,0.0" targetAnchor="47.0,67.0" enclosingItem="_jQokIcD2Eei16og3v9VsBA" containedItem="_nzP-QcD3Eei16og3v9VsBA">
-    <bendpoints xmi:id="_wcdCwsGGEei4iPu1OCm8vg" sourceY="-30" targetX="314" targetY="104"/>
-    <bendpoints xmi:id="_wcdCw8GGEei4iPu1OCm8vg" sourceX="-314" sourceY="-30" targetY="104"/>
+    <bendpoints xmi:id="_m_egEMGIEei4iPu1OCm8vg" sourceY="-30" targetX="314" targetY="104"/>
+    <bendpoints xmi:id="_m_egEcGIEei4iPu1OCm8vg" sourceX="-314" sourceY="-30" targetY="104"/>
   </edges>
   <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_A8pyAMEAEei16og3v9VsBA" sourceAnchor="123.0,0.0" targetAnchor="47.0,67.0" enclosingItem="_jQokIcD2Eei16og3v9VsBA" containedItem="_9NTycMD_Eei16og3v9VsBA">
-    <bendpoints xmi:id="_wcdCzsGGEei4iPu1OCm8vg" sourceY="-39" targetX="-60" targetY="104"/>
-    <bendpoints xmi:id="_wcdCz8GGEei4iPu1OCm8vg" sourceX="60" sourceY="-39" targetY="104"/>
+    <bendpoints xmi:id="_m_hjYcGIEei4iPu1OCm8vg" sourceY="-39" targetX="-60" targetY="104"/>
+    <bendpoints xmi:id="_m_hjYsGIEei4iPu1OCm8vg" sourceX="60" sourceY="-39" targetY="104"/>
   </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_-rqKUMEAEei16og3v9VsBA" sourceAnchor="238.0,76.0" targetAnchor="47.0,67.0" enclosingItem="_jQokIcD2Eei16og3v9VsBA" containedItem="_9ilCYcEAEei16og3v9VsBA">
-    <bendpoints xmi:id="_wcdCxMGGEei4iPu1OCm8vg" sourceX="135" targetX="568" targetY="485"/>
-    <bendpoints xmi:id="_wcdCxcGGEei4iPu1OCm8vg" sourceX="135" sourceY="-381" targetX="568" targetY="104"/>
-    <bendpoints xmi:id="_wcdCxsGGEei4iPu1OCm8vg" sourceX="-433" sourceY="-381" targetY="104"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_-rqKUMEAEei16og3v9VsBA" sourceAnchor="238.0,149.0" targetAnchor="47.0,67.0" enclosingItem="_jQokIcD2Eei16og3v9VsBA" containedItem="_9ilCYcEAEei16og3v9VsBA">
+    <bendpoints xmi:id="_m_iKc8GIEei4iPu1OCm8vg" sourceX="898" targetX="568" targetY="604"/>
+    <bendpoints xmi:id="_m_iKdMGIEei4iPu1OCm8vg" sourceX="898" sourceY="-500" targetX="568" targetY="104"/>
+    <bendpoints xmi:id="_m_iKdcGIEei4iPu1OCm8vg" sourceX="330" sourceY="-500" targetY="104"/>
   </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_n62PgMEBEei16og3v9VsBA" sourceAnchor="119.0,0.0" targetAnchor="161.0,153.0" target="_nzP-QcD3Eei16og3v9VsBA" source="_9ilCYcEAEei16og3v9VsBA">
-    <modelElement href="carpool.uml#_n60aUMEBEei16og3v9VsBA"/>
-    <visualProperties xmi:id="_n62PgcEBEei16og3v9VsBA"/>
-    <nameVisual xmi:id="_n62PgsEBEei16og3v9VsBA" text="">
-      <visualProperties xmi:id="_n95jgcEBEei16og3v9VsBA" position="2.0,-3.0"/>
-    </nameVisual>
-    <sourceRole xmi:id="_n62Pg8EBEei16og3v9VsBA" aggregationKind="NONE" name="passenger" navigable="true">
-      <modelElement href="carpool.uml#_n60aUcEBEei16og3v9VsBA"/>
-      <visualProperties xmi:id="_n95jgMEBEei16og3v9VsBA" position="41.0,-64.0"/>
-      <visibility xmi:id="_n62PhMEBEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_n62PhcEBEei16og3v9VsBA" label="*" max="-1"/>
-    </sourceRole>
-    <targetRole xmi:id="_n62PhsEBEei16og3v9VsBA" aggregationKind="NONE" name="vehicle" navigable="true">
-      <modelElement href="carpool.uml#_n61BYcEBEei16og3v9VsBA"/>
-      <visualProperties xmi:id="_n95jgsEBEei16og3v9VsBA" position="-74.0,20.0"/>
-      <visibility xmi:id="_n62Ph8EBEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_n62PiMEBEei16og3v9VsBA" label="1" max="1" min="1"/>
-    </targetRole>
-  </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_TNqj4MEDEei16og3v9VsBA" sourceAnchor="238.0,45.0" targetAnchor="0.0,40.0" target="_9NTycMD_Eei16og3v9VsBA" source="_ESNHocD3Eei16og3v9VsBA">
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_TNqj4MEDEei16og3v9VsBA" sourceAnchor="238.0,95.0" targetAnchor="0.0,88.0" target="_9NTycMD_Eei16og3v9VsBA" source="_ESNHocD3Eei16og3v9VsBA">
     <modelElement href="carpool.uml#_TNoHoMEDEei16og3v9VsBA"/>
     <visualProperties xmi:id="_TNqj4cEDEei16og3v9VsBA"/>
     <nameVisual xmi:id="_TNqj4sEDEei16og3v9VsBA" text="">
-      <visualProperties xmi:id="_TQtQ0MEDEei16og3v9VsBA" position="-20.0,-28.0"/>
+      <visualProperties xmi:id="_TQtQ0MEDEei16og3v9VsBA" position="9.0,2.0"/>
     </nameVisual>
     <sourceRole xmi:id="_TNqj48EDEei16og3v9VsBA" aggregationKind="NONE" name="driver" navigable="true">
       <modelElement href="carpool.uml#_TNousMEDEei16og3v9VsBA"/>
-      <visualProperties xmi:id="_TQspwcEDEei16og3v9VsBA" position="25.0,2.0"/>
+      <visualProperties xmi:id="_TQspwcEDEei16og3v9VsBA" position="25.0,-65.0"/>
       <visibility xmi:id="_TNqj5MEDEei16og3v9VsBA" label="+"/>
       <cardinality xmi:id="_TNqj5cEDEei16og3v9VsBA" label="1" max="1" min="1"/>
     </sourceRole>
     <targetRole xmi:id="_TNqj5sEDEei16og3v9VsBA" aggregationKind="NONE" name="trip" navigable="true">
       <modelElement href="carpool.uml#_TNpVwcEDEei16og3v9VsBA"/>
-      <visualProperties xmi:id="_TQtQ0cEDEei16og3v9VsBA" position="-69.0,-65.0"/>
+      <visualProperties xmi:id="_TQtQ0cEDEei16og3v9VsBA" position="-114.0,2.0"/>
       <visibility xmi:id="_TNqj58EDEei16og3v9VsBA" label="+"/>
       <cardinality xmi:id="_TNqj6MEDEei16og3v9VsBA" label="*" max="-1"/>
     </targetRole>
@@ -76,56 +57,76 @@
       <cardinality xmi:id="_aSWSKMEEEei16og3v9VsBA" label="1" max="1" min="1"/>
     </targetRole>
   </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_KkbyUMEFEei16og3v9VsBA" sourceAnchor="0.0,62.0" targetAnchor="47.0,67.0" enclosingItem="_jQokIcD2Eei16og3v9VsBA" containedItem="_JzOX0MEFEei16og3v9VsBA">
-    <bendpoints xmi:id="_wcdCx8GGEei4iPu1OCm8vg" sourceX="-481" targetX="-574" targetY="463"/>
-    <bendpoints xmi:id="_wcdCyMGGEei4iPu1OCm8vg" sourceX="-481" sourceY="-359" targetX="-574" targetY="104"/>
-    <bendpoints xmi:id="_wcdCycGGEei4iPu1OCm8vg" sourceX="93" sourceY="-359" targetY="104"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_KkbyUMEFEei16og3v9VsBA" sourceAnchor="0.0,76.0" targetAnchor="47.0,67.0" enclosingItem="_jQokIcD2Eei16og3v9VsBA" containedItem="_JzOX0MEFEei16og3v9VsBA">
+    <bendpoints xmi:id="_m_iKecGIEei4iPu1OCm8vg" sourceX="-141" targetX="92" targetY="470"/>
+    <bendpoints xmi:id="_m_iKesGIEei4iPu1OCm8vg" sourceX="-141" sourceY="-366" targetX="92" targetY="104"/>
+    <bendpoints xmi:id="_m_iKe8GIEei4iPu1OCm8vg" sourceX="-233" sourceY="-366" targetY="104"/>
   </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_OaZXQMEFEei16og3v9VsBA" sourceAnchor="173.0,180.0" targetAnchor="83.0,0.0" target="_JzOX0MEFEei16og3v9VsBA" source="_9NTycMD_Eei16og3v9VsBA">
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_OaZXQMEFEei16og3v9VsBA" sourceAnchor="104.0,179.0" targetAnchor="0.0,106.0" target="_JzOX0MEFEei16og3v9VsBA" source="_9NTycMD_Eei16og3v9VsBA">
     <modelElement href="carpool.uml#_OaXiEMEFEei16og3v9VsBA"/>
     <visualProperties xmi:id="_OaZXQcEFEei16og3v9VsBA"/>
+    <bendpoints xmi:id="_m_hjYMGIEei4iPu1OCm8vg" sourceY="178" targetX="-312"/>
     <nameVisual xmi:id="_OaZXQsEFEei16og3v9VsBA" text="">
-      <visualProperties xmi:id="_OdiK0MEFEei16og3v9VsBA" position="2.0,-45.0"/>
+      <visualProperties xmi:id="_OdiK0MEFEei16og3v9VsBA" position="150.5,2.0"/>
     </nameVisual>
     <sourceRole xmi:id="_OaZXQ8EFEei16og3v9VsBA" aggregationKind="NONE" name="trip" navigable="true">
       <modelElement href="carpool.uml#_OaXiEcEFEei16og3v9VsBA"/>
-      <visualProperties xmi:id="_Odhjx8EFEei16og3v9VsBA" position="-47.0,38.0"/>
+      <visualProperties xmi:id="_Odhjx8EFEei16og3v9VsBA" position="1.0,74.0"/>
       <visibility xmi:id="_OaZXRMEFEei16og3v9VsBA" label="+"/>
       <cardinality xmi:id="_OaZXRcEFEei16og3v9VsBA" label="1" max="1" min="1"/>
     </sourceRole>
     <targetRole xmi:id="_OaZXRsEFEei16og3v9VsBA" aggregationKind="NONE" name="stop" navigable="true">
       <modelElement href="carpool.uml#_OaXiFMEFEei16og3v9VsBA"/>
-      <visualProperties xmi:id="_OdiK0cEFEei16og3v9VsBA" position="2.0,-102.0"/>
+      <visualProperties xmi:id="_OdiK0cEFEei16og3v9VsBA" position="-89.85714285714289,7.0"/>
       <visibility xmi:id="_OaZXR8EFEei16og3v9VsBA" label="+"/>
       <cardinality xmi:id="_OaZXSMEFEei16og3v9VsBA" label="*" max="-1"/>
     </targetRole>
   </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_QqRSsMEGEei16og3v9VsBA" sourceAnchor="156.0,22.0" targetAnchor="47.0,67.0" enclosingItem="_jQokIcD2Eei16og3v9VsBA" containedItem="_NozFwcEGEei16og3v9VsBA">
-    <bendpoints xmi:id="_wcdCy8GGEei4iPu1OCm8vg" sourceX="150" targetX="-246" targetY="386"/>
-    <bendpoints xmi:id="_wcdCzMGGEei4iPu1OCm8vg" sourceX="150" sourceY="-282" targetX="-246" targetY="104"/>
-    <bendpoints xmi:id="_wcdCzcGGEei4iPu1OCm8vg" sourceX="396" sourceY="-282" targetY="104"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_QqRSsMEGEei16og3v9VsBA" sourceAnchor="156.0,35.0" targetAnchor="47.0,67.0" enclosingItem="_jQokIcD2Eei16og3v9VsBA" containedItem="_NozFwcEGEei16og3v9VsBA">
+    <bendpoints xmi:id="_m_iKdsGIEei4iPu1OCm8vg" sourceX="554" targetX="490" targetY="553"/>
+    <bendpoints xmi:id="_m_iKd8GIEei4iPu1OCm8vg" sourceX="554" sourceY="-449" targetX="490" targetY="104"/>
+    <bendpoints xmi:id="_m_iKeMGIEei4iPu1OCm8vg" sourceX="64" sourceY="-449" targetY="104"/>
   </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_2eiJIMEGEei16og3v9VsBA" sourceAnchor="156.0,15.0" targetAnchor="110.0,180.0" target="_9NTycMD_Eei16og3v9VsBA" source="_NozFwcEGEei16og3v9VsBA">
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_2eiJIMEGEei16og3v9VsBA" sourceAnchor="78.0,0.0" targetAnchor="41.0,180.0" target="_9NTycMD_Eei16og3v9VsBA" source="_NozFwcEGEei16og3v9VsBA">
     <modelElement href="carpool.uml#_2egT8MEGEei16og3v9VsBA"/>
     <visualProperties xmi:id="_2eiJIcEGEei16og3v9VsBA"/>
-    <bendpoints xmi:id="_wcdCysGGEei4iPu1OCm8vg" sourceX="321" sourceY="1" targetX="-2" targetY="57"/>
     <nameVisual xmi:id="_2eiJIsEGEei16og3v9VsBA" text="">
-      <visualProperties xmi:id="_2h3xAcEGEei16og3v9VsBA" position="-57.0,-27.0"/>
+      <visualProperties xmi:id="_2h3xAcEGEei16og3v9VsBA" position="2.0,8.0"/>
     </nameVisual>
     <sourceRole xmi:id="_2eiJI8EGEei16og3v9VsBA" aggregationKind="NONE" name="advertisement" navigable="true">
       <modelElement href="carpool.uml#_2egT8cEGEei16og3v9VsBA"/>
-      <visualProperties xmi:id="_2h3xAMEGEei16og3v9VsBA" position="72.0,2.0"/>
+      <visualProperties xmi:id="_2h3xAMEGEei16og3v9VsBA" position="-132.0,-97.0"/>
       <visibility xmi:id="_2eiJJMEGEei16og3v9VsBA" label="+"/>
       <cardinality xmi:id="_2eiJJcEGEei16og3v9VsBA" label="0..1" max="1"/>
     </sourceRole>
     <targetRole xmi:id="_2eiJJsEGEei16og3v9VsBA" aggregationKind="NONE" name="trip" navigable="true">
       <modelElement href="carpool.uml#_2eg7AcEGEei16og3v9VsBA"/>
-      <visualProperties xmi:id="_2h3xAsEGEei16og3v9VsBA" position="-46.0,54.0"/>
+      <visualProperties xmi:id="_2h3xAsEGEei16og3v9VsBA" position="2.0,33.0"/>
       <visibility xmi:id="_2eiJJ8EGEei16og3v9VsBA" label="+"/>
       <cardinality xmi:id="_2eiJKMEGEei16og3v9VsBA" label="1" max="1" min="1"/>
     </targetRole>
   </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_8JhjUMGFEei4iPu1OCm8vg" sourceAnchor="0.0,39.0" targetAnchor="94.0,33.0" enclosingItem="_jQokIcD2Eei16og3v9VsBA" containedItem="_7ELE0MGFEei4iPu1OCm8vg"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_8JhjUMGFEei4iPu1OCm8vg" sourceAnchor="0.0,36.0" targetAnchor="93.0,30.0" enclosingItem="_jQokIcD2Eei16og3v9VsBA" containedItem="_7ELE0MGFEei4iPu1OCm8vg"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_gCLWwMGIEei4iPu1OCm8vg" sourceAnchor="118.0,0.0" targetAnchor="0.0,160.0" target="_9NTycMD_Eei16og3v9VsBA" source="_9ilCYcEAEei16og3v9VsBA">
+    <modelElement href="carpool.uml#_gB3NsMGIEei4iPu1OCm8vg"/>
+    <visualProperties xmi:id="_gCLWwcGIEei4iPu1OCm8vg"/>
+    <bendpoints xmi:id="_m_iKcsGIEei4iPu1OCm8vg" sourceY="-152" targetX="-266"/>
+    <nameVisual xmi:id="_gCLWwsGIEei4iPu1OCm8vg" text="">
+      <visualProperties xmi:id="_gJDa28GIEei4iPu1OCm8vg" position="127.0,2.0"/>
+    </nameVisual>
+    <sourceRole xmi:id="_gCLWw8GIEei4iPu1OCm8vg" aggregationKind="NONE" name="passenger" navigable="true">
+      <modelElement href="carpool.uml#_gB30wMGIEei4iPu1OCm8vg"/>
+      <visualProperties xmi:id="_gJDa2sGIEei4iPu1OCm8vg" position="1.0,-111.0"/>
+      <visibility xmi:id="_gCLWxMGIEei4iPu1OCm8vg" label="+"/>
+      <cardinality xmi:id="_gCLWxcGIEei4iPu1OCm8vg" label="*" max="-1"/>
+    </sourceRole>
+    <targetRole xmi:id="_gCLWxsGIEei4iPu1OCm8vg" aggregationKind="NONE" name="trip" navigable="true">
+      <modelElement href="carpool.uml#_gB_JgcGIEei4iPu1OCm8vg"/>
+      <visualProperties xmi:id="_gJDa3MGIEei4iPu1OCm8vg" position="-83.0,2.0"/>
+      <visibility xmi:id="_gCLWx8GIEei4iPu1OCm8vg" label="+"/>
+      <cardinality xmi:id="_gCLWyMGIEei4iPu1OCm8vg" label="*" max="-1"/>
+    </targetRole>
+  </edges>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_jQokIcD2Eei16og3v9VsBA" containment="_jQokIMD2Eei16og3v9VsBA" containments="_FwXHsMD3Eei16og3v9VsBA _ow7ugMD3Eei16og3v9VsBA _A8pyAMEAEei16og3v9VsBA _-rqKUMEAEei16og3v9VsBA _KkbyUMEFEei16og3v9VsBA _QqRSsMEGEei16og3v9VsBA _8JhjUMGFEei4iPu1OCm8vg" classes="_ESNHocD3Eei16og3v9VsBA _nzP-QcD3Eei16og3v9VsBA _9NTycMD_Eei16og3v9VsBA _9ilCYcEAEei16og3v9VsBA _JzOX0MEFEei16og3v9VsBA _NozFwcEGEei16og3v9VsBA _7ELE0MGFEei4iPu1OCm8vg" name="model" nestingPackage="_cde1UMD2Eei16og3v9VsBA">
     <modelElement href="carpool.uml#_jQnWAMD2Eei16og3v9VsBA"/>
     <visualProperties xmi:id="_jQokIsD2Eei16og3v9VsBA" position="623.0,78.0" size="-1.0,-1.0"/>
@@ -134,52 +135,7 @@
     <modelElement href="carpool.uml#_GtLKsMD2Eei16og3v9VsBA"/>
     <visualProperties xmi:id="_cde1UcD2Eei16og3v9VsBA" position="498.0,78.0" size="-1.0,-1.0"/>
   </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_ESNHocD3Eei16og3v9VsBA" containment="_FwXHsMD3Eei16og3v9VsBA" name="Driver" package="_jQokIcD2Eei16og3v9VsBA" associationsOut="_TNqj4MEDEei16og3v9VsBA">
-    <modelElement href="carpool.uml#_ESL5gMD3Eei16og3v9VsBA"/>
-    <visualProperties xmi:id="_ESNHosD3Eei16og3v9VsBA" position="111.0,283.0" size="-1.0,-1.0"/>
-    <visibility xmi:id="_ESNHo8D3Eei16og3v9VsBA" label="+"/>
-    <attributes xmi:id="_QjsucMD3Eei16og3v9VsBA" name="username">
-      <modelElement href="carpool.uml#_QjsHYMD3Eei16og3v9VsBA"/>
-      <visibility xmi:id="_QjsuccD3Eei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_QjsucsD3Eei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_SUYo8MD3Eei16og3v9VsBA" name="String">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_VTCLYMD3Eei16og3v9VsBA" name="password">
-      <modelElement href="carpool.uml#_VTBkUMD3Eei16og3v9VsBA"/>
-      <visibility xmi:id="_VTCLYcD3Eei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_VTCLYsD3Eei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_XchncMD3Eei16og3v9VsBA" name="String">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_YCwhAMD3Eei16og3v9VsBA" name="displayName">
-      <modelElement href="carpool.uml#_YCv58MD3Eei16og3v9VsBA"/>
-      <visibility xmi:id="_YCwhAcD3Eei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_YCwhAsD3Eei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_aHgnAMD3Eei16og3v9VsBA" name="String">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_cU4dgMD3Eei16og3v9VsBA" name="phoneNumber">
-      <modelElement href="carpool.uml#_cU32cMD3Eei16og3v9VsBA"/>
-      <visibility xmi:id="_cU4dgcD3Eei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_cU4dgsD3Eei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_jzj1kMD3Eei16og3v9VsBA" name="Integer">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_TNryAMEDEei16og3v9VsBA" name="trip">
-      <modelElement href="carpool.uml#_TNpVwcEDEei16og3v9VsBA"/>
-      <visibility xmi:id="_TNryAcEDEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_TNryAsEDEei16og3v9VsBA" label="*" max="-1"/>
-      <type xmi:id="_TNryA8EDEei16og3v9VsBA" name="Trip">
-        <modelElement href="carpool.uml#_9NQvIMD_Eei16og3v9VsBA"/>
-      </type>
-    </attributes>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_nzP-QcD3Eei16og3v9VsBA" containment="_ow7ugMD3Eei16og3v9VsBA" name="Vehicle" package="_jQokIcD2Eei16og3v9VsBA" associationsIn="_n62PgMEBEei16og3v9VsBA _aSWSIMEEEei16og3v9VsBA">
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_nzP-QcD3Eei16og3v9VsBA" containment="_ow7ugMD3Eei16og3v9VsBA" name="Vehicle" package="_jQokIcD2Eei16og3v9VsBA" associationsIn="_aSWSIMEEEei16og3v9VsBA">
     <modelElement href="carpool.uml#_nzOwIMD3Eei16og3v9VsBA"/>
     <visualProperties xmi:id="_nzP-QsD3Eei16og3v9VsBA" position="823.0,279.0" size="-1.0,-1.0"/>
     <visibility xmi:id="_nzP-Q8D3Eei16og3v9VsBA" label="+"/>
@@ -215,14 +171,6 @@
         <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
       </type>
     </attributes>
-    <attributes xmi:id="_n62PicEBEei16og3v9VsBA" name="passenger">
-      <modelElement href="carpool.uml#_n60aUcEBEei16og3v9VsBA"/>
-      <visibility xmi:id="_n62PisEBEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_n62Pi8EBEei16og3v9VsBA" label="*" max="-1"/>
-      <type xmi:id="_n62PjMEBEei16og3v9VsBA" name="Passenger">
-        <modelElement href="carpool.uml#_9ikbUMEAEei16og3v9VsBA"/>
-      </type>
-    </attributes>
     <attributes xmi:id="_aSW5MMEEEei16og3v9VsBA" name="trip">
       <modelElement href="carpool.uml#_aST14cEEEei16og3v9VsBA"/>
       <visibility xmi:id="_aSW5McEEEei16og3v9VsBA" label="+"/>
@@ -232,110 +180,7 @@
       </type>
     </attributes>
   </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_9ilCYcEAEei16og3v9VsBA" containment="_-rqKUMEAEei16og3v9VsBA" name="Passenger" package="_jQokIcD2Eei16og3v9VsBA" associationsOut="_n62PgMEBEei16og3v9VsBA">
-    <modelElement href="carpool.uml#_9ikbUMEAEei16og3v9VsBA"/>
-    <visualProperties xmi:id="_9ilCYsEAEei16og3v9VsBA" position="865.0,554.0" size="-1.0,-1.0"/>
-    <visibility xmi:id="_9ilCY8EAEei16og3v9VsBA" label="+"/>
-    <attributes xmi:id="_JGntUcEBEei16og3v9VsBA" name="username">
-      <modelElement href="carpool.uml#_JGntUMEBEei16og3v9VsBA"/>
-      <visibility xmi:id="_JGntUsEBEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_JGntU8EBEei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_NcFRsMEBEei16og3v9VsBA" name="String">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_JmijgMEBEei16og3v9VsBA" name="password">
-      <modelElement href="carpool.uml#_Jmh8cMEBEei16og3v9VsBA"/>
-      <visibility xmi:id="_JmijgcEBEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_JmijgsEBEei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_OoWQgMEBEei16og3v9VsBA" name="String">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_KWq_8MEBEei16og3v9VsBA" name="displayName">
-      <modelElement href="carpool.uml#_KWqY4MEBEei16og3v9VsBA"/>
-      <visibility xmi:id="_KWq_8cEBEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_KWq_8sEBEei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_UpCAkMEBEei16og3v9VsBA" name="String">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_LDKSgcEBEei16og3v9VsBA" name="phoneNumber">
-      <modelElement href="carpool.uml#_LDKSgMEBEei16og3v9VsBA"/>
-      <visibility xmi:id="_LDKSgsEBEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_LDKSg8EBEei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_XFKEwMEBEei16og3v9VsBA" name="Integer">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_n62PjcEBEei16og3v9VsBA" name="vehicle">
-      <modelElement href="carpool.uml#_n61BYcEBEei16og3v9VsBA"/>
-      <visibility xmi:id="_n62PjsEBEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_n62Pj8EBEei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_n62PkMEBEei16og3v9VsBA" name="Vehicle">
-        <modelElement href="carpool.uml#_nzOwIMD3Eei16og3v9VsBA"/>
-      </type>
-    </attributes>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_JzOX0MEFEei16og3v9VsBA" containment="_KkbyUMEFEei16og3v9VsBA" name="Stop" package="_jQokIcD2Eei16og3v9VsBA" associationsIn="_OaZXQMEFEei16og3v9VsBA">
-    <modelElement href="carpool.uml#_JzMioMEFEei16og3v9VsBA"/>
-    <visualProperties xmi:id="_JzOX0cEFEei16og3v9VsBA" position="577.0,546.0" size="-1.0,-1.0"/>
-    <visibility xmi:id="_JzOX0sEFEei16og3v9VsBA" label="+"/>
-    <attributes xmi:id="_OaZ-UMEFEei16og3v9VsBA" name="trip">
-      <modelElement href="carpool.uml#_OaXiEcEFEei16og3v9VsBA"/>
-      <visibility xmi:id="_OaZ-UcEFEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_OaZ-UsEFEei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_OaZ-U8EFEei16og3v9VsBA" name="Trip">
-        <modelElement href="carpool.uml#_9NQvIMD_Eei16og3v9VsBA"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_vBdJAMEFEei16og3v9VsBA" name="name">
-      <modelElement href="carpool.uml#_vBch8MEFEei16og3v9VsBA"/>
-      <visibility xmi:id="_vBdJAcEFEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_vBdJAsEFEei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_xlqyMMEFEei16og3v9VsBA" name="String">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_ycS4MMEFEei16og3v9VsBA" name="address">
-      <modelElement href="carpool.uml#_ycSRIMEFEei16og3v9VsBA"/>
-      <visibility xmi:id="_ycS4McEFEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_ycS4MsEFEei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_2KAgEMEFEei16og3v9VsBA" name="String">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_SBY2oMEGEei16og3v9VsBA" name="price">
-      <modelElement href="carpool.uml#_SBYPkMEGEei16og3v9VsBA"/>
-      <visibility xmi:id="_SBY2ocEGEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_SBY2osEGEei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_UH_WwMEGEei16og3v9VsBA" name="float">
-        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#float"/>
-      </type>
-    </attributes>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_NozFwcEGEei16og3v9VsBA" containment="_QqRSsMEGEei16og3v9VsBA" name="Advertisement" package="_jQokIcD2Eei16og3v9VsBA" associationsOut="_2eiJIMEGEei16og3v9VsBA">
-    <modelElement href="carpool.uml#_NoyesMEGEei16og3v9VsBA"/>
-    <visualProperties xmi:id="_NozFwsEGEei16og3v9VsBA" position="118.0,509.0" size="-1.0,-1.0"/>
-    <visibility xmi:id="_NozFw8EGEei16og3v9VsBA" label="+"/>
-    <attributes xmi:id="_2ej-UMEGEei16og3v9VsBA" name="trip">
-      <modelElement href="carpool.uml#_2eg7AcEGEei16og3v9VsBA"/>
-      <visibility xmi:id="_2ej-UcEGEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_2ej-UsEGEei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_2ej-U8EGEei16og3v9VsBA" name="Trip">
-        <modelElement href="carpool.uml#_9NQvIMD_Eei16og3v9VsBA"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_Kyr3cMEKEei7Yv0-ZMzutw" name="name">
-      <modelElement href="carpool.uml#_KypbMMEKEei7Yv0-ZMzutw"/>
-      <visibility xmi:id="_Kyr3ccEKEei7Yv0-ZMzutw" label="+"/>
-      <cardinality xmi:id="_Kyr3csEKEei7Yv0-ZMzutw" label="1" max="1" min="1"/>
-      <type xmi:id="_MaPEEMEKEei7Yv0-ZMzutw" name="String">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </type>
-    </attributes>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_9NTycMD_Eei16og3v9VsBA" containment="_A8pyAMEAEei16og3v9VsBA" name="Trip" package="_jQokIcD2Eei16og3v9VsBA" associationsIn="_TNqj4MEDEei16og3v9VsBA _2eiJIMEGEei16og3v9VsBA" associationsOut="_aSWSIMEEEei16og3v9VsBA _OaZXQMEFEei16og3v9VsBA">
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_9NTycMD_Eei16og3v9VsBA" containment="_A8pyAMEAEei16og3v9VsBA" name="Trip" package="_jQokIcD2Eei16og3v9VsBA" associationsIn="_TNqj4MEDEei16og3v9VsBA _2eiJIMEGEei16og3v9VsBA _gCLWwMGIEei4iPu1OCm8vg" associationsOut="_aSWSIMEEEei16og3v9VsBA _OaZXQMEFEei16og3v9VsBA">
     <modelElement href="carpool.uml#_9NQvIMD_Eei16og3v9VsBA"/>
     <visualProperties xmi:id="_9NTyccD_Eei16og3v9VsBA" position="487.0,288.0" size="228.0,-1.0"/>
     <visibility xmi:id="_9NTycsD_Eei16og3v9VsBA" label="+"/>
@@ -411,6 +256,14 @@
         <modelElement href="carpool.uml#_7EJPoMGFEei4iPu1OCm8vg"/>
       </type>
     </attributes>
+    <attributes xmi:id="_gCPoMMGIEei4iPu1OCm8vg" name="passenger">
+      <modelElement href="carpool.uml#_gB30wMGIEei4iPu1OCm8vg"/>
+      <visibility xmi:id="_gCPoMcGIEei4iPu1OCm8vg" label="+"/>
+      <cardinality xmi:id="_gCPoMsGIEei4iPu1OCm8vg" label="*" max="-1"/>
+      <type xmi:id="_gCPoM8GIEei4iPu1OCm8vg" name="Passenger">
+        <modelElement href="carpool.uml#_9ikbUMEAEei16og3v9VsBA"/>
+      </type>
+    </attributes>
   </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:EnumerationVisual" xmi:id="_7ELE0MGFEei4iPu1OCm8vg" containment="_8JhjUMGFEei4iPu1OCm8vg" name="TripStatus" package="_jQokIcD2Eei16og3v9VsBA">
     <modelElement href="carpool.uml#_7EJPoMGFEei4iPu1OCm8vg"/>
@@ -425,5 +278,153 @@
     <literals xmi:id="_k0SFwMGGEei4iPu1OCm8vg" name="COMPLETED">
       <modelElement href="carpool.uml#_k0PpgMGGEei4iPu1OCm8vg"/>
     </literals>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_ESNHocD3Eei16og3v9VsBA" containment="_FwXHsMD3Eei16og3v9VsBA" name="Driver" package="_jQokIcD2Eei16og3v9VsBA" associationsOut="_TNqj4MEDEei16og3v9VsBA">
+    <modelElement href="carpool.uml#_ESL5gMD3Eei16og3v9VsBA"/>
+    <visualProperties xmi:id="_ESNHosD3Eei16og3v9VsBA" position="112.0,281.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_ESNHo8D3Eei16og3v9VsBA" label="+"/>
+    <attributes xmi:id="_QjsucMD3Eei16og3v9VsBA" name="username">
+      <modelElement href="carpool.uml#_QjsHYMD3Eei16og3v9VsBA"/>
+      <visibility xmi:id="_QjsuccD3Eei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_QjsucsD3Eei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_SUYo8MD3Eei16og3v9VsBA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_VTCLYMD3Eei16og3v9VsBA" name="password">
+      <modelElement href="carpool.uml#_VTBkUMD3Eei16og3v9VsBA"/>
+      <visibility xmi:id="_VTCLYcD3Eei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_VTCLYsD3Eei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_XchncMD3Eei16og3v9VsBA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_YCwhAMD3Eei16og3v9VsBA" name="displayName">
+      <modelElement href="carpool.uml#_YCv58MD3Eei16og3v9VsBA"/>
+      <visibility xmi:id="_YCwhAcD3Eei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_YCwhAsD3Eei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_aHgnAMD3Eei16og3v9VsBA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_cU4dgMD3Eei16og3v9VsBA" name="phoneNumber">
+      <modelElement href="carpool.uml#_cU32cMD3Eei16og3v9VsBA"/>
+      <visibility xmi:id="_cU4dgcD3Eei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_cU4dgsD3Eei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_jzj1kMD3Eei16og3v9VsBA" name="Integer">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_TNryAMEDEei16og3v9VsBA" name="trip">
+      <modelElement href="carpool.uml#_TNpVwcEDEei16og3v9VsBA"/>
+      <visibility xmi:id="_TNryAcEDEei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_TNryAsEDEei16og3v9VsBA" label="*" max="-1"/>
+      <type xmi:id="_TNryA8EDEei16og3v9VsBA" name="Trip">
+        <modelElement href="carpool.uml#_9NQvIMD_Eei16og3v9VsBA"/>
+      </type>
+    </attributes>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_9ilCYcEAEei16og3v9VsBA" containment="_-rqKUMEAEei16og3v9VsBA" name="Passenger" package="_jQokIcD2Eei16og3v9VsBA" associationsOut="_gCLWwMGIEei4iPu1OCm8vg">
+    <modelElement href="carpool.uml#_9ikbUMEAEei16og3v9VsBA"/>
+    <visualProperties xmi:id="_9ilCYsEAEei16og3v9VsBA" position="102.0,600.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_9ilCY8EAEei16og3v9VsBA" label="+"/>
+    <attributes xmi:id="_JGntUcEBEei16og3v9VsBA" name="username">
+      <modelElement href="carpool.uml#_JGntUMEBEei16og3v9VsBA"/>
+      <visibility xmi:id="_JGntUsEBEei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_JGntU8EBEei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_NcFRsMEBEei16og3v9VsBA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_JmijgMEBEei16og3v9VsBA" name="password">
+      <modelElement href="carpool.uml#_Jmh8cMEBEei16og3v9VsBA"/>
+      <visibility xmi:id="_JmijgcEBEei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_JmijgsEBEei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_OoWQgMEBEei16og3v9VsBA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_KWq_8MEBEei16og3v9VsBA" name="displayName">
+      <modelElement href="carpool.uml#_KWqY4MEBEei16og3v9VsBA"/>
+      <visibility xmi:id="_KWq_8cEBEei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_KWq_8sEBEei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_UpCAkMEBEei16og3v9VsBA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_LDKSgcEBEei16og3v9VsBA" name="phoneNumber">
+      <modelElement href="carpool.uml#_LDKSgMEBEei16og3v9VsBA"/>
+      <visibility xmi:id="_LDKSgsEBEei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_LDKSg8EBEei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_XFKEwMEBEei16og3v9VsBA" name="Integer">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_gCT5oMGIEei4iPu1OCm8vg" name="trip">
+      <modelElement href="carpool.uml#_gB_JgcGIEei4iPu1OCm8vg"/>
+      <visibility xmi:id="_gCT5ocGIEei4iPu1OCm8vg" label="+"/>
+      <cardinality xmi:id="_gCT5osGIEei4iPu1OCm8vg" label="*" max="-1"/>
+      <type xmi:id="_gCT5o8GIEei4iPu1OCm8vg" name="Trip">
+        <modelElement href="carpool.uml#_9NQvIMD_Eei16og3v9VsBA"/>
+      </type>
+    </attributes>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_NozFwcEGEei16og3v9VsBA" containment="_QqRSsMEGEei16og3v9VsBA" name="Advertisement" package="_jQokIcD2Eei16og3v9VsBA" associationsOut="_2eiJIMEGEei16og3v9VsBA">
+    <modelElement href="carpool.uml#_NoyesMEGEei16og3v9VsBA"/>
+    <visualProperties xmi:id="_NozFwsEGEei16og3v9VsBA" position="450.0,663.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_NozFw8EGEei16og3v9VsBA" label="+"/>
+    <attributes xmi:id="_2ej-UMEGEei16og3v9VsBA" name="trip">
+      <modelElement href="carpool.uml#_2eg7AcEGEei16og3v9VsBA"/>
+      <visibility xmi:id="_2ej-UcEGEei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_2ej-UsEGEei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_2ej-U8EGEei16og3v9VsBA" name="Trip">
+        <modelElement href="carpool.uml#_9NQvIMD_Eei16og3v9VsBA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_Kyr3cMEKEei7Yv0-ZMzutw" name="name">
+      <modelElement href="carpool.uml#_KypbMMEKEei7Yv0-ZMzutw"/>
+      <visibility xmi:id="_Kyr3ccEKEei7Yv0-ZMzutw" label="+"/>
+      <cardinality xmi:id="_Kyr3csEKEei7Yv0-ZMzutw" label="1" max="1" min="1"/>
+      <type xmi:id="_MaPEEMEKEei7Yv0-ZMzutw" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_JzOX0MEFEei16og3v9VsBA" containment="_KkbyUMEFEei16og3v9VsBA" name="Stop" package="_jQokIcD2Eei16og3v9VsBA" associationsIn="_OaZXQMEFEei16og3v9VsBA">
+    <modelElement href="carpool.uml#_JzMioMEFEei16og3v9VsBA"/>
+    <visualProperties xmi:id="_JzOX0cEFEei16og3v9VsBA" position="903.0,539.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_JzOX0sEFEei16og3v9VsBA" label="+"/>
+    <attributes xmi:id="_OaZ-UMEFEei16og3v9VsBA" name="trip">
+      <modelElement href="carpool.uml#_OaXiEcEFEei16og3v9VsBA"/>
+      <visibility xmi:id="_OaZ-UcEFEei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_OaZ-UsEFEei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_OaZ-U8EFEei16og3v9VsBA" name="Trip">
+        <modelElement href="carpool.uml#_9NQvIMD_Eei16og3v9VsBA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_vBdJAMEFEei16og3v9VsBA" name="name">
+      <modelElement href="carpool.uml#_vBch8MEFEei16og3v9VsBA"/>
+      <visibility xmi:id="_vBdJAcEFEei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_vBdJAsEFEei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_xlqyMMEFEei16og3v9VsBA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_ycS4MMEFEei16og3v9VsBA" name="address">
+      <modelElement href="carpool.uml#_ycSRIMEFEei16og3v9VsBA"/>
+      <visibility xmi:id="_ycS4McEFEei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_ycS4MsEFEei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_2KAgEMEFEei16og3v9VsBA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_SBY2oMEGEei16og3v9VsBA" name="price">
+      <modelElement href="carpool.uml#_SBYPkMEGEei16og3v9VsBA"/>
+      <visibility xmi:id="_SBY2ocEGEei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_SBY2osEGEei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_UH_WwMEGEei16og3v9VsBA" name="float">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#float"/>
+      </type>
+    </attributes>
   </nodes>
 </com.yattasolutions.uml.diagrams.classifier:ClassDiagram>

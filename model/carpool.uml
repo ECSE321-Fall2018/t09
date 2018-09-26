@@ -95,10 +95,6 @@
                 <ownedAttribute xmi:id="_EsY9sMEBEei16og3v9VsBA" name="maximumPassengerSeats" visibility="public">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
                 </ownedAttribute>
-                <ownedAttribute xmi:id="_n60aUcEBEei16og3v9VsBA" name="passenger" type="_9ikbUMEAEei16og3v9VsBA" association="_n60aUMEBEei16og3v9VsBA">
-                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_n60aUsEBEei16og3v9VsBA"/>
-                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_n61BYMEBEei16og3v9VsBA" value="*"/>
-                </ownedAttribute>
                 <ownedAttribute xmi:id="_aST14cEEEei16og3v9VsBA" name="trip" type="_9NQvIMD_Eei16og3v9VsBA" association="_aST14MEEEei16og3v9VsBA">
                   <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_aSUc8MEEEei16og3v9VsBA"/>
                   <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_aSUc8cEEEei16og3v9VsBA" value="*"/>
@@ -130,6 +126,10 @@
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
                 </ownedAttribute>
                 <ownedAttribute xmi:id="_LMZFkMGGEei4iPu1OCm8vg" name="status" visibility="public" type="_7EJPoMGFEei4iPu1OCm8vg"/>
+                <ownedAttribute xmi:id="_gB30wMGIEei4iPu1OCm8vg" name="passenger" type="_9ikbUMEAEei16og3v9VsBA" association="_gB3NsMGIEei4iPu1OCm8vg">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gB-icMGIEei4iPu1OCm8vg"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_gB_JgMGIEei4iPu1OCm8vg" value="*"/>
+                </ownedAttribute>
               </packagedElement>
               <packagedElement xmi:type="uml:Class" xmi:id="_9ikbUMEAEei16og3v9VsBA" name="Passenger">
                 <ownedAttribute xmi:id="_JGntUMEBEei16og3v9VsBA" name="username" visibility="public">
@@ -144,12 +144,11 @@
                 <ownedAttribute xmi:id="_LDKSgMEBEei16og3v9VsBA" name="phoneNumber" visibility="public">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
                 </ownedAttribute>
-                <ownedAttribute xmi:id="_n61BYcEBEei16og3v9VsBA" name="vehicle" type="_nzOwIMD3Eei16og3v9VsBA" association="_n60aUMEBEei16og3v9VsBA">
-                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_n61BYsEBEei16og3v9VsBA" value="1"/>
-                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_n61BY8EBEei16og3v9VsBA" value="1"/>
+                <ownedAttribute xmi:id="_gB_JgcGIEei4iPu1OCm8vg" name="trip" type="_9NQvIMD_Eei16og3v9VsBA" association="_gB3NsMGIEei4iPu1OCm8vg">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gB_wkMGIEei4iPu1OCm8vg"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_gCAXoMGIEei4iPu1OCm8vg" value="*"/>
                 </ownedAttribute>
               </packagedElement>
-              <packagedElement xmi:type="uml:Association" xmi:id="_n60aUMEBEei16og3v9VsBA" name="" memberEnd="_n60aUcEBEei16og3v9VsBA _n61BYcEBEei16og3v9VsBA"/>
               <packagedElement xmi:type="uml:Association" xmi:id="_TNoHoMEDEei16og3v9VsBA" name="" memberEnd="_TNousMEDEei16og3v9VsBA _TNpVwcEDEei16og3v9VsBA"/>
               <packagedElement xmi:type="uml:Association" xmi:id="_aST14MEEEei16og3v9VsBA" name="" memberEnd="_aST14cEEEei16og3v9VsBA _aSUc8sEEEei16og3v9VsBA"/>
               <packagedElement xmi:type="uml:Class" xmi:id="_JzMioMEFEei16og3v9VsBA" name="Stop">
@@ -183,6 +182,7 @@
                 <ownedLiteral xmi:id="_iLPm8MGGEei4iPu1OCm8vg" name="NOT_STARTED"/>
                 <ownedLiteral xmi:id="_k0PpgMGGEei4iPu1OCm8vg" name="COMPLETED"/>
               </packagedElement>
+              <packagedElement xmi:type="uml:Association" xmi:id="_gB3NsMGIEei4iPu1OCm8vg" name="" memberEnd="_gB30wMGIEei4iPu1OCm8vg _gB_JgcGIEei4iPu1OCm8vg"/>
             </packagedElement>
           </packagedElement>
         </packagedElement>
