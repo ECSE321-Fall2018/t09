@@ -278,51 +278,6 @@
       </type>
     </attributes>
   </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_9NTycMD_Eei16og3v9VsBA" containment="_A8pyAMEAEei16og3v9VsBA" name="Trip" package="_jQokIcD2Eei16og3v9VsBA" associationsIn="_TNqj4MEDEei16og3v9VsBA _2eiJIMEGEei16og3v9VsBA" associationsOut="_aSWSIMEEEei16og3v9VsBA _OaZXQMEFEei16og3v9VsBA">
-    <modelElement href="carpool.uml#_9NQvIMD_Eei16og3v9VsBA"/>
-    <visualProperties xmi:id="_9NTyccD_Eei16og3v9VsBA" position="487.0,288.0" size="228.0,81.0"/>
-    <visibility xmi:id="_9NTycsD_Eei16og3v9VsBA" label="+"/>
-    <attributes xmi:id="_Dq9yYMEAEei16og3v9VsBA" name="name">
-      <modelElement href="carpool.uml#_Dq9LUMEAEei16og3v9VsBA"/>
-      <visibility xmi:id="_Dq9yYcEAEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_Dq9yYsEAEei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_GaWJwMEAEei16og3v9VsBA" name="String">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_TNrK8MEDEei16og3v9VsBA" name="driver">
-      <modelElement href="carpool.uml#_TNousMEDEei16og3v9VsBA"/>
-      <visibility xmi:id="_TNrK8cEDEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_TNrK8sEDEei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_TNrK88EDEei16og3v9VsBA" name="Driver">
-        <modelElement href="carpool.uml#_ESL5gMD3Eei16og3v9VsBA"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_aSW5NMEEEei16og3v9VsBA" name="vehicle">
-      <modelElement href="carpool.uml#_aSUc8sEEEei16og3v9VsBA"/>
-      <visibility xmi:id="_aSW5NcEEEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_aSW5NsEEEei16og3v9VsBA" label="1" max="1" min="1"/>
-      <type xmi:id="_aSW5N8EEEei16og3v9VsBA" name="Vehicle">
-        <modelElement href="carpool.uml#_nzOwIMD3Eei16og3v9VsBA"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_OaalYMEFEei16og3v9VsBA" name="stop">
-      <modelElement href="carpool.uml#_OaXiFMEFEei16og3v9VsBA"/>
-      <visibility xmi:id="_OaalYcEFEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_OaalYsEFEei16og3v9VsBA" label="*" max="-1"/>
-      <type xmi:id="_OaalY8EFEei16og3v9VsBA" name="Stop">
-        <modelElement href="carpool.uml#_JzMioMEFEei16og3v9VsBA"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_2eiwMMEGEei16og3v9VsBA" name="advertisement">
-      <modelElement href="carpool.uml#_2egT8cEGEei16og3v9VsBA"/>
-      <visibility xmi:id="_2eiwMcEGEei16og3v9VsBA" label="+"/>
-      <cardinality xmi:id="_2eiwMsEGEei16og3v9VsBA" label="0..1" max="1"/>
-      <type xmi:id="_2ejXQMEGEei16og3v9VsBA" name="Advertisement">
-        <modelElement href="carpool.uml#_NoyesMEGEei16og3v9VsBA"/>
-      </type>
-    </attributes>
-  </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_JzOX0MEFEei16og3v9VsBA" containment="_KkbyUMEFEei16og3v9VsBA" name="Stop" package="_jQokIcD2Eei16og3v9VsBA" associationsIn="_OaZXQMEFEei16og3v9VsBA">
     <modelElement href="carpool.uml#_JzMioMEFEei16og3v9VsBA"/>
     <visualProperties xmi:id="_JzOX0cEFEei16og3v9VsBA" position="577.0,546.0" size="-1.0,-1.0"/>
@@ -378,6 +333,67 @@
       <cardinality xmi:id="_Kyr3csEKEei7Yv0-ZMzutw" label="1" max="1" min="1"/>
       <type xmi:id="_MaPEEMEKEei7Yv0-ZMzutw" name="String">
         <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_9NTycMD_Eei16og3v9VsBA" containment="_A8pyAMEAEei16og3v9VsBA" name="Trip" package="_jQokIcD2Eei16og3v9VsBA" associationsIn="_TNqj4MEDEei16og3v9VsBA _2eiJIMEGEei16og3v9VsBA" associationsOut="_aSWSIMEEEei16og3v9VsBA _OaZXQMEFEei16og3v9VsBA">
+    <modelElement href="carpool.uml#_9NQvIMD_Eei16og3v9VsBA"/>
+    <visualProperties xmi:id="_9NTyccD_Eei16og3v9VsBA" position="487.0,288.0" size="228.0,-1.0"/>
+    <visibility xmi:id="_9NTycsD_Eei16og3v9VsBA" label="+"/>
+    <attributes xmi:id="_Dq9yYMEAEei16og3v9VsBA" name="name">
+      <modelElement href="carpool.uml#_Dq9LUMEAEei16og3v9VsBA"/>
+      <visibility xmi:id="_Dq9yYcEAEei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_Dq9yYsEAEei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_GaWJwMEAEei16og3v9VsBA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_TNrK8MEDEei16og3v9VsBA" name="driver">
+      <modelElement href="carpool.uml#_TNousMEDEei16og3v9VsBA"/>
+      <visibility xmi:id="_TNrK8cEDEei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_TNrK8sEDEei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_TNrK88EDEei16og3v9VsBA" name="Driver">
+        <modelElement href="carpool.uml#_ESL5gMD3Eei16og3v9VsBA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_aSW5NMEEEei16og3v9VsBA" name="vehicle">
+      <modelElement href="carpool.uml#_aSUc8sEEEei16og3v9VsBA"/>
+      <visibility xmi:id="_aSW5NcEEEei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_aSW5NsEEEei16og3v9VsBA" label="1" max="1" min="1"/>
+      <type xmi:id="_aSW5N8EEEei16og3v9VsBA" name="Vehicle">
+        <modelElement href="carpool.uml#_nzOwIMD3Eei16og3v9VsBA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_OaalYMEFEei16og3v9VsBA" name="stop">
+      <modelElement href="carpool.uml#_OaXiFMEFEei16og3v9VsBA"/>
+      <visibility xmi:id="_OaalYcEFEei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_OaalYsEFEei16og3v9VsBA" label="*" max="-1"/>
+      <type xmi:id="_OaalY8EFEei16og3v9VsBA" name="Stop">
+        <modelElement href="carpool.uml#_JzMioMEFEei16og3v9VsBA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_2eiwMMEGEei16og3v9VsBA" name="advertisement">
+      <modelElement href="carpool.uml#_2egT8cEGEei16og3v9VsBA"/>
+      <visibility xmi:id="_2eiwMcEGEei16og3v9VsBA" label="+"/>
+      <cardinality xmi:id="_2eiwMsEGEei16og3v9VsBA" label="0..1" max="1"/>
+      <type xmi:id="_2ejXQMEGEei16og3v9VsBA" name="Advertisement">
+        <modelElement href="carpool.uml#_NoyesMEGEei16og3v9VsBA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_N3cm8MEgEeiUL4Rdl0sAQw" name="startTime">
+      <modelElement href="carpool.uml#_N3XHYMEgEeiUL4Rdl0sAQw"/>
+      <visibility xmi:id="_N3cm8cEgEeiUL4Rdl0sAQw" label="+"/>
+      <cardinality xmi:id="_N3cm8sEgEeiUL4Rdl0sAQw" label="1" max="1" min="1"/>
+      <type xmi:id="_V3LdoMEgEeiUL4Rdl0sAQw" name="java.sql.Time">
+        <modelElement href="carpool.uml#_V3C6wMEgEeiUL4Rdl0sAQw"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_YQ7jQMEgEeiUL4Rdl0sAQw" name="startDate">
+      <modelElement href="carpool.uml#_YQ5uEMEgEeiUL4Rdl0sAQw"/>
+      <visibility xmi:id="_YQ7jQcEgEeiUL4Rdl0sAQw" label="+"/>
+      <cardinality xmi:id="_YQ7jQsEgEeiUL4Rdl0sAQw" label="1" max="1" min="1"/>
+      <type xmi:id="_eCFpkMEgEeiUL4Rdl0sAQw" name="java.sql.Date">
+        <modelElement href="carpool.uml#_eB_i8MEgEeiUL4Rdl0sAQw"/>
       </type>
     </attributes>
   </nodes>

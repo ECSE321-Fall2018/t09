@@ -4,7 +4,7 @@
     <eAnnotations xmi:id="_GnINEMD2Eei16og3v9VsBA" source="http://ns.yatta.de/umllab">
       <contents xmi:type="ecore:EAnnotation" xmi:id="_GnINEcD2Eei16og3v9VsBA" source="codegen">
         <details xmi:id="_GnINEsD2Eei16og3v9VsBA" key="codegenDirectory" value="/carpool/src/main/java"/>
-        <details xmi:id="_rBgPsMEHEei16og3v9VsBA" key="AssociatedSourceCode" value="/carpool/src/main/java/ca/mcgill/ecse321/carpool/CarpoolApplication.java;948906736/1;/carpool/src/test/java/ca/mcgill/ecse321/carpool/CarpoolApplicationTests.java;2196017861/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Driver.java;1354754467/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Vehicle.java;2084397220/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Trip.java;1405763840/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Passenger.java;3217232837/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Stop.java;2408256796/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Advertisement.java;2505495915/1;"/>
+        <details xmi:id="_rBgPsMEHEei16og3v9VsBA" key="AssociatedSourceCode" value="/carpool/src/main/java/ca/mcgill/ecse321/carpool/CarpoolApplication.java;948906736/1;/carpool/src/test/java/ca/mcgill/ecse321/carpool/CarpoolApplicationTests.java;2196017861/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Driver.java;1354754467/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Vehicle.java;2084397220/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Trip.java;4241164979/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Passenger.java;3217232837/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Stop.java;2408256796/1;/carpool/src/main/java/ca/mcgill/ecse321/carpool/model/Advertisement.java;2505495915/1;"/>
       </contents>
     </eAnnotations>
     <elementImport xmi:id="_GtWw4MD2Eei16og3v9VsBA">
@@ -124,6 +124,8 @@
                   <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2egT8sEGEei16og3v9VsBA"/>
                   <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2eg7AMEGEei16og3v9VsBA" value="1"/>
                 </ownedAttribute>
+                <ownedAttribute xmi:id="_N3XHYMEgEeiUL4Rdl0sAQw" name="startTime" visibility="public" type="_V3C6wMEgEeiUL4Rdl0sAQw"/>
+                <ownedAttribute xmi:id="_YQ5uEMEgEeiUL4Rdl0sAQw" name="startDate" visibility="public" type="_eB_i8MEgEeiUL4Rdl0sAQw"/>
               </packagedElement>
               <packagedElement xmi:type="uml:Class" xmi:id="_9ikbUMEAEei16og3v9VsBA" name="Passenger">
                 <ownedAttribute xmi:id="_JGntUMEBEei16og3v9VsBA" name="username" visibility="public">
@@ -205,6 +207,9 @@
         <packagedElement xmi:type="uml:Interface" xmi:id="_Gt904MD2Eei16og3v9VsBA" name="Test"/>
       </packagedElement>
     </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_TyclwMEgEeiUL4Rdl0sAQw" name="Time"/>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_V3C6wMEgEeiUL4Rdl0sAQw" name="java.sql.Time"/>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_eB_i8MEgEeiUL4Rdl0sAQw" name="java.sql.Date"/>
     <profileApplication xmi:id="_GnKCQMD2Eei16og3v9VsBA">
       <eAnnotations xmi:id="_GnOTsMD2Eei16og3v9VsBA" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://UMLLAB_PROFILES/UMLLab.profile.uml#UMLLabProfile-Annotation_2-UMLLabProfile"/>
@@ -251,4 +256,7 @@
   <UMLLabProfile:UnresolvedElement xmi:id="_JrjjMMD9Eei16og3v9VsBA"/>
   <UMLLabProfile:UnresolvedElement xmi:id="_spM8YMD-Eei16og3v9VsBA"/>
   <UMLLabProfile:UnresolvedElement xmi:id="_TqzEcMEGEei16og3v9VsBA"/>
+  <UMLLabProfile:UnresolvedElement xmi:id="_TyisYMEgEeiUL4Rdl0sAQw" base_Element="_TyclwMEgEeiUL4Rdl0sAQw"/>
+  <UMLLabProfile:UnresolvedElement xmi:id="_V3KPgMEgEeiUL4Rdl0sAQw" base_Element="_V3C6wMEgEeiUL4Rdl0sAQw"/>
+  <UMLLabProfile:UnresolvedElement xmi:id="_eCFCgMEgEeiUL4Rdl0sAQw" base_Element="_eB_i8MEgEeiUL4Rdl0sAQw"/>
 </xmi:XMI>
