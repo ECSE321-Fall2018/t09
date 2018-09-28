@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.carpool;
+package ca.mcgill.ecse321.rideshare9;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,9 +7,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CarpoolApplicationTests{
-   @Test
-   public void contextLoads () 
-   {
-   }
-   }
+public class Rideshare9ApplicationTests {
+
+	@Test
+	public void contextLoads() {
+	}
+
+}
