@@ -11,7 +11,7 @@ public class Rideshare9ApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		assertTrue(True); 
+		assertTrue(true); 
 	}
 
 }
