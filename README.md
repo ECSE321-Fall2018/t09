@@ -24,6 +24,7 @@ probably we need a state for users:
 > 2. the **available seating**, 
 > 3. the locations that the driver is willing to **stop**, 
 > 4. the **cost** of travel for passengers going to *each stop*
+
 such that I can deliver accurate information to potential passengers. 
 
 ## Added login, authorization, and security feature
