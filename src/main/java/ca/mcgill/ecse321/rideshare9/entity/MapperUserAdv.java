@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,13 +21,10 @@ public class MapperUserAdv {
 	 * </pre>
 	 */
 	private long passenger;
-
-
-
+	@Column(name = "passenger")
 	public long getPassenger() {
 		return passenger;
 	}
-
 	public void setPassenger(long passenger) {
 		this.passenger = passenger;
 	}
@@ -39,25 +37,23 @@ public class MapperUserAdv {
 	 * </pre>
 	 */
 	private long advertisement;
-
-
-
+	@Column(name = "advertisement")
 	public long getAdvertisement() {
 		return advertisement;
 	}
-
 	public void setAdvertisement(long advertisement) {
 		this.advertisement = advertisement;
 	}
 
 	private long id;
 
+
 	public void setId(long value) {
 		this.id = value;
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long getId() {
 		return this.id;
 	}

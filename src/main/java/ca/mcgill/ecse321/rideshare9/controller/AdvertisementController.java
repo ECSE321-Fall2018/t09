@@ -46,7 +46,7 @@ public class AdvertisementController {
     	    currentUserName = authentication.getName();
     	}
     	if (userv.findUserByUsername(currentUserName) != null) {
-        	return advService.createAdv(adv.getTitle(), adv.getStartDate(), adv.getStartLocation(), adv.getSeatAvailable(), adv.getVehicle(), userv.findUserByUsername(currentUserName)); 
+        	return advService.createAdv(adv.getTitle(), adv.getStartDate(), adv.getStartLocation(), adv.getSeatAvailable(), adv.getVehicle(), userv.findUserByUsername(currentUserName).getId()); 
     	} else {
     		return null; 
     	}

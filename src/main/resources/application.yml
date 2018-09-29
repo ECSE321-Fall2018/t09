@@ -14,7 +14,7 @@ spring:
     schema: classpath:schema.sql
     data: data.sql
     hibernate:
-      ddl-auto : update
+      ddl-auto : create
       naming-strategy : org.hibernate.cfg.ImprovedNamingStrategy
     properties:
       hibernate:

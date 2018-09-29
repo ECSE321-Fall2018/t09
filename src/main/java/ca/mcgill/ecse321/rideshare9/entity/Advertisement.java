@@ -24,7 +24,7 @@ public class Advertisement {
 		this.id = value;
 	}
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public long getId() {
 		return this.id;
 	}
@@ -98,15 +98,15 @@ public class Advertisement {
 	 * </pre>
 	 */
 	
-	private List<Stop> stops;
+	private List<Long> stops;
 	
-	public void setStops(List<Stop> stops) {
+	public void setStops(List<Long> stops) {
 		this.stops = stops;
 	}
 	@ElementCollection
-	public List<Stop> getStops() {
+	public List<Long> getStops() {
 		if (this.stops == null) {
-			this.stops = new ArrayList<Stop>();
+			this.stops = new ArrayList<Long>();
 		}
 		return this.stops;
 	}
@@ -118,19 +118,18 @@ public class Advertisement {
 	 *           advertisement        &gt;       vehicle
 	 * </pre>
 	 */
-	private Vehicle vehicle;
+	private long vehicle;
 
-	public void setVehicle(Vehicle value) {
+	public void setVehicle(long value) {
 		this.vehicle = value;
 	}
-	@OneToOne(targetEntity = Vehicle.class)
 	/*@JoinColumns( {
         @JoinColumn(name = "vehicle_color", referencedColumnName = "color"),
         @JoinColumn(name = "vehicle_model", referencedColumnName = "id"),
         @JoinColumn(name = "vehicle_Licence", referencedColumnName = "licencePlate"),
     })*/
-	@JoinColumn(name = "vehicle_id",referencedColumnName = "id")
-	public Vehicle getVehicle() {
+	@Column(name = "vehicle")
+	public long getVehicle() {
 		return this.vehicle;
 	}
 
@@ -141,15 +140,12 @@ public class Advertisement {
 	 *           advertisement        &gt;       driver
 	 * </pre>
 	 */
-	private Long driver;
-
-	public Long getDriver() {
+	private long driver;
+	@Column(name = "driver")
+	public long getDriver() {
 		return driver;
 	}
-	public void setDriver(Long driver) {
+	public void setDriver(long driver) {
 		this.driver = driver;
 	}
-
-	
-
 }
