@@ -23,14 +23,14 @@ public class AdvertisementRepository {
 	protected UserServiceImpl urp; 
 	
 	@Transactional
-	public Advertisement createAdv(String title, String startDate, String startLocation, int seatAvailable, Vehicle vehicle, User driver) {
+	public Advertisement createAdv(String title, String startDate, String startLocation, int seatAvailable, long vehicle, long driver) {
 		Advertisement adv = new Advertisement(); 
 		adv.setTitle(title);
 		adv.setStartDate(startDate); 
 		adv.setStartLocation(startLocation);
 		adv.setSeatAvailable(seatAvailable);
 		adv.setVehicle(vehicle);
-		adv.setDriver(driver.getId());
+		adv.setDriver(driver);
 		adv.setStatus(TripStatus.REGISTERING);
 		em.persist(adv);
 	    return adv;

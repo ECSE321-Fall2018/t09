@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: ca.mcgill.ecse321.rideshare9.Rideshare9ApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.671 s - in ca.mcgill.ecse321.rideshare9.Rideshare9ApplicationTests

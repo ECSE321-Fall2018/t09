@@ -12,22 +12,26 @@ import org.springframework.transaction.annotation.Transactional;
 import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
 import ca.mcgill.ecse321.rideshare9.entity.MapperUserAdv;
 import ca.mcgill.ecse321.rideshare9.entity.TripStatus;
+import ca.mcgill.ecse321.rideshare9.entity.User;
 import ca.mcgill.ecse321.rideshare9.service.impl.UserServiceImpl;
 
 @Repository
 public class MapperUserAdvRepository {
 	@Autowired
 	protected EntityManager em;
+	@Autowired
 	protected VehicleRepository vrp; 
+	@Autowired
 	protected UserServiceImpl urp; 
+	@Autowired
 	protected AdvertisementRepository arp; 
 	
 	@Transactional
-	public MapperUserAdv createMapper(long uid, long did) {
+	public MapperUserAdv createMapper(User uid, Advertisement did) {
+		
 		MapperUserAdv m = new MapperUserAdv(); 
-		m.setAdvertisement(arp.findAdv(did).getId());
+		m.setAdvertisement(did.getId());
 		em.persist(m);
-		em.flush();
 	    return m;
 	}
 	@Transactional
