@@ -1,6 +1,6 @@
 # TEAM 09
 
-## Clearify User Stories
+## User Stories
 
 ### Admin
 
