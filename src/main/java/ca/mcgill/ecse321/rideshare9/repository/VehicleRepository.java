@@ -24,6 +24,7 @@ public class VehicleRepository {
 	    car.setMaxSeat(maxSeat);
 	    car.setModel(model);
 	    em.persist(car);
+	    //em.flush(); 
 	    return car;
 	}
 	@Transactional

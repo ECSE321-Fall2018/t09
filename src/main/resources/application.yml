@@ -4,7 +4,7 @@ spring:
   application:
     name: auth-service
   datasource:
-    url : jdbc:mysql://localhost:3306/carpool
+    url : jdbc:mysql://localhost:3306/carpool?&useUnicode=true&characterEncoding=utf-8
     username : group9
     password : ecse321
     driverClassName : com.mysql.jdbc.Driver

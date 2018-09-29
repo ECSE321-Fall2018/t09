@@ -1,8 +1,14 @@
 package ca.mcgill.ecse321.rideshare9.controller;
 
 import ca.mcgill.ecse321.rideshare9.entity.User;
+import ca.mcgill.ecse321.rideshare9.entity.UserStatus;
 import ca.mcgill.ecse321.rideshare9.service.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/crud")
 public class UserController {
-
+	@Autowired
     private UserService userService;
 
     UserController(UserService userService){
@@ -39,7 +45,21 @@ public class UserController {
     public User userProfile(@PathVariable String username){
         return userService.loadUserByUsername(username);
     }
-    
+    /**
+     * retrive current
+     * @param 
+     * @return username
+     */
+    @PreAuthorize("hasRole('ADMIN') or hasRole('BOSSLI')")
+    @GetMapping("/get-current-uid")
+    public String userIDnow(){
+    	String currentUserName = ""; 
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	if (!(authentication instanceof AnonymousAuthenticationToken)) {
+    	    currentUserName = authentication.getName();
+    	}
+        return currentUserName;
+    }
     /**
      * retrive 
      * @param username
@@ -59,6 +79,7 @@ public class UserController {
     @PostMapping("/sign-up")
     public User signUp(@RequestBody User user) {
         user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword()).getBytes()));
+        user.setStatus(UserStatus.STANDBY);
         return userService.addUser(user);
     }
     

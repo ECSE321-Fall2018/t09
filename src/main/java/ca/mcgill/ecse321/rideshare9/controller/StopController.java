@@ -1,4 +1,5 @@
 package ca.mcgill.ecse321.rideshare9.controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ import ca.mcgill.ecse321.rideshare9.repository.VehicleRepository;
 @RestController
 @RequestMapping("/stop")
 public class StopController {
-	
+	@Autowired
 	private StopRepository stopService;
 	
     /**
@@ -28,8 +29,13 @@ public class StopController {
      * @param adv
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/add-stop/", method = RequestMethod.GET)
-    public String addStop() {
-        return "Driver can manipulate stop";
+    @RequestMapping(value = "/add-stop/", method = RequestMethod.POST)
+    public Stop addStop(@RequestBody Stop sp) {
+    	if (sp != null) {
+    		stopService.createStop(sp.getStopName(), sp.getPrice()); 
+    		return sp;
+    	} else {
+    		return sp; 
+    	}
     }
 }
