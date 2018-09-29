@@ -43,7 +43,7 @@ public class MapperController {
     	}
     	User current_user = userv.loadUserByUsername(currentUserName); 
     	if (userv.findUserByUsername(currentUserName) != null) {
-        	return mserv.createMapper(current_user, advService.findAdv(aid)); 
+        	return mserv.createMapper(current_user.getId(), advService.findAdv(aid).getId()); 
     	}
     	return null; 
     }

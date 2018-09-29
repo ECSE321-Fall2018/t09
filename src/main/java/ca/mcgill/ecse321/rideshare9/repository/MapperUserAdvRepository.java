@@ -27,10 +27,11 @@ public class MapperUserAdvRepository {
 	protected AdvertisementRepository arp; 
 	
 	@Transactional
-	public MapperUserAdv createMapper(User uid, Advertisement did) {
+	public MapperUserAdv createMapper(long uid, long did) {
 		
 		MapperUserAdv m = new MapperUserAdv(); 
-		m.setAdvertisement(did.getId());
+		m.setAdvertisement(did);
+		m.setPassenger(uid);
 		em.persist(m);
 	    return m;
 	}
