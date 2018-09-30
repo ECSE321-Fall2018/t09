@@ -33,6 +33,7 @@ public class MapperUserAdvRepository {
 		m.setAdvertisement(did);
 		m.setPassenger(uid);
 		em.persist(m);
+		em.flush();
 	    return m;
 	}
 	@Transactional

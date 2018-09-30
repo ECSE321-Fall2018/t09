@@ -24,7 +24,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/crud")
+@RequestMapping("/user")
 public class UserController {
 	@Autowired
     private UserService userService;
@@ -32,7 +32,8 @@ public class UserController {
     UserController(UserService userService){
         this.userService = userService;
     }
-
+    
+    
     /**
      * Admin: Retrive all user profiles
      * Core API endpoint: Admin-1 in README.md at Mark branch
@@ -127,6 +128,16 @@ public class UserController {
         return "Ok!";
     }
     
+    /**
+     * HelloWorld, greet to everyone (new users)!  
+     * @param 
+     * @return hi 
+     */
+    @GetMapping("/mainpg")
+    public String reservedMainpage(){
+        return "Hi, welcome to RideShare9! ";
+    }
+    
 
     /**
      * All people: Signup
@@ -138,6 +149,16 @@ public class UserController {
         user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword()).getBytes()));
         user.setStatus(UserStatus.STANDBY);
         return userService.addUser(user);
+    }
+    
+    /**
+     * All people: before sign-up, check if username is valid (not duplicated)
+     * Bonus Point
+     * @param User
+     */
+    @GetMapping("/uname-valid")
+    public boolean checkValidUname(@RequestParam(value = "trail") String username) {
+        return userService.findUserByUsername(username) == null; 
     }
     
     /**

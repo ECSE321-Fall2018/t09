@@ -27,7 +27,7 @@ public class VehicleRepository {
 	    car.setModel(model);
 	    car.setDriver(driver);
 	    em.persist(car);
-	    //em.flush(); 
+	    em.flush(); 
 	    return car;
 	}
 	@Transactional

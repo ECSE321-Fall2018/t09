@@ -42,8 +42,7 @@ public class VehicleController {
     	    currentUserName = authentication.getName();
     	}
     	if (car != null) {
-        	carService.createVehicle(car.getLicencePlate(), car.getModel(), car.getColor(), car.getMaxSeat(), urp.findUserByUsername(currentUserName).getId()); 
-            return car;
+            return carService.createVehicle(car.getLicencePlate(), car.getModel(), car.getColor(), car.getMaxSeat(), urp.findUserByUsername(currentUserName).getId());
     	} else {
     		return car; 
     	}
