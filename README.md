@@ -1,9 +1,16 @@
-# TEAM 09: Yuxiang's Branch
-## We can work together on it!!!
+# Welcome to TEAM 09: Yuxiang's Branch
+## We can work together on it From 2018/09/29!!!
 
 ### Follow instructions in on controllers, and distribute tasks! 
 
+- TODO tells what we should be working on
+- "Wanted tasks" calls for our insight, innovation, and intelligence! 
+
 ### Read JavaDoc to get more information and reinforcement on Core API endpoints! 
+
+- Java Doc tells which method address to which functional requirements
+- Core API endpoint in each Java Doc verifies that we can get all points!
+- Please help me to verify the above. I am not a careful person lol. 
 
 ## User Stories
 
