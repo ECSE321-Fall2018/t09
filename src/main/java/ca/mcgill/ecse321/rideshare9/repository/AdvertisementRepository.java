@@ -35,6 +35,7 @@ public class AdvertisementRepository {
 		adv.setDriver(driver);
 		adv.setStatus(TripStatus.REGISTERING);
 		em.persist(adv);
+		em.flush();
 	    return adv;
 	}
 	

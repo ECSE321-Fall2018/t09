@@ -28,8 +28,8 @@ public class StopController {
     	// TODO : return the added object WITH ID (originally, it return what you entered, id = 0 is always)
     	
     	if (sp != null) {
-    		stopService.createStop(sp.getStopName(), sp.getPrice()); 
-    		return sp;
+    		 
+    		return stopService.createStop(sp.getStopName(), sp.getPrice());
     	} else {
     		return sp; 
     	}
