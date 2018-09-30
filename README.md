@@ -1,4 +1,4 @@
-# Welcome to TEAM 09: Yuxiang's Branch
+# Welcome to TEAM 09
 
 ## Meeting for 2018/09/30
 
