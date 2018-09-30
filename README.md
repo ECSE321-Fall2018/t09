@@ -1,5 +1,53 @@
 # Welcome to TEAM 09: Yuxiang's Branch
-## We can work together on it From 2018/09/29!!!
+
+## Meeting for 2018/09/30
+
+### Merge Branch
+
+- Merge mark to master, or swap
+- But, keep original master branch content in another one
+
+### Development Cycle 1: Controllers: Approximately 1 day - Due Sunday
+
+- Every member is responsible for 1 controller
+- If you need some function in any entity manager, add a not implemented function with TODO in that class in your repository. 
+
+Note, a "not implemented function" is 
+```java
+/**
+* This function does xxx
+* Core API Endpoint: (if you have one)
+* @param: arg
+* @return: ret
+*/
+public ReturnT myVirtualFunc(ParamT arg) {
+    // TODO: this is a virtual function that does xxx
+    return new ReturnT(); 
+}
+```
+
+### Development Milestone 1: End of Sunday
+
+- After everyone finish all the above, we merge our "not implemented functions" by discussion. 
+- We come up with a list of "not implemented functions" for each class, and determine Interface of each function. 
+- Also, unify naming of "not implemented functions" for each author in their classes for further integration
+
+### Development Cycle 2: Repository: Approximately 1 day - Due Monday
+
+- Every member is responsible for 1 repository
+- Implement functions required in cycle 1
+- Verify that integration works
+
+### Development Milestone 2: End of Monday
+
+- Merge our code, and test on local/Heroku. 
+- Congratulations! We have completed programming cycle! 
+
+### Development Cycle 3: Test, Deploy, and Evolution - Tuesday to Thursday
+
+- Content To be determined on Milestone 2
+
+## We can work together on it Since 2018/09/29!!!
 
 ### Follow instructions in on controllers, and distribute tasks! 
 
