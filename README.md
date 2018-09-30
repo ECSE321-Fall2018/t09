@@ -1,4 +1,4 @@
-# Welcome to TEAM 09: Yuxiang's Branch
+# Welcome to TEAM 09
 
 ## Meeting for 2018/09/30
 
@@ -139,4 +139,4 @@ logging:
 ```
 
 Then, you are good to go! Enjoy using Chrome or Postman! 
-Pay attention to format of JSON. 
+Pay attention to format of JSON.  Good
