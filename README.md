@@ -1,4 +1,9 @@
 # TEAM 09
+## We can work together on it!!!
+
+### Follow instructions in on controllers, and distribute tasks! 
+
+### Read JavaDoc to get more information and reinforcement on Core API endpoints! 
 
 ## User Stories
 
