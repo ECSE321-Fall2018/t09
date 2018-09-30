@@ -1,6 +1,9 @@
 package ca.mcgill.ecse321.rideshare9.entity;
 import javax.persistence.JoinColumns;
+
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,6 +17,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "tb_advertisement")
@@ -38,25 +45,16 @@ public class Advertisement {
 	public String getTitle() {
 		return this.title;
 	}
+	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date startTime;
 
-	private String startTime;
-
-	public void setStartTime(String value) {
+	public void setStartTime(Date value) {
 		this.startTime = value;
 	}
 	@Column(name = "startTime")
-	public String getStartTime() {
+	public Date getStartTime() {
 		return this.startTime;
-	}
-
-	private String startDate;
-
-	public void setStartDate(String value) {
-		this.startDate = value;
-	}
-	@Column(name = "startDate")
-	public String getStartDate() {
-		return this.startDate;
 	}
 
 	private String startLocation;

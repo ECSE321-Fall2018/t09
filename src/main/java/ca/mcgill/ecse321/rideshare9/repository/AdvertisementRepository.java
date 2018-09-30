@@ -1,4 +1,6 @@
 package ca.mcgill.ecse321.rideshare9.repository;
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 import ca.mcgill.ecse321.rideshare9.entity.*;
 
@@ -23,13 +25,13 @@ public class AdvertisementRepository {
 	protected UserServiceImpl urp; 
 	
 	@Transactional
-	public Advertisement createAdv(String title, String startDate, String startLocation, int seatAvailable, long vehicle, long driver) {
+	public Advertisement createAdv(String title, Date startTime, String startLocation, int seatAvailable, long vehicle, long driver) {
 		Advertisement adv = new Advertisement(); 
 		adv.setTitle(title);
-		adv.setStartDate(startDate); 
 		adv.setStartLocation(startLocation);
 		adv.setSeatAvailable(seatAvailable);
 		adv.setVehicle(vehicle);
+		adv.setStartTime(startTime);
 		adv.setDriver(driver);
 		adv.setStatus(TripStatus.REGISTERING);
 		em.persist(adv);
