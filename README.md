@@ -4,7 +4,7 @@
 
 ### UserController
 
- URL | Request | Parameter Format | Parameters | Role 
+ URL | Request | Parameter Format | Parameters | Role (ROLE_) 
  ------| ------ | ------ | ------ | ------ 
  /user/sign-up | POST | JSON | "id", "username", and "role" | GLOBAL 
  /user/get-is-unique | POST | JSON | "username" | GLOBAL 
