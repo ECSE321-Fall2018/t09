@@ -43,7 +43,15 @@
  /adv/get-top-driver | GET | void | void | ADMIN, PASSENGER, DRIVER 
  /adv/get-list-adv | GET | void | void | ADMIN, PASSENGER, DRIVER 
  /adv/update-adv | PUT | JSON | "id", "title", "startTime",  "startLocation", "seatAvailable",  "stops", "vehicle" | DRIVER 
- /adv/delete-adv | DELETE | JSON | "id" | DRIVER 
+ /adv/delete-adv | DELETE | JSON | "id" | DRIVER
+ 
+ ### MapperController
+ URL | Request | Parameter Format | Parameters | Role (ROLE_)
+ ------| ------ | ------ | ------ | ------
+ /map/add-map | POST | Pathvariable | "adv_id" | PASSENGER
+ /map/delete | DELETE | PathVariable | "mapper_id" | PASSENGER
+ /map/list-top-passengers | GET | void | void | ADMIN
+ 
 
 
 ## We need @2018/10/01
