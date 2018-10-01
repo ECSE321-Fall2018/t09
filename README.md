@@ -10,6 +10,12 @@
 
 ## API Endpoints
 
+### Login
+
+ URL | Request | Parameter Format | Parameters | Role (ROLE_) 
+ ------| ------ | ------ | ------ | ------ 
+ /login | POST | JSON | "id", "username" | GLOBAL 
+
 ### UserController
 
  URL | Request | Parameter Format | Parameters | Role (ROLE_) 
