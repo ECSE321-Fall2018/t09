@@ -1,5 +1,12 @@
 # Welcome to TEAM 09
 
+## Things done on 2018/09/30
+
+- Distributed tasks
+- Completed Advertisement Controller and Repository, including documentation
+- Mapper, Stop, Vehicle are assigned and to be completed within 2 days
+- The team gets a overview of project architecture
+
 ## Meeting for 2018/09/30
 
 ### Merge Branch
