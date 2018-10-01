@@ -10,11 +10,17 @@
 
 ## API Endpoints
 
+### Login
+
+ URL | Request | Parameter Format | Parameters | Role (ROLE_) 
+ ------| ------ | ------ | ------ | ------ 
+ /login | POST | JSON | "username", "password" | GLOBAL 
+
 ### UserController
 
  URL | Request | Parameter Format | Parameters | Role (ROLE_) 
  ------| ------ | ------ | ------ | ------ 
- /user/sign-up | POST | JSON | "id", "username", and "role" | GLOBAL 
+ /user/sign-up | POST | JSON | "username", "password", and "role" | GLOBAL 
  /user/get-is-unique | POST | JSON | "username" | GLOBAL 
  /user/get-user-by-uname | POST | JSON | "username" | ADMIN 
  /user/get-logged-user | GET | void | void | ADMIN, PASSENGER, DRIVER 
