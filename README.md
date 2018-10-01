@@ -1,4 +1,7 @@
 # Welcome to TEAM 09
+## WANTED: Bonus 3 solution: logging
+
+- Logging (i.e., all API interactions should be recorded in a log file for posterity, debugging, and data mining purposes)
 
 ## Tips for naming API
 
