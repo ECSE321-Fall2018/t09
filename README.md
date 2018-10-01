@@ -30,7 +30,7 @@
  /adv/get-adv-by-time-by-model | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vModel" | ADMIN, PASSENGER, DRIVER 
  /adv/get-adv-by-price-by-model | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vModel" | ADMIN, PASSENGER, DRIVER 
  /adv/get-adv-by-time-by-model-color | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vColor", "vModel" | ADMIN, PASSENGER, DRIVER 
- /adv/get-adv-by-price-by-model-color | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vColor", "vModel"  ADMIN, PASSENGER, DRIVER 
+ /adv/get-adv-by-price-by-model-color | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vColor", "vModel" | ADMIN, PASSENGER, DRIVER 
  /adv/get-logged-adv | GET | void | void | DRIVER 
  /adv/get-top-driver | GET | void | void | ADMIN, PASSENGER, DRIVER 
  /adv/get-list-adv | GET | void | void | ADMIN, PASSENGER, DRIVER 
