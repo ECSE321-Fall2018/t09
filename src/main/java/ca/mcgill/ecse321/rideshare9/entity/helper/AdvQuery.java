@@ -12,6 +12,21 @@ public class AdvQuery {
 	private Date startTimeX; 
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date startTimeY;
+	private String vColor;
+	private String vModel;
+	
+	public String getvColor() {
+		return vColor;
+	}
+	public void setvColor(String vColor) {
+		this.vColor = vColor;
+	}
+	public String getvModel() {
+		return vModel;
+	}
+	public void setvModel(String vModel) {
+		this.vModel = vModel;
+	}
 	public String getStop() {
 		return stop;
 	}

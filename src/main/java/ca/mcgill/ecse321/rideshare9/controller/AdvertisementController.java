@@ -28,6 +28,23 @@ import ca.mcgill.ecse321.rideshare9.service.UserService;
  * @author yuxiangma
  */
 
+/**
+ * Notes for front end: Searching
+ * --------------------------------------------------------------------------------------------------------------
+ * Essential Query: 4 must be present 
+ * --------------------------------------------------------------------------------------------------------------
+ * destination: 			| startLocation: 				| startTimeLow: 			| startTimeHigh: 			
+ * --------------------------------------------------------------------------------------------------------------
+ * Optional Query: any one, or both, or neither present 
+ * --------------------------------------------------------------------------------------------------------------
+ * Car type: 			    | Car color: 				    | 
+ * --------------------------------------------------------------------------------------------------------------
+ * Order by: Option, choose 1
+ * --------------------------------------------------------------------------------------------------------------
+ * Price					| StartTime 					|
+ * --------------------------------------------------------------------------------------------------------------
+ */
+
 @RestController
 @RequestMapping("/adv")
 public class AdvertisementController {
@@ -53,6 +70,24 @@ public class AdvertisementController {
     	}
     	if (userv.findUserByUsername(currentUserName) != null) {
         	return advService.createAdv(adv.getTitle(), adv.getStartTime(), adv.getStartLocation(), adv.getSeatAvailable(), adv.getStops(), adv.getVehicle(), userv.findUserByUsername(currentUserName).getId()); 
+    	} else {
+    		return null; 
+    	}
+    }
+    /**
+     * show all advertisement a logged in driver posted
+     * @return List
+     */
+    @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
+    @RequestMapping(value = "/my-adv", method=RequestMethod.GET)
+    public List<Advertisement> myAdv() {    	
+    	String currentUserName = null; 
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	if (!(authentication instanceof AnonymousAuthenticationToken)) {
+    	    currentUserName = authentication.getName();
+    	}
+    	if (userv.findUserByUsername(currentUserName) != null) {
+        	return advService.findAllAdv(userv.findUserByUsername(currentUserName).getId()); 
     	} else {
     		return null; 
     	}
@@ -199,5 +234,77 @@ public class AdvertisementController {
     @PostMapping("/get-adv-by-time")
     public List<AdvResponse> searchAdvByTime(@RequestBody AdvQuery advCriteria) {
     	return advService.findAdvByCriteriaSortByTime(advCriteria); 
+    }
+    /**
+     * All user: Search Advertisement by datetime criteria, and vehicle color
+     * Core API endpoint: Passenger-1, Passenger-2 in README.md at Mark branch
+     * This method is NOT meant to be restricted by passing JSON object, you can actually pass any parameter, or use a request type other than post
+     * @param adv (json)
+     * @return list of (collection of) advertisement according criteria specified by user entry
+     */
+    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+    @PostMapping("/get-adv-by-time-by-color")
+    public List<AdvResponse> searchAdvByTimeByColor(@RequestBody AdvQuery advCriteria) {
+    	return advService.findAdvByCriteriaAndColorSortByTime(advCriteria); 
+    }
+    /**
+     * All user: Search Advertisement by price criteria, and vehicle color
+     * Core API endpoint: Passenger-1, Passenger-2 in README.md at Mark branch
+     * This method is NOT meant to be restricted by passing JSON object, you can actually pass any parameter, or use a request type other than post
+     * @param adv (json)
+     * @return list of (collection of) advertisement according criteria specified by user entry
+     */
+    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+    @PostMapping("/get-adv-by-price-by-color")
+    public List<AdvResponse> searchAdvByPriceByColor(@RequestBody AdvQuery advCriteria) {
+    	return advService.findAdvByCriteriaAndColorSortByPrice(advCriteria); 
+    }
+    /**
+     * All user: Search Advertisement by datetime criteria, and vehicle model
+     * Core API endpoint: Passenger-1, Passenger-2 in README.md at Mark branch
+     * This method is NOT meant to be restricted by passing JSON object, you can actually pass any parameter, or use a request type other than post
+     * @param adv (json)
+     * @return list of (collection of) advertisement according criteria specified by user entry
+     */
+    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+    @PostMapping("/get-adv-by-time-by-model")
+    public List<AdvResponse> searchAdvByTimeByModel(@RequestBody AdvQuery advCriteria) {
+    	return advService.findAdvByCriteriaAndModelSortByTime(advCriteria); 
+    }
+    /**
+     * All user: Search Advertisement by price criteria, and vehicle model
+     * Core API endpoint: Passenger-1, Passenger-2 in README.md at Mark branch
+     * This method is NOT meant to be restricted by passing JSON object, you can actually pass any parameter, or use a request type other than post
+     * @param adv (json)
+     * @return list of (collection of) advertisement according criteria specified by user entry
+     */
+    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+    @PostMapping("/get-adv-by-price-by-model")
+    public List<AdvResponse> searchAdvByPriceByModel(@RequestBody AdvQuery advCriteria) {
+    	return advService.findAdvByCriteriaAndModelSortByPrice(advCriteria); 
+    }
+    /**
+     * All user: Search Advertisement by price criteria, and vehicle color and model
+     * Core API endpoint: Passenger-1, Passenger-2 in README.md at Mark branch
+     * This method is NOT meant to be restricted by passing JSON object, you can actually pass any parameter, or use a request type other than post
+     * @param advhelper (json)
+     * @return list of (collection of) advertisement according criteria specified by user entry
+     */
+    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+    @PostMapping("/get-adv-by-price-by-model-color")
+    public List<AdvResponse> searchAdvByPriceByModelAndColor(@RequestBody AdvQuery advCriteria) {
+    	return advService.findAdvByCriteriaAndModelAndColorSortByPrice(advCriteria); 
+    }
+    /**
+     * All user: Search Advertisement by datetime criteria, and vehicle color and model
+     * Core API endpoint: Passenger-1, Passenger-2 in README.md at Mark branch
+     * This method is NOT meant to be restricted by passing JSON object, you can actually pass any parameter, or use a request type other than post
+     * @param advhelper (json)
+     * @return list of (collection of) advertisement according criteria specified by user entry
+     */
+    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+    @PostMapping("/get-adv-by-time-by-model-color")
+    public List<AdvResponse> searchAdvByTimeByModelAndColor(@RequestBody AdvQuery advCriteria) {
+    	return advService.findAdvByCriteriaAndModelAndColorSortByTime(advCriteria); 
     }
 }

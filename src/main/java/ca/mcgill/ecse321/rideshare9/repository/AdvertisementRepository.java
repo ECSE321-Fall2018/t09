@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.rideshare9.repository;
 import java.util.ArrayList;
+
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +23,26 @@ import ca.mcgill.ecse321.rideshare9.entity.helper.AdvBestQuery;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvQuery;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvResponse;
 import ca.mcgill.ecse321.rideshare9.service.impl.UserServiceImpl;
+
+/**
+ * Notes for front end: Searching
+ * --------------------------------------------------------------------------------------------------------------
+ * Essential Query: 4 must be present 
+ * --------------------------------------------------------------------------------------------------------------
+ * destination: 			| startLocation: 				| startTimeLow: 			| startTimeHigh: 			
+ * --------------------------------------------------------------------------------------------------------------
+ * Optional Query: any one, or both, or neither present 
+ * --------------------------------------------------------------------------------------------------------------
+ * Car type: 			    | Car color: 				    | 
+ * --------------------------------------------------------------------------------------------------------------
+ * Order by: Option, choose 1
+ * --------------------------------------------------------------------------------------------------------------
+ * Price					| StartTime 					|
+ * --------------------------------------------------------------------------------------------------------------
+ */
+
+
+
 @Repository
 public class AdvertisementRepository {
 	@Autowired
@@ -167,6 +189,17 @@ public class AdvertisementRepository {
 	}
 	
 	/**
+	 * List all advertisement posted by one user
+	 * @param void
+	 * @return list of best driver and his count
+	 */
+	@Transactional
+	public List<Advertisement> findAllAdv(Long uid) {
+	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a WHERE a.driver = :uid", Advertisement.class).setParameter("uid", uid);
+	    return query.getResultList();
+	}
+	
+	/**
 	 * Sort Driver by count of advertisement posted
 	 * @param void
 	 * @return list of best driver and his count
@@ -230,6 +263,141 @@ public class AdvertisementRepository {
 	    }
 	    return ret1;
 	}
+	
+	/**
+	 * Search advertisement by basic criteria and vehicle color, sort result by time
+	 * @param AdvQuery q
+	 * @return result sorted by time
+	 */
+	@Transactional
+	public List<AdvResponse> findAdvByCriteriaAndColorSortByTime(AdvQuery q) {		
+	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.color = :qVColor AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY a.startTime ASC", Advertisement.class)
+	    		.setParameter("qLocation", "%" + q.getStartLocation() + "%").setParameter("start", q.getStartTimeX(), TemporalType.DATE).setParameter("end", q.getStartTimeY(), TemporalType.DATE).setParameter("qVColor", q.getvColor());
+	    TypedQuery<Stop> query2 = em.createQuery("SELECT s FROM Stop s WHERE s.stopName LIKE :qName ORDER BY s.price ASC", Stop.class).setParameter("qName", "%" + q.getStop() + "%");
+	    List<Stop> resStop = query2.getResultList();
+	    ArrayList<Advertisement> resAdv = (ArrayList<Advertisement>)query.getResultList(); 
+	    ArrayList<AdvResponse> ret1 = new ArrayList<AdvResponse>(); 
+	    for (Advertisement ad: resAdv) {
+	    	for (Stop st: resStop) {
+		    	if (ad.getStops().contains(st.getId())) {
+		    		 ret1.add((new AdvResponse(ad, st.getPrice()))); 
+		    	}
+		    }
+	    }
+	    return ret1;
+	}
+	/**
+	 * Search advertisement by basic criteria and vehicle color, sort result by price
+	 * @param AdvQuery q
+	 * @return result sorted by price
+	 */
+	@Transactional
+	public List<AdvResponse> findAdvByCriteriaAndColorSortByPrice(AdvQuery q) {		
+	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.color = :qVColor AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY a.startTime ASC", Advertisement.class)
+	    		.setParameter("qLocation", "%" + q.getStartLocation() + "%").setParameter("start", q.getStartTimeX(), TemporalType.DATE).setParameter("end", q.getStartTimeY(), TemporalType.DATE).setParameter("qVColor", q.getvColor());
+	    TypedQuery<Stop> query2 = em.createQuery("SELECT s FROM Stop s WHERE s.stopName LIKE :qName ORDER BY s.price ASC", Stop.class).setParameter("qName", "%" + q.getStop() + "%");
+	    List<Stop> resStop = query2.getResultList();
+	    ArrayList<Advertisement> resAdv = (ArrayList<Advertisement>)query.getResultList(); 
+	    ArrayList<AdvResponse> ret1 = new ArrayList<AdvResponse>(); 
+	    for (Stop st: resStop) {
+	    	for (Advertisement ad: resAdv) {
+		    	if (ad.getStops().contains(st.getId())) {
+		    		 ret1.add((new AdvResponse(ad, st.getPrice()))); 
+		    	}
+		    }
+	    }
+	    return ret1;
+	}
+	/**
+	 * Search advertisement by basic criteria and vehicle model, sort result by time
+	 * @param AdvQuery q
+	 * @return result sorted by time
+	 */
+	@Transactional
+	public List<AdvResponse> findAdvByCriteriaAndModelSortByTime(AdvQuery q) {		
+	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.model = :qVModel AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY a.startTime ASC", Advertisement.class)
+	    		.setParameter("qLocation", "%" + q.getStartLocation() + "%").setParameter("start", q.getStartTimeX(), TemporalType.DATE).setParameter("end", q.getStartTimeY(), TemporalType.DATE).setParameter("qVModel", q.getvModel());
+	    TypedQuery<Stop> query2 = em.createQuery("SELECT s FROM Stop s WHERE s.stopName LIKE :qName ORDER BY s.price ASC", Stop.class).setParameter("qName", "%" + q.getStop() + "%");
+	    List<Stop> resStop = query2.getResultList();
+	    ArrayList<Advertisement> resAdv = (ArrayList<Advertisement>)query.getResultList(); 
+	    ArrayList<AdvResponse> ret1 = new ArrayList<AdvResponse>(); 
+	    for (Advertisement ad: resAdv) {
+	    	for (Stop st: resStop) {
+		    	if (ad.getStops().contains(st.getId())) {
+		    		 ret1.add((new AdvResponse(ad, st.getPrice()))); 
+		    	}
+		    }
+	    }
+	    return ret1;
+	}
+	/**
+	 * Search advertisement by basic criteria and vehicle model, sort result by price
+	 * @param AdvQuery q
+	 * @return result sorted by price
+	 */
+	@Transactional
+	public List<AdvResponse> findAdvByCriteriaAndModelSortByPrice(AdvQuery q) {		
+	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.model = :qVModel AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY a.startTime ASC", Advertisement.class)
+	    		.setParameter("qLocation", "%" + q.getStartLocation() + "%").setParameter("start", q.getStartTimeX(), TemporalType.DATE).setParameter("end", q.getStartTimeY(), TemporalType.DATE).setParameter("qVModel", q.getvModel());
+	    TypedQuery<Stop> query2 = em.createQuery("SELECT s FROM Stop s WHERE s.stopName LIKE :qName ORDER BY s.price ASC", Stop.class).setParameter("qName", "%" + q.getStop() + "%");
+	    List<Stop> resStop = query2.getResultList();
+	    ArrayList<Advertisement> resAdv = (ArrayList<Advertisement>)query.getResultList(); 
+	    ArrayList<AdvResponse> ret1 = new ArrayList<AdvResponse>(); 
+	    for (Stop st: resStop) {
+	    	for (Advertisement ad: resAdv) {
+		    	if (ad.getStops().contains(st.getId())) {
+		    		 ret1.add((new AdvResponse(ad, st.getPrice()))); 
+		    	}
+		    }
+	    }
+	    return ret1;
+	}
+	/**
+	 * Search advertisement by basic criteria and vehicle model and vehicle color, sort result by price
+	 * @param AdvQuery q
+	 * @return result sorted by price
+	 */
+	@Transactional
+	public List<AdvResponse> findAdvByCriteriaAndModelAndColorSortByPrice(AdvQuery q) {		
+	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.color = :qVColor AND v.model = :qVModel AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY a.startTime ASC", Advertisement.class)
+	    		.setParameter("qLocation", "%" + q.getStartLocation() + "%").setParameter("start", q.getStartTimeX(), TemporalType.DATE).setParameter("end", q.getStartTimeY(), TemporalType.DATE).setParameter("qVColor", q.getvColor()).setParameter("qVModel", q.getvModel());
+	    TypedQuery<Stop> query2 = em.createQuery("SELECT s FROM Stop s WHERE s.stopName LIKE :qName ORDER BY s.price ASC", Stop.class).setParameter("qName", "%" + q.getStop() + "%");
+	    List<Stop> resStop = query2.getResultList();
+	    ArrayList<Advertisement> resAdv = (ArrayList<Advertisement>)query.getResultList(); 
+	    ArrayList<AdvResponse> ret1 = new ArrayList<AdvResponse>(); 
+	    for (Stop st: resStop) {
+	    	for (Advertisement ad: resAdv) {
+		    	if (ad.getStops().contains(st.getId())) {
+		    		 ret1.add((new AdvResponse(ad, st.getPrice()))); 
+		    	}
+		    }
+	    }
+	    return ret1;
+	}
+	/**
+	 * Search advertisement by basic criteria and vehicle model and vehicle color, sort result by time
+	 * @param AdvQuery q
+	 * @return result sorted by time
+	 */
+	@Transactional
+	public List<AdvResponse> findAdvByCriteriaAndModelAndColorSortByTime(AdvQuery q) {		
+	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.color = :qVColor AND v.model = :qVModel AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY a.startTime ASC", Advertisement.class)
+	    		.setParameter("qLocation", "%" + q.getStartLocation() + "%").setParameter("start", q.getStartTimeX(), TemporalType.DATE).setParameter("end", q.getStartTimeY(), TemporalType.DATE).setParameter("qVColor", q.getvColor()).setParameter("qVModel", q.getvModel());
+	    TypedQuery<Stop> query2 = em.createQuery("SELECT s FROM Stop s WHERE s.stopName LIKE :qName ORDER BY s.price ASC", Stop.class).setParameter("qName", "%" + q.getStop() + "%");
+	    List<Stop> resStop = query2.getResultList();
+	    ArrayList<Advertisement> resAdv = (ArrayList<Advertisement>)query.getResultList(); 
+	    ArrayList<AdvResponse> ret1 = new ArrayList<AdvResponse>(); 
+	    for (Advertisement ad: resAdv) {
+	    	for (Stop st: resStop) {
+		    	if (ad.getStops().contains(st.getId())) {
+		    		 ret1.add((new AdvResponse(ad, st.getPrice()))); 
+		    	}
+		    }
+	    }
+	    return ret1;
+	}
+	
 }
+
 
 
