@@ -1,12 +1,18 @@
 package ca.mcgill.ecse321.rideshare9.service.impl;
 
 import ca.mcgill.ecse321.rideshare9.entity.User;
+import ca.mcgill.ecse321.rideshare9.entity.UserStatus;
 import ca.mcgill.ecse321.rideshare9.repository.UserRepository;
 import ca.mcgill.ecse321.rideshare9.service.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 /**
  * user login service DO NOT CHANGE THIS
@@ -23,7 +29,11 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
+	@Autowired
     UserRepository userRepository;
+	
+	@Autowired
+    EntityManager em; 
 
     UserServiceImpl(UserRepository userRepository){
         this.userRepository = userRepository;
@@ -62,6 +72,16 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException(username);
         }
         return user;
+    }
+    
+    @Override
+    @Transactional
+    public User changeUserStatus(Long uid, UserStatus us) {
+    	User usr = em.find(User.class, uid); 
+    	usr.setStatus(us);
+    	em.merge(usr); 
+    	em.flush();
+    	return usr; 
     }
     
 }

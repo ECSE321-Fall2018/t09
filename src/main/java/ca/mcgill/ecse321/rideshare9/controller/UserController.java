@@ -118,6 +118,39 @@ public class UserController {
     }
     
     /**
+     * All registered user: change status to on ride
+     * @param void
+     * @return User
+     */
+    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+    @PutMapping("/on-ride")
+    public User userStatusOnRide(){
+    	String currentUserName = ""; 
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	if (!(authentication instanceof AnonymousAuthenticationToken)) {
+    	    currentUserName = authentication.getName();
+    	}
+        return userService.changeUserStatus(userService.findUserByUsername(currentUserName).getId(), UserStatus.ON_RIDE);
+    }
+    
+    /**
+     * All registered user: change status to standby
+     * @param void
+     * @return User
+     */
+    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+    @PutMapping("/standby")
+    public User userStatusStandby(){
+    	String currentUserName = ""; 
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	if (!(authentication instanceof AnonymousAuthenticationToken)) {
+    	    currentUserName = authentication.getName();
+    	}
+        return userService.changeUserStatus(userService.findUserByUsername(currentUserName).getId(), UserStatus.STANDBY);
+    }
+    
+    
+    /**
      * HelloWorld, to test role intercepting/authorization 
      * @param 
      * @return str("Ok")

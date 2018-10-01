@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.rideshare9.service;
 import ca.mcgill.ecse321.rideshare9.entity.User;
+import ca.mcgill.ecse321.rideshare9.entity.UserStatus;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  */
 
 public interface UserService {
+	User changeUserStatus(Long uid, UserStatus us); 
 	User addUser(User user);
     List<User> getUsers();
     // DO NOT CHANGE THIS!!!

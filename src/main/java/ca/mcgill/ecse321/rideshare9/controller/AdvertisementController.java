@@ -94,46 +94,69 @@ public class AdvertisementController {
     }
     
     /**
-     * driver: delete advertisement
+     * driver: delete advertisement, but only id needed
      * @param adv (JSON)
      * @return deleted adv
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
     @RequestMapping(value = "/delete-adv", method=RequestMethod.DELETE)
     public Advertisement delAdv(@RequestBody Advertisement adv) {
-    	return advService.removeAdv(adv.getId()); 
+    	for (Advertisement a: this.myAdv()) {
+    		if (a.getId() == adv.getId()) {
+    			return advService.removeAdv(adv.getId()); 
+    		}
+    	}
+    	return null; 
     }
     
     /**
-     * driver: cancel advertisement
+     * driver: cancel advertisement, but only id needed, but only id needed
      * @param adv (JSON)
      * @return canceled adv
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
     @RequestMapping(value = "/cancel-adv", method=RequestMethod.PUT)
     public Advertisement cancelAdv(@RequestBody Advertisement adv) {
-    	return advService.cancelAdv(adv.getId()); 
+    	for (Advertisement a: this.myAdv()) {
+    		if (a.getId() == adv.getId()) {
+    			return advService.cancelAdv(adv.getId());  
+    		}
+    	}
+    	return null; 
+    	
     }
     
     /**
-     * driver: close advertisement: don't want anyone more to join
+     * driver: close advertisement: don't want anyone more to join, but only id needed
      * @param adv (JSON)
      * @return closed adv
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
     @RequestMapping(value = "/close-adv", method=RequestMethod.PUT)
     public Advertisement closeAdv(@RequestBody Advertisement adv) {
-    	return advService.closeAdv(adv.getId()); 
+    	for (Advertisement a: this.myAdv()) {
+    		if (a.getId() == adv.getId()) {
+    			return advService.closeAdv(adv.getId()); 
+    		}
+    	}
+    	return null; 
+    	
     }
     /**
-     * driver: complete advertisement journey complete
+     * driver: complete advertisement journey complete, but only id needed
      * @param adv (JSON)
      * @return completed adv
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
     @RequestMapping(value = "/complete-adv", method=RequestMethod.PUT)
     public Advertisement completeAdv(@RequestBody Advertisement adv) {
-    	return advService.completeAdv(adv.getId()); 
+    	for (Advertisement a: this.myAdv()) {
+    		if (a.getId() == adv.getId()) {
+    			return advService.completeAdv(adv.getId());  
+    		}
+    	}
+    	return null; 
+    	
     }
     
     /**
@@ -144,7 +167,13 @@ public class AdvertisementController {
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
     @RequestMapping(value = "/ride-adv", method=RequestMethod.PUT)
     public Advertisement rideAdv(@RequestBody Advertisement adv) {
-    	return advService.rideAdv(adv.getId()); 
+    	for (Advertisement a: this.myAdv()) {
+    		if (a.getId() == adv.getId()) {
+    			return advService.rideAdv(adv.getId());   
+    		}
+    	}
+    	return null; 
+    	
     }
     
     
@@ -165,8 +194,6 @@ public class AdvertisementController {
         		return new Advertisement(); 
         	}
     	}
-    	
-    	
     	Advertisement oldadv = advService.findAdv(adv.getId()); 
     	if (!oldadv.getTitle().equals(adv.getTitle())) {
     		oldadv.setTitle(adv.getTitle());
