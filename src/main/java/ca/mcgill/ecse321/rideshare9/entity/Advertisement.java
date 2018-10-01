@@ -123,11 +123,7 @@ public class Advertisement {
 	public void setVehicle(long value) {
 		this.vehicle = value;
 	}
-	/*@JoinColumns( {
-        @JoinColumn(name = "vehicle_color", referencedColumnName = "color"),
-        @JoinColumn(name = "vehicle_model", referencedColumnName = "id"),
-        @JoinColumn(name = "vehicle_Licence", referencedColumnName = "licencePlate"),
-    })*/
+
 	@Column(name = "vehicle")
 	public long getVehicle() {
 		return this.vehicle;

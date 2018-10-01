@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
+import ca.mcgill.ecse321.rideshare9.entity.TripStatus;
 import ca.mcgill.ecse321.rideshare9.entity.User;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvBestQuery;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvQuery;
@@ -61,7 +62,7 @@ public class AdvertisementController {
      * @param adv (JSON)
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/add-adv", method=RequestMethod.POST)
+    @RequestMapping(value = "/create-adv", method=RequestMethod.POST)
     public Advertisement postAdv(@RequestBody Advertisement adv) {    	
     	String currentUserName = null; 
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -79,7 +80,7 @@ public class AdvertisementController {
      * @return List
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/my-adv", method=RequestMethod.GET)
+    @RequestMapping(value = "/get-logged-adv", method=RequestMethod.GET)
     public List<Advertisement> myAdv() {    	
     	String currentUserName = null; 
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -109,73 +110,6 @@ public class AdvertisementController {
     	return null; 
     }
     
-    /**
-     * driver: cancel advertisement, but only id needed, but only id needed
-     * @param adv (JSON)
-     * @return canceled adv
-     */
-    @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/cancel-adv", method=RequestMethod.PUT)
-    public Advertisement cancelAdv(@RequestBody Advertisement adv) {
-    	for (Advertisement a: this.myAdv()) {
-    		if (a.getId() == adv.getId()) {
-    			return advService.cancelAdv(adv.getId());  
-    		}
-    	}
-    	return null; 
-    	
-    }
-    
-    /**
-     * driver: close advertisement: don't want anyone more to join, but only id needed
-     * @param adv (JSON)
-     * @return closed adv
-     */
-    @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/close-adv", method=RequestMethod.PUT)
-    public Advertisement closeAdv(@RequestBody Advertisement adv) {
-    	for (Advertisement a: this.myAdv()) {
-    		if (a.getId() == adv.getId()) {
-    			return advService.closeAdv(adv.getId()); 
-    		}
-    	}
-    	return null; 
-    	
-    }
-    /**
-     * driver: complete advertisement journey complete, but only id needed
-     * @param adv (JSON)
-     * @return completed adv
-     */
-    @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/complete-adv", method=RequestMethod.PUT)
-    public Advertisement completeAdv(@RequestBody Advertisement adv) {
-    	for (Advertisement a: this.myAdv()) {
-    		if (a.getId() == adv.getId()) {
-    			return advService.completeAdv(adv.getId());  
-    		}
-    	}
-    	return null; 
-    	
-    }
-    
-    /**
-     * driver: ride advertisement: journey start
-     * @param adv (JSON)
-     * @return canceled adv
-     */
-    @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/ride-adv", method=RequestMethod.PUT)
-    public Advertisement rideAdv(@RequestBody Advertisement adv) {
-    	for (Advertisement a: this.myAdv()) {
-    		if (a.getId() == adv.getId()) {
-    			return advService.rideAdv(adv.getId());   
-    		}
-    	}
-    	return null; 
-    	
-    }
-    
     
     /**
      * driver: change advertisement content
@@ -183,7 +117,7 @@ public class AdvertisementController {
      * @return changed advertisement
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/change-adv", method=RequestMethod.PUT)
+    @RequestMapping(value = "/update-adv", method=RequestMethod.PUT)
     public Advertisement changeAdv(@RequestBody Advertisement adv) {
     	String currentUserName = null; 
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -195,22 +129,26 @@ public class AdvertisementController {
         	}
     	}
     	Advertisement oldadv = advService.findAdv(adv.getId()); 
-    	if (!oldadv.getTitle().equals(adv.getTitle())) {
+    	if (adv.getTitle() != null && !adv.getTitle().isEmpty() && !oldadv.getTitle().equals(adv.getTitle())) {
     		oldadv.setTitle(adv.getTitle());
     	}
-    	if (!oldadv.getStartTime().equals(adv.getStartTime())) {
+    	if (adv.getStartTime() != null && !oldadv.getStartTime().equals(adv.getStartTime())) {
     		oldadv.setStartTime(adv.getStartTime());
     	}
-    	if (!oldadv.getStartLocation().equals(adv.getStartLocation())) {
+    	if (adv.getStartLocation() != null && !adv.getStartLocation().isEmpty() && !oldadv.getStartLocation().equals(adv.getStartLocation())) {
     		oldadv.setStartLocation(adv.getStartLocation());
     	}
-    	if (oldadv.getSeatAvailable() != adv.getSeatAvailable()) {
+    	if ((adv.getSeatAvailable() != 0) && (oldadv.getSeatAvailable() != adv.getSeatAvailable()) 
+    			|| (adv.getSeatAvailable() == 0) && (adv.getStatus() != null) && (adv.getStatus() != TripStatus.REGISTERING)) {
     		oldadv.setSeatAvailable(adv.getSeatAvailable());
     	}
-    	if (oldadv.getVehicle() != adv.getVehicle()) {
+    	if (adv.getStatus() != null && adv.getStatus() != oldadv.getStatus()) {
+    		oldadv.setStatus(adv.getStatus());
+    	}
+    	if (adv.getVehicle() > 0 && (oldadv.getVehicle() != adv.getVehicle())) {
     		oldadv.setVehicle(adv.getVehicle());
     	}
-    	oldadv.getStops().retainAll(adv.getStops()); 
+    	oldadv.setStops(adv.getStops()); 
     	
     	return advService.updateAdv(oldadv); 
     }
@@ -221,7 +159,7 @@ public class AdvertisementController {
      * @return list of all advertisements
      */
     @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
-    @GetMapping("/get-all-adv")
+    @GetMapping("/get-list-adv")
     public List<Advertisement> searchAllAdv() {
         return advService.findAllAdv();
     }

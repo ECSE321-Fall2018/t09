@@ -1,5 +1,43 @@
 # Welcome to TEAM 09
 
+## API Endpoints
+
+### UserController
+
+| URL | Request | Parameter Format | Parameters | Role |
+| ------| ------ | ------ | ------ |
+| /user/sign-up | POST | JSON | "id", "username", and "role" | GLOBAL |
+| /user/get-is-unique | POST | JSON | "username" | GLOBAL |
+| /user/get-user-by-uname | POST | JSON | "username" | ADMIN |
+| /user/get-logged-user | GET | void | void | ADMIN, PASSENGER, DRIVER |
+| /user/get-list-passenger-status | GET | void | void | ADMIN |
+| /user/get-list-driver-status | GET | void | void | ADMIN |
+| /user/get-list-users | GET | void | void | ADMIN |
+| /user/update-status | PUT | JSON | "status" | ADMIN, PASSENGER, DRIVER |
+| /user/delete-usr | DELETE | JSON | "id" or "username" | ADMIN |
+| /user/mainpg | GET | void | void | GLOBAL |
+| /user/hello | GET | void | void | PASSENGER (for test) |
+
+### AdvertisementController
+
+| URL | Request | Parameter Format | Parameters | Role |
+| ------| ------ | ------ | ------ |
+| /adv/create-adv | POST | JSON | "id", "title", "startTime",  "startLocation", "seatAvailable",  "stops", "vehicle" | DRIVER |
+| /adv/get-adv-by-price | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY" | ADMIN, PASSENGER, DRIVER |
+| /adv/get-adv-by-time | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY" | ADMIN, PASSENGER, DRIVER |
+| /adv/get-adv-by-price-by-color | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vColor" | ADMIN, PASSENGER, DRIVER |
+| /adv/get-adv-by-time-by-color | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vColor" | ADMIN, PASSENGER, DRIVER |
+| /adv/get-adv-by-time-by-model | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vModel" | ADMIN, PASSENGER, DRIVER |
+| /adv/get-adv-by-price-by-model | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vModel" | ADMIN, PASSENGER, DRIVER |
+| /adv/get-adv-by-time-by-model-color | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vColor", "vModel" | ADMIN, PASSENGER, DRIVER |
+| /adv/get-adv-by-price-by-model-color | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vColor", "vModel" | ADMIN, PASSENGER, DRIVER |
+| /adv/get-logged-adv | GET | void | void | DRIVER |
+| /adv/get-top-driver | GET | void | void | ADMIN, PASSENGER, DRIVER |
+| /adv/get-list-adv | GET | void | void | ADMIN, PASSENGER, DRIVER |
+| /adv/update-adv | PUT | JSON | "id", "title", "startTime",  "startLocation", "seatAvailable",  "stops", "vehicle" | DRIVER |
+| /adv/delete-adv | DELETE | JSON | "id" | DRIVER |
+
+
 ## We need @2018/10/01
 
 1. Unit Test

@@ -84,62 +84,6 @@ public class AdvertisementRepository {
 	}
 	
 	/**
-	 * Driver confirm ride start
-	 * @param Advertisement id of adv to be ride
-	 * @return advertisement started
-	 */
-	@Transactional
-	public Advertisement rideAdv(long id) {
-		Advertisement adv = this.findAdv(id); 
-		adv.setStatus(TripStatus.ON_RIDE);
-		em.merge(adv); 
-		em.flush(); 
-	    return adv;
-	}
-	
-	/**
-	 * Driver can cancel an adv
-	 * @param Advertisement id of adv to be cancel
-	 * @return advertisement canceled
-	 */
-	@Transactional
-	public Advertisement cancelAdv(long id) {
-		Advertisement adv = this.findAdv(id); 
-		adv.setStatus(TripStatus.CANCELLED);
-		em.merge(adv); 
-		em.flush(); 
-	    return adv;
-	}
-	
-	/**
-	 * If registration full, change status to closed
-	 * FOR YUDI/Mapper: check seat available each time you add a passenger
-	 * @param Advertisement id of adv to be closed
-	 * @return advertisement closed
-	 */
-	@Transactional
-	public Advertisement closeAdv(long id) {
-		Advertisement adv = this.findAdv(id); 
-		adv.setStatus(TripStatus.CLOSED);
-		em.merge(adv); 
-		em.flush(); 
-	    return adv;
-	}
-	/**
-	 * If journey finish, change status to complete
-	 * @param Advertisement id of adv to be completed
-	 * @return advertisement completed
-	 */
-	@Transactional
-	public Advertisement completeAdv(long id) {
-		Advertisement adv = this.findAdv(id); 
-		adv.setStatus(TripStatus.COMPLETE);
-		em.merge(adv); 
-		em.flush(); 
-	    return adv;
-	}
-	
-	/**
 	 * Find advertisement by id
 	 * @param Advertisement id of adv to be found
 	 * @return advertisement found

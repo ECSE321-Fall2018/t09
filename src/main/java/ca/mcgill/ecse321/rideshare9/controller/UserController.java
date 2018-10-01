@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * DO NOT EDIT IT ON YOUR OWN!!!
+ * DO NOT EDIT IT ON YOUR OWN!!! THIS API DOES NOT SUPPORT UPDATE
  * ATTENTION: DON'T EDIT ANY CLASS WHOSE NAME HAS "User" or "Security" or "service" or related! Otherwise, no one can log in this system anymore! 
  * if you have suggestions, please contact me in group chat! 
  * @author yuxiangma
@@ -26,7 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
+	@Autowired
     private UserService userService;
     
     
@@ -36,7 +36,7 @@ public class UserController {
      * @return List<User>
      */
     @PreAuthorize("hasRole('ADMIN') or hasRole('BOSSLI')")
-    @GetMapping("/list-users")
+    @GetMapping("/get-list-users")
     public List<User> userServiceList(){    	
         return userService.getUsers();
     }
@@ -47,7 +47,7 @@ public class UserController {
      * @return List<User>
      */
     @PreAuthorize("hasRole('ADMIN') or hasRole('BOSSLI')")
-    @GetMapping("/list-status-driver")
+    @GetMapping("/get-list-driver-status")
     public List<HashMap<String, UserStatus>> driverStatusList(){
 
     	ArrayList<HashMap<String, UserStatus>> arrl = new ArrayList<HashMap<String, UserStatus>>(); 
@@ -69,7 +69,7 @@ public class UserController {
      * @return List<User>
      */
     @PreAuthorize("hasRole('ADMIN') or hasRole('BOSSLI')")
-    @GetMapping("/list-status-passenger")
+    @GetMapping("/get-list-passenger-status")
     public List<HashMap<String, UserStatus>> passengerStatusList(){
 
     	ArrayList<HashMap<String, UserStatus>> arrl = new ArrayList<HashMap<String, UserStatus>>(); 
@@ -87,14 +87,14 @@ public class UserController {
     }
 	
     /**
-     * Admin: retrive user profile of a user
+     * Admin: retrive user profile of a user, only username needed
      * @param username
      * @return User
      */
     @PreAuthorize("hasRole('ADMIN') or hasRole('BOSSLI')")
-    @GetMapping("/{username}")
-    public User userProfile(@PathVariable String username){
-        return userService.loadUserByUsername(username);
+    @PostMapping("/get-user-by-uname")
+    public User userProfile(@RequestBody User usr){
+        return userService.loadUserByUsername(usr.getUsername());
     }
     
     /**
@@ -103,7 +103,7 @@ public class UserController {
      * @return User
      */
     @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
-    @GetMapping("/get-current-uid")
+    @GetMapping("/get-logged-user")
     public User userIDnow(){
     	String currentUserName = ""; 
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -119,30 +119,14 @@ public class UserController {
      * @return User
      */
     @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
-    @PutMapping("/on-ride")
-    public User userStatusOnRide(){
+    @PutMapping("/update-status")
+    public User userStatus(@RequestBody User u){
     	String currentUserName = ""; 
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	if (!(authentication instanceof AnonymousAuthenticationToken)) {
     	    currentUserName = authentication.getName();
     	}
-        return userService.changeUserStatus(userService.findUserByUsername(currentUserName).getId(), UserStatus.ON_RIDE);
-    }
-    
-    /**
-     * All registered user: change status to standby
-     * @param void
-     * @return User
-     */
-    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
-    @PutMapping("/standby")
-    public User userStatusStandby(){
-    	String currentUserName = ""; 
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	if (!(authentication instanceof AnonymousAuthenticationToken)) {
-    	    currentUserName = authentication.getName();
-    	}
-        return userService.changeUserStatus(userService.findUserByUsername(currentUserName).getId(), UserStatus.STANDBY);
+        return userService.changeUserStatus(userService.findUserByUsername(currentUserName).getId(), u.getStatus());
     }
     
     
@@ -185,24 +169,24 @@ public class UserController {
      * Bonus Point
      * @param User
      */
-    @GetMapping("/uname-valid")
-    public boolean checkValidUname(@RequestParam(value = "trail") String username) {
-        return userService.findUserByUsername(username) == null; 
+    @PostMapping("/get-is-unique")
+    public boolean checkValidUname(@RequestBody User user) {
+        return userService.findUserByUsername(user.getUsername()) == null; 
     }
     
     /**
-     * Admin: delete user
+     * Admin: delete user by uid
      */
     @PreAuthorize("hasRole('ADMIN') or hasRole('BOSSLI')")
-    @DeleteMapping("/admin/delete/{uid}")
-    public int deleteUser(@PathVariable String uid){
+    @DeleteMapping("/delete-usr")
+    public int deleteUser(@RequestBody User u){
     	Long userid = -1L; 
     	String username=""; 
     	try {
-    		userid = Long.valueOf(uid); 
+    		userid = Long.valueOf(u.getId()); 
     		return userService.deleteUserByUID(userid);
     	} catch (Exception e){
-    		username = uid; 
+    		username = u.getUsername(); 
     		return userService.deleteUserByUname(username);
     	}
          
