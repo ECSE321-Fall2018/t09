@@ -5,7 +5,7 @@
 ### UserController
 
  URL | Request | Parameter Format | Parameters | Role 
- ------| ------ | ------ | ------ 
+ ------| ------ | ------ | ------ | ------ 
  /user/sign-up | POST | JSON | "id", "username", and "role" | GLOBAL 
  /user/get-is-unique | POST | JSON | "username" | GLOBAL 
  /user/get-user-by-uname | POST | JSON | "username" | ADMIN 
@@ -21,7 +21,7 @@
 ### AdvertisementController
 
 | URL | Request | Parameter Format | Parameters | Role |
-| ------| ------ | ------ | ------ |
+| ------| ------ | ------ | ------ | ------ |
 | /adv/create-adv | POST | JSON | "id", "title", "startTime",  "startLocation", "seatAvailable",  "stops", "vehicle" | DRIVER |
 | /adv/get-adv-by-price | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY" | ADMIN, PASSENGER, DRIVER |
 | /adv/get-adv-by-time | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY" | ADMIN, PASSENGER, DRIVER |
