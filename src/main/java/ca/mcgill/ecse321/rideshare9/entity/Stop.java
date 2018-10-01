@@ -45,5 +45,6 @@ public class Stop {
 	public float getPrice() {
 		return this.price;
 	}
+	
 
 }

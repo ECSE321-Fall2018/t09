@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.rideshare9.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
+import ca.mcgill.ecse321.rideshare9.entity.User;
+import ca.mcgill.ecse321.rideshare9.entity.helper.AdvBestQuery;
+import ca.mcgill.ecse321.rideshare9.entity.helper.AdvQuery;
+import ca.mcgill.ecse321.rideshare9.entity.helper.AdvResponse;
 import ca.mcgill.ecse321.rideshare9.repository.AdvertisementRepository;
 import ca.mcgill.ecse321.rideshare9.service.UserService;
 
-// TODO: Complete this controller, DON'T hesitate to add if you would like to add more method! 
 
 /**
  * MORE METHODS WANTED!! 
@@ -35,6 +36,7 @@ public class AdvertisementController {
 	private AdvertisementRepository advService;
 	@Autowired
 	private UserService userv; 
+
 	
     /**
      * driver: create advertisement
@@ -43,19 +45,14 @@ public class AdvertisementController {
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
     @RequestMapping(value = "/add-adv", method=RequestMethod.POST)
-    public Advertisement postAdv(@RequestBody Advertisement adv) {
-    	
-    	// TODO : Make this method return the added Advertisement with Advertisement ID
-    	// TODO : return the added object WITH ID (originally, it return what you entered, id = 0 is always)
-    	// TODO : Add stop and vehicles have bugs
-    	
-    	String currentUserName = ""; 
+    public Advertisement postAdv(@RequestBody Advertisement adv) {    	
+    	String currentUserName = null; 
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	if (!(authentication instanceof AnonymousAuthenticationToken)) {
     	    currentUserName = authentication.getName();
     	}
     	if (userv.findUserByUsername(currentUserName) != null) {
-        	return advService.createAdv(adv.getTitle(), adv.getStartTime(), adv.getStartLocation(), adv.getSeatAvailable(), adv.getVehicle(), userv.findUserByUsername(currentUserName).getId()); 
+        	return advService.createAdv(adv.getTitle(), adv.getStartTime(), adv.getStartLocation(), adv.getSeatAvailable(), adv.getStops(), adv.getVehicle(), userv.findUserByUsername(currentUserName).getId()); 
     	} else {
     		return null; 
     	}
@@ -69,11 +66,52 @@ public class AdvertisementController {
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
     @RequestMapping(value = "/delete-adv", method=RequestMethod.DELETE)
     public Advertisement delAdv(@RequestBody Advertisement adv) {
-    	
-    	// TODO : find by relevant criteria, or just id, and delete it 
-    	
-    	return new Advertisement(); 
+    	return advService.removeAdv(adv.getId()); 
     }
+    
+    /**
+     * driver: cancel advertisement
+     * @param adv (JSON)
+     * @return canceled adv
+     */
+    @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
+    @RequestMapping(value = "/cancel-adv", method=RequestMethod.PUT)
+    public Advertisement cancelAdv(@RequestBody Advertisement adv) {
+    	return advService.cancelAdv(adv.getId()); 
+    }
+    
+    /**
+     * driver: close advertisement: don't want anyone more to join
+     * @param adv (JSON)
+     * @return closed adv
+     */
+    @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
+    @RequestMapping(value = "/close-adv", method=RequestMethod.PUT)
+    public Advertisement closeAdv(@RequestBody Advertisement adv) {
+    	return advService.closeAdv(adv.getId()); 
+    }
+    /**
+     * driver: complete advertisement journey complete
+     * @param adv (JSON)
+     * @return completed adv
+     */
+    @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
+    @RequestMapping(value = "/complete-adv", method=RequestMethod.PUT)
+    public Advertisement completeAdv(@RequestBody Advertisement adv) {
+    	return advService.completeAdv(adv.getId()); 
+    }
+    
+    /**
+     * driver: ride advertisement: journey start
+     * @param adv (JSON)
+     * @return canceled adv
+     */
+    @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
+    @RequestMapping(value = "/ride-adv", method=RequestMethod.PUT)
+    public Advertisement rideAdv(@RequestBody Advertisement adv) {
+    	return advService.rideAdv(adv.getId()); 
+    }
+    
     
     /**
      * driver: change advertisement content
@@ -83,10 +121,36 @@ public class AdvertisementController {
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
     @RequestMapping(value = "/change-adv", method=RequestMethod.PUT)
     public Advertisement changeAdv(@RequestBody Advertisement adv) {
+    	String currentUserName = null; 
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	if (!(authentication instanceof AnonymousAuthenticationToken)) {
+    	    currentUserName = authentication.getName();
+    	    User curr = userv.findUserByUsername(currentUserName); 
+    	    if (curr.getId() != adv.getDriver()) {
+        		return new Advertisement(); 
+        	}
+    	}
     	
-    	// TODO : find by relevant criteria, or just id, and change parameter passed from adv json that is 1. not null and 2. different than before 
     	
-    	return new Advertisement(); 
+    	Advertisement oldadv = advService.findAdv(adv.getId()); 
+    	if (!oldadv.getTitle().equals(adv.getTitle())) {
+    		oldadv.setTitle(adv.getTitle());
+    	}
+    	if (!oldadv.getStartTime().equals(adv.getStartTime())) {
+    		oldadv.setStartTime(adv.getStartTime());
+    	}
+    	if (!oldadv.getStartLocation().equals(adv.getStartLocation())) {
+    		oldadv.setStartLocation(adv.getStartLocation());
+    	}
+    	if (oldadv.getSeatAvailable() != adv.getSeatAvailable()) {
+    		oldadv.setSeatAvailable(adv.getSeatAvailable());
+    	}
+    	if (oldadv.getVehicle() != adv.getVehicle()) {
+    		oldadv.setVehicle(adv.getVehicle());
+    	}
+    	oldadv.getStops().retainAll(adv.getStops()); 
+    	
+    	return advService.updateAdv(oldadv); 
     }
 
     /**
@@ -108,26 +172,32 @@ public class AdvertisementController {
      */
     @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
     @GetMapping("/get-top-drivers")
-    public List<Advertisement> getTopDriver() {
-    	
-    	// TODO: Top driver, do this my adding method to AdvertisementRepository
-    	
-        return new ArrayList<Advertisement>();
+    public List<AdvBestQuery> getTopDriver() {
+        return advService.findBestDriver(); 
     }
     
     /**
-     * All user: Search Advertisement by relavent criteria
+     * All user: Search Advertisement by price criteria
      * Core API endpoint: Passenger-1, Passenger-2 in README.md at Mark branch
      * This method is NOT meant to be restricted by passing JSON object, you can actually pass any parameter, or use a request type other than post
      * @param adv (json)
      * @return list of (collection of) advertisement according criteria specified by user entry
      */
     @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
-    @PostMapping("/get-adv-by-criteria")
-    public List<Advertisement> searchAdvByCriteria(@RequestBody Advertisement advCriteria) {
-        
-    	// TODO: use or invent method in entityManager/repository to implement this
-    	
-    	return new ArrayList<Advertisement>(); 
+    @PostMapping("/get-adv-by-price")
+    public List<AdvResponse> searchAdvByPrice(@RequestBody AdvQuery advCriteria) {
+    	return advService.findAdvByCriteriaSortByPrice(advCriteria); 
+    }
+    /**
+     * All user: Search Advertisement by datetime criteria
+     * Core API endpoint: Passenger-1, Passenger-2 in README.md at Mark branch
+     * This method is NOT meant to be restricted by passing JSON object, you can actually pass any parameter, or use a request type other than post
+     * @param adv (json)
+     * @return list of (collection of) advertisement according criteria specified by user entry
+     */
+    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+    @PostMapping("/get-adv-by-time")
+    public List<AdvResponse> searchAdvByTime(@RequestBody AdvQuery advCriteria) {
+    	return advService.findAdvByCriteriaSortByTime(advCriteria); 
     }
 }

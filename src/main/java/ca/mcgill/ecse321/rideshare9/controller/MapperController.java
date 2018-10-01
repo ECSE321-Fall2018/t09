@@ -7,9 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,16 +62,12 @@ public class MapperController {
      * @return deleted mapper
      */
     @PreAuthorize("hasRole('PASSENGER') or hasRole('BOSSLI')")
-    @DeleteMapping("/admin/delete/{mapperid}")
-    public MapperUserAdv delMap(@PathVariable String mapperid) {
+    @RequestMapping(value = "/delete-map", method=RequestMethod.DELETE)
+    public MapperUserAdv delMap(@RequestBody MapperUserAdv map) {
     	
-    	Long mapperid_long = Long.valueOf(mapperid);
-    	MapperUserAdv mapperuseradv = mserv.findMap(mapperid_long);
-    	if(mapperuseradv != null) {
-    		mserv.removeVehicle(mapperid_long);
-    	}
     	// TODO : find by relevant criteria, or just id, and delete it 
-    	return mapperuseradv; 
+    	
+    	return new MapperUserAdv(); 
     }
     
     /**

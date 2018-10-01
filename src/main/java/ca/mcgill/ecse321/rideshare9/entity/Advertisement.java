@@ -4,7 +4,9 @@ import javax.persistence.JoinColumns;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -96,15 +98,15 @@ public class Advertisement {
 	 * </pre>
 	 */
 	
-	private List<Long> stops;
+	private Set<Long> stops;
 	
-	public void setStops(List<Long> stops) {
+	public void setStops(Set<Long> stops) {
 		this.stops = stops;
 	}
 	@ElementCollection
-	public List<Long> getStops() {
+	public Set<Long> getStops() {
 		if (this.stops == null) {
-			this.stops = new ArrayList<Long>();
+			this.stops = new HashSet<Long>();
 		}
 		return this.stops;
 	}
@@ -146,4 +148,5 @@ public class Advertisement {
 	public void setDriver(long driver) {
 		this.driver = driver;
 	}
+	
 }

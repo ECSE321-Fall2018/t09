@@ -32,10 +32,10 @@ public class StopRepository {
 	}
 
 	@Transactional
-	public Stop findAdv(long id) {
+	public Stop findStop(long id) {
 	    return em.find(Stop.class, id);
 	}
-	public List<Stop> findAllAdv() {
+	public List<Stop> findAllStop() {
 	    TypedQuery<Stop> query = em.createQuery("SELECT s FROM Stop s", Stop.class);
 	    return query.getResultList();
 	}
