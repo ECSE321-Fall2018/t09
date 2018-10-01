@@ -1,5 +1,10 @@
 # Welcome to TEAM 09
 
+## We need @2018/10/01
+
+1. Unit Test
+2. Heroku SQL API key/uname/pswd
+
 ## Things done on 2018/09/30
 
 - Distributed tasks
