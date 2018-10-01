@@ -1,5 +1,10 @@
 # Welcome to TEAM 09
 
+## Tips for naming API
+
+- APIs are data-oriented, NOT functional requirement oriented
+- API names should follow create, get, delete, update naming convension
+
 ## API Endpoints
 
 ### UserController
