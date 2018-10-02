@@ -14,7 +14,15 @@ public class AdvQuery {
 	private Date startTimeY;
 	private String vColor;
 	private String vModel;
+	// true: price, false: time
+	private boolean sortByPrice; 
 	
+	public boolean isSortByPrice() {
+		return sortByPrice;
+	}
+	public void setSortByPrice(boolean sortByPrice) {
+		this.sortByPrice = sortByPrice;
+	}
 	public String getvColor() {
 		return vColor;
 	}
