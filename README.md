@@ -37,14 +37,14 @@
  URL | Request | Parameter Format | Parameters | Role (ROLE_)
  ------| ------ | ------ | ------ | ------ 
  /adv/create-adv | POST | JSON | "id", "title", "startTime",  "startLocation", "seatAvailable",  "stops", "vehicle" | DRIVER 
- /adv/get-adv-by-price | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY" | ADMIN, PASSENGER, DRIVER 
- /adv/get-adv-by-time | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY" | ADMIN, PASSENGER, DRIVER 
  /adv/get-adv-search | POST | JSON | Essential: "stop", "startLocation", "startTimeX", "startTimeY", "sortByPrice"; Optional: "vColor", "vModel" | ADMIN, PASSENGER, DRIVER 
  /adv/get-logged-adv | GET | void | void | DRIVER 
  /adv/get-top-driver | GET | void | void | ADMIN, PASSENGER, DRIVER 
  /adv/get-list-adv | GET | void | void | ADMIN, PASSENGER, DRIVER 
- /adv/update-adv | PUT | JSON | "id", "title", "startTime",  "startLocation", "seatAvailable", "stops", "vehicle" | DRIVER 
+ /adv/update-adv | PUT | JSON | Essential: "id", "stops"; Optional: "title", "startTime",  "startLocation", "seatAvailable", "vehicle" | DRIVER 
  /adv/delete-adv | DELETE | JSON | "id" | DRIVER
+ 
+ Note: "Stop" attribute in update-adv overshadowed all previous records in a list
  
  ### MapperController
  URL | Request | Parameter Format | Parameters | Role (ROLE_)
