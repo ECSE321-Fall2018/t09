@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
 import ca.mcgill.ecse321.rideshare9.entity.Stop;
+import ca.mcgill.ecse321.rideshare9.entity.Vehicle;
 import ca.mcgill.ecse321.rideshare9.service.impl.UserServiceImpl;
 
 @Repository
@@ -30,7 +31,32 @@ public class StopRepository {
 		em.flush();
 	    return stp;
 	}
-
+	
+	/**
+	 * Remove a stop (added by Chris, may have error)
+	 * @param id of a stop
+	 * @return void
+	 */
+	@Transactional
+	public void removeStop(long id) {
+		Stop stp = findStop(id);
+	    if (stp != null) {
+	      em.remove(stp);
+	    }
+	}
+	
+	/**
+	 * Update a stop (added by Chris, may have error)
+	 * @param Stop to be changed
+	 * @return Stop changed
+	 */
+	@Transactional
+	public Stop updateStop(Stop stp) {
+		em.merge(stp); 
+		em.flush();
+	    return stp;
+	}
+	
 	@Transactional
 	public Stop findStop(long id) {
 	    return em.find(Stop.class, id);
