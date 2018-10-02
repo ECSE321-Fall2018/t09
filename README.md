@@ -39,16 +39,11 @@
  /adv/create-adv | POST | JSON | "id", "title", "startTime",  "startLocation", "seatAvailable",  "stops", "vehicle" | DRIVER 
  /adv/get-adv-by-price | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY" | ADMIN, PASSENGER, DRIVER 
  /adv/get-adv-by-time | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY" | ADMIN, PASSENGER, DRIVER 
- /adv/get-adv-by-price-by-color | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vColor" | ADMIN, PASSENGER, DRIVER 
- /adv/get-adv-by-time-by-color | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vColor" | ADMIN, PASSENGER, DRIVER 
- /adv/get-adv-by-time-by-model | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vModel" | ADMIN, PASSENGER, DRIVER 
- /adv/get-adv-by-price-by-model | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vModel" | ADMIN, PASSENGER, DRIVER 
- /adv/get-adv-by-time-by-model-color | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vColor", "vModel" | ADMIN, PASSENGER, DRIVER 
- /adv/get-adv-by-price-by-model-color | POST | JSON | "stop", "startLocation", "startTimeX", "startTimeY", "vColor", "vModel" | ADMIN, PASSENGER, DRIVER 
+ /adv/get-adv-search | POST | JSON | Essential: "stop", "startLocation", "startTimeX", "startTimeY", "sortByPrice"; Optional: "vColor", "vModel" | ADMIN, PASSENGER, DRIVER 
  /adv/get-logged-adv | GET | void | void | DRIVER 
  /adv/get-top-driver | GET | void | void | ADMIN, PASSENGER, DRIVER 
  /adv/get-list-adv | GET | void | void | ADMIN, PASSENGER, DRIVER 
- /adv/update-adv | PUT | JSON | "id", "title", "startTime",  "startLocation", "seatAvailable",  "stops", "vehicle" | DRIVER 
+ /adv/update-adv | PUT | JSON | "id", "title", "startTime",  "startLocation", "seatAvailable", "stops", "vehicle" | DRIVER 
  /adv/delete-adv | DELETE | JSON | "id" | DRIVER
  
  ### MapperController
