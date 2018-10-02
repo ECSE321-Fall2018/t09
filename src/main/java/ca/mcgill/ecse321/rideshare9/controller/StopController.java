@@ -42,7 +42,6 @@ public class StopController {
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
     @RequestMapping(value = "/change-stop", method = RequestMethod.PUT)
     public Stop changeStop(@RequestBody Stop sp) {
-    	
     	Stop oldsp = stopService.findStop(sp.getId()); 
     	if (sp.getPrice() > 0  && oldsp.getPrice()!=sp.getPrice()) {
     		oldsp.setPrice(sp.getPrice());;
@@ -62,7 +61,6 @@ public class StopController {
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
     @RequestMapping(value = "/del-stop", method = RequestMethod.DELETE)
     public Stop delStop(@RequestBody Stop sp) {
-    	
     	if (sp != null) {
         	stopService.removeStop(sp.getId()); 
         	return sp;
