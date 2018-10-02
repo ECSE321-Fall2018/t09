@@ -5,8 +5,8 @@ spring:
     name: auth-service
   datasource:
     url : jdbc:mysql://localhost:3306/carpool
-    username : root
-    password : 123456
+    username : group9
+    password : ecse321
     driverClassName : com.mysql.jdbc.Driver
   jpa:
     database : MYSQL
@@ -26,3 +26,9 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
     com.itmuch.youran.persistence: ERROR
+    org.springframework.web: ERROR
+    ca.mcgill.ecse321.rideshare9: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file: logging/rideshare9.log
