@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.rideshare9.service.impl;
 
+import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
 import ca.mcgill.ecse321.rideshare9.entity.User;
 import ca.mcgill.ecse321.rideshare9.entity.UserStatus;
 import ca.mcgill.ecse321.rideshare9.repository.UserRepository;
@@ -7,6 +8,7 @@ import ca.mcgill.ecse321.rideshare9.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +29,7 @@ import javax.transaction.Transactional;
 
 
 @Service
+@Repository
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -54,7 +57,8 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public User findUserByUsername(String uname) {
-    	return userRepository.findByUsername(uname); 
+    	return em.find(User.class, uname); 
+    			//userRepository.findByUsername(uname); 
     }
     @Override
     public int deleteUserByUID(Long uid) {

@@ -94,7 +94,7 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('BOSSLI')")
     @PostMapping("/get-user-by-uname")
     public User userProfile(@RequestBody User usr){
-        return userService.loadUserByUsername(usr.getUsername());
+        return userService.findUserByUsername(usr.getUsername());
     }
     
     /**

@@ -68,4 +68,18 @@ public class StopController {
     		return sp; 
     	}
     }
+    /**
+     * Driver: Delete stop
+     * Core API endpoint: Driver-1.3
+     * @param stop
+     * @return deleted stop
+     */
+    @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
+    @RequestMapping(value = "/get-stop-by-name", method = RequestMethod.DELETE)
+    public Stop findStopByName(@RequestBody String stp) {
+    	return stopService.findStopbyName(stp); 
+    	/*Stop a = (new Stop()); 
+    	a.setStopName("TestParticipant"); 
+    	return a;*/
+    }
 }
