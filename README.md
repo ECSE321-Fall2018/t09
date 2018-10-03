@@ -1,4 +1,12 @@
 # Welcome to TEAM 09
+
+## Update of 2018/10/03: Good luck on your EXAMS!!! OS and Ocaml!!!
+
+- Concluded that security feature will not block mockit from unit testing, but security features needs integration test, which is not part of our project
+- Able to junit test our api with mockit, example provided on UserController; Remind: update your pom.xml
+- Solved ALL bonus problems
+
+
 ## WANTED: Bonus 3 solution: logging
 
 - Logging (i.e., all API interactions should be recorded in a log file for posterity, debugging, and data mining purposes)
