@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -63,7 +64,7 @@ public class StopControllerTests {
 		Stop s2 = new Stop();
 		s2.setPrice(1.1f);
 		s2.setStopName("test");
-		//strinify it to json
+		//stringify it to json
 		String objAsJson = jsonStop.write(s2).getJson();
 		//set repository response
 		when(stopDao.createStop(anyString(), anyFloat())).thenReturn(s2);
@@ -81,4 +82,36 @@ public class StopControllerTests {
 		//make sure it is equal to what we sent
 		assertEquals(responseContent, objAsJson);
 	}
+	
+	@Test
+	public void canUpdateStop() throws Exception {
+		Stop oldS = new Stop();
+		oldS.setPrice(0f);
+		oldS.setStopName("oldName");
+		oldS.setId(1l);
+		Stop newS = new Stop();
+		newS.setId(1l);
+		newS.setPrice(2.2f);
+		newS.setStopName("newName");
+		//stringify to json
+		String oldSJson = jsonStop.write(oldS).getJson();
+		String newSJson = jsonStop.write(newS).getJson();
+		//set repository response
+		when(stopDao.findStop(1l)).thenReturn(oldS);
+		when(stopDao.updateStop(oldS)).thenReturn(newS);
+		//start the actual test
+		MvcResult result = mvc.perform(
+				put("/stop/change-stop")
+					.contentType(MediaType.APPLICATION_JSON_UTF8)
+					.content(newSJson))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andReturn();
+		//get the response body
+		String responseContent = result.getResponse().getContentAsString();
+		//make sure it is equal to what we sent
+		assertEquals(responseContent, newSJson);
+	}
+	
 }
