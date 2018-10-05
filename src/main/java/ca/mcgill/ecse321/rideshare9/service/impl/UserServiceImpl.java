@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
     EntityManager em; 
 
-    UserServiceImpl(UserRepository userRepository){
+    public UserServiceImpl(UserRepository userRepository){
         this.userRepository = userRepository;
     }
 

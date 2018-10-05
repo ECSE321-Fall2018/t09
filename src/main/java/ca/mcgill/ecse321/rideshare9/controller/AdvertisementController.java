@@ -66,10 +66,11 @@ public class AdvertisementController {
     @RequestMapping(value = "/create-adv", method=RequestMethod.POST)
     public Advertisement postAdv(@RequestBody Advertisement adv) {    	
     	String currentUserName = null; 
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+   	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+   
     	if (!(authentication instanceof AnonymousAuthenticationToken)) {
     	    currentUserName = authentication.getName();
-    	}
+    	} 
     	if (userv.findUserByUsername(currentUserName) != null) {
         	return advService.createAdv(adv.getTitle(), adv.getStartTime(), adv.getStartLocation(), adv.getSeatAvailable(), adv.getStops(), adv.getVehicle(), userv.findUserByUsername(currentUserName).getId()); 
     	} else {
