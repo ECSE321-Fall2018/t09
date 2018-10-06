@@ -57,8 +57,8 @@
  ### MapperController
  URL | Request | Parameter Format | Parameters | Role (ROLE_)
  ------| ------ | ------ | ------ | ------
- /map/add-map | POST | Pathvariable | "adv_id" | PASSENGER
- /map/delete | DELETE | PathVariable | "mapper_id" | PASSENGER
+ /map/add-map | POST | Path Parameter | "adv_id" | PASSENGER
+ /map/delete/{mapper_id} | DELETE | Path Variable | "mapper_id" | PASSENGER
  /map/list-top-passengers | GET | void | void | ADMIN
  
  ### VehicleController
@@ -74,7 +74,8 @@
  ------| ------ | ------ | ------ | ------
  /stop/add-stop | POST | JSON | "stopName", "price" | DRIVER
  /stop/change-stop | PUT | JSON | "id"; Optional: "stopName", "price" | DRIVER
- /stop/del-stop | GET | JSON | "id" | DRIVER
+ /stop/del-stop | DELETE | JSON | "id" | DRIVER
+ /stop/get-stop-by-name/{name} | GET | Path Variable | "name" | DRIVER
 
 
 ## We need @2018/10/01
