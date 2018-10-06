@@ -135,11 +135,13 @@ public class UserController {
      * @param 
      * @return str("Ok")
      */
+    /*
     @PreAuthorize("hasRole('PASSENGER') or hasRole('BOSSLI')")
     @GetMapping("/hello")
     public String helloW(){
         return "Ok!";
-    }
+    }*/
+   
     
     /**
      * HelloWorld, greet to everyone (new users)!  
