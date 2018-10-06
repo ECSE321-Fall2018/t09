@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -94,7 +96,7 @@ public class StopControllerTests {
 		newS.setPrice(2.2f);
 		newS.setStopName("newName");
 		//stringify to json
-		String oldSJson = jsonStop.write(oldS).getJson();
+		//String oldSJson = jsonStop.write(oldS).getJson();
 		String newSJson = jsonStop.write(newS).getJson();
 		//set repository response
 		when(stopDao.findStop(1l)).thenReturn(oldS);
@@ -114,4 +116,69 @@ public class StopControllerTests {
 		assertEquals(responseContent, newSJson);
 	}
 	
+	@Test
+	public void canDeleteStop() throws Exception {
+		Stop s = new Stop();
+		s.setId(1);
+		s.setPrice(1.1f);
+		s.setStopName("test");
+		//stringify to json
+		String sJson = jsonStop.write(s).getJson();
+		//set repository response
+		MvcResult result = mvc.perform(
+				delete("/stop/del-stop")
+					.contentType(MediaType.APPLICATION_JSON_UTF8)
+					.content(sJson))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andReturn();
+	}
+	
+	@Test
+	public void canFindStopByName() throws Exception {
+		Stop s = new Stop();
+		s.setId(1);
+		s.setPrice(1.1f);
+		s.setStopName("test");
+		String sJson = jsonStop.write(s).getJson();
+		when(stopDao.findStopbyName("test")).thenReturn(s);
+		when(stopDao.findStopbyName("nope")).thenReturn(null);
+		MvcResult result = mvc.perform(
+				get("/stop/get-stop-by-name/test"))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andReturn();
+		String responseContent = result.getResponse().getContentAsString();
+		assertEquals(responseContent, sJson);
+		MvcResult result2 = mvc.perform(
+				get("/stop/get-stop-by-name/nope"))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andReturn();
+		assertEquals(result2.getResponse().getContentLength(), 0);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
