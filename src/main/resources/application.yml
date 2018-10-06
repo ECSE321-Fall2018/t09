@@ -1,24 +1,11 @@
-server:
-  port: 8080
 spring:
   application:
     name: auth-service
   datasource:
-    url : jdbc:mysql://localhost:3306/carpool
-    username : group9
-    password : ecse321
-    driverClassName : com.mysql.jdbc.Driver
-  jpa:
-    database : MYSQL
-    show-sql : true
-    schema: classpath:schema.sql
-    data: data.sql
-    hibernate:
-      ddl-auto : update
-      naming-strategy : org.hibernate.cfg.ImprovedNamingStrategy
-    properties:
-      hibernate:
-        dialect : org.hibernate.dialect.MySQL5Dialect
+    url : jdbc:postgresql://ec2-54-227-244-12.compute-1.amazonaws.com:5432/dcr140e89ana42
+    username : qafeaqjghxcbjb
+    password : 85817c07188d377702c79fe357b6e3b4fdc16618769d1db640bd455f2a562493
+    driverClassName : org.postgresql.Driver
 logging:
   level:
     root: INFO

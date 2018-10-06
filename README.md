@@ -53,6 +53,20 @@
  /map/delete | DELETE | PathVariable | "mapper_id" | PASSENGER
  /map/list-top-passengers | GET | void | void | ADMIN
  
+ ### VehicleController
+ URL | Request | Parameter Format | Parameters | Role (ROLE_)
+ ------| ------ | ------ | ------ | ------
+ /vehicle/add-car | POST | JSON | "color", "licencePlate", "maxSeat", "model" | DRIVER
+ /vehicle/remove-car | DELETE | JSON | "id" | DRIVER, ADMIN
+ /vehicle/get-cars | GET | void | void | DRIVER, ADMIN
+ /vehicle/change-cars | PUT | JSON | "id", "driverId"; Optional: "color", "licencePlate", "maxSeat", "model" | DRIVER
+ 
+ ### StopController
+ URL | Request | Parameter Format | Parameters | Role (ROLE_)
+ ------| ------ | ------ | ------ | ------
+ /stop/add-stop | POST | JSON | "stopName", "price" | DRIVER
+ /stop/change-stop | PUT | JSON | "id"; Optional: "stopName", "price" | DRIVER
+ /stop/del-stop | GET | JSON | "id" | DRIVER
 
 
 ## We need @2018/10/01

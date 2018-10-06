@@ -1,18 +1,24 @@
 package ca.mcgill.ecse321.rideshare9.entity;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_stop")
 public class Stop {
 	
+	public Stop() {
+		
+	}
+	public Stop(long id, float price, String stopName) {
+		this.id=id;
+		this.price=price;
+		this.stopName=stopName;
+	}
 
 	private long id;
 
