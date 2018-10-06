@@ -1,9 +1,11 @@
 package ca.mcgill.ecse321.rideshare9.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
@@ -75,11 +77,8 @@ public class StopController {
      * @return deleted stop
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/get-stop-by-name", method = RequestMethod.DELETE)
-    public Stop findStopByName(@RequestBody String stp) {
-    	return stopService.findStopbyName(stp); 
-    	/*Stop a = (new Stop()); 
-    	a.setStopName("TestParticipant"); 
-    	return a;*/
+    @RequestMapping(value = "/get-stop-by-name/{stpName}", method = RequestMethod.GET)
+    public Stop findStopByName(@PathVariable(name="stpName") String stpName) {
+    	return stopService.findStopbyName(stpName);
     }
 }
