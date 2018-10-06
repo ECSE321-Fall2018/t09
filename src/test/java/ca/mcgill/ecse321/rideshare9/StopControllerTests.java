@@ -42,7 +42,7 @@ import ca.mcgill.ecse321.rideshare9.controller.StopController;
 import ca.mcgill.ecse321.rideshare9.entity.Stop;
 import ca.mcgill.ecse321.rideshare9.repository.StopRepository;
 
-@ExtendWith(SpringExtension.class)
+//@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class StopControllerTests {
 	private MockMvc mvc;
@@ -106,7 +106,7 @@ public class StopControllerTests {
 				put("/stop/change-stop")
 					.contentType(MediaType.APPLICATION_JSON_UTF8)
 					.content(newSJson))
-				.andDo(print())
+				//.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 				.andReturn();
@@ -129,7 +129,7 @@ public class StopControllerTests {
 				delete("/stop/del-stop")
 					.contentType(MediaType.APPLICATION_JSON_UTF8)
 					.content(sJson))
-				.andDo(print())
+				//.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 				.andReturn();
@@ -146,7 +146,7 @@ public class StopControllerTests {
 		when(stopDao.findStopbyName("nope")).thenReturn(null);
 		MvcResult result = mvc.perform(
 				get("/stop/get-stop-by-name/test"))
-				.andDo(print())
+				//.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 				.andReturn();
@@ -154,7 +154,7 @@ public class StopControllerTests {
 		assertEquals(responseContent, sJson);
 		MvcResult result2 = mvc.perform(
 				get("/stop/get-stop-by-name/nope"))
-				.andDo(print())
+				//.andDo(print())
 				.andExpect(status().isOk())
 				.andReturn();
 		assertEquals(result2.getResponse().getContentLength(), 0);
