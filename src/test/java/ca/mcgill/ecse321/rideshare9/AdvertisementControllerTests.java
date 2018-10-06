@@ -43,6 +43,8 @@ import ca.mcgill.ecse321.rideshare9.entity.TripStatus;
 import ca.mcgill.ecse321.rideshare9.entity.User;
 import ca.mcgill.ecse321.rideshare9.entity.UserStatus;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvBestQuery;
+import ca.mcgill.ecse321.rideshare9.entity.helper.AdvQuery;
+import ca.mcgill.ecse321.rideshare9.entity.helper.AdvResponse;
 import ca.mcgill.ecse321.rideshare9.repository.AdvertisementRepository;
 import ca.mcgill.ecse321.rideshare9.repository.UserRepository;
 import ca.mcgill.ecse321.rideshare9.service.UserService;
@@ -67,6 +69,9 @@ public class AdvertisementControllerTests{
 	
 	private JacksonTester<Advertisement> jsonAd;
 	private JacksonTester<ArrayList<AdvBestQuery>> jsonQuery;
+	private JacksonTester<AdvQuery> jsonRegQuery;
+	private JacksonTester<ArrayList<AdvResponse>> jsonResponse;
+	private JacksonTester<ArrayList<Advertisement>> jsonAdList;
 	
 	private Advertisement testAd;
 	private Advertisement newAd;
@@ -273,6 +278,138 @@ public class AdvertisementControllerTests{
 				assertEquals(responseContent, objAsJson);
 	
 	}
+	
+	@Test
+	public void canFindMyAds() throws Exception {
+		
+		testDriver.setRole("BOSSLI");
+		
+		 UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken ("Thomas","abc", testDriver.getAuthorities());
+		   MockHttpSession session = new MockHttpSession();
+	        session.setAttribute(
+	                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, 
+	                new MockSecurityContext(principal));
+	     
+	    SecurityContextHolder.getContext().setAuthentication(principal);  
+	    
+	    ArrayList<Advertisement> adList = new ArrayList<Advertisement>();
+	    adList.add(testAd);
+	    
+		//strinify Ad to json
+		String objAsJson = jsonAdList.write(adList).getJson();
+		//set repository response
+		when(adDao.findAllAdv(anyLong())).thenReturn(adList);
+		when(userController.findUserByUsername(anyString())).thenReturn(testDriver);
+		when(adDao.updateAdv(any())).thenReturn(testAd);
+		
+	
+		//start the actual test
+		MvcResult result = mvc.perform(
+				get("/adv/get-logged-adv")
+					.contentType(MediaType.APPLICATION_JSON_UTF8)
+					.content(objAsJson)
+					.session(session))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andReturn();
+		
+				//get the response body
+				String responseContent = result.getResponse().getContentAsString();
+				//make sure it is equal to what we updated
+				assertEquals(responseContent, objAsJson);
+	
+	}
+	
+	@Test
+	public void canSearchAdv() throws Exception {
+		
+		
+		 UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken ("Thomas","abc", testDriver.getAuthorities());
+		   MockHttpSession session = new MockHttpSession();
+	        session.setAttribute(
+	                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, 
+	                new MockSecurityContext(principal));
+	     
+	    SecurityContextHolder.getContext().setAuthentication(principal);  
+	    
+	    //Test Queries
+
+	    AdvQuery testAsk = new AdvQuery();
+	    testAsk.setSortByPrice(true);
+	    testAsk.setvColor("Blue");
+		//strinify Query to json
+	    
+	    //Test Response
+	    ArrayList<AdvResponse> testQueries = new ArrayList<AdvResponse>();
+	    AdvResponse testQuery = new AdvResponse(testAd, (float) 30.0);
+	    testQueries.add(testQuery);
+		//strinify Query to json
+		String queryAsJson = jsonRegQuery.write(testAsk).getJson();
+		String adAsJson = jsonResponse.write(testQueries).getJson();
+		//set repository response
+		when(adDao.findAdvByCriteriaAndColorSortByPrice(any())).thenReturn(testQueries);
+		/*when(adDao.findAdvByCriteriaAndColorSortByTime(any())).thenReturn(testQueries);
+		when(adDao.findAdvByCriteriaAndModelAndColorSortByPrice(any())).thenReturn(testQueries);
+		when(adDao.findAdvByCriteriaAndModelAndColorSortByTime(any())).thenReturn(testQueries);
+		when(adDao.findAdvByCriteriaAndModelSortByPrice(any())).thenReturn(testQueries);
+		when(adDao.findAdvByCriteriaAndModelSortByTime(any())).thenReturn(testQueries);
+		when(adDao.findAdvByCriteriaSortByPrice(any())).thenReturn(testQueries);
+		when(adDao.findAdvByCriteriaSortByTime(any())).thenReturn(testQueries); */
+		//start the actual test
+		MvcResult result = mvc.perform(
+				post("/adv/get-adv-search")
+					.contentType(MediaType.APPLICATION_JSON_UTF8)
+					.content(queryAsJson)
+					.session(session))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andReturn();
+		
+				//get the response body
+				String responseContent = result.getResponse().getContentAsString();
+				//make sure it is equal to what we updated
+				assertEquals(responseContent, adAsJson);
+	
+	}
+	
+	@Test
+	public void canFindAllAds() throws Exception {
+		
+		 UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken ("Thomas","abc", testDriver.getAuthorities());
+		   MockHttpSession session = new MockHttpSession();
+	        session.setAttribute(
+	                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, 
+	                new MockSecurityContext(principal));
+	     
+	    SecurityContextHolder.getContext().setAuthentication(principal);  
+	    
+	    ArrayList<Advertisement> adList = new ArrayList<Advertisement>();
+	    adList.add(testAd);
+	    
+		//strinify Ad to json
+		String objAsJson = jsonAdList.write(adList).getJson();
+		//set repository response
+		when(adDao.findAllAdv()).thenReturn(adList);
+	
+		
+	
+		//start the actual test
+		MvcResult result = mvc.perform(
+				get("/adv/get-list-adv")
+					.contentType(MediaType.APPLICATION_JSON_UTF8)
+					.content(objAsJson)
+					.session(session))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andReturn();
+		
+				//get the response body
+				String responseContent = result.getResponse().getContentAsString();
+				//make sure it is equal to what we updated
+				assertEquals(responseContent, objAsJson);
+	
+	}
+	
 	
 	
 	
