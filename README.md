@@ -55,6 +55,8 @@
  Note: "Stop" attribute in update-adv overshadowed all previous records in a list
  
  ### MapperController
+ used to add passengers to an advertised trip.
+ 
  URL | Request | Parameter Format | Parameters | Role (ROLE_)
  ------| ------ | ------ | ------ | ------
  /map/add-map | POST | Path Parameter | "adv_id" | PASSENGER
