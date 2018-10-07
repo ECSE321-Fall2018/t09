@@ -149,7 +149,7 @@ public class AdvertisementControllerTests{
 		//set repository response
 		when(adDao.createAdv(anyString(), any(), anyString(), anyInt(), any(), anyLong(), anyLong())).thenReturn(testAd);
 		when(userController.findUserByUsername(anyString())).thenReturn(testDriver);
-		
+		when(userController.loadUserByUsername(anyString())).thenReturn(testDriver);
 	
 		//start the actual test
 		MvcResult result = mvc.perform(
@@ -186,7 +186,7 @@ public class AdvertisementControllerTests{
 		//set repository response
 		when(adDao.createAdv(anyString(), any(), anyString(), anyInt(), any(), anyLong(), anyLong())).thenReturn(testAd);
 		when(userController.findUserByUsername(anyString())).thenReturn(testDriver);
-		
+		when(userController.loadUserByUsername(anyString())).thenReturn(testDriver);
 		
 	
 		//start the actual test
@@ -219,7 +219,7 @@ public class AdvertisementControllerTests{
 		when(adDao.findAdv(anyLong())).thenReturn(testAd);
 		when(userController.findUserByUsername(anyString())).thenReturn(testDriver);
 		when(adDao.updateAdv(any())).thenReturn(testAd);
-		
+		when(userController.loadUserByUsername(anyString())).thenReturn(testDriver);
 	
 		//start the actual test
 		MvcResult result = mvc.perform(
@@ -300,6 +300,7 @@ public class AdvertisementControllerTests{
 		//set repository response
 		when(adDao.findAllAdv(anyLong())).thenReturn(adList);
 		when(userController.findUserByUsername(anyString())).thenReturn(testDriver);
+		when(userController.loadUserByUsername(anyString())).thenReturn(testDriver);
 		when(adDao.updateAdv(any())).thenReturn(testAd);
 		
 	
