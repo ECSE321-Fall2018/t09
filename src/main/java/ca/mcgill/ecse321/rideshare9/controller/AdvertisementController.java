@@ -123,7 +123,7 @@ public class AdvertisementController {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    currentUserName = authentication.getName();
         User curr = userv.loadUserByUsername(currentUserName);
-	    if (curr.getId() != adv.getDriver()) {
+	    if (curr.getId() != advService.findAdv(adv.getId()).getDriver()) {
     		return new Advertisement(); 
     	}
     	
