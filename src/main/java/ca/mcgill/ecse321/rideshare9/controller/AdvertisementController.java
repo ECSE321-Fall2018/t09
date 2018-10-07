@@ -64,18 +64,17 @@ public class AdvertisementController {
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
     @RequestMapping(value = "/create-adv", method=RequestMethod.POST)
-    public Advertisement postAdv(@RequestBody Advertisement adv) {    	
+    public Advertisement postAdv(@RequestBody Advertisement adv) {
+
     	String currentUserName = null; 
    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-   
-    	if (!(authentication instanceof AnonymousAuthenticationToken)) {
-    	    currentUserName = authentication.getName();
-    	} 
-    	if (userv.findUserByUsername(currentUserName) != null) {
-        	return advService.createAdv(adv.getTitle(), adv.getStartTime(), adv.getStartLocation(), adv.getSeatAvailable(), adv.getStops(), adv.getVehicle(), userv.findUserByUsername(currentUserName).getId()); 
+        currentUserName = authentication.getName();
+        if (userv.loadUserByUsername(currentUserName) != null) {
+                return advService.createAdv(adv.getTitle(), adv.getStartTime(), adv.getStartLocation(), adv.getSeatAvailable(), adv.getStops(), adv.getVehicle(), userv.loadUserByUsername(currentUserName).getId());
     	} else {
     		return null; 
-    	}
+        }
+
     }
     /**
      * show all advertisement a logged in driver posted
@@ -86,11 +85,9 @@ public class AdvertisementController {
     public List<Advertisement> myAdv() {    	
     	String currentUserName = null; 
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	if (!(authentication instanceof AnonymousAuthenticationToken)) {
-    	    currentUserName = authentication.getName();
-    	}
-    	if (userv.findUserByUsername(currentUserName) != null) {
-        	return advService.findAllAdv(userv.findUserByUsername(currentUserName).getId()); 
+        currentUserName = authentication.getName();
+        if (userv.loadUserByUsername(currentUserName) != null) {
+                return advService.findAllAdv(userv.loadUserByUsername(currentUserName).getId());
     	} else {
     		return null; 
     	}
@@ -125,7 +122,7 @@ public class AdvertisementController {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	if (!(authentication instanceof AnonymousAuthenticationToken)) {
     	    currentUserName = authentication.getName();
-    	    User curr = userv.findUserByUsername(currentUserName); 
+            User curr = userv.loadUserByUsername(currentUserName);
     	    if (curr.getId() != adv.getDriver()) {
         		return new Advertisement(); 
         	}
