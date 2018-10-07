@@ -118,23 +118,23 @@ public class AdvertisementController {
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
     @RequestMapping(value = "/update-adv", method=RequestMethod.PUT)
     public Advertisement changeAdv(@RequestBody Advertisement adv) {
+    	
     	String currentUserName = null; 
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	if (!(authentication instanceof AnonymousAuthenticationToken)) {
-    	    currentUserName = authentication.getName();
-            User curr = userv.loadUserByUsername(currentUserName);
-    	    if (curr.getId() != adv.getDriver()) {
-        		return new Advertisement(); 
-        	}
+	    currentUserName = authentication.getName();
+        User curr = userv.loadUserByUsername(currentUserName);
+	    if (curr.getId() != adv.getDriver()) {
+    		return new Advertisement(); 
     	}
+    	
     	Advertisement oldadv = advService.findAdv(adv.getId()); 
-    	if (adv.getTitle() != null && !adv.getTitle().isEmpty() && !oldadv.getTitle().equals(adv.getTitle())) {
+    	if (adv.getTitle() != null && !adv.getTitle().isEmpty() && !adv.getTitle().equals(oldadv.getTitle())) {
     		oldadv.setTitle(adv.getTitle());
     	}
-    	if (adv.getStartTime() != null && !oldadv.getStartTime().equals(adv.getStartTime())) {
+    	if (adv.getStartTime() != null && !adv.getStartTime().equals(oldadv.getStartTime())) {
     		oldadv.setStartTime(adv.getStartTime());
     	}
-    	if (adv.getStartLocation() != null && !adv.getStartLocation().isEmpty() && !oldadv.getStartLocation().equals(adv.getStartLocation())) {
+    	if (adv.getStartLocation() != null && !adv.getStartLocation().isEmpty() && !adv.getStartLocation().equals(oldadv.getStartLocation())) {
     		oldadv.setStartLocation(adv.getStartLocation());
     	}
     	if ((adv.getSeatAvailable() != 0) && (oldadv.getSeatAvailable() != adv.getSeatAvailable()) 
