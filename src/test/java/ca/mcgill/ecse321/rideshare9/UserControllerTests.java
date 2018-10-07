@@ -1,7 +1,9 @@
 package ca.mcgill.ecse321.rideshare9;
 import org.springframework.test.context.junit.jupiter.SpringExtension; 
 import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertFalse;
+
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -40,6 +42,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
+
+import ca.mcgill.ecse321.rideshare9.AdvertisementControllerTests.MockSecurityContext;
+
 import ca.mcgill.ecse321.rideshare9.controller.AdvertisementController;
 import ca.mcgill.ecse321.rideshare9.controller.UserController;
 import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
@@ -74,17 +80,24 @@ public class UserControllerTests{
 	
 	private JacksonTester<User> jsonUser;
 
+
 	
-	private User testUser;
-	private User testDriver;
-	private User testPassenger;
+
 	private User testUser2;
 	private User testDriver2;
 	private User testPassenger2;
-	private ArrayList<User> allUsers;
-
 	private ArrayList<User> listOfUser; 
 	
+
+
+	private User testUser;
+	private User newUser;
+	private User testDriver;
+	private User testPassenger;
+	private Set<Long> testStops =  new HashSet<Long>();
+	private Date testDate = new Date(19970803);
+	private ArrayList<User> allUsers = new ArrayList<User>();
+
 	
 	public static class MockSecurityContext implements SecurityContext {
 
@@ -114,6 +127,9 @@ public class UserControllerTests{
 		JacksonTester.initFields(this, new ObjectMapper());
 		mvc = MockMvcBuilders.standaloneSetup(userController).build();
 		//Set up a test Ad
+
+		//Set up a test Admin
+
 		testUser = new User();
 		testUser.setId(233L);
 		testUser.setPassword("ecse321");
@@ -121,6 +137,7 @@ public class UserControllerTests{
 		testUser.setStatus(UserStatus.STANDBY);
 		testUser.setUsername("bossli"); 
 		
+
 		//Set up a test Driver 
 		testDriver = new User();
 		testDriver.setId(123);
@@ -160,6 +177,25 @@ public class UserControllerTests{
 		allUsers.add(testDriver2);
 		allUsers.add(testUser2);
 		allUsers.add(testPassenger2);
+
+
+			//Set up a test Driver 
+		testDriver = new User();
+		testDriver.setId(123);
+		testDriver.setPassword("abc");
+		testDriver.setRole("ROLE_DRIVER");
+		testDriver.setStatus(UserStatus.STANDBY);
+		testDriver.setUsername("ThomasBahen");
+		
+		testPassenger = new User();
+		testPassenger.setPassword("def");
+		testPassenger.setId(222);
+		testPassenger.setUsername("Yuxiangma");
+		testPassenger.setRole("ROLE_PASSENGER");
+		allUsers.add(testDriver);
+		allUsers.add(testUser);
+		allUsers.add(testPassenger);
+
 	}
 	
 	@Test
@@ -169,19 +205,31 @@ public class UserControllerTests{
 		assertEquals(userController.signUp(this.testUser), this.testUser); 
 	}
 	
+
+	
+
+	@Test
+	public void canDelete() {
+		when(userServ.deleteUserByUID(testUser.getId())).thenReturn(0);
+		when(userServ.deleteUserByUname(testUser.getUsername())).thenReturn(0);
+		assertEquals(userController.deleteUser(testUser),0);
+	}
 	
 	@Test
 	public void canGetDriverList() throws Exception {
-		when(userServ.getUsers()).thenReturn(listOfUser);
+		when(userServ.getUsers()).thenReturn(allUsers);
 		List<HashMap<String, UserStatus>> drivers = userController.driverStatusList(); 
 		for (HashMap<String, UserStatus> usr: drivers) {
 			Object[] keys = usr.keySet().toArray();
-			assertTrue(keys[0].equals("Yuzixin")); 	 
+			assertTrue(keys[0].equals("ThomasBahen")); 	 
+
     	}  			
 	}
 	@Test
 	public void canGetPassengerList() throws Exception {
 		when(userServ.getUsers()).thenReturn(listOfUser);
+
+		when(userServ.getUsers()).thenReturn(allUsers);
 		List<HashMap<String, UserStatus>> passengers = userController.passengerStatusList(); 
 		for (HashMap<String, UserStatus> usr: passengers) {
 			Object[] keys = usr.keySet().toArray();
@@ -219,6 +267,7 @@ public class UserControllerTests{
 		myquer2.setUsername("bossli");
 		assertEquals(userController.deleteUser(myquer2), 1);  
 	}	
+
 	@Test
 	public void cangetUserIDNow() {
 		 UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken ("Thomas","abc", testUser.getAuthorities());
@@ -228,21 +277,22 @@ public class UserControllerTests{
 	                new MockSecurityContext(principal));
 	     
 	    SecurityContextHolder.getContext().setAuthentication(principal);  
-		
     	when(userServ.loadUserByUsername(anyString())).thenReturn(testUser);
+    	when(userServ.findUserByUsername(anyString())).thenReturn(testUser);
 		assertEquals(userController.userIDnow(),testUser);
 	}
 	
 	@Test
 	public void canGetUserProfile() {
     	when(userServ.loadUserByUsername(anyString())).thenReturn(testUser);
+    	when(userServ.findUserByUsername(anyString())).thenReturn(testUser);
 		assertEquals(userController.userProfile(testUser),testUser);
 	}
 	
 	@Test
 	public void canGetUserServiceList() {
     	when(userServ.getUsers()).thenReturn(allUsers);
-		assertEquals(userController.userIDnow(),allUsers);
+		assertEquals(userController.userServiceList(),allUsers);
 	}
 	
 	@Test
@@ -257,8 +307,18 @@ public class UserControllerTests{
 	    SecurityContextHolder.getContext().setAuthentication(principal);  
 	    
 	    when(userServ.loadUserByUsername(anyString())).thenReturn(testUser);
+
+	    when(userServ.findUserByUsername(anyString())).thenReturn(testUser);
+
     	when(userServ.changeUserStatus(testUser.getId(), testUser.getStatus())).thenReturn(testDriver);
 		assertEquals(userController.userStatus(testUser),testDriver);
 	}
 	
+
 }
+
+	
+	
+	
+
+
