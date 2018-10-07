@@ -29,14 +29,14 @@
 
  URL | Request | Parameter Format | Parameters | Role (ROLE_) 
  ------| ------ | ------ | ------ | ------ 
- /user/sign-up | POST | JSON | "username", "password", and "role" | GLOBAL 
+ /user/sign-up | POST | JSON | "username", "password", and "role" (MUST BE ONE OF: {"ROLE_DRIVER","ROLE_PASSENGER","ROLE_ADMIN"}) | GLOBAL 
  /user/get-is-unique | POST | JSON | "username" | GLOBAL 
  /user/get-user-by-uname | POST | JSON | "username" | ADMIN 
  /user/get-logged-user | GET | void | void | ADMIN, PASSENGER, DRIVER 
  /user/get-list-passenger-status | GET | void | void | ADMIN 
  /user/get-list-driver-status | GET | void | void | ADMIN 
  /user/get-list-users | GET | void | void | ADMIN 
- /user/update-status | PUT | JSON | "status" | ADMIN, PASSENGER, DRIVER 
+ /user/update-status | PUT | JSON | "status" (MUST BE: {"ON_RIDE","STANDBY"}) | ADMIN, PASSENGER, DRIVER 
  /user/delete-usr | DELETE | JSON | "id" or "username" | ADMIN 
  /user/mainpg | GET | void | void | GLOBAL 
  /user/hello | GET | void | void | PASSENGER (for test) 
