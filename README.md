@@ -1,4 +1,5 @@
-# Welcome to TEAM 09
+# Welcome to TEAM 09 [![Build Status](https://travis-ci.com/ECSE321-Fall2018/t09.svg?token=WDPhpGnigsQCoWp5WMJt&branch=mark)](https://travis-ci.com/ECSE321-Fall2018/t09/builds/87110237#L2557)
+
 
 ## Update of 2018/10/03: Good luck on your EXAMS!!! OS and Ocaml!!!
 
