@@ -94,7 +94,7 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('BOSSLI')")
     @PostMapping("/get-user-by-uname")
     public User userProfile(@RequestBody User usr){
-        return userService.findUserByUsername(usr.getUsername());
+        return userService.loadUserByUsername(usr.getUsername());
     }
     
     /**
@@ -110,7 +110,7 @@ public class UserController {
     	if (!(authentication instanceof AnonymousAuthenticationToken)) {
     	    currentUserName = authentication.getName();
     	}
-        return userService.findUserByUsername(currentUserName);
+        return userService.loadUserByUsername(currentUserName);
     }
     
     /**
@@ -126,7 +126,7 @@ public class UserController {
     	if (!(authentication instanceof AnonymousAuthenticationToken)) {
     	    currentUserName = authentication.getName();
     	}
-        return userService.changeUserStatus(userService.findUserByUsername(currentUserName).getId(), u.getStatus());
+        return userService.changeUserStatus(userService.loadUserByUsername(currentUserName).getId(), u.getStatus());
     }
     
     
@@ -173,7 +173,12 @@ public class UserController {
      */
     @PostMapping("/get-is-unique")
     public boolean checkValidUname(@RequestBody User user) {
-        return userService.loadUserByUsername(user.getUsername()) == null; 
+    	try {
+    		userService.loadUserByUsername(user.getUsername()); 
+    	} catch (Exception e) {
+    		return true; 
+    	}
+        return false; 
     }
     
     /**
@@ -182,15 +187,9 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('BOSSLI')")
     @DeleteMapping("/delete-usr")
     public int deleteUser(@RequestBody User u){
-    	Long userid = -1L; 
     	String username=""; 
-    	try {
-    		userid = Long.valueOf(u.getId()); 
-    		return userService.deleteUserByUID(userid);
-    	} catch (Exception e){
-    		username = u.getUsername(); 
-    		return userService.deleteUserByUname(username);
-    	}
+		username = u.getUsername(); 
+		return userService.deleteUserByUname(username);
          
     }
 }
