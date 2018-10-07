@@ -78,6 +78,10 @@ public class UserControllerTests{
 	private User testUser;
 	private User testDriver;
 	private User testPassenger;
+	private User testUser2;
+	private User testDriver2;
+	private User testPassenger2;
+	private ArrayList<User> allUsers;
 
 	private ArrayList<User> listOfUser; 
 	
@@ -133,7 +137,29 @@ public class UserControllerTests{
 		listOfUser = new ArrayList<User>(); 
 		listOfUser.add(testPassenger); 
 		listOfUser.add(testUser); 
-		listOfUser.add(testDriver); 
+		listOfUser.add(testDriver);
+		testUser2 = new User();
+		testUser2.setId(233L);
+		testUser2.setPassword("ecse321");
+		testUser2.setRole("ROLE_BOSSLI");
+		testUser2.setStatus(UserStatus.STANDBY);
+		testUser2.setUsername("bossli"); 
+		testDriver2 = new User();
+		testDriver2.setId(123);
+		testDriver2.setPassword("abc");
+		testDriver2.setRole("ROLE_DRIVER");
+		testDriver2.setStatus(UserStatus.STANDBY);
+		testDriver2.setUsername("ThomasBahen");
+		
+		testPassenger2 = new User();
+		testPassenger2.setPassword("def");
+		testPassenger2.setId(222);
+		testPassenger2.setUsername("Yuxiangma");
+		testPassenger2.setRole("ROLE_PASSENGER");
+		ArrayList<User> allUsers = new ArrayList<User>();
+		allUsers.add(testDriver2);
+		allUsers.add(testUser2);
+		allUsers.add(testPassenger2);
 	}
 	
 	@Test
@@ -192,5 +218,47 @@ public class UserControllerTests{
 		User myquer2 = new User(); 
 		myquer2.setUsername("bossli");
 		assertEquals(userController.deleteUser(myquer2), 1);  
+	}	
+	@Test
+	public void cangetUserIDNow() {
+		 UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken ("Thomas","abc", testUser.getAuthorities());
+		   MockHttpSession session = new MockHttpSession();
+	        session.setAttribute(
+	                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, 
+	                new MockSecurityContext(principal));
+	     
+	    SecurityContextHolder.getContext().setAuthentication(principal);  
+		
+    	when(userServ.loadUserByUsername(anyString())).thenReturn(testUser);
+		assertEquals(userController.userIDnow(),testUser);
 	}
+	
+	@Test
+	public void canGetUserProfile() {
+    	when(userServ.loadUserByUsername(anyString())).thenReturn(testUser);
+		assertEquals(userController.userProfile(testUser),testUser);
+	}
+	
+	@Test
+	public void canGetUserServiceList() {
+    	when(userServ.getUsers()).thenReturn(allUsers);
+		assertEquals(userController.userIDnow(),allUsers);
+	}
+	
+	@Test
+	public void canGetUserStatus() {
+		
+		 UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken ("Thomas","abc", testUser.getAuthorities());
+		   MockHttpSession session = new MockHttpSession();
+	        session.setAttribute(
+	                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, 
+	                new MockSecurityContext(principal));
+	     
+	    SecurityContextHolder.getContext().setAuthentication(principal);  
+	    
+	    when(userServ.loadUserByUsername(anyString())).thenReturn(testUser);
+    	when(userServ.changeUserStatus(testUser.getId(), testUser.getStatus())).thenReturn(testDriver);
+		assertEquals(userController.userStatus(testUser),testDriver);
+	}
+	
 }
