@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
 import ca.mcgill.ecse321.rideshare9.entity.User;
 import ca.mcgill.ecse321.rideshare9.entity.Vehicle;
 import ca.mcgill.ecse321.rideshare9.service.impl.UserServiceImpl;
@@ -27,7 +28,7 @@ public class VehicleRepository {
 	    car.setModel(model);
 	    car.setDriver(driver);
 	    em.persist(car);
-	    //em.flush(); 
+	    em.flush(); 
 	    return car;
 	}
 	@Transactional
@@ -42,9 +43,27 @@ public class VehicleRepository {
 	      em.remove(car);
 	    }
 	}
+	
+	/**
+	 * Change the information of a vehicle (added by Chris, may cause error)
+	 * @param vehicle to be changed
+	 * @return vehicle changed
+	 */
+	@Transactional
+	public Vehicle updateVehicle(Vehicle car) {
+		em.merge(car); 
+		em.flush();
+	    return car;
+	}
+	
 	@Transactional
 	public List<Vehicle> findAllVehicle() {
 	    TypedQuery<Vehicle> query = em.createQuery("SELECT c FROM Vehicle c", Vehicle.class);
+	    return query.getResultList();
+	}
+	@Transactional
+	public List<Vehicle> findAllVehicleByUid(long uid) {
+	    TypedQuery<Vehicle> query = em.createQuery("SELECT c FROM Vehicle c WHERE c.driver = :qUid", Vehicle.class).setParameter("qUid", uid);
 	    return query.getResultList();
 	}
 }

@@ -14,17 +14,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
+import ca.mcgill.ecse321.rideshare9.entity.TripStatus;
+import ca.mcgill.ecse321.rideshare9.entity.User;
+import ca.mcgill.ecse321.rideshare9.entity.helper.AdvBestQuery;
+import ca.mcgill.ecse321.rideshare9.entity.helper.AdvQuery;
+import ca.mcgill.ecse321.rideshare9.entity.helper.AdvResponse;
 import ca.mcgill.ecse321.rideshare9.repository.AdvertisementRepository;
 import ca.mcgill.ecse321.rideshare9.service.UserService;
 
-// TODO: Complete this controller, DON'T hesitate to add if you would like to add more method! 
 
 /**
  * MORE METHODS WANTED!! 
  * i think we need a new method that adds/deletes/changes stop/vehicles on an advertisement
  * @author yuxiangma
+ */
+
+/**
+ * Notes for front end: Searching
+ * --------------------------------------------------------------------------------------------------------------
+ * Essential Query: 4 must be present 
+ * --------------------------------------------------------------------------------------------------------------
+ * destination: 			| startLocation: 				| startTimeLow: 			| startTimeHigh: 			
+ * --------------------------------------------------------------------------------------------------------------
+ * Optional Query: any one, or both, or neither present 
+ * --------------------------------------------------------------------------------------------------------------
+ * Car type: 			    | Car color: 				    | 
+ * --------------------------------------------------------------------------------------------------------------
+ * Order by: Option, choose 1
+ * --------------------------------------------------------------------------------------------------------------
+ * Price					| StartTime 					|
+ * --------------------------------------------------------------------------------------------------------------
  */
 
 @RestController
@@ -35,6 +55,7 @@ public class AdvertisementController {
 	private AdvertisementRepository advService;
 	@Autowired
 	private UserService userv; 
+
 	
     /**
      * driver: create advertisement
@@ -42,38 +63,52 @@ public class AdvertisementController {
      * @param adv (JSON)
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/add-adv", method=RequestMethod.POST)
+    @RequestMapping(value = "/create-adv", method=RequestMethod.POST)
     public Advertisement postAdv(@RequestBody Advertisement adv) {
-    	
-    	// TODO : Make this method return the added Advertisement with Advertisement ID
-    	// TODO : return the added object WITH ID (originally, it return what you entered, id = 0 is always)
-    	// TODO : Add stop and vehicles have bugs
-    	
-    	String currentUserName = ""; 
+
+    	String currentUserName = null; 
+   	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        currentUserName = authentication.getName();
+        if (userv.loadUserByUsername(currentUserName) != null) {
+                return advService.createAdv(adv.getTitle(), adv.getStartTime(), adv.getStartLocation(), adv.getSeatAvailable(), adv.getStops(), adv.getVehicle(), userv.loadUserByUsername(currentUserName).getId());
+    	} else {
+    		return null; 
+        }
+
+    }
+    /**
+     * show all advertisement a logged in driver posted
+     * @return List
+     */
+    @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
+    @RequestMapping(value = "/get-logged-adv", method=RequestMethod.GET)
+    public List<Advertisement> myAdv() {    	
+    	String currentUserName = null; 
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	if (!(authentication instanceof AnonymousAuthenticationToken)) {
-    	    currentUserName = authentication.getName();
-    	}
-    	if (userv.findUserByUsername(currentUserName) != null) {
-        	return advService.createAdv(adv.getTitle(), adv.getStartTime(), adv.getStartLocation(), adv.getSeatAvailable(), adv.getVehicle(), userv.findUserByUsername(currentUserName).getId()); 
+        currentUserName = authentication.getName();
+        if (userv.loadUserByUsername(currentUserName) != null) {
+                return advService.findAllAdv(userv.loadUserByUsername(currentUserName).getId());
     	} else {
     		return null; 
     	}
     }
     
     /**
-     * driver: delete advertisement
+     * driver: delete advertisement, but only id needed
      * @param adv (JSON)
      * @return deleted adv
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
     @RequestMapping(value = "/delete-adv", method=RequestMethod.DELETE)
     public Advertisement delAdv(@RequestBody Advertisement adv) {
-    	
-    	// TODO : find by relevant criteria, or just id, and delete it 
-    	
-    	return new Advertisement(); 
+    	for (Advertisement a: this.myAdv()) {
+    		if (a.getId() == adv.getId()) {
+    			return advService.removeAdv(adv.getId()); 
+    		}
+    	}
+    	return null; 
     }
+    
     
     /**
      * driver: change advertisement content
@@ -81,21 +116,49 @@ public class AdvertisementController {
      * @return changed advertisement
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/change-adv", method=RequestMethod.PUT)
+    @RequestMapping(value = "/update-adv", method=RequestMethod.PUT)
     public Advertisement changeAdv(@RequestBody Advertisement adv) {
     	
-    	// TODO : find by relevant criteria, or just id, and change parameter passed from adv json that is 1. not null and 2. different than before 
+    	String currentUserName = null; 
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    currentUserName = authentication.getName();
+        User curr = userv.loadUserByUsername(currentUserName);
+	    if (curr.getId() != advService.findAdv(adv.getId()).getDriver()) {
+    		return new Advertisement(); 
+    	}
     	
-    	return new Advertisement(); 
+    	Advertisement oldadv = advService.findAdv(adv.getId()); 
+    	if (adv.getTitle() != null && !adv.getTitle().isEmpty() && !adv.getTitle().equals(oldadv.getTitle())) {
+    		oldadv.setTitle(adv.getTitle());
+    	}
+    	if (adv.getStartTime() != null && !adv.getStartTime().equals(oldadv.getStartTime())) {
+    		oldadv.setStartTime(adv.getStartTime());
+    	}
+    	if (adv.getStartLocation() != null && !adv.getStartLocation().isEmpty() && !adv.getStartLocation().equals(oldadv.getStartLocation())) {
+    		oldadv.setStartLocation(adv.getStartLocation());
+    	}
+    	if ((adv.getSeatAvailable() != 0) && (oldadv.getSeatAvailable() != adv.getSeatAvailable()) 
+    			|| (adv.getSeatAvailable() == 0) && (adv.getStatus() != null) && (adv.getStatus() != TripStatus.REGISTERING)) {
+    		oldadv.setSeatAvailable(adv.getSeatAvailable());
+    	}
+    	if (adv.getStatus() != null && adv.getStatus() != oldadv.getStatus()) {
+    		oldadv.setStatus(adv.getStatus());
+    	}
+    	if (adv.getVehicle() > 0 && (oldadv.getVehicle() != adv.getVehicle())) {
+    		oldadv.setVehicle(adv.getVehicle());
+    	}
+    	oldadv.setStops(adv.getStops()); 
+    	
+    	return advService.updateAdv(oldadv); 
     }
-
+    
     /**
      * All user: list all advertisement
      * @param void
      * @return list of all advertisements
      */
     @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
-    @GetMapping("/get-all-adv")
+    @GetMapping("/get-list-adv")
     public List<Advertisement> searchAllAdv() {
         return advService.findAllAdv();
     }
@@ -108,26 +171,37 @@ public class AdvertisementController {
      */
     @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
     @GetMapping("/get-top-drivers")
-    public List<Advertisement> getTopDriver() {
-    	
-    	// TODO: Top driver, do this my adding method to AdvertisementRepository
-    	
-        return new ArrayList<Advertisement>();
+    public List<AdvBestQuery> getTopDriver() {
+        return advService.findBestDriver(); 
     }
-    
     /**
-     * All user: Search Advertisement by relavent criteria
-     * Core API endpoint: Passenger-1, Passenger-2 in README.md at Mark branch
-     * This method is NOT meant to be restricted by passing JSON object, you can actually pass any parameter, or use a request type other than post
-     * @param adv (json)
-     * @return list of (collection of) advertisement according criteria specified by user entry
+     * All user: search advertisement by carrier json
+     * @param must have start, stop, start time range x, start time range y; color, model are optional; default sort by price
+     * @return list of all advertisements
      */
     @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
-    @PostMapping("/get-adv-by-criteria")
-    public List<Advertisement> searchAdvByCriteria(@RequestBody Advertisement advCriteria) {
-        
-    	// TODO: use or invent method in entityManager/repository to implement this
-    	
-    	return new ArrayList<Advertisement>(); 
+    @PostMapping("/get-adv-search")
+    public List<AdvResponse> searchAdv(@RequestBody AdvQuery advCriteria) {
+    	if (advCriteria.isSortByPrice()) {
+    		if (advCriteria.getvColor() != null && advCriteria.getvModel() != null) {
+    			return advService.findAdvByCriteriaAndModelAndColorSortByPrice(advCriteria); 
+    		} else if (advCriteria.getvColor() != null && advCriteria.getvModel() == null) {
+    			return advService.findAdvByCriteriaAndColorSortByPrice(advCriteria); 
+    		} else if (advCriteria.getvColor() == null && advCriteria.getvModel() != null) {
+    			return advService.findAdvByCriteriaAndModelSortByPrice(advCriteria); 
+    		} else {
+    			return advService.findAdvByCriteriaSortByPrice(advCriteria); 
+    		}
+    	} else {
+    		if (advCriteria.getvColor() != null && advCriteria.getvModel() != null) {
+    			return advService.findAdvByCriteriaAndModelAndColorSortByTime(advCriteria); 
+    		} else if (advCriteria.getvColor() != null && advCriteria.getvModel() == null) {
+    			return advService.findAdvByCriteriaAndColorSortByTime(advCriteria); 
+    		} else if (advCriteria.getvColor() == null && advCriteria.getvModel() != null) {
+    			return advService.findAdvByCriteriaAndModelSortByTime(advCriteria); 
+    		} else {
+    			return advService.findAdvByCriteriaSortByTime(advCriteria); 
+    		}
+    	}
     }
 }

@@ -1,4 +1,97 @@
-# Welcome to TEAM 09: Yuxiang's Branch
+# Welcome to TEAM 09 [![Build Status](https://travis-ci.com/ECSE321-Fall2018/t09.svg?token=WDPhpGnigsQCoWp5WMJt&branch=mark)](https://travis-ci.com/ECSE321-Fall2018/t09/builds/87110237#L2557)
+
+
+## Update of 2018/10/03: Good luck on your EXAMS!!! OS and Ocaml!!!
+
+- Concluded that security feature will not block mockit from unit testing, but security features needs integration test, which is not part of our project
+- Able to junit test our api with mockit, example provided on UserController; Remind: update your pom.xml
+- Solved ALL bonus problems
+
+
+## WANTED: Bonus 3 solution: logging
+
+- Logging (i.e., all API interactions should be recorded in a log file for posterity, debugging, and data mining purposes)
+
+## Tips for naming API
+
+- APIs are data-oriented, NOT functional requirement oriented
+- API names should follow create, get, delete, update naming convension
+
+## API Endpoints
+
+### Login
+
+ URL | Request | Parameter Format | Parameters | Role (ROLE_) 
+ ------| ------ | ------ | ------ | ------ 
+ /login | POST | JSON | "username", "password" | GLOBAL 
+
+### UserController
+
+ URL | Request | Parameter Format | Parameters | Role (ROLE_) 
+ ------| ------ | ------ | ------ | ------ 
+ /user/sign-up | POST | JSON | "username", "password", and "role" (MUST BE ONE OF: {"ROLE_DRIVER","ROLE_PASSENGER","ROLE_ADMIN"}) | GLOBAL 
+ /user/get-is-unique | POST | JSON | "username" | GLOBAL 
+ /user/get-user-by-uname | POST | JSON | "username" | ADMIN 
+ /user/get-logged-user | GET | void | void | ADMIN, PASSENGER, DRIVER 
+ /user/get-list-passenger-status | GET | void | void | ADMIN 
+ /user/get-list-driver-status | GET | void | void | ADMIN 
+ /user/get-list-users | GET | void | void | ADMIN 
+ /user/update-status | PUT | JSON | "status" (MUST BE: {"ON_RIDE","STANDBY"}) | ADMIN, PASSENGER, DRIVER 
+ /user/delete-usr | DELETE | JSON | "id" or "username" | ADMIN 
+ /user/mainpg | GET | void | void | GLOBAL 
+ /user/hello | GET | void | void | PASSENGER (for test) 
+
+### AdvertisementController
+
+ URL | Request | Parameter Format | Parameters | Role (ROLE_)
+ ------| ------ | ------ | ------ | ------ 
+ /adv/create-adv | POST | JSON | "id", "title", "startTime",  "startLocation", "seatAvailable",  "stops", "vehicle" | DRIVER 
+ /adv/get-adv-search | POST | JSON | Essential: "stop", "startLocation", "startTimeX", "startTimeY", "sortByPrice"; Optional: "vColor", "vModel" | ADMIN, PASSENGER, DRIVER 
+ /adv/get-logged-adv | GET | void | void | DRIVER 
+ /adv/get-top-driver | GET | void | void | ADMIN, PASSENGER, DRIVER 
+ /adv/get-list-adv | GET | void | void | ADMIN, PASSENGER, DRIVER 
+ /adv/update-adv | PUT | JSON | Essential: "id", "stops"; Optional: "title", "startTime",  "startLocation", "seatAvailable", "vehicle" | DRIVER 
+ /adv/delete-adv | DELETE | JSON | "id" | DRIVER
+ 
+ Note: "Stop" attribute in update-adv overshadowed all previous records in a list
+ 
+ ### MapperController
+ used to add passengers to an advertised trip.
+ 
+ URL | Request | Parameter Format | Parameters | Role (ROLE_)
+ ------| ------ | ------ | ------ | ------
+ /map/add-map | POST | Path Parameter | "adv_id" | PASSENGER
+ /map/delete/{mapper_id} | DELETE | Path Variable | "mapper_id" | PASSENGER
+ /map/list-top-passengers | GET | void | void | ADMIN
+ 
+ ### VehicleController
+ URL | Request | Parameter Format | Parameters | Role (ROLE_)
+ ------| ------ | ------ | ------ | ------
+ /vehicle/add-car | POST | JSON | "color", "licencePlate", "maxSeat", "model" | DRIVER
+ /vehicle/remove-car | DELETE | JSON | "id" | DRIVER, ADMIN
+ /vehicle/get-cars | GET | void | void | DRIVER, ADMIN
+ /vehicle/change-cars | PUT | JSON | "id", "driverId"; Optional: "color", "licencePlate", "maxSeat", "model" | DRIVER
+ 
+ ### StopController
+ URL | Request | Parameter Format | Parameters | Role (ROLE_)
+ ------| ------ | ------ | ------ | ------
+ /stop/add-stop | POST | JSON | "stopName", "price" | DRIVER
+ /stop/change-stop | PUT | JSON | "id"; Optional: "stopName", "price" | DRIVER
+ /stop/del-stop | DELETE | JSON | "id" | DRIVER
+ /stop/get-stop-by-name/{name} | GET | Path Variable | "name" | DRIVER
+
+
+## We need @2018/10/01
+
+1. Unit Test
+2. Heroku SQL API key/uname/pswd
+
+## Things done on 2018/09/30
+
+- Distributed tasks
+- Completed Advertisement Controller and Repository, including documentation
+- Mapper, Stop, Vehicle are assigned and to be completed within 2 days
+- The team gets a overview of project architecture
 
 ## Meeting for 2018/09/30
 
@@ -139,4 +232,4 @@ logging:
 ```
 
 Then, you are good to go! Enjoy using Chrome or Postman! 
-Pay attention to format of JSON. 
+Pay attention to format of JSON.  Good
