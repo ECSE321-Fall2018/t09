@@ -57,8 +57,8 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public User findUserByUsername(String uname) {
-    	return em.find(User.class, uname); 
-    			//userRepository.findByUsername(uname); 
+    	//return em.find(User.class, uname); 
+    	return userRepository.findByUsername(uname); 
     }
     @Override
     public int deleteUserByUID(Long uid) {
