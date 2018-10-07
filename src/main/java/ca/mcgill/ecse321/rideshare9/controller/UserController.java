@@ -173,7 +173,7 @@ public class UserController {
      */
     @PostMapping("/get-is-unique")
     public boolean checkValidUname(@RequestBody User user) {
-        return userService.findUserByUsername(user.getUsername()) == null; 
+        return userService.loadUserByUsername(user.getUsername()) == null; 
     }
     
     /**
