@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.rideshare9;
 import org.springframework.test.context.junit.jupiter.SpringExtension; 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -72,16 +73,12 @@ public class UserControllerTests{
 	@Mock private SecurityContextHolder security;
 	
 	private JacksonTester<User> jsonUser;
-	private JacksonTester<ArrayList<AdvBestQuery>> jsonQuery;
-	private JacksonTester<AdvQuery> jsonRegQuery;
-	private JacksonTester<ArrayList<AdvResponse>> jsonResponse;
-	private JacksonTester<ArrayList<User>> jsonUserList;
+
 	
 	private User testUser;
 	private User testDriver;
 	private User testPassenger;
-	private Set<Long> testStops =  new HashSet<Long>();
-	private Date testDate = new Date(19970803);
+
 	private ArrayList<User> listOfUser; 
 	
 	
@@ -126,9 +123,9 @@ public class UserControllerTests{
 		testDriver.setPassword("abcdef");
 		testDriver.setRole("ROLE_DRIVER");
 		testDriver.setStatus(UserStatus.STANDBY);
-		testDriver.setUsername("Yudixie");
+		testDriver.setUsername("Yuzixin");
 		testPassenger = new User();
-		testPassenger.setId(234);
+		testPassenger.setId(123);
 		testPassenger.setPassword("abcdef");
 		testPassenger.setRole("ROLE_PASSENGER");
 		testPassenger.setStatus(UserStatus.STANDBY);
@@ -153,7 +150,7 @@ public class UserControllerTests{
 		List<HashMap<String, UserStatus>> drivers = userController.driverStatusList(); 
 		for (HashMap<String, UserStatus> usr: drivers) {
 			Object[] keys = usr.keySet().toArray();
-			assertTrue(keys[0].equals("Yudixie")); 	 
+			assertTrue(keys[0].equals("Yuzixin")); 	 
     	}  			
 	}
 	@Test
@@ -164,5 +161,36 @@ public class UserControllerTests{
 			Object[] keys = usr.keySet().toArray();
 			assertTrue(keys[0].equals("Yuxiangma")); 	 
     	}  			
+	}
+	@Test
+	public void canGetAllList() throws Exception {
+		when(userServ.getUsers()).thenReturn(listOfUser);
+		List<User> passengers = userController.userServiceList(); 
+		int i = 0; 
+		for (User usr: passengers) {
+			assertEquals(usr, this.listOfUser.get(i));  
+			i = i + 1; 
+    	}  			
+	}
+	@Test
+	public void canGetUserByName() throws Exception {
+		when(userServ.loadUserByUsername("bossli")).thenReturn(testUser);
+		User myquery = new User(); 
+		myquery.setUsername("bossli");
+		assertEquals(userController.userProfile(myquery), this.testUser);   			
+	}
+	@Test
+	public void canGetUserUnique() throws Exception {
+		when(userServ.loadUserByUsername("bossli")).thenReturn(testUser);
+		User myquery = new User(); 
+		myquery.setUsername("bossli");
+		assertFalse(userController.checkValidUname(myquery));  
+	}
+	@Test
+	public void canDeleteUser() throws Exception {
+		when(userServ.deleteUserByUname("bossli")).thenReturn(1);
+		User myquer2 = new User(); 
+		myquer2.setUsername("bossli");
+		assertEquals(userController.deleteUser(myquer2), 1);  
 	}
 }
