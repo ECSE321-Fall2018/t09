@@ -126,9 +126,9 @@ public class UserControllerTests{
 		testDriver.setPassword("abcdef");
 		testDriver.setRole("ROLE_DRIVER");
 		testDriver.setStatus(UserStatus.STANDBY);
-		testDriver.setUsername("Yuzixin");
+		testDriver.setUsername("Yudixie");
 		testPassenger = new User();
-		testPassenger.setId(123);
+		testPassenger.setId(234);
 		testPassenger.setPassword("abcdef");
 		testPassenger.setRole("ROLE_PASSENGER");
 		testPassenger.setStatus(UserStatus.STANDBY);
@@ -153,7 +153,7 @@ public class UserControllerTests{
 		List<HashMap<String, UserStatus>> drivers = userController.driverStatusList(); 
 		for (HashMap<String, UserStatus> usr: drivers) {
 			Object[] keys = usr.keySet().toArray();
-			assertTrue(keys[0].equals("Yuzixin")); 	 
+			assertTrue(keys[0].equals("Yudixie")); 	 
     	}  			
 	}
 	@Test
