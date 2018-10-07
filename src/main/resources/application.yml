@@ -1,4 +1,7 @@
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
   application:
     name: auth-service
   datasource:
