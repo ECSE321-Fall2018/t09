@@ -61,7 +61,7 @@
  URL | Request | Parameter Format | Parameters | Role (ROLE_)
  ------| ------ | ------ | ------ | ------
  /map/add-map | POST | Path Parameter | "adv_id" | PASSENGER
- /map/delete/{mapper_id} | DELETE | Path Variable | "mapper_id" | PASSENGER
+ /map/admin/delete/{mapper_id} | DELETE | Path Variable | "mapper_id" | PASSENGER
  /map/list-top-passengers | GET | void | void | ADMIN
  
  ### VehicleController
