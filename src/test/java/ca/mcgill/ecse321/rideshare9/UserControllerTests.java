@@ -84,7 +84,7 @@ public class UserControllerTests{
 	private User testPassenger;
 	private Set<Long> testStops =  new HashSet<Long>();
 	private Date testDate = new Date(19970803);
-	private ArrayList<User> allUsers;
+	private ArrayList<User> allUsers = new ArrayList<User>();
 	
 	public static class MockSecurityContext implements SecurityContext {
 
@@ -135,7 +135,6 @@ public class UserControllerTests{
 		testPassenger.setId(222);
 		testPassenger.setUsername("Yuxiangma");
 		testPassenger.setRole("ROLE_PASSENGER");
-		ArrayList<User> allUsers = new ArrayList<User>();
 		allUsers.add(testDriver);
 		allUsers.add(testUser);
 		allUsers.add(testPassenger);
@@ -198,7 +197,7 @@ public class UserControllerTests{
 	@Test
 	public void canGetUserServiceList() {
     	when(userServ.getUsers()).thenReturn(allUsers);
-		assertEquals(userController.userIDnow(),allUsers);
+		assertEquals(userController.userServiceList(),allUsers);
 	}
 	
 	@Test
