@@ -40,7 +40,7 @@ public class MapperController {
      * @param advertisement id
      * @return registration/mapper object
      */
-    @PreAuthorize("hasRole('PASSENGER') or hasRole('BOSSLI')")
+    @PreAuthorize("hasRole('PASSENGER') or hasRole('ADMIN') or hasRole('BOSSLI')")
     @RequestMapping(value = "/add-map", method=RequestMethod.POST)
     @ResponseBody
     public MapperUserAdv addMap(@RequestParam("adv_id") long aid) {
@@ -64,7 +64,7 @@ public class MapperController {
      * @param journey/mapper (JSON)
      * @return deleted mapper
      */
-    @PreAuthorize("hasRole('PASSENGER') or hasRole('BOSSLI')")
+    @PreAuthorize("hasRole('PASSENGER') or hasRole('BOSSLI') or hasRole('ADMIN')")
     @DeleteMapping("/admin/delete/{mapperid}")
     	public MapperUserAdv delMap(@PathVariable String mapperid) {
         	try {
