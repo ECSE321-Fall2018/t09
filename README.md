@@ -41,7 +41,7 @@ Example:
  /user/get-list-driver-status | GET | void | void | ADMIN 
  /user/get-list-users | GET | void | void | ADMIN 
  /user/update-status | PUT | JSON | "status" (MUST BE: {"ON_RIDE","STANDBY"}) | ADMIN, PASSENGER, DRIVER 
- /user/delete-usr | DELETE | JSON | "id" or "username" | ADMIN 
+ /user/delete-usr | DELETE | JSON | "id" | ADMIN 
  /user/mainpg | GET | void | void | GLOBAL 
  /user/hello | GET | void | void | PASSENGER (for test) 
 
@@ -74,7 +74,7 @@ Example:
  /vehicle/add-car | POST | JSON | "color", "licencePlate", "maxSeat", "model" | DRIVER
  /vehicle/remove-car | DELETE | JSON | "id" | DRIVER, ADMIN
  /vehicle/get-cars | GET | void | void | DRIVER, ADMIN
- /vehicle/change-cars | PUT | JSON | "id", "driverId"; Optional: "color", "licencePlate", "maxSeat", "model" | DRIVER
+ /vehicle/change-cars | PUT | JSON | "id"; Optional: "color", "licencePlate", "maxSeat", "model" | DRIVER
  
  ### StopController
  URL | Request | Parameter Format | Parameters | Role (ROLE_)
