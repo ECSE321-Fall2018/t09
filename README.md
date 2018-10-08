@@ -18,7 +18,11 @@
 - API names should follow create, get, delete, update naming convension
 
 ## API Endpoints
-
+**IMPORTANT**: A JWT authorization token is given in the response header after the user logs into the app. **All** requests that do **not** have the
+Role: GLOBAL will need to provide this authorization token in the headers of the request.
+Example:
+- Header name: Authorization
+- Header value: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKdWxpYW5UZXN0IiwiZXhwIjoxNTM4OTY0NzkyfQ.z5EqLwlCzonLzosFGBwveOmrgU-  LZ4wEK2LEJpO3WkIXQQszs4l78uQOmkOeu5r1Ae5HQllr1V3wtA05LXxt_A
 ### Login
 
  URL | Request | Parameter Format | Parameters | Role (ROLE_) 
