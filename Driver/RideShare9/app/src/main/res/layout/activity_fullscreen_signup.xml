@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    tools:context=".FullscreenActivity_signup">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+    <TextView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:textColor="#33b5e5"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:focusable="true" android:focusableInTouchMode="true"
+                android:layout_width="0px" android:layout_height="0px">
+                <requestFocus />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/signuptitle"
+                android:textColor="@android:color/white"
+                android:textSize="35sp"
+                android:typeface="serif" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+
+            <EditText
+                android:id="@+id/editText"
+                android:paddingLeft="20dp"
+                android:layout_width="249dp"
+                android:layout_height="38dp"
+                android:background="@android:color/white"
+                android:ems="10"
+                android:hint="@string/signupname"
+                android:inputType="textEmailAddress" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="14dp" />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:paddingLeft="20dp"
+                android:layout_width="249dp"
+                android:layout_height="38dp"
+                android:background="@android:color/white"
+                android:ems="10"
+                android:hint="@string/signuppassword"
+                android:inputType="textPassword" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="13dp" />
+
+            <EditText
+                android:id="@+id/editText3"
+                android:paddingLeft="20dp"
+                android:layout_width="249dp"
+                android:layout_height="38dp"
+                android:background="@android:color/white"
+                android:ems="10"
+                android:hint="@string/signuppasswordconfirm"
+                android:inputType="textPassword" />
+
+            <TextView
+                android:id="@+id/errormsg"
+                android:layout_width="254dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:layout_width="249dp"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/iampassenger" />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/imdriver" />
+            </RadioGroup>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="19dp" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="272dp"
+                android:layout_height="wrap_content"
+                android:background="@color/darkblue"
+                android:onClick="addParticipant"
+                android:text="@string/signupbutton"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="287dp"
+                android:layout_height="32dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="toLogin"
+                android:text="@string/toLogin" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fullscreen_content_controls"
+            style="?metaButtonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/black_overlay"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
+
+        </LinearLayout>
+    </FrameLayout>
+
+</FrameLayout>
