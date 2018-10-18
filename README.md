@@ -1,5 +1,19 @@
 # Welcome to TEAM 09 [![Build Status](https://travis-ci.com/ECSE321-Fall2018/t09.svg?token=WDPhpGnigsQCoWp5WMJt&branch=mark)](https://travis-ci.com/ECSE321-Fall2018/t09/builds/87110237#L2557)
 
+## Update of 2018/10/18: Start of Sprint2: Android Application for Driver and Passenger 
+
+### Features implemented (for both Driver and Passenger) : 
+#### 1. Login Activity:
+
+- User can enter username and password to login
+- Can switch to Signup Screen.
+- User can check "remeber me" to remeber the password
+#### 2. SignUp Activity:
+
+- User can enter username, password to signup
+- The second password textfield will validate password input,otherwise register button is disabled.
+
+---
 
 ## Update of 2018/10/03: Good luck on your EXAMS!!! OS and Ocaml!!!
 
