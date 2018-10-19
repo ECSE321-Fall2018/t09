@@ -1,16 +1,33 @@
 package ca.mcgill.ecse321.rideshare9;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.content.Intent;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.accounts.*;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.TextHttpResponseHandler;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.ByteArrayEntity;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.protocol.HTTP;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -109,6 +126,17 @@ public class FullscreenActivity extends AppCompatActivity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
+
+        String username = "";
+        String password = "";
+
+        SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
+        username=sharedPre.getString("username", "");
+        password=sharedPre.getString("password", "");
+        TextView nametx = (TextView)findViewById(R.id.editText9);
+        TextView passwordtx = (TextView)findViewById(R.id.editText10);
+        nametx.setText(username);
+        passwordtx.setText(password);
     }
 
     @Override
@@ -166,12 +194,75 @@ public class FullscreenActivity extends AppCompatActivity {
         Intent intent = new Intent(this, FullscreenActivity_signup.class);
         startActivity(intent);*/
         //TODO
+        CheckBox checkrmb = (CheckBox)findViewById(R.id.checkBox);
         final TextView namefield = (TextView) findViewById(R.id.editText9);
         final TextView passwordfield = (TextView) findViewById(R.id.editText10);
+        if (checkrmb.isChecked()) {
+            saveUserInfo(getApplicationContext(), namefield.getText().toString().trim(), passwordfield.getText().toString().trim());
+        }
+        /*package the content from textfield into json body*/
+        /* Validate that all field is filled */
+        if(namefield.getText().toString().trim().equals("") || passwordfield.getText().toString().trim().equals("")){
+            Log.d("Error", "One of the field is Empty");
+            return;
+        }
+        JSONObject jsonObject = new JSONObject();
+        try{
+            jsonObject.put("username",namefield.getText().toString().trim());
+            jsonObject.put("password",passwordfield.getText().toString().trim());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        /*convert the jsonbdoy into string entity that can be sent*/
+        ByteArrayEntity entity = null;
+        try {
+            entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        }catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        HttpUtils.post(getApplicationContext(),"login",entity,"application/json",new TextHttpResponseHandler(){
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                namefield.setText("");
+                passwordfield.setText("");
+            }
 
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                Log.d("Token", headers[2].getValue().replaceFirst("Bearer ", ""));
+                saveUserToken(getApplicationContext(), headers[2].getValue().replaceFirst("Bearer ", ""));
+                SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
+                Log.d("Saved token", sharedPre.getString("token", ""));
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("Error", "cannot login");
+            }
+        });
     }
 
-
+    public static void saveUserInfo(Context context, String username, String password) {
+        SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPre.edit();
+        editor.putString("username", username);
+        editor.putString("password", password);
+        editor.commit();
+    }
+    public static void saveUserToken(Context context, String token) {
+        SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPre.edit();
+        editor.putString("token", token);
+        editor.commit();
+    }
+    public static void eraseUserToken(Context context) {
+        SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPre.edit();
+        editor.putString("token", "");
+        editor.commit();
+    }
     /**
      * Schedules a call to hide() in delay milliseconds, canceling any
      * previously scheduled calls.

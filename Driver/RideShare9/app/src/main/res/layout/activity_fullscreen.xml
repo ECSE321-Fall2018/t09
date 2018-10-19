@@ -109,6 +109,7 @@
                 android:layout_width="272dp"
                 android:layout_height="wrap_content"
                 android:background="@color/darkblue"
+                android:onClick="login"
                 android:text="@string/LoginButton"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Inverse"
                 android:textColorLink="@color/black_overlay" />

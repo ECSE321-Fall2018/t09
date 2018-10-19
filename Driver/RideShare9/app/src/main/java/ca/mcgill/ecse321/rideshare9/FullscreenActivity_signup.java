@@ -208,9 +208,9 @@ public class FullscreenActivity_signup extends AppCompatActivity {
         try{
         jsonObject.put("username",nametx.getText());
         jsonObject.put("password",passwordtx.getText());
-    } catch (JSONException e) {
-        e.printStackTrace();
-    }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         if(aPasseneger.isChecked()){
             jsonObject.put("role","ROLE_PASSENGER");
         }
@@ -234,27 +234,33 @@ public class FullscreenActivity_signup extends AppCompatActivity {
             return;
         }
 
-    HttpUtils.post(getApplicationContext(),"user/sign-up",entity,"application/json",new JsonHttpResponseHandler(){
-        @Override
-        public void onFinish() {
-            super.onFinish();
-            nametx.setText("");
-            passwordtx.setText("");
-            passwordtx2.setText("");
-        }
+        HttpUtils.post(getApplicationContext(),"user/sign-up",entity,"application/json",new JsonHttpResponseHandler(){
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                nametx.setText("");
+                passwordtx.setText("");
+                passwordtx2.setText("");
+            }
 
-        @Override
-        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            super.onSuccess(statusCode, headers, response);
-            errortx.setText("Account created!");
-        }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    String uid = response.getString("id");
+                    errortx.setText("Account created! with id = " + uid + "REMEMBER IT");
+                } catch (Exception ue) {
+                    errortx.setText("Не удалось создать учетную запись.");
+                }
 
-        @Override
-        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            super.onFailure(statusCode, headers, throwable, errorResponse);
-            errortx.setText("Unable to create account.");
-        }
-    });
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                errortx.setText("Unable to create account.");
+            }
+        });
 
 
     }
