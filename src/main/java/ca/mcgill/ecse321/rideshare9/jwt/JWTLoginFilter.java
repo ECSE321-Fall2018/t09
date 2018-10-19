@@ -48,7 +48,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         String token = null;
         logger.info(auth.getName());
         try {
-            token = Jwts.builder().setSubject(auth.getName()).setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 3 * 1000)) .signWith(SignatureAlgorithm.HS512, SIGNING_KEY) .compact();
+            token = Jwts.builder().setSubject(auth.getName()).setExpiration(new Date(Long.MAX_VALUE)) .signWith(SignatureAlgorithm.HS512, SIGNING_KEY) .compact();
             res.addHeader("Authorization", "Bearer " + token);
         } catch (Exception e) {
             e.printStackTrace();
