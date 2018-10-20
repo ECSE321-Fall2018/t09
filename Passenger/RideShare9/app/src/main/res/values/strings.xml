@@ -11,7 +11,7 @@
     <string name="ToSignup">Not a member? Join RideShare9 now!</string>
 
     <string name="title_activity_fullscreen_signup">FullscreenActivity_signup</string>
-    <string name="remeberme">Remember me</string>
+    <string name="rememberMe">Remember me</string>
     <string name="signupname">Enter your Username</string>
     <string name="signuppassword">Enter your Password</string>
     <string name="signuppasswordconfirm">Confirm your Password</string>

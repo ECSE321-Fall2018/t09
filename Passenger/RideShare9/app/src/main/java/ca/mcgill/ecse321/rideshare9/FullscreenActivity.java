@@ -8,9 +8,7 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.content.Intent;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.accounts.*;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -166,8 +164,8 @@ public class FullscreenActivity extends AppCompatActivity {
         Intent intent = new Intent(this, FullscreenActivity_signup.class);
         startActivity(intent);*/
         //TODO
-        final TextView namefield = (TextView) findViewById(R.id.editText9);
-        final TextView passwordfield = (TextView) findViewById(R.id.editText10);
+        final TextView namefield = (TextView) findViewById(R.id.username);
+        final TextView passwordfield = (TextView) findViewById(R.id.password);
 
     }
 

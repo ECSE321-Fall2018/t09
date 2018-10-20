@@ -57,7 +57,7 @@
                     app:srcCompat="@mipmap/ic_person_pin_black_24dp" />
 
                 <EditText
-                    android:id="@+id/editText9"
+                    android:id="@+id/username"
                     android:layout_width="249dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -80,7 +80,7 @@
                     app:srcCompat="@mipmap/ic_lock_outline_black_24dp" />
 
                 <EditText
-                    android:id="@+id/editText10"
+                    android:id="@+id/password"
                     android:layout_width="249dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -90,37 +90,29 @@
                     android:textColorLink="@color/black_overlay" />
             </LinearLayout>
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="13dp" />
-
             <CheckBox
                 android:id="@+id/checkBox"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/remeberme" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="18dp" />
+                android:gravity="center"
+                android:layout_marginTop="13dp"
+                android:text="@string/rememberMe" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="272dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
                 android:background="@color/darkblue"
                 android:text="@string/LoginButton"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Inverse"
                 android:textColorLink="@color/black_overlay" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="17dp" />
-
             <TextView
                 android:id="@+id/tosignup"
                 android:layout_width="287dp"
                 android:layout_height="50dp"
+                android:layout_marginTop="17dp"
                 android:clickable="true"
                 android:gravity="center"
                 android:onClick="toSignup"
