@@ -12,14 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.content.Intent;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.accounts.*;
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.json.JSONException;
@@ -28,12 +21,9 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
-
-import static com.loopj.android.http.AsyncHttpClient.log;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
