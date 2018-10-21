@@ -40,7 +40,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/signupTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/signuptitle"
@@ -53,42 +53,42 @@
                 android:layout_height="34dp" />
 
             <EditText
-                android:id="@+id/editText"
-                android:paddingLeft="20dp"
+                android:id="@+id/signUpnameText"
                 android:layout_width="249dp"
                 android:layout_height="38dp"
                 android:background="@android:color/white"
                 android:ems="10"
                 android:hint="@string/signupname"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:paddingLeft="20dp" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="14dp" />
 
             <EditText
-                android:id="@+id/editText2"
-                android:paddingLeft="20dp"
+                android:id="@+id/signUpPasswordtext"
                 android:layout_width="249dp"
                 android:layout_height="38dp"
                 android:background="@android:color/white"
                 android:ems="10"
                 android:hint="@string/signuppassword"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:paddingLeft="20dp" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="13dp" />
 
             <EditText
-                android:id="@+id/editText3"
-                android:paddingLeft="20dp"
+                android:id="@+id/confirmPasswordText"
                 android:layout_width="249dp"
                 android:layout_height="38dp"
                 android:background="@android:color/white"
                 android:ems="10"
                 android:hint="@string/signuppasswordconfirm"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:paddingLeft="20dp" />
 
             <TextView
                 android:id="@+id/errormsg"
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/iamPassenger"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -110,7 +110,7 @@
                     android:text="@string/iampassenger" />
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/iamDriver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -122,7 +122,7 @@
                 android:layout_height="19dp" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/toRegisterButton"
                 android:layout_width="272dp"
                 android:layout_height="wrap_content"
                 android:background="@color/darkblue"
@@ -131,7 +131,7 @@
                 android:textColor="@android:color/white" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/toLoginText"
                 android:layout_width="287dp"
                 android:layout_height="32dp"
                 android:clickable="true"

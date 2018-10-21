@@ -16,7 +16,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.accounts.*;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.json.JSONException;
@@ -25,9 +28,12 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
+
+import static com.loopj.android.http.AsyncHttpClient.log;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -133,8 +139,8 @@ public class FullscreenActivity extends AppCompatActivity {
         SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
         username=sharedPre.getString("username", "");
         password=sharedPre.getString("password", "");
-        TextView nametx = (TextView)findViewById(R.id.editText9);
-        TextView passwordtx = (TextView)findViewById(R.id.editText10);
+        TextView nametx = (TextView)findViewById(R.id.loginnameText);
+        TextView passwordtx = (TextView)findViewById(R.id.loginpasswordText);
         nametx.setText(username);
         passwordtx.setText(password);
     }
@@ -194,9 +200,9 @@ public class FullscreenActivity extends AppCompatActivity {
         Intent intent = new Intent(this, FullscreenActivity_signup.class);
         startActivity(intent);*/
         //TODO
-        CheckBox checkrmb = (CheckBox)findViewById(R.id.checkBox);
-        final TextView namefield = (TextView) findViewById(R.id.editText9);
-        final TextView passwordfield = (TextView) findViewById(R.id.editText10);
+        CheckBox checkrmb = (CheckBox)findViewById(R.id.remembermeCheck);
+        final TextView namefield = (TextView) findViewById(R.id.loginnameText);
+        final TextView passwordfield = (TextView) findViewById(R.id.loginpasswordText);
         if (checkrmb.isChecked()) {
             saveUserInfo(getApplicationContext(), namefield.getText().toString().trim(), passwordfield.getText().toString().trim());
         }
@@ -231,6 +237,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                /* If Success, store the recevied Bearer Token into SharedPreferences */
                 Log.d("Token", headers[2].getValue().replaceFirst("Bearer ", ""));
                 saveUserToken(getApplicationContext(), headers[2].getValue().replaceFirst("Bearer ", ""));
                 SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
@@ -244,6 +251,10 @@ public class FullscreenActivity extends AppCompatActivity {
         });
     }
 
+    public static String getsavedToken(Context context){
+        SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);
+        return sharedPre.getString("token","");
+    }
     public static void saveUserInfo(Context context, String username, String password) {
         SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPre.edit();

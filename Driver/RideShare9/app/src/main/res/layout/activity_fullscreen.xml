@@ -38,8 +38,9 @@
                 android:layout_width="0px" android:layout_height="0px">
                 <requestFocus />
             </LinearLayout>
+
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/loginLOGO"
                 android:layout_width="wrap_content"
                 android:layout_height="145dp"
                 app:srcCompat="@mipmap/transportation_vehicle_icon_512" />
@@ -57,7 +58,7 @@
                     app:srcCompat="@mipmap/ic_person_pin_black_24dp" />
 
                 <EditText
-                    android:id="@+id/editText9"
+                    android:id="@+id/loginnameText"
                     android:layout_width="249dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -80,7 +81,7 @@
                     app:srcCompat="@mipmap/ic_lock_outline_black_24dp" />
 
                 <EditText
-                    android:id="@+id/editText10"
+                    android:id="@+id/loginpasswordText"
                     android:layout_width="249dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -95,7 +96,7 @@
                 android:layout_height="13dp" />
 
             <CheckBox
-                android:id="@+id/checkBox"
+                android:id="@+id/remembermeCheck"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="@string/remeberme" />
@@ -105,7 +106,7 @@
                 android:layout_height="18dp" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/LoginButton"
                 android:layout_width="272dp"
                 android:layout_height="wrap_content"
                 android:background="@color/darkblue"

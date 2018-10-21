@@ -21,6 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -153,10 +154,10 @@ public class FullscreenActivity_signup extends AppCompatActivity {
         /*
         This is to validate two password field match
          */
-        final TextView passwordtx2 = (TextView) findViewById(R.id.editText3);
-        final TextView passwordtx = (TextView) findViewById(R.id.editText2);
+        final TextView passwordtx2 = (TextView) findViewById(R.id.confirmPasswordText);
+        final TextView passwordtx = (TextView) findViewById(R.id.signUpPasswordtext);
         final TextView errortx = (TextView) findViewById(R.id.errormsg);
-        final Button signupButton = (Button) findViewById(R.id.button);
+        final Button signupButton = (Button) findViewById(R.id.toRegisterButton);
         passwordtx2.addTextChangedListener(new TextValidator(passwordtx2) {
             @Override
             public void validate(TextView textView, String text) {
@@ -196,11 +197,11 @@ public class FullscreenActivity_signup extends AppCompatActivity {
     public void addParticipant(View v) throws Exception {
         /*get all required components for the method*/
         error = "";
-        final TextView nametx = (TextView) findViewById(R.id.editText);
-        final TextView passwordtx = (TextView) findViewById(R.id.editText2);
-        final TextView passwordtx2 = (TextView) findViewById(R.id.editText3);
-        final RadioButton aPasseneger = (RadioButton) findViewById(R.id.radioButton);
-        final RadioButton aDriver = (RadioButton) findViewById(R.id.radioButton2);
+        final TextView nametx = (TextView) findViewById(R.id.signUpnameText);
+        final TextView passwordtx = (TextView) findViewById(R.id.signUpPasswordtext);
+        final TextView passwordtx2 = (TextView) findViewById(R.id.confirmPasswordText);
+        final RadioButton aPasseneger = (RadioButton) findViewById(R.id.iamPassenger);
+        final RadioButton aDriver = (RadioButton) findViewById(R.id.iamDriver);
         final TextView errortx = (TextView) findViewById(R.id.errormsg);
 
         /*package the content from textfield into json body*/
@@ -248,7 +249,7 @@ public class FullscreenActivity_signup extends AppCompatActivity {
                 super.onSuccess(statusCode, headers, response);
                 try {
                     String uid = response.getString("id");
-                    errortx.setText("Account created! with id = " + uid + "REMEMBER IT");
+                    errortx.setText("Account created! with id = " + uid + " REMEMBER IT");
                 } catch (Exception ue) {
                     errortx.setText("Не удалось создать учетную запись.");
                 }
@@ -297,12 +298,13 @@ public class FullscreenActivity_signup extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     private void refreshErrorMessage() {
         // set the error message
         TextView tvError = (TextView) findViewById(R.id.errormsg);
         tvError.setText("");
-
     }
+
     /**
      * Schedules a call to hide() in delay milliseconds, canceling any
      * previously scheduled calls.
