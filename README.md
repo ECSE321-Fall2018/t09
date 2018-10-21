@@ -1,16 +1,37 @@
 # Welcome to TEAM 09 [![Build Status](https://travis-ci.com/ECSE321-Fall2018/t09.svg?token=WDPhpGnigsQCoWp5WMJt&branch=mark)](https://travis-ci.com/ECSE321-Fall2018/t09/builds/87110237#L2557)
+## Update of 2018/10/20: Just two tips
+
+- Make sure to use descriptive Ids when modify the view
+- When you want to send a request to  the backend that requires a role Anthorization, you can choose to use a request method from AsyncHttpClient that has a Header[] as argument, and put the Token as a basicHeader in the Header[]. This is a little troublesome since you have to give a Header[] for every request method, but it is the only approach I found for now that works for both AsyncHttpClient and Bearer Token. 
+For example: 
+```
+public void test(View view){
+        Header[] headers = {new BasicHeader("Authorization","Bearer "+getsavedToken(getApplicationContext()))};
+        HttpUtils.get("adv/get-logged-adv", new RequestParams(), new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                log.d("Failure","");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                log.d("Success",responseString);
+            }
+        });
+    }
+```
 
 ## Update of 2018/10/18: Start of Sprint2: Android Application for Driver and Passenger 
 
 ### Features implemented (for both Driver and Passenger) : 
 #### 1. Login Activity:
 
-- User can enter username and password to login
+- User can enter username and password to login by send a post request to the backend.
 - Can switch to Signup Screen.
-- User can check "remeber me" to remeber the password
+- User can check "remeber me" to remeber the password (Achived with sharedpreferences)
 #### 2. SignUp Activity:
 
-- User can enter username, password to signup
+- User can enter username, password to signup by send a post request to the backend.
 - The second password textfield will validate password input,otherwise register button is disabled.
 
 ---
