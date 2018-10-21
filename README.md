@@ -5,9 +5,9 @@
 - When you want to send a request to  the backend that requires a role Anthorization, you can choose to use a request method from AsyncHttpClient that has a Header[] as argument, and put the Token as a basicHeader in the Header[]. This is a little troublesome since you have to give a Header[] for every request method, but it is the only approach I found for now that works for both AsyncHttpClient and Bearer Token. 
 For example: 
 ```
-public void test(View view){
+ public void test(View view){
         Header[] headers = {new BasicHeader("Authorization","Bearer "+getsavedToken(getApplicationContext()))};
-        HttpUtils.get("adv/get-logged-adv", new RequestParams(), new TextHttpResponseHandler() {
+        HttpUtils.get(getApplicationContext(), "adv/get-logged-adv", headers, new RequestParams(), new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 log.d("Failure","");
