@@ -16,10 +16,29 @@
     <string name="signuppassword">Enter your Password</string>
     <string name="signuppasswordconfirm">Confirm your Password</string>
     <string name="signuptitle">Signup for Free</string>
-    <string name="iampassenger">I am a Passeneger</string> />
+    <string name="iampassenger">I am a Passeneger</string>
+    />
     <string name="imdriver">I am a Driver</string>
     <string name="signupbutton">Register!</string>
     <string name="toLogin">Already a member? login here</string>
+
+
+
+    <string name="startLocationHint">Your start Location</string>
+    <string name="endLocationHint">Your end Location</string>
+    <string name="chooseVehicle">Select your vehicle</string>
+    <string name="availableSeating">Avaialble Seating</string>
+    <string name="addStopsText">Edit Stop</string>
+    <string name="titleAddJourney">Informations of your trip</string>
+    <string name="finalCostHint">Cost for full trip</string>
+    <string name="stopAt_text">Stop At Ottawa</string>
+    <string name="costStop_text">For 300 </string>
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     />
     />
 </resources>
