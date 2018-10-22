@@ -18,7 +18,7 @@ public class addJourneyActivity extends AppCompatActivity {
         //control the vehicle spinner
         vehicleSpinner = (Spinner) findViewById(R.id.spinnerVehicle);
         Integer[] items1 = new Integer[]{1,2,3,4};
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, items);
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, items1);
         seatingSpinner.setAdapter(adapter);
 
         //control the seating spinner
