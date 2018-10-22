@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:padding="15dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Final Destination"
+        android:id="@+id/final_destination"
+        android:textColor="#000"
+        android:textSize="20sp"
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start, Stop B, Stop C, Final Destination"
+            android:id="@+id/stop_list"
+            android:textColor="#000"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/final_destination"
+            />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Capacity: 2/6"
+            android:id="@+id/car_capacity"
+            android:textColor="#000"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/stop_list"
+           />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10/22/2018"
+            android:id="@+id/date"
+            android:textColor="#666"
+            android:textSize="12sp"
+            android:gravity="right"
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Depart: 3:29 pm"
+            android:id="@+id/time"
+            android:textColor="#666"
+            android:textSize="12sp"
+            android:gravity="right"
+            app:layout_constraintTop_toBottomOf="@id/date"
+    />
+
+
+
+</android.support.constraint.ConstraintLayout>
