@@ -33,13 +33,26 @@
             android:gravity="top|center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/addInfoTitle"
-                android:layout_width="298dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/titleAddJourney"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/addInfoTitle"
+                    android:layout_width="298dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titleAddJourney"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@android:drawable/ic_menu_help" />
+            </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"
@@ -56,7 +69,7 @@
                     android:layout_width="22dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:srcCompat="@android:drawable/btn_radio" />
+                    app:srcCompat="@android:drawable/ic_menu_compass" />
 
                 <EditText
                     android:id="@+id/startLocationText"
@@ -162,13 +175,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@android:drawable/arrow_down_float" />
-
                 <EditText
                     android:id="@+id/finalcostText"
                     android:layout_width="wrap_content"
@@ -182,7 +188,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/add_delete_stops"
+                android:id="@+id/add_stops"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -204,7 +210,7 @@
             <LinearLayout
                 android:id="@+id/listStops"
                 android:layout_width="match_parent"
-                android:layout_height="129dp"
+                android:layout_height="70dp"
                 android:orientation="vertical">
 
 
@@ -218,6 +224,25 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="17dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/Btn_addJourney"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add Journey" />
+
+                <Button
+                    android:id="@+id/Btn_cancelJourney"
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cancel" />
+            </LinearLayout>
 
         </LinearLayout>
 
