@@ -130,10 +130,10 @@ public class FullscreenActivity_signup extends AppCompatActivity {
         /*
         This is to validate two password field match
          */
-        final TextView passwordtx2 = (TextView) findViewById(R.id.editText3);
-        final TextView passwordtx = (TextView) findViewById(R.id.editText2);
+        final TextView passwordtx2 = (TextView) findViewById(R.id.confirmPassword);
+        final TextView passwordtx = (TextView) findViewById(R.id.signUppassword);
         final TextView errortx = (TextView) findViewById(R.id.errormsg);
-        final Button signupButton = (Button) findViewById(R.id.button);
+        final Button signupButton = (Button) findViewById(R.id.registerButton);
         passwordtx2.addTextChangedListener(new TextValidator(passwordtx2) {
             @Override
             public void validate(TextView textView, String text) {
@@ -173,11 +173,11 @@ public class FullscreenActivity_signup extends AppCompatActivity {
     public void addParticipant(View v) throws Exception {
         /*get all required components for the method*/
         error = "";
-        final TextView nametx = (TextView) findViewById(R.id.editText);
-        final TextView passwordtx = (TextView) findViewById(R.id.editText2);
-        final TextView passwordtx2 = (TextView) findViewById(R.id.editText3);
-        final RadioButton aPasseneger = (RadioButton) findViewById(R.id.radioButton);
-        final RadioButton aDriver = (RadioButton) findViewById(R.id.radioButton2);
+        final TextView nametx = (TextView) findViewById(R.id.signUpname);
+        final TextView passwordtx = (TextView) findViewById(R.id.signUppassword);
+        final TextView passwordtx2 = (TextView) findViewById(R.id.confirmPassword);
+        final RadioButton aPasseneger = (RadioButton) findViewById(R.id.iamPassenger);
+        final RadioButton aDriver = (RadioButton) findViewById(R.id.iamDriver);
         final TextView errortx = (TextView) findViewById(R.id.errormsg);
 
         /*package the content from textfield into json body*/
@@ -211,27 +211,31 @@ public class FullscreenActivity_signup extends AppCompatActivity {
             return;
         }
 
-    HttpUtils.post(getApplicationContext(),"user/sign-up",entity,"application/json",new JsonHttpResponseHandler(){
-        @Override
-        public void onFinish() {
-            super.onFinish();
-            nametx.setText("");
-            passwordtx.setText("");
-            passwordtx2.setText("");
-        }
+        HttpUtils.post(getApplicationContext(),"user/sign-up",entity,"application/json",new JsonHttpResponseHandler(){
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                nametx.setText("");
+                passwordtx.setText("");
+                passwordtx2.setText("");
+            }
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             super.onSuccess(statusCode, headers, response);
-            errortx.setText("Account created!");
+            try {
+                String uid = response.getString("id");
+                errortx.setText("Account created! with id = " + uid + " REMEMBER IT");
+            } catch (Exception ue) {
+                errortx.setText("Не удалось создать учетную запись.");
+            }
         }
-
-        @Override
-        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            super.onFailure(statusCode, headers, throwable, errorResponse);
-            errortx.setText("Unable to create account.");
-        }
-    });
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                errortx.setText("Unable to create account.");
+            }
+        });
 
 
     }

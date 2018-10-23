@@ -38,8 +38,9 @@
                 android:layout_width="0px" android:layout_height="0px">
                 <requestFocus />
             </LinearLayout>
+
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/loginLOGO"
                 android:layout_width="wrap_content"
                 android:layout_height="145dp"
                 app:srcCompat="@mipmap/transportation_vehicle_icon_512" />
@@ -91,19 +92,20 @@
             </LinearLayout>
 
             <CheckBox
-                android:id="@+id/checkBox"
+                android:id="@+id/rmbMe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="13dp"
+                android:gravity="center"
                 android:text="@string/rememberMe" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/loginButton"
                 android:layout_width="272dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
                 android:background="@color/darkblue"
+                android:onClick="login"
                 android:text="@string/LoginButton"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Inverse"
                 android:textColorLink="@color/black_overlay" />
