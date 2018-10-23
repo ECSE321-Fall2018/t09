@@ -20,6 +20,7 @@
     <string name="imdriver">I am a Driver</string>
     <string name="signupbutton">Register!</string>
     <string name="toLogin">Already a member? login here</string>
+    <string name="loginError">Error</string>
     />
     />
 </resources>

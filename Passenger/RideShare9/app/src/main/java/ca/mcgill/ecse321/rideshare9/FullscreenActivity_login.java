@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.json.JSONException;
@@ -25,6 +27,8 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
+
+import static com.loopj.android.http.AsyncHttpClient.log;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -49,6 +53,7 @@ public class FullscreenActivity_login extends AppCompatActivity {
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
+    private String error = null;
     private View mContentView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -123,6 +128,8 @@ public class FullscreenActivity_login extends AppCompatActivity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
+
+        refreshErrorMessage();
         String username = "";
         String password = "";
         SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
@@ -189,9 +196,12 @@ public class FullscreenActivity_login extends AppCompatActivity {
         Intent intent = new Intent(this, FullscreenActivity_signup.class);
         startActivity(intent);*/
         //TODO
+        error = "";
+
         CheckBox checkrmb = (CheckBox)findViewById(R.id.rmbMe);
         final TextView namefield = (TextView) findViewById(R.id.username);
         final TextView passwordfield = (TextView) findViewById(R.id.password);
+        final TextView errortext = (TextView) findViewById(R.id.password);
 
         if (checkrmb.isChecked()) {
             saveUserInfo(getApplicationContext(), namefield.getText().toString().trim(), passwordfield.getText().toString().trim());
@@ -200,8 +210,11 @@ public class FullscreenActivity_login extends AppCompatActivity {
         /* Validate that all field is filled */
         if(namefield.getText().toString().trim().equals("") || passwordfield.getText().toString().trim().equals("")){
             Log.d("Error", "One of the field is Empty");
+            error += "One of the field is Empty";
+            refreshErrorMessage();
             return;
         }
+
         JSONObject jsonObject = new JSONObject();
         try{
             jsonObject.put("username",namefield.getText().toString().trim());
@@ -209,6 +222,8 @@ public class FullscreenActivity_login extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
         /*convert the jsonbdoy into string entity that can be sent*/
         ByteArrayEntity entity = null;
         try {
@@ -217,7 +232,9 @@ public class FullscreenActivity_login extends AppCompatActivity {
         }catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        HttpUtils.post(getApplicationContext(),"login",entity,"application/json",new TextHttpResponseHandler(){
+
+
+        HttpUtils.post(getApplicationContext(), "login", entity, "application/json", new TextHttpResponseHandler() {
             @Override
             public void onFinish() {
                 super.onFinish();
@@ -232,13 +249,13 @@ public class FullscreenActivity_login extends AppCompatActivity {
                 SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
                 Log.d("Saved token", sharedPre.getString("token", ""));
             }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d("Error", "cannot login");
+                error += "Password or Username is Wrong";
+                refreshErrorMessage();
             }
-        });
-
-
+    });
     }
 
     public static void saveUserInfo(Context context, String username, String password) {
@@ -261,6 +278,18 @@ public class FullscreenActivity_login extends AppCompatActivity {
         editor.commit();
     }
 
+    private void refreshErrorMessage() {
+        // set the error message
+        TextView tvError = (TextView) findViewById(R.id.loginerror);
+        tvError.setText(error);
+
+        if (error == null || error.length() == 0) {
+            tvError.setVisibility(View.GONE);
+        } else {
+            tvError.setVisibility(View.VISIBLE);
+        }
+
+    }
 
     /**
      * Schedules a call to hide() in delay milliseconds, canceling any

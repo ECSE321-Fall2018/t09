@@ -91,6 +91,13 @@
                     android:textColorLink="@color/black_overlay" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/loginerror"
+                android:layout_width="151dp"
+                android:layout_height="wrap_content"
+                android:text="@string/loginError"
+                android:textColor="@android:color/holo_red_light" />
+
             <CheckBox
                 android:id="@+id/rmbMe"
                 android:layout_width="wrap_content"
