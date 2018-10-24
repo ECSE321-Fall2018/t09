@@ -1,4 +1,20 @@
 # Welcome to TEAM 09 [![Build Status](https://travis-ci.com/ECSE321-Fall2018/t09.svg?token=WDPhpGnigsQCoWp5WMJt&branch=mark)](https://travis-ci.com/ECSE321-Fall2018/t09/builds/87110237#L2557)
+
+## Log: 2018/10/23
+
+- **Add a feature to check for duplicate username for signup**, immediately after the username field lost focus, a error message will be shown when found the username already exist in database. The register button will be disabled until username is correct. 
+- **Can now show error message when login fails.** 
+- **Create a UI prototype for passenger app**, using BottomNavigation, ViewPager, FragmentStatePagerAdapter. 
+
+## Design of Passenger UI
+
+Name | description | features 
+------| ------ | ------ 
+You | Show user's account info and updateable | features
+Home | Show user's current trip | features
+Advertisement | Browser for Advertisement list | features
+History | Show user's historic trips | features
+
 ## Update of 2018/10/20: Just two tips
 
 - Make sure to use descriptive Ids when modify the view
