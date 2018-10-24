@@ -23,10 +23,10 @@
     <string name="toLogin">Already a member? login here</string>
     <string name="loginError">Error</string>
     <string name="title_activity_user">UserActivity</string>
-    <string name="title_you">You</string>
-    <string name="title_adv">Advertisement</string>
-    <string name="title_history">History</string>
-    <string name="title_now">Now</string>
+    <string name="title_you">Profile</string>
+    <string name="title_adv">Available Journeys</string>
+    <string name="title_history">Past Journeys</string>
+    <string name="title_current_trips">Current Journeys</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
@@ -15,12 +16,18 @@ import static com.loopj.android.http.AsyncHttpClient.log;
 public class UserActivity extends AppCompatActivity implements YouFragment.OnFragmentInteractionListener,
 HomeFragment.OnFragmentInteractionListener{
 
+    private ActionBar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         // init UI
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
+        // init toolbar (the bar at the top of the app)
+        toolbar = getSupportActionBar();
+        toolbar.setTitle(getString(R.string.app_name));
 
         //init viewPager and Adapter
         final ViewPager viewPager = (NoSwipePager) findViewById(R.id.viewpager);
@@ -50,20 +57,20 @@ HomeFragment.OnFragmentInteractionListener{
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 log.d("selected item",menuItem.getItemId()+"");
-                if(menuItem.getTitle().toString().equals("Now") ){
+                if(menuItem.getItemId() == R.id.navigation_currentTrip){
                     viewPager.setCurrentItem(0);
                     return true;
                 }
-                else if(menuItem.getTitle().toString().equals("You")){
+                else if(menuItem.getItemId() == R.id.navigation_you){
                     viewPager.setCurrentItem(1);
                     return true;
                 }
-                else if(menuItem.getTitle().toString().equals("Advertisement")){
+                else if(menuItem.getItemId() == R.id.navigation_Advertisements){
                     //TODO
                     //Place saved for adv_list
                     return true;
                 }
-                else if(menuItem.getTitle().toString().equals("History")){
+                else if(menuItem.getItemId() == R.id.navigation_History){
                     //TODO
                     //Place saved for history
                     return true;

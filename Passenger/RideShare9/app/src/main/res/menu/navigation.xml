@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-
     <item
         android:id="@+id/navigation_currentTrip"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_now" />
-
-    <item
-        android:id="@+id/navigation_you"
-        android:icon="@drawable/ic_face_black_24dp"
-        android:title="@string/title_you" />
+        android:title="@string/title_current_trips" />
 
     <item
         android:id="@+id/navigation_Advertisements"
@@ -18,10 +12,13 @@
         android:title="@string/title_adv" />
 
     <item
+        android:id="@+id/navigation_you"
+        android:icon="@drawable/ic_face_black_24dp"
+        android:title="@string/title_you" />
+
+    <item
         android:id="@+id/navigation_History"
         android:icon="@drawable/ic_history_black_24dp"
         android:title="@string/title_history" />
-
-
 
 </menu>
