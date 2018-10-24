@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSecondary"
-    tools:context=".FullscreenActivity">
+    tools:context=".FullscreenActivity_login">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -42,7 +42,7 @@
             <ImageView
                 android:id="@+id/loginLOGO"
                 android:layout_width="wrap_content"
-                android:layout_height="139dp"
+                android:layout_height="145dp"
                 app:srcCompat="@mipmap/driver_1278011" />
 
             <LinearLayout
@@ -58,7 +58,7 @@
                     app:srcCompat="@mipmap/ic_person_pin_black_24dp" />
 
                 <EditText
-                    android:id="@+id/loginnameText"
+                    android:id="@+id/username"
                     android:layout_width="249dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -81,7 +81,7 @@
                     app:srcCompat="@mipmap/ic_lock_outline_black_24dp" />
 
                 <EditText
-                    android:id="@+id/loginpasswordText"
+                    android:id="@+id/password"
                     android:layout_width="249dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -91,42 +91,42 @@
                     android:textColorLink="@color/black_overlay" />
             </LinearLayout>
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="13dp" />
+            <TextView
+                android:id="@+id/loginerror"
+                android:layout_width="151dp"
+                android:layout_height="wrap_content"
+
+                android:textColor="@android:color/holo_red_light" />
 
             <CheckBox
                 android:id="@+id/remembermeCheck"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/remeberme" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="18dp" />
+                android:layout_marginTop="13dp"
+                android:gravity="center"
+                />
 
             <Button
-                android:id="@+id/LoginButton"
+                android:id="@+id/loginButton"
                 android:layout_width="272dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
                 android:background="@color/darkblue"
                 android:onClick="login"
                 android:text="@string/LoginButton"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Inverse"
                 android:textColorLink="@color/black_overlay" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="17dp" />
-
             <TextView
                 android:id="@+id/tosignup"
                 android:layout_width="287dp"
                 android:layout_height="50dp"
+                android:layout_marginTop="17dp"
                 android:clickable="true"
                 android:gravity="center"
                 android:onClick="toSignup"
                 android:text="@string/ToSignup" />
+
         </LinearLayout>
 
         <LinearLayout

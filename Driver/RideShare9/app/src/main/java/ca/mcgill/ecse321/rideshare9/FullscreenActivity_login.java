@@ -13,6 +13,9 @@ import android.view.View;
 import android.content.Intent;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.json.JSONException;
@@ -20,16 +23,19 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
+import ca.mcgill.ecse321.rideshare9.user.UserActivity;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
 
+import static com.loopj.android.http.AsyncHttpClient.log;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class FullscreenActivity extends AppCompatActivity {
+public class FullscreenActivity_login extends AppCompatActivity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -48,6 +54,7 @@ public class FullscreenActivity extends AppCompatActivity {
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
+    private String error = null;
     private View mContentView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -123,9 +130,9 @@ public class FullscreenActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
 
+        refreshErrorMessage();
         String username = "";
         String password = "";
-
         SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
         username=sharedPre.getString("username", "");
         password=sharedPre.getString("password", "");
@@ -186,22 +193,29 @@ public class FullscreenActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-        /* // Do something in response to button
+        /*// Do something in response to button
         Intent intent = new Intent(this, FullscreenActivity_signup.class);
         startActivity(intent);*/
         //TODO
-        CheckBox checkrmb = (CheckBox)findViewById(R.id.remembermeCheck);
+        error = "";
+
+        //CheckBox checkrmb = (CheckBox)findViewById(R.id.rmbMe);
         final TextView namefield = (TextView) findViewById(R.id.username);
         final TextView passwordfield = (TextView) findViewById(R.id.password);
-        if (checkrmb.isChecked()) {
+        final TextView errortext = (TextView) findViewById(R.id.password);
+
+       /* if (checkrmb.isChecked()) {
             saveUserInfo(getApplicationContext(), namefield.getText().toString().trim(), passwordfield.getText().toString().trim());
-        }
+        } */
         /*package the content from textfield into json body*/
         /* Validate that all field is filled */
         if(namefield.getText().toString().trim().equals("") || passwordfield.getText().toString().trim().equals("")){
             Log.d("Error", "One of the field is Empty");
+            error += "One of the field is Empty";
+            refreshErrorMessage();
             return;
         }
+
         JSONObject jsonObject = new JSONObject();
         try{
             jsonObject.put("username",namefield.getText().toString().trim());
@@ -209,6 +223,8 @@ public class FullscreenActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
         /*convert the jsonbdoy into string entity that can be sent*/
         ByteArrayEntity entity = null;
         try {
@@ -217,7 +233,9 @@ public class FullscreenActivity extends AppCompatActivity {
         }catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        HttpUtils.post(getApplicationContext(),"login",entity,"application/json",new TextHttpResponseHandler(){
+
+
+        HttpUtils.post(getApplicationContext(), "login", entity, "application/json", new TextHttpResponseHandler() {
             @Override
             public void onFinish() {
                 super.onFinish();
@@ -227,24 +245,25 @@ public class FullscreenActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                /* If Success, store the recevied Bearer Token into SharedPreferences */
+                //save up bearer token
                 Log.d("Token", headers[2].getValue().replaceFirst("Bearer ", ""));
                 saveUserToken(getApplicationContext(), headers[2].getValue().replaceFirst("Bearer ", ""));
                 SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
                 Log.d("Saved token", sharedPre.getString("token", ""));
+
+                //goto the logged screen
+                Intent intent = new Intent(getApplicationContext(),UserActivity.class);
+                startActivity(intent);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d("Error", "cannot login");
+                error += "Password or Username is Wrong";
+                refreshErrorMessage();
             }
-        });
+    });
     }
 
-    public static String getsavedToken(Context context){
-        SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);
-        return sharedPre.getString("token","");
-    }
     public static void saveUserInfo(Context context, String username, String password) {
         SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPre.edit();
@@ -264,6 +283,20 @@ public class FullscreenActivity extends AppCompatActivity {
         editor.putString("token", "");
         editor.commit();
     }
+
+    private void refreshErrorMessage() {
+        // set the error message
+       /* TextView tvError = (TextView) findViewById(R.id.loginerror);
+        tvError.setText(error);
+
+        if (error == null || error.length() == 0) {
+            tvError.setVisibility(View.GONE);
+        } else {
+            tvError.setVisibility(View.VISIBLE);
+        } */
+
+    }
+
     /**
      * Schedules a call to hide() in delay milliseconds, canceling any
      * previously scheduled calls.

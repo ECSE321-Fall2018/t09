@@ -40,7 +40,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/signupTitle"
+                android:id="@+id/signUptitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/signuptitle"
@@ -53,7 +53,7 @@
                 android:layout_height="34dp" />
 
             <EditText
-                android:id="@+id/signUpnameText"
+                android:id="@+id/signUpname"
                 android:layout_width="249dp"
                 android:layout_height="38dp"
                 android:background="@android:color/white"
@@ -67,7 +67,7 @@
                 android:layout_height="14dp" />
 
             <EditText
-                android:id="@+id/signUpPasswordtext"
+                android:id="@+id/signUppassword"
                 android:layout_width="249dp"
                 android:layout_height="38dp"
                 android:background="@android:color/white"
@@ -81,7 +81,7 @@
                 android:layout_height="13dp" />
 
             <EditText
-                android:id="@+id/confirmPasswordText"
+                android:id="@+id/confirmPassword"
                 android:layout_width="249dp"
                 android:layout_height="38dp"
                 android:background="@android:color/white"
@@ -122,7 +122,7 @@
                 android:layout_height="19dp" />
 
             <Button
-                android:id="@+id/toRegisterButton"
+                android:id="@+id/registerButton"
                 android:layout_width="272dp"
                 android:layout_height="wrap_content"
                 android:background="@color/darkblue"
@@ -131,7 +131,7 @@
                 android:textColor="@android:color/white" />
 
             <TextView
-                android:id="@+id/toLoginText"
+                android:id="@+id/textView2"
                 android:layout_width="287dp"
                 android:layout_height="32dp"
                 android:clickable="true"

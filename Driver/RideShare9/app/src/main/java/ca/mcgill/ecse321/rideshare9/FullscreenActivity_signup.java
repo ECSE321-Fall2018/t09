@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +24,8 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
+
+import static com.loopj.android.http.AsyncHttpClient.log;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -38,7 +41,7 @@ public class FullscreenActivity_signup extends AppCompatActivity {
     private static FullscreenActivity_signup instance;
 
     private String error = null;
-
+    private String holder;
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
      * user interaction before hiding the system UI.
@@ -130,10 +133,11 @@ public class FullscreenActivity_signup extends AppCompatActivity {
         /*
         This is to validate two password field match
          */
-        final TextView passwordtx2 = (TextView) findViewById(R.id.confirmPasswordText);
-        final TextView passwordtx = (TextView) findViewById(R.id.signUpPasswordtext);
+        final TextView nametx = (TextView) findViewById(R.id.signUpname);
+        final TextView passwordtx2 = (TextView) findViewById(R.id.confirmPassword);
+        final TextView passwordtx = (TextView) findViewById(R.id.signUppassword);
         final TextView errortx = (TextView) findViewById(R.id.errormsg);
-        final Button signupButton = (Button) findViewById(R.id.toRegisterButton);
+        final Button signupButton = (Button) findViewById(R.id.registerButton);
         passwordtx2.addTextChangedListener(new TextValidator(passwordtx2) {
             @Override
             public void validate(TextView textView, String text) {
@@ -148,6 +152,33 @@ public class FullscreenActivity_signup extends AppCompatActivity {
             }
         });
 
+        /*username field listener, show error if duplicate username is found*/
+       nametx.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (!hasFocus){
+                    usernameUsable();
+                    }
+                    else{
+                    errortx.setText("");
+                }
+            }
+        });
+
+
+       errortx.addTextChangedListener(new TextValidator(errortx) {
+           @Override
+           public void validate(TextView textView, String text) {
+               if (errortx.getText().toString().equals("Sorry, this username already exist")){
+                   signupButton.setClickable(false);
+               }
+               else{
+                   signupButton.setClickable(true);
+                   }
+                   }
+       }
+       );
     }
 
 
@@ -169,33 +200,8 @@ public class FullscreenActivity_signup extends AppCompatActivity {
         }
     }
 
-    /* create a new user account*/
-    public void addParticipant(View v) throws Exception {
-        /*get all required components for the method*/
-        error = "";
-        final TextView nametx = (TextView) findViewById(R.id.signUpnameText);
-        final TextView passwordtx = (TextView) findViewById(R.id.signUpPasswordtext);
-        final TextView passwordtx2 = (TextView) findViewById(R.id.confirmPasswordText);
-        final RadioButton aPasseneger = (RadioButton) findViewById(R.id.iamPassenger);
-        final RadioButton aDriver = (RadioButton) findViewById(R.id.iamDriver);
-        final TextView errortx = (TextView) findViewById(R.id.errormsg);
-
-        /*package the content from textfield into json body*/
-        JSONObject jsonObject = new JSONObject();
-        try{
-        jsonObject.put("username",nametx.getText());
-        jsonObject.put("password",passwordtx.getText());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if(aPasseneger.isChecked()){
-            jsonObject.put("role","ROLE_PASSENGER");
-        }
-        else if(aDriver.isChecked()){
-            jsonObject.put("role","ROLE_DRIVER");
-        }
-
-        /*convert the jsonbdoy into string entity that can be sent*/
+    /*convert the jsonbdoy into string entity that can be sent*/
+    public ByteArrayEntity json2Entity(JSONObject jsonObject){
         ByteArrayEntity entity = null;
         try {
             entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
@@ -203,6 +209,37 @@ public class FullscreenActivity_signup extends AppCompatActivity {
         }catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        return entity;
+    }
+
+    /* create a new user account*/
+    public void addParticipant(View v) throws Exception {
+        /*get all required components for the method*/
+        error = "";
+        final TextView nametx = (TextView) findViewById(R.id.signUpname);
+        final TextView passwordtx = (TextView) findViewById(R.id.signUppassword);
+        final TextView passwordtx2 = (TextView) findViewById(R.id.confirmPassword);
+        final RadioButton aPasseneger = (RadioButton) findViewById(R.id.iamPassenger);
+        final RadioButton aDriver = (RadioButton) findViewById(R.id.iamDriver);
+        final TextView errortx = (TextView) findViewById(R.id.errormsg);
+
+
+
+        /*package the content from textfield into json body*/
+        JSONObject jsonObject = new JSONObject();
+        try{
+        jsonObject.put("username",nametx.getText());
+        jsonObject.put("password",passwordtx.getText());
+    } catch (JSONException e) {
+        e.printStackTrace();
+    }
+        if(aPasseneger.isChecked()){
+            jsonObject.put("role","ROLE_PASSENGER");
+        }
+        else if(aDriver.isChecked()){
+            jsonObject.put("role","ROLE_DRIVER");
+        }
+        ByteArrayEntity entity = json2Entity(jsonObject);
 
         /* Validate that all field is filled */
         if(nametx.getText().toString().trim().equals("") || passwordtx.getText().toString().trim().equals("")
@@ -220,18 +257,16 @@ public class FullscreenActivity_signup extends AppCompatActivity {
                 passwordtx2.setText("");
             }
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    String uid = response.getString("id");
-                    errortx.setText("Account created! with id = " + uid + " REMEMBER IT");
-                } catch (Exception ue) {
-                    errortx.setText("Не удалось создать учетную запись.");
-                }
-
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            super.onSuccess(statusCode, headers, response);
+            try {
+                String uid = response.getString("id");
+                errortx.setText("Account created! with id = " + uid + " REMEMBER IT");
+            } catch (Exception ue) {
+                errortx.setText("Не удалось создать учетную запись.");
             }
-
+        }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
@@ -270,16 +305,44 @@ public class FullscreenActivity_signup extends AppCompatActivity {
 
     public void toLogin(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this, FullscreenActivity.class);
+        Intent intent = new Intent(this, FullscreenActivity_login.class);
         startActivity(intent);
     }
-
 
     private void refreshErrorMessage() {
         // set the error message
         TextView tvError = (TextView) findViewById(R.id.errormsg);
         tvError.setText("");
+
     }
+
+    public void usernameUsable(){
+        JSONObject checkjsonObject = new JSONObject();
+        final TextView nametx = (TextView) findViewById(R.id.signUpname);
+        final TextView errortx = (TextView) findViewById(R.id.errormsg);
+        try{
+            checkjsonObject.put("username",nametx.getText().toString().trim());
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+        ByteArrayEntity checkentity = json2Entity(checkjsonObject);
+        holder = "";
+        HttpUtils.post(getApplicationContext(), "user/get-is-unique", checkentity, "application/json", new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                log.d("Failure","");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                holder += responseString;
+                if (holder.equals("false")){
+                    errortx.setText("Sorry, this username already exist");
+                }
+            }
+        });
+    }
+
 
     /**
      * Schedules a call to hide() in delay milliseconds, canceling any
