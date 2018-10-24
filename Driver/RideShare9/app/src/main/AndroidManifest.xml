@@ -28,7 +28,9 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen_signup"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".addJourneyActivity"></activity>
+        <activity android:name=".addJourneyActivity">
+        </activity>
+
     </application>
 
 </manifest>
