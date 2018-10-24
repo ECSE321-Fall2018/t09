@@ -33,6 +33,11 @@
     <string name="finalCostHint">Cost for full trip</string>
     <string name="stopAt_text">Stop At Ottawa</string>
     <string name="costStop_text">For 300 </string>
+    <string name="starttime_label">Start time?</string>
+    <string name="starttime_first">10:00</string>
+    <string name="startdate_label">Start date?</string>
+    <string name="startdate_first">01-01-2018</string>
+
 
 
 
@@ -42,6 +47,7 @@
     <string name="Format_Date_Time">yyyy-MM-dd HH:mm:ss</string>
     <string name="Start_time_hint">hh:mm:ss</string>
     <string name="Format_Date">yyyy-mm-dd</string>
+    <string name="Trip_title">Title of Your Trip</string>
 
     />
     />
