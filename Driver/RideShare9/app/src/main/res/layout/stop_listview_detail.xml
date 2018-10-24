@@ -24,10 +24,10 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/cost_textview"
+                android:id="@+id/cost_stop_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:baselineAligned="false"
                 android:text="@string/costStop_text"
                 android:textSize="18sp" />
 

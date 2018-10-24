@@ -38,6 +38,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cancel_Button">Cancel</string>
+    <string name="Format_Date_Time">yyyy-MM-dd HH:mm:ss</string>
+    <string name="Start_time_hint">hh:mm:ss</string>
+    <string name="Format_Date">yyyy-mm-dd</string>
 
     />
     />
