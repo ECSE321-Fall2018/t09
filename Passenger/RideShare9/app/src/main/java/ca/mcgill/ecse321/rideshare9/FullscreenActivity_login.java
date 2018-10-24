@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
+import ca.mcgill.ecse321.rideshare9.user.UserActivity;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
@@ -244,10 +245,15 @@ public class FullscreenActivity_login extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                //save up bearer token
                 Log.d("Token", headers[2].getValue().replaceFirst("Bearer ", ""));
                 saveUserToken(getApplicationContext(), headers[2].getValue().replaceFirst("Bearer ", ""));
                 SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
                 Log.d("Saved token", sharedPre.getString("token", ""));
+
+                //goto the logged screen
+                Intent intent = new Intent(getApplicationContext(),UserActivity.class);
+                startActivity(intent);
             }
 
             @Override

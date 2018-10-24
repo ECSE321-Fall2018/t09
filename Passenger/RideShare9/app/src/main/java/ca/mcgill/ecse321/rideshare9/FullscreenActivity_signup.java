@@ -151,6 +151,8 @@ public class FullscreenActivity_signup extends AppCompatActivity {
                 }
             }
         });
+
+        /*username field listener, show error if duplicate username is found*/
        nametx.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener(){
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -163,6 +165,8 @@ public class FullscreenActivity_signup extends AppCompatActivity {
                 }
             }
         });
+
+
        errortx.addTextChangedListener(new TextValidator(errortx) {
            @Override
            public void validate(TextView textView, String text) {
@@ -219,31 +223,7 @@ public class FullscreenActivity_signup extends AppCompatActivity {
         final RadioButton aDriver = (RadioButton) findViewById(R.id.iamDriver);
         final TextView errortx = (TextView) findViewById(R.id.errormsg);
 
-        /* check to see if the input user name does not exist
-        JSONObject checkjsonObject = new JSONObject();
-        try{
-            checkjsonObject.put("username",nametx.getText().toString().trim());
-        }catch(JSONException e){
-            e.printStackTrace();
-        }
-        ByteArrayEntity checkentity = json2Entity(checkjsonObject);
-        HttpUtils.post(getApplicationContext(), "user/get-is-unique", checkentity, "application/json", new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                log.d("Failure","");
-            }
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                saveChecker(getApplicationContext(), responseString);
-                SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
-                Log.d("Saved checker", sharedPre.getString("checker", ""));
-            }
-        });
-        if(getsavedToken(getApplicationContext()).equals("false")){
-            errortx.setText("This username already exist");
-            return;
-        } */
 
         /*package the content from textfield into json body*/
         JSONObject jsonObject = new JSONObject();
@@ -262,7 +242,6 @@ public class FullscreenActivity_signup extends AppCompatActivity {
         ByteArrayEntity entity = json2Entity(jsonObject);
 
         /* Validate that all field is filled */
-
         if(nametx.getText().toString().trim().equals("") || passwordtx.getText().toString().trim().equals("")
                 || passwordtx2.getText().toString().trim().equals("")){
             errortx.setText("One of the field is Empty");

@@ -16,11 +16,17 @@
     <string name="signuppassword">Enter your Password</string>
     <string name="signuppasswordconfirm">Confirm your Password</string>
     <string name="signuptitle">Signup for Free</string>
-    <string name="iampassenger">I am a Passenger</string> />
+    <string name="iampassenger">I am a Passenger</string>
+    />
     <string name="imdriver">I am a Driver</string>
     <string name="signupbutton">Register!</string>
     <string name="toLogin">Already a member? login here</string>
     <string name="loginError">Error</string>
+    <string name="title_activity_user">UserActivity</string>
+    <string name="title_you">You</string>
+    <string name="title_adv">Advertisement</string>
+    <string name="title_history">History</string>
+    <string name="title_now">Now</string>
     />
     />
 </resources>
