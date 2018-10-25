@@ -5,14 +5,18 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.content.Intent;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +40,7 @@ public class FullscreenActivity_signup extends AppCompatActivity {
     private static final boolean AUTO_HIDE = true;
 
     private static FullscreenActivity_signup instance;
-
+    private String holder;
     private String error = null;
 
     /**
@@ -134,6 +138,8 @@ public class FullscreenActivity_signup extends AppCompatActivity {
         final TextView passwordtx = (TextView) findViewById(R.id.signUpPasswordtext);
         final TextView errortx = (TextView) findViewById(R.id.errormsg);
         final Button signupButton = (Button) findViewById(R.id.toRegisterButton);
+        final TextView nametx = (TextView) findViewById(R.id.signUpnameText);
+
         passwordtx2.addTextChangedListener(new TextValidator(passwordtx2) {
             @Override
             public void validate(TextView textView, String text) {
@@ -146,7 +152,36 @@ public class FullscreenActivity_signup extends AppCompatActivity {
                     signupButton.setClickable(false);
                 }
             }
+
         });
+
+        /*username field listener, show error if duplicate username is found*/
+        nametx.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (!hasFocus){
+                    usernameUsable();
+                }
+                else{
+                    errortx.setText("");
+                }
+            }
+        });
+
+
+        errortx.addTextChangedListener(new TextValidator(errortx) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (errortx.getText().toString().equals("Sorry, this username already exist")) {
+                    signupButton.setClickable(false);
+                } else {
+                    signupButton.setClickable(true);
+                }
+            }
+        });
+
+
 
     }
 
@@ -176,24 +211,19 @@ public class FullscreenActivity_signup extends AppCompatActivity {
         final TextView nametx = (TextView) findViewById(R.id.signUpnameText);
         final TextView passwordtx = (TextView) findViewById(R.id.signUpPasswordtext);
         final TextView passwordtx2 = (TextView) findViewById(R.id.confirmPasswordText);
-        final RadioButton aPasseneger = (RadioButton) findViewById(R.id.iamPassenger);
-        final RadioButton aDriver = (RadioButton) findViewById(R.id.iamDriver);
         final TextView errortx = (TextView) findViewById(R.id.errormsg);
 
         /*package the content from textfield into json body*/
         JSONObject jsonObject = new JSONObject();
         try{
-        jsonObject.put("username",nametx.getText());
-        jsonObject.put("password",passwordtx.getText());
+            jsonObject.put("username",nametx.getText());
+            jsonObject.put("password",passwordtx.getText());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if(aPasseneger.isChecked()){
-            jsonObject.put("role","ROLE_PASSENGER");
-        }
-        else if(aDriver.isChecked()){
-            jsonObject.put("role","ROLE_DRIVER");
-        }
+
+        jsonObject.put("role","ROLE_DRIVER");
+
 
         /*convert the jsonbdoy into string entity that can be sent*/
         ByteArrayEntity entity = null;
@@ -241,8 +271,45 @@ public class FullscreenActivity_signup extends AppCompatActivity {
 
 
     }
+    public void usernameUsable(){
+        JSONObject checkjsonObject = new JSONObject();
+        final TextView nametx = (TextView) findViewById(R.id.signUpnameText);
+        final TextView errortx = (TextView) findViewById(R.id.errormsg);
+        try{
+            checkjsonObject.put("username",nametx.getText().toString().trim());
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+        ByteArrayEntity checkentity = json2Entity(checkjsonObject);
+        holder = "";
+        HttpUtils.post(getApplicationContext(), "user/get-is-unique", checkentity, "application/json", new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("Failure","");
+            }
 
-        private void hide() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                holder += responseString;
+                if (holder.equals("false")){
+                    errortx.setText("Sorry, this username already exist");
+                }
+            }
+        });
+    }
+    /*convert the jsonbdoy into string entity that can be sent*/
+    public ByteArrayEntity json2Entity(JSONObject jsonObject){
+        ByteArrayEntity entity = null;
+        try {
+            entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        }catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return entity;
+    }
+
+    private void hide() {
         // Hide UI first
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

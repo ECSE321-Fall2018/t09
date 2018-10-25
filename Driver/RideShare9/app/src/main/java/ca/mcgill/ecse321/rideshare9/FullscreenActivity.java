@@ -118,7 +118,6 @@ public class FullscreenActivity extends AppCompatActivity {
                 toggle();
             }
         });
-
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
@@ -143,6 +142,7 @@ public class FullscreenActivity extends AppCompatActivity {
         // created, to briefly hint to the user that UI controls
         // are available.
         delayedHide(100);
+
     }
 
     private void toggle() {
@@ -232,6 +232,8 @@ public class FullscreenActivity extends AppCompatActivity {
                 saveUserToken(getApplicationContext(), headers[2].getValue().replaceFirst("Bearer ", ""));
                 SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
                 Log.d("Saved token", sharedPre.getString("token", ""));
+                Intent intent = new Intent(getApplicationContext(), RideShare9.class);
+                startActivity(intent);
             }
 
             @Override
@@ -239,6 +241,7 @@ public class FullscreenActivity extends AppCompatActivity {
                 Log.d("Error", "cannot login");
             }
         });
+
     }
 
     public static String getsavedToken(Context context){

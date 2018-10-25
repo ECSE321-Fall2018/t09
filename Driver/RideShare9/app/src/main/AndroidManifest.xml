@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ca.mcgill.ecse321.rideshare9">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
 
-<application
+    <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -27,8 +26,17 @@
         <activity
             android:name=".FullscreenActivity_signup"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_fullscreen_signup"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:label="RideShare9"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RideShare9"
+            android:label="@string/title_activity_ride_share9"></activity>
     </application>
 
 </manifest>
