@@ -22,7 +22,7 @@ import ca.mcgill.ecse321.rideshare9.R;
 import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class UserActivity extends AppCompatActivity implements YouFragment.OnFragmentInteractionListener,
-HomeFragment.OnFragmentInteractionListener, JourneyBrowserFragment.OnFragmentInteractionListener {
+HomeFragment.OnFragmentInteractionListener{
 
     private ActionBar toolbar;
 
