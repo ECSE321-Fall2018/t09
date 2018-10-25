@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.rideshare9;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -81,6 +83,8 @@ public class RideShare9 extends AppCompatActivity implements VehicleFragment.OnF
 
 
     }
+
+
     /*
     protected void xuxue() {
         String v = "徐学最强大!";
@@ -114,5 +118,11 @@ public class RideShare9 extends AppCompatActivity implements VehicleFragment.OnF
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    public void toAddTrip(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, addJourneyActivity.class);
+        startActivity(intent);
     }
 }

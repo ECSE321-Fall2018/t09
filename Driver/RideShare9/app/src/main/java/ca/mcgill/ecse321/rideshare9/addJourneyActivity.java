@@ -24,7 +24,7 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
-public class AddJourneyActivity extends AppCompatActivity {
+public class addJourneyActivity extends AppCompatActivity {
     private String error = null; //tutorial
      Spinner seatingSpinner, vehicleSpinner ;
      ListView stopListView;

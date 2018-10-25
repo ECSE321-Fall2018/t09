@@ -4,21 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSecondary"
-    tools:context=".FullscreenActivity">
+    tools:context=".addJourneyActivity">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
-    <TextView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:textColor="#33b5e5"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -54,27 +42,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/info_logo2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:srcCompat="@android:drawable/ic_menu_help" />
-
                     <TextView
                         android:id="@+id/addInfoTitle"
                         android:layout_width="298dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/titleAddJourney"
+                        android:text="Information of Your Trip"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/info_logo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:srcCompat="@android:drawable/ic_menu_help" />
                 </LinearLayout>
 
                 <Space
@@ -148,7 +123,6 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="@string/endLocationHint"
-                        android:inputType="text|textPassword"
                         android:paddingLeft="20dp"
                         android:textColorLink="@color/black_overlay" />
                 </LinearLayout>
@@ -176,7 +150,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="end"
-                        android:onClick="showTimePickerDialog"
                         android:text="@string/starttime_first"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -199,7 +172,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:onClick="showDatePickerDialog"
                         android:text="@string/startdate_first"
                         android:textSize="18sp" />
                 </LinearLayout>

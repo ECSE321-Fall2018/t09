@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.rideshare9;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -83,6 +84,12 @@ public class AdvertisementFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    public void toAddTrip(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this.getContext(), addJourneyActivity.class);
+        startActivity(intent);
     }
 
     @Override
