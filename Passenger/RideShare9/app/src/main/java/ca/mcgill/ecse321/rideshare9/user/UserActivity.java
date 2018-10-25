@@ -14,7 +14,7 @@ import ca.mcgill.ecse321.rideshare9.R;
 import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class UserActivity extends AppCompatActivity implements YouFragment.OnFragmentInteractionListener,
-HomeFragment.OnFragmentInteractionListener, JourneyBrowserFragment.OnFragmentInteractionListener {
+HomeFragment.OnFragmentInteractionListener{
 
     private ActionBar toolbar;
 
@@ -37,7 +37,6 @@ HomeFragment.OnFragmentInteractionListener, JourneyBrowserFragment.OnFragmentInt
         //init Fragments
         YouFragment youFragment = new YouFragment();
         HomeFragment homeFragment = new HomeFragment();
-        JourneyBrowserFragment journeyBrowserFragment = new JourneyBrowserFragment();
 
         /*Bundle bundle = new Bundle();
         bundle.putInt("color", 1);
@@ -48,10 +47,8 @@ HomeFragment.OnFragmentInteractionListener, JourneyBrowserFragment.OnFragmentInt
         homeFragment.setArguments(bundle2);*/
 
         //add Fragments to adapters and link adapter with viewpager
-        // Order matters!
-        pagerAdapter.addFragment(homeFragment);
-        pagerAdapter.addFragment(journeyBrowserFragment);
-        pagerAdapter.addFragment(youFragment);
+        pagerAdapter.addFragments(homeFragment);
+        pagerAdapter.addFragments(youFragment);
         viewPager.setAdapter(pagerAdapter);
 
         //set Selectionlistener for bottom navigation, the
@@ -64,12 +61,13 @@ HomeFragment.OnFragmentInteractionListener, JourneyBrowserFragment.OnFragmentInt
                     viewPager.setCurrentItem(0);
                     return true;
                 }
-                else if(menuItem.getItemId() == R.id.navigation_Advertisements){
+                else if(menuItem.getItemId() == R.id.navigation_you){
                     viewPager.setCurrentItem(1);
                     return true;
                 }
-                else if(menuItem.getItemId() == R.id.navigation_you){
-                    viewPager.setCurrentItem(2);
+                else if(menuItem.getItemId() == R.id.navigation_Advertisements){
+                    //TODO
+                    //Place saved for adv_list
                     return true;
                 }
                 else if(menuItem.getItemId() == R.id.navigation_History){
