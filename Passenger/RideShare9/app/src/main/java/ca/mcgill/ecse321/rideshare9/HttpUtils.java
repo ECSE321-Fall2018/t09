@@ -67,39 +67,4 @@ public class HttpUtils {
         return baseUrl + relativeUrl;
     }
 
-    public static List<Advertisement> AdvertisementsFromJSONArray(JSONArray jsonAdArray) {
-        int adCount = jsonAdArray.length();
-        List<Advertisement> advertisements = new ArrayList<>();
-
-        for (int i = 0; i < adCount; i++) {
-            JSONObject advertisement = jsonAdArray.optJSONObject(i);
-            advertisements.add(advertisementFromJSONObject(advertisement));
-        }
-
-        return advertisements;
-    }
-
-    private static Advertisement advertisementFromJSONObject(JSONObject jsonAdObject) {
-        int adId = jsonAdObject.optInt("id");
-        int adSeatsAvailable = jsonAdObject.optInt("seatAvailable");
-        int adVehicleId = jsonAdObject.optInt("vehicle");
-        int adDriverId = jsonAdObject.optInt("driver");
-        String adTitle = jsonAdObject.optString("title");
-        String adStartTime = jsonAdObject.optString("startTime");
-        String adStartLocation = jsonAdObject.optString("startLocation");
-        String adStatus = jsonAdObject.optString("status");
-
-        JSONArray stops = jsonAdObject.optJSONArray("stops");
-        List<Long> adStopIds = new ArrayList<>();
-
-        //TODO Get stops and create Stop objects
-        int stopCount = stops.length();
-
-        for (int j = 0; j < stopCount; j++) {
-            adStopIds.add(stops.optLong(j));
-        }
-
-        Advertisement newAdvertisement = new Advertisement(adId, adSeatsAvailable, adVehicleId,
-                adDriverId, adTitle, adStartTime, adStartLocation, adStatus, adStopIds);
-    }
 }

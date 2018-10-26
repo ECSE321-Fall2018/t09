@@ -1,10 +1,16 @@
 package ca.mcgill.ecse321.rideshare9.user;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import ca.mcgill.ecse321.rideshare9.HttpUtils;
 
 public class Advertisement {
 
-    private int id;
+    private long id;
     private int availableSeats;
     private int vehicleId;
     private int driverId;
@@ -30,11 +36,11 @@ public class Advertisement {
         this.stops = stops;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -104,5 +110,53 @@ public class Advertisement {
 
     public void addStop(Stop stop) {
         stops.add(stop);
+    }
+
+    public static List<Advertisement> AdvertisementsFromJSONArray(JSONArray jsonAdArray) {
+        int adCount = jsonAdArray.length();
+        List<Advertisement> advertisements = new ArrayList<>();
+
+        for (int i = 0; i < adCount; i++) {
+            JSONObject advertisement = jsonAdArray.optJSONObject(i);
+            advertisements.add(advertisementFromJSONObject(advertisement));
+        }
+
+        return advertisements;
+    }
+
+    public static Stop StopFromJSONArray(JSONObject jsonStopObject) {
+        long stopId = jsonStopObject.optLong("id");
+        String stopName = jsonStopObject.optString("stopName");
+        float stopPrice = (float) jsonStopObject.optDouble("price");
+        return new Stop(stopId, stopName, stopPrice);
+    }
+
+    private static Advertisement advertisementFromJSONObject(JSONObject jsonAdObject) {
+        int adId = jsonAdObject.optInt("id");
+        int adSeatsAvailable = jsonAdObject.optInt("seatAvailable");
+        int adVehicleId = jsonAdObject.optInt("vehicle");
+        int adDriverId = jsonAdObject.optInt("driver");
+        String adTitle = jsonAdObject.optString("title");
+        String adStartTime = jsonAdObject.optString("startTime");
+        String adStartLocation = jsonAdObject.optString("startLocation");
+        String adStatus = jsonAdObject.optString("status");
+        List<Stop> adStops = new ArrayList<>();
+
+        JSONArray stops = jsonAdObject.optJSONArray("stops");
+        List<Long> adStopIds = new ArrayList<>();
+
+        //TODO Get stops and create Stop objects
+        int stopCount = stops.length();
+
+        for (int j = 0; j < stopCount; j++) {
+            adStopIds.add(stops.optLong(j));
+        }
+
+        for (adStopId : adStopIds) {
+            HttpUtils.get();
+        }
+
+        Advertisement newAdvertisement = new Advertisement(adId, adSeatsAvailable, adVehicleId,
+                adDriverId, adTitle, adStartTime, adStartLocation, adStatus, adStopIds);
     }
 }
