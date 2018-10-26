@@ -22,7 +22,7 @@ import ca.mcgill.ecse321.rideshare9.R;
 import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class UserActivity extends AppCompatActivity implements YouFragment.OnFragmentInteractionListener,
-HomeFragment.OnFragmentInteractionListener{
+        HomeFragment.OnFragmentInteractionListener, JourneyBrowserFragment.OnFragmentInteractionListener {
 
     private ActionBar toolbar;
 
@@ -45,16 +45,15 @@ HomeFragment.OnFragmentInteractionListener{
 
         //init Fragments
         YouFragment youFragment = new YouFragment();
-        HomeFragment homeFragment = new HomeFragment();
         JourneyBrowserFragment journeyBrowserFragment = new JourneyBrowserFragment();
+        HomeFragment homeFragment = new HomeFragment();
         youFragment.setArguments(getIntent().getBundleExtra("bundle"));
 
 
         //add Fragments to adapters and link adapter with viewpager
-        // Order matters!
-        pagerAdapter.addFragment(homeFragment);
-        pagerAdapter.addFragment(journeyBrowserFragment);
-        pagerAdapter.addFragment(youFragment);
+        pagerAdapter.addFragments(homeFragment);
+        pagerAdapter.addFragments(journeyBrowserFragment);
+        pagerAdapter.addFragments(youFragment);
         viewPager.setAdapter(pagerAdapter);
 
         //set Selectionlistener for bottom navigation, the
@@ -66,12 +65,10 @@ HomeFragment.OnFragmentInteractionListener{
                 if(menuItem.getItemId() == R.id.navigation_currentTrip){
                     viewPager.setCurrentItem(0);
                     return true;
-                }
-                else if(menuItem.getItemId() == R.id.navigation_Advertisements){
+                } else if (menuItem.getItemId() == R.id.navigation_Advertisements) {
                     viewPager.setCurrentItem(1);
                     return true;
-                }
-                else if(menuItem.getItemId() == R.id.navigation_you){
+                } else if (menuItem.getItemId() == R.id.navigation_you) {
                     viewPager.setCurrentItem(2);
                     return true;
                 }
