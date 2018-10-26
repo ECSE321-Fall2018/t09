@@ -65,13 +65,6 @@ public class StopRepository {
 	public Stop findStopbyName(String name) {
 	    return em.find(Stop.class, name);
 	}
-	
-	@Transactional
-	public Stop findStopById(long id) {
-		TypedQuery<Stop> query = em.createQuery("SELECT s FROM Stop s WHERE s.id = :id",Stop.class).setParameter("id", id);
-		return query.getSingleResult();
-	}
-	
 	public List<Stop> findAllStop() {
 	    TypedQuery<Stop> query = em.createQuery("SELECT s FROM Stop s", Stop.class);
 	    return query.getResultList();
