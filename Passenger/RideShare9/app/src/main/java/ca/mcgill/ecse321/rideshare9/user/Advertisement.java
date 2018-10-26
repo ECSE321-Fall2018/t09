@@ -12,13 +12,13 @@ public class Advertisement {
     private String startTime;
     private String startLocation;
     private String status;
-    private List<Long> stops;
+    private List<Stop> stops;
 
     public Advertisement() {
     }
 
     public Advertisement(int id, int availableSeats, int vehicleId, int driverId, String title,
-                         String startTime, String startLocation, String status, List<Long> stops) {
+                         String startTime, String startLocation, String status, List<Stop> stops) {
         this.id = id;
         this.availableSeats = availableSeats;
         this.vehicleId = vehicleId;
@@ -94,15 +94,15 @@ public class Advertisement {
         this.status = status;
     }
 
-    public List<Long> getStops() {
+    public List<Stop> getStops() {
         return stops;
     }
 
-    public void setStops(List<Long> stops) {
+    public void setStops(List<Stop> stops) {
         this.stops = stops;
     }
 
-    public void addStop(Long stop) {
-        this.stops.add(stop);
+    public void addStop(Stop stop) {
+        stops.add(stop);
     }
 }

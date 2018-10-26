@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.rideshare9;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.mcgill.ecse321.rideshare9.user.Advertisement;
+import ca.mcgill.ecse321.rideshare9.user.Stop;
 import cz.msebera.android.httpclient.HttpEntity;
 
 public class HttpUtils {
@@ -67,36 +67,39 @@ public class HttpUtils {
         return baseUrl + relativeUrl;
     }
 
-    @Nullable
-    public static List<Advertisement> AdvertisementsFromJSONArray(JSONArray response) {
-        int adCount = response.length();
-        List<Advertisement> advertisements = new ArrayList<Advertisement>();
+    public static List<Advertisement> AdvertisementsFromJSONArray(JSONArray jsonAdArray) {
+        int adCount = jsonAdArray.length();
+        List<Advertisement> advertisements = new ArrayList<>();
 
         for (int i = 0; i < adCount; i++) {
-            JSONObject advertisement = response.optJSONObject(i);
-            JSONArray stops = advertisement.optJSONArray("stops");
-
-            int adId = advertisement.optInt("id");
-            int adSeatsAvailable = advertisement.optInt("seatAvailable");
-            int adVehicleId = advertisement.optInt("vehicle");
-            int adDriverId = advertisement.optInt("driver");
-            String adTitle = advertisement.optString("title");
-            String adStartTime = advertisement.optString("startTime");
-            String adStartLocation = advertisement.optString("startLocation");
-            String adStatus = advertisement.optString("status");
-            List<Long> adStops = new ArrayList<Long>();
-
-            int stopCount = stops.length();
-
-            for (int j = 0; j < stopCount; j++) {
-                adStops.add(stops.optLong(j));
-            }
-
-            Advertisement newAdvertisement = new Advertisement(adId, adSeatsAvailable, adVehicleId,
-                    adDriverId, adTitle, adStartTime, adStartLocation, adStatus, adStops);
-            advertisements.add(newAdvertisement);
+            JSONObject advertisement = jsonAdArray.optJSONObject(i);
+            advertisements.add(advertisementFromJSONObject(advertisement));
         }
 
         return advertisements;
+    }
+
+    private static Advertisement advertisementFromJSONObject(JSONObject jsonAdObject) {
+        int adId = jsonAdObject.optInt("id");
+        int adSeatsAvailable = jsonAdObject.optInt("seatAvailable");
+        int adVehicleId = jsonAdObject.optInt("vehicle");
+        int adDriverId = jsonAdObject.optInt("driver");
+        String adTitle = jsonAdObject.optString("title");
+        String adStartTime = jsonAdObject.optString("startTime");
+        String adStartLocation = jsonAdObject.optString("startLocation");
+        String adStatus = jsonAdObject.optString("status");
+
+        JSONArray stops = jsonAdObject.optJSONArray("stops");
+        List<Long> adStopIds = new ArrayList<>();
+
+        //TODO Get stops and create Stop objects
+        int stopCount = stops.length();
+
+        for (int j = 0; j < stopCount; j++) {
+            adStopIds.add(stops.optLong(j));
+        }
+
+        Advertisement newAdvertisement = new Advertisement(adId, adSeatsAvailable, adVehicleId,
+                adDriverId, adTitle, adStartTime, adStartLocation, adStatus, adStopIds);
     }
 }
