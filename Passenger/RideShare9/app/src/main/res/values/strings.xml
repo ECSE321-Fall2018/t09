@@ -27,9 +27,13 @@
     <string name="title_adv">Available Journeys</string>
     <string name="title_history">Past Journeys</string>
     <string name="title_current_trips">Current Journeys</string>
-
+    <string name="statistics">Statistic</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="switchAccText">Change Account</string>
+    <string name="helpContact">Contact 514-834-7080 for help!</string>
+    <string name="yudixie">yudixie</string>
+
     />
     />
 </resources>

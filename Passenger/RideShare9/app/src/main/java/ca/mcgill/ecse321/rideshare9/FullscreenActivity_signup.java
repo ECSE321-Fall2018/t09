@@ -307,6 +307,7 @@ public class FullscreenActivity_signup extends AppCompatActivity {
         // Do something in response to button
         Intent intent = new Intent(this, FullscreenActivity_login.class);
         startActivity(intent);
+        finish();
     }
 
     private void refreshErrorMessage() {

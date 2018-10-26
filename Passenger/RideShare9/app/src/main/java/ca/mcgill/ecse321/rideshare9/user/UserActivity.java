@@ -8,7 +8,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
 
+import ca.mcgill.ecse321.rideshare9.FullscreenActivity_login;
 import ca.mcgill.ecse321.rideshare9.R;
 
 import static com.loopj.android.http.AsyncHttpClient.log;
@@ -22,6 +25,7 @@ HomeFragment.OnFragmentInteractionListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+
         // init UI
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
@@ -37,6 +41,7 @@ HomeFragment.OnFragmentInteractionListener{
         //init Fragments
         YouFragment youFragment = new YouFragment();
         HomeFragment homeFragment = new HomeFragment();
+        youFragment.setArguments(getIntent().getBundleExtra("bundle"));
 
         /*Bundle bundle = new Bundle();
         bundle.putInt("color", 1);
@@ -79,7 +84,6 @@ HomeFragment.OnFragmentInteractionListener{
             }
         });
     }
-
 
     @Override
     public void onFragmentInteraction(Uri uri) {

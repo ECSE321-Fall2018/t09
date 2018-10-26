@@ -190,6 +190,7 @@ public class FullscreenActivity_login extends AppCompatActivity {
         // Do something in response to button
         Intent intent = new Intent(this, FullscreenActivity_signup.class);
         startActivity(intent);
+        finish();
     }
 
     public void login(View view) {
@@ -253,7 +254,11 @@ public class FullscreenActivity_login extends AppCompatActivity {
 
                 //goto the logged screen
                 Intent intent = new Intent(getApplicationContext(),UserActivity.class);
+                Bundle userbundle = new Bundle();
+                userbundle.putString("username",namefield.getText().toString());
+                intent.putExtra("bundle",userbundle);
                 startActivity(intent);
+                finish();
             }
 
             @Override
