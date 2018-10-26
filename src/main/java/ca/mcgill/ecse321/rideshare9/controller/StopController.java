@@ -81,7 +81,7 @@ public class StopController {
     public Stop findStopByName(@PathVariable(name="stopName") String stpName) {
     	return stopService.findStopbyName(stpName);
     }
-    
+
     /**
      * Driver: Find stop by Id
      * Core API endpoint: Driver-1.3
