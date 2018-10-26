@@ -1,5 +1,9 @@
 # Welcome to TEAM 09 [![Build Status](https://travis-ci.com/ECSE321-Fall2018/t09.svg?token=WDPhpGnigsQCoWp5WMJt&branch=mark)](https://travis-ci.com/ECSE321-Fall2018/t09/builds/87110237#L2557)
 
+## Log: 2018/10/26
+
+- Update profile UI for Passenger.
+
 ## Log: 2018/10/23
 
 - **Add a feature to check for duplicate username for signup**, immediately after the username field lost focus, a error message will be shown when found the username already exist in database. The register button will be disabled until username is correct. 
