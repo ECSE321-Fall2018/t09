@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
 import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
 import ca.mcgill.ecse321.rideshare9.entity.Stop;
 import ca.mcgill.ecse321.rideshare9.repository.StopRepository;
@@ -80,5 +82,11 @@ public class StopController {
     @RequestMapping(value = "/get-stop-by-name/{stopName}", method = RequestMethod.GET)
     public Stop findStopByName(@PathVariable(name="stopName") String stpName) {
     	return stopService.findStopbyName(stpName);
+    }
+    
+    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('BOSSLI') or hasRole('ADMING')")
+    @RequestMapping(value = "/get-stop-by-id/{id}", method = RequestMethod.GET)
+    public Stop findStopById(@PathVariable(name="id") long id) {
+    	return stopService.findStopById(id);
     }
 }
