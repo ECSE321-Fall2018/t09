@@ -29,7 +29,6 @@ public class addJourneyActivity extends AppCompatActivity {
      Spinner seatingSpinner, vehicleSpinner ;
      ListView stopListView;
      StopList_adapter stopAdapter;
-     TextView startLocationtx, endLocationtx, costFullTriptx, emptyText_stopLv;
 
     private List<String> vehicleList = new ArrayList<>();
     private ArrayAdapter<String> vehicleAdapter;
@@ -41,30 +40,26 @@ public class addJourneyActivity extends AppCompatActivity {
 
         //control the vehicle spinner
         vehicleSpinner =  findViewById(R.id.spinnerVehicle);
-        vehicleAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, vehicleList);
+        vehicleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, vehicleList);
         vehicleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         vehicleSpinner.setAdapter(vehicleAdapter);
 
         // Get initial content for spinners
-        refreshVehicleList(this.getCurrentFocus(), vehicleAdapter ,vehicleList, "participants");
+        refreshVehicleList(this.getCurrentFocus(), vehicleAdapter ,vehicleList);
 
-        // Available seating spinner
-        Integer[] items1 = new Integer[]{1,2,3,4};
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, items1);
-        seatingSpinner.setAdapter(adapter);
 
         //control the seating spinner
         seatingSpinner = findViewById(R.id.spinnerSeating);
         Integer[] items = new Integer[]{0,1,2,3,4};
         ArrayAdapter<Integer> adapter2 = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, items);
-        seatingSpinner.setAdapter(adapter);
+        seatingSpinner.setAdapter(adapter2);
 
-        // control the stop list
-        stopListView = (ListView) findViewById(R.id.stop_list);
-        stopListView.setEmptyView(emptyText_stopLv);
-        stopAdapter = new StopList_adapter();
-        stopListView.setAdapter(stopAdapter);
-        stopAdapter.notifyDataSetChanged();
+//        // control the stop list
+//        stopListView = (ListView) findViewById(R.id.stop_list);
+//        stopListView.setEmptyView(emptyText_stopLv);
+//        stopAdapter = new StopList_adapter();
+//        stopListView.setAdapter(stopAdapter);
+//        stopAdapter.notifyDataSetChanged();
 
         // tutorial
         refreshErrorMessage();
@@ -72,62 +67,38 @@ public class addJourneyActivity extends AppCompatActivity {
 
     public void addJourney(View v) {
 
-        startLocationtx = (TextView) findViewById(R.id.startLocationText);
-        endLocationtx =  (TextView) findViewById(R.id.endLocationText);
-        costFullTriptx = (TextView) findViewById(R.id.finalcostText);
-
-        error = "";
-        //final TextView tv = (TextView) findViewById(R.id.newparticipant_name);
-        HttpUtils.post("/adv/create-adv", new RequestParams(), new JsonHttpResponseHandler() {
-            @Override
-            public void onFinish() {
-                refreshErrorMessage();
-                startLocationtx.setText("");
-                endLocationtx.setText("");
-                costFullTriptx.setText("");
-
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
-        });
-    }
-
-    public void addEvent(View v) {
-        // Title of trip
-        TextView tv = (TextView) findViewById(R.id.trip_title_text);
-        String tripTitle = tv.getText().toString();
-
         // start location
-        tv = (TextView) findViewById(R.id.startLocationText);
+        TextView tv = (TextView) findViewById(R.id.startLocationText);
         String startLocation = tv.getText().toString();
 
-        // end location
-        tv = (TextView) findViewById(R.id.endLocationText);
+        // end location, trip of title in request parameters
+        tv =  findViewById(R.id.endLocationText);
         String endLocation = tv.getText().toString();
-
-        // start time
-        tv = (TextView) findViewById(R.id.starttime);
-        String text = tv.getText().toString();
-        String comps[] = text.split(":");
-
-        int startHours = Integer.parseInt(comps[0]);
-        int startMinutes = Integer.parseInt(comps[1]);
 
         // date
         tv = (TextView) findViewById(R.id.startDate);
-        text = tv.getText().toString();
-        comps = text.split("-");
+        String text = tv.getText().toString();
+        String  comps[] = text.split("-");
 
         int year = Integer.parseInt(comps[2]);
         int month = Integer.parseInt(comps[1]);
         int day = Integer.parseInt(comps[0]);
+        String startTime = comps[2] + "-" + comps[1] + "-" + comps[0] + " ";
+
+        // start time
+        tv = findViewById(R.id.starttime);
+        text = tv.getText().toString();
+        comps = text.split(":");
+
+        int startHours = Integer.parseInt(comps[0]);
+        int startMinutes = Integer.parseInt(comps[1]);
+
+        // time format: yyyy-mm-dd HH:mm:ss
+        startTime += text + ":00";
+
+
+
+        //String startTime = year;
 
         // cost of trip
         tv = (TextView) findViewById(R.id.finalcostText);
@@ -150,14 +121,17 @@ public class addJourneyActivity extends AppCompatActivity {
         RequestParams rp = new RequestParams();
 
         NumberFormat formatter = new DecimalFormat("00");
-        rp.add("date", year + "-" + formatter.format(month) + "-" + formatter.format(day));
-        rp.add("startTime", formatter.format(startHours) + ":" + formatter.format(startMinutes));
+        rp.add("title", endLocation);
+        rp.add("startTime", startTime);
+        rp.add("startLocation", startLocation);
+        //rp.add("seatAvailable", availableSeats);
+        //rp.add("stops", );
+        //rp.add("vehicle", );
 
         HttpUtils.post("/adv/create-adv", rp, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 refreshErrorMessage();
-                ((TextView) findViewById(R.id.trip_title_text)).setText("");
                 ((TextView) findViewById(R.id.startLocationText)).setText("");
                 ((TextView) findViewById(R.id.endLocationText)).setText("");
                 ((TextView) findViewById(R.id.finalcostText)).setText("");
@@ -255,16 +229,16 @@ public class addJourneyActivity extends AppCompatActivity {
         tv.setText(String.format("%02d-%02d-%04d", d, m + 1, y));
     }
 
-    private void refreshVehicleList(View v, final ArrayAdapter<String>  adapter, final List<String> names, String restFunctionName) {
-        HttpUtils.get(restFunctionName, new RequestParams(), new JsonHttpResponseHandler() {
+    private void refreshVehicleList(View v, final ArrayAdapter<String>  adapter, final List<String> vehicleDesc) {
+        HttpUtils.get("/vehicle/get-cars", new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                names.clear();
-                names.add("Please select...");
+                vehicleDesc.clear();
+                vehicleDesc.add("Please select...");
                 for( int i = 0; i < response.length(); i++){
                     try {
-                        names.add(response.getJSONObject(i).getString("name"));
+                        vehicleDesc.add(response.getJSONObject(i).getString("model") + " " + response.getJSONObject(i).getString("colour") );
                     } catch (Exception e) {
                         error += e.getMessage();
                     }

@@ -54,27 +54,6 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <LinearLayout
-                    android:id="@+id/Layout_Title"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/border"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/trip_title_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:hint="@string/Trip_title"
-                        android:inputType="textPersonName" />
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:layout_weight="1" />
 
@@ -151,6 +130,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="end"
                         android:text="@string/starttime_first"
+                        android:onClick="showTimePickerDialog"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -173,6 +153,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:text="@string/startdate_first"
+                        android:onClick="showDatePickerDialog"
                         android:textSize="18sp" />
                 </LinearLayout>
 
