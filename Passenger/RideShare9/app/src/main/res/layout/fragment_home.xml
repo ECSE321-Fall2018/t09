@@ -8,17 +8,9 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvtrace"
         android:layout_width="match_parent"
-        android:layout_height="129dp"
-        android:background="@color/brighterPrimary"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:overScrollMode="never" />
 </FrameLayout>

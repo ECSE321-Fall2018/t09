@@ -7,9 +7,14 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ca.mcgill.ecse321.rideshare9.FullscreenActivity_login;
 import ca.mcgill.ecse321.rideshare9.R;
@@ -43,13 +48,6 @@ HomeFragment.OnFragmentInteractionListener{
         HomeFragment homeFragment = new HomeFragment();
         youFragment.setArguments(getIntent().getBundleExtra("bundle"));
 
-        /*Bundle bundle = new Bundle();
-        bundle.putInt("color", 1);
-        youFragment.setArguments(bundle);
-
-        Bundle bundle2 = new Bundle();
-        bundle.putInt("color",2);
-        homeFragment.setArguments(bundle2);*/
 
         //add Fragments to adapters and link adapter with viewpager
         pagerAdapter.addFragments(homeFragment);

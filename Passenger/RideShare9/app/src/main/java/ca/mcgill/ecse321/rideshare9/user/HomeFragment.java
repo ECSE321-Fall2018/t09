@@ -4,10 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ca.mcgill.ecse321.rideshare9.R;
 
@@ -67,6 +73,19 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rvtrace);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        List<Trace> traceList = new ArrayList<>(10);
+        traceList.add(new Trace("2016-05-25 17:48:00", "London"));
+        traceList.add(new Trace("2016-05-25 14:13:00", "Paris"));
+        traceList.add(new Trace("2016-05-25 13:01:04", "Moscow"));
+        traceList.add(new Trace("2016-05-25 12:19:47", "Beijing"));
+        traceList.add(new Trace("2016-05-25 11:12:44", "Tokyo"));
+
+        TraceListAdapter adapter = new TraceListAdapter(getContext(),traceList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
         return view;
     }
 

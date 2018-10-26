@@ -9,7 +9,7 @@ import com.loopj.android.http.RequestParams;
 import cz.msebera.android.httpclient.HttpEntity;
 
 public class HttpUtils {
-    public static final String DEFAULT_BASE_URL = "https://group9-carpool.herokuapp.com/";
+    public static final String DEFAULT_BASE_URL = "https://rideshare9.herokuapp.com/";
 
     private static String baseUrl;
     private static AsyncHttpClient client = new AsyncHttpClient();
