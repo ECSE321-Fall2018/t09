@@ -84,7 +84,7 @@ public class JourneyBrowserFragment extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Log.d("get-list-adv", "onSuccess: Success");
-                advertisements = HttpUtils.AdvertisementsFromJSONArray(response);
+                advertisements = Advertisement.AdvertisementsFromJSONArray(response);
                 Log.d("GET: /adv/get-list-adv",
                         "onSuccess: Found " + advertisements.size() + " advertisement(s)");
             }
