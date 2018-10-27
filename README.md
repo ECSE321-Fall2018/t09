@@ -109,6 +109,7 @@ Example:
  /adv/get-logged-adv | GET | void | void | DRIVER 
  /adv/get-top-driver | GET | void | void | ADMIN, PASSENGER, DRIVER 
  /adv/get-list-adv | GET | void | void | ADMIN, PASSENGER, DRIVER 
+ /adv/get-by-id/{id} | GET | integer | "id" | ADMIN, PASSENGER, DRIVER
  /adv/update-adv | PUT | JSON | Essential: "id", "stops"; Optional: "title", "startTime",  "startLocation", "seatAvailable", "vehicle" | DRIVER 
  /adv/delete-adv | DELETE | JSON | "id" | DRIVER
  
@@ -134,6 +135,7 @@ Example:
  ### StopController
  URL | Request | Parameter Format | Parameters | Role (ROLE_)
  ------| ------ | ------ | ------ | ------
+ /stop/get-by-id/{id} | GET | integer | "id" | DRIVER, PASSENGER, ADMIN
  /stop/add-stop | POST | JSON | "stopName", "price" | DRIVER
  /stop/change-stop | PUT | JSON | "id"; Optional: "stopName", "price" | DRIVER
  /stop/del-stop | DELETE | JSON | "id" | DRIVER
