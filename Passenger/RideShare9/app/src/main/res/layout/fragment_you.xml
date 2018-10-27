@@ -88,7 +88,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:paddingTop="12dp"
                     android:text="@string/helpContact"
                     android:textColor="@color/design_default_color_primary"
                     android:textSize="17sp" />

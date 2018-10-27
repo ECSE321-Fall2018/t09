@@ -47,7 +47,7 @@ HomeFragment.OnFragmentInteractionListener{
         YouFragment youFragment = new YouFragment();
         HomeFragment homeFragment = new HomeFragment();
         youFragment.setArguments(getIntent().getBundleExtra("bundle"));
-
+        homeFragment.setArguments(getIntent().getBundleExtra("bundle"));
 
         //add Fragments to adapters and link adapter with viewpager
         pagerAdapter.addFragments(homeFragment);
