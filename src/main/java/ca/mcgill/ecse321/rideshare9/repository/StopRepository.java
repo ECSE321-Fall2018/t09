@@ -52,7 +52,7 @@ public class StopRepository {
 	 */
 	@Transactional
 	public Stop updateStop(Stop stp) {
-		em.merge(stp); 
+		em.merge(stp);
 		em.flush();
 	    return stp;
 	}
@@ -68,5 +68,10 @@ public class StopRepository {
 	public List<Stop> findAllStop() {
 	    TypedQuery<Stop> query = em.createQuery("SELECT s FROM Stop s", Stop.class);
 	    return query.getResultList();
+	}
+	@Transactional
+	public Stop findStopById(long id) {
+		TypedQuery<Stop> query = em.createQuery("SELECT s FROM Stop s WHERE s.id = :id",Stop.class).setParameter("id", id);
+		return query.getSingleResult();
 	}
 }
