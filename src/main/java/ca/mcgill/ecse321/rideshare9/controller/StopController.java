@@ -89,7 +89,7 @@ public class StopController {
      * @return found stop
      */
     @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('BOSSLI') or hasRole('ADMING')")
-    @RequestMapping(value = "/get-stop-by-id/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get-by-id/{id}", method = RequestMethod.GET)
     public Stop findStopById(@PathVariable(name="id") long id) {
     	return stopService.findStopById(id);
     }
