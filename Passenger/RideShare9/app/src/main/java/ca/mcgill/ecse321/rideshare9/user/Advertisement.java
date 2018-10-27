@@ -1,5 +1,9 @@
 package ca.mcgill.ecse321.rideshare9.user;
 
+import android.util.Log;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -7,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.mcgill.ecse321.rideshare9.HttpUtils;
+import cz.msebera.android.httpclient.Header;
 
 public class Advertisement {
 
@@ -124,7 +129,7 @@ public class Advertisement {
         return advertisements;
     }
 
-    public static Stop StopFromJSONArray(JSONObject jsonStopObject) {
+    public static Stop StopFromJSONObject(JSONObject jsonStopObject) {
         long stopId = jsonStopObject.optLong("id");
         String stopName = jsonStopObject.optString("stopName");
         float stopPrice = (float) jsonStopObject.optDouble("price");
@@ -140,7 +145,7 @@ public class Advertisement {
         String adStartTime = jsonAdObject.optString("startTime");
         String adStartLocation = jsonAdObject.optString("startLocation");
         String adStatus = jsonAdObject.optString("status");
-        List<Stop> adStops = new ArrayList<>();
+        final List<Stop> adStops = new ArrayList<>();
 
         JSONArray stops = jsonAdObject.optJSONArray("stops");
         List<Long> adStopIds = new ArrayList<>();
@@ -152,11 +157,23 @@ public class Advertisement {
             adStopIds.add(stops.optLong(j));
         }
 
-        for (adStopId : adStopIds) {
-            HttpUtils.get();
+        for (final Long adStopId : adStopIds) {
+            HttpUtils.get("/stop/get-by-id/" + adStopId, null, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject JsonStop) {
+                    adStops.add(StopFromJSONObject(JsonStop));
+                    Log.d("/stop/get-by-id", "onSuccess: got stop id: " + adStopId);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.d("/stop/get-by-id", "onFailure: Could not get stop.");
+                }
+            });
         }
 
-        Advertisement newAdvertisement = new Advertisement(adId, adSeatsAvailable, adVehicleId,
-                adDriverId, adTitle, adStartTime, adStartLocation, adStatus, adStopIds);
+        return new Advertisement(adId, adSeatsAvailable, adVehicleId, adDriverId, adTitle,
+                adStartTime, adStartLocation, adStatus, adStops);
     }
 }

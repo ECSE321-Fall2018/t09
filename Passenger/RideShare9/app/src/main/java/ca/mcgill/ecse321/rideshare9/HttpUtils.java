@@ -51,7 +51,7 @@ public class HttpUtils {
     }
 
     public static void post(Context context, String url, HttpEntity entity, String contenttype,
-                            AsyncHttpResponseHandler responseHandler) {
+                             AsyncHttpResponseHandler responseHandler) {
         client.post(context, getAbsoluteUrl(url),entity, contenttype, responseHandler);
     }
 
