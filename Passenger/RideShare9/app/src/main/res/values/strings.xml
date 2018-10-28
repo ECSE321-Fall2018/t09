@@ -29,6 +29,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="journey_browser_refresh_button">Refresh</string>
     <string name="switchAccText">Change Account</string>
-    <string name="helpContact">Contact 514-834-7080 for help!</string>
+    <string name="helpContact">Contact 514-834-7080 \nfor help!</string>
     <string name="yudixie">yudixie</string>
+  <string name="hereIsYourCurrentTrip">Here is your current trip !</string>
 </resources>

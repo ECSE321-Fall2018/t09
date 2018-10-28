@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,7 @@ public class YouFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d("2","onCreate_Fragment");
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -69,13 +71,14 @@ public class YouFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("3","onCreateView_Fragment");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_you, container, false);
         TextView usernameDisply = (TextView)view.findViewById(R.id.profileUsernameText);
         usernameDisply.setText(getArguments().getString("username",""));
-
         //add listener to switch account;
         TextView switchaccount = (TextView)view.findViewById(R.id.switchAccText);
+
         switchaccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +99,7 @@ public class YouFragment extends Fragment {
 
     @Override
     public void onAttach(Context context) {
+        Log.d("1","onAttach_Fragment");
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
@@ -107,8 +111,13 @@ public class YouFragment extends Fragment {
 
     @Override
     public void onDetach() {
+        Log.d("5","onDetach_Fragment");
         super.onDetach();
         mListener = null;
+    }
+
+    public String getEmojiByUnicode(int unicode){
+        return new String(Character.toChars(unicode));
     }
 
     /**

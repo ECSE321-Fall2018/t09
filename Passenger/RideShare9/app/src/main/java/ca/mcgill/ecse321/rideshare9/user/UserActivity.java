@@ -48,7 +48,7 @@ public class UserActivity extends AppCompatActivity implements YouFragment.OnFra
         JourneyBrowserFragment journeyBrowserFragment = new JourneyBrowserFragment();
         HomeFragment homeFragment = new HomeFragment();
         youFragment.setArguments(getIntent().getBundleExtra("bundle"));
-
+        homeFragment.setArguments(getIntent().getBundleExtra("bundle"));
 
         //add Fragments to adapters and link adapter with viewpager
         pagerAdapter.addFragments(homeFragment);
