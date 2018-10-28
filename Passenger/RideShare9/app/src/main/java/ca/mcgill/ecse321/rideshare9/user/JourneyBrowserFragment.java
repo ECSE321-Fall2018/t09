@@ -13,12 +13,18 @@ import android.view.ViewGroup;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import ca.mcgill.ecse321.rideshare9.HttpUtils;
 import ca.mcgill.ecse321.rideshare9.R;
 import cz.msebera.android.httpclient.Header;
+
+import static android.support.constraint.Constraints.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,7 +43,8 @@ public class JourneyBrowserFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private List<Advertisement> advertisements;
+    private final static List<Advertisement> advertisements = new ArrayList<>();
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -71,7 +78,13 @@ public class JourneyBrowserFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        //TODO Send request to REST API to get list of advertisements
+        getAvailableTrips();
+
+        Log.i(TAG, "What do I get? " + advertisements.size() + " ads...");
+    }
+
+    private void getAvailableTrips() {
+
         //  Get SharedPreferences which holds the JWT Token
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
         String authentication = "Bearer " + sharedPreferences.getString("token", null);
@@ -84,25 +97,75 @@ public class JourneyBrowserFragment extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Log.d("get-list-adv", "onSuccess: Success");
-                advertisements = Advertisement.AdvertisementsFromJSONArray(response);
-                Log.d("GET: /adv/get-list-adv",
-                        "onSuccess: Found " + advertisements.size() + " advertisement(s)");
-            }
+                Log.i(TAG, "what are you returning? " + advertisementsFromJSONArray(response).get(0).getTitle());
+                advertisements.addAll(advertisementsFromJSONArray(response));
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Log.i(TAG, "What: It's size: " + advertisements.size());
+                for (int i = 0; i < advertisements.size(); i++) {
+                    for (int j = 0; j < advertisements.get(i).getStops().size(); j++) {
+                        final int finalI = i;
+                        final int finalJ = j;
+                        HttpUtils.get("/stop/get-by-id/" + advertisements.get(i).getStops().get(j).getId(),
+                                null, new JsonHttpResponseHandler() {
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                        advertisements.get(finalI).getStops().get(finalJ)
+                                                .setName(response.optString("stopName"));
+                                        advertisements.get(finalI).getStops().get(finalJ)
+                                                .setPrice((float) response.optDouble("price"));
+                                        Log.i("What, added stop: ", advertisements.get(finalI).getStops().get(finalJ).toString());
+                                    }
+                                });
+                    }
+                }
             }
-
         });
 
-        //  Remove headers for future use
-        //HttpUtils.removeHeader("Authorization");
+
+    }
+
+    private List<Advertisement> advertisementsFromJSONArray(JSONArray jsonAdArray) {
+        int adCount = jsonAdArray.length();
+        List<Advertisement> advertisements = new ArrayList<>();
+
+        for (int i = 0; i < adCount; i++) {
+            JSONObject advertisement = jsonAdArray.optJSONObject(i);
+            advertisements.add(advertisementFromJSONObject(advertisement));
+        }
+
+        return advertisements;
+    }
+
+    private Advertisement advertisementFromJSONObject(JSONObject jsonAdObject) {
+        int adId = jsonAdObject.optInt("id");
+        int adSeatsAvailable = jsonAdObject.optInt("seatAvailable");
+        int adVehicleId = jsonAdObject.optInt("vehicle");
+        int adDriverId = jsonAdObject.optInt("driver");
+        String adTitle = jsonAdObject.optString("title");
+        String adStartTime = jsonAdObject.optString("startTime");
+        String adStartLocation = jsonAdObject.optString("startLocation");
+        String adStatus = jsonAdObject.optString("status");
+        List<Stop> adStops = new ArrayList<>();
+
+        JSONArray stops = jsonAdObject.optJSONArray("stops");
+
+        //  Get the number of stops for the advertisement
+        int stopCount = stops.length();
+
+        for (int j = 0; j < stopCount; j++) {
+            Stop newStop = new Stop();
+            // Only the id is set for now
+            newStop.setId(stops.optLong(j));
+            adStops.add(newStop);
+        }
+
+        return new Advertisement(adId, adSeatsAvailable, adVehicleId, adDriverId, adTitle, adStartTime, adStartLocation, adStatus, adStops);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i(TAG, "What do I see later? " + this.advertisements.size() + "ads");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_journey_browser, container, false);
     }
