@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -19,7 +20,15 @@ public class AdvertisementsAdapter extends RecyclerView.Adapter<AdvertisementsAd
     private RecyclerView recyclerView;
     private List<Advertisement> advertisements;
     private Context context;
-    //TODO: add onClickListener
+    private final View.OnClickListener advertisementOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int itemPos = recyclerView.getChildLayoutPosition(v);
+            Advertisement advertisement = advertisements.get(itemPos);
+            Toast.makeText(context, advertisement.getTitle(), Toast.LENGTH_LONG).show();
+        }
+    };
+
 
 
     public AdvertisementsAdapter(List<Advertisement> advertisements) {
@@ -58,7 +67,7 @@ public class AdvertisementsAdapter extends RecyclerView.Adapter<AdvertisementsAd
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View advertisementView = inflater.inflate(R.layout.item_advertisement, viewGroup, false);
-        //TODO: set on-click-listener here
+        advertisementView.setOnClickListener(advertisementOnClickListener);
         return new AdvertisementsAdapter.ViewHolder(advertisementView);
     }
 
