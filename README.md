@@ -1,5 +1,9 @@
 # Welcome to TEAM 09 [![Build Status](https://travis-ci.com/ECSE321-Fall2018/t09.svg?token=ft4Mh1yYXz7QX8b1Dzq2&branch=master)](https://travis-ci.com/ECSE321-Fall2018/t09)
 
+## Log: 2018/10/29
+
+- Added a new Vehicle API endpoint, vehicle/get-by-id/{id}
+
 ## Log: 2018/10/26
 
 - Update profile UI for Passenger.
@@ -131,6 +135,7 @@ Example:
  /vehicle/remove-car | DELETE | JSON | "id" | DRIVER, ADMIN
  /vehicle/get-cars | GET | void | void | DRIVER, ADMIN
  /vehicle/change-cars | PUT | JSON | "id"; Optional: "color", "licencePlate", "maxSeat", "model" | DRIVER
+ /vehicle/get-by-id/{id} | GET | void | void | DRIVER, ADMIN
  
  ### StopController
  URL | Request | Parameter Format | Parameters | Role (ROLE_)
