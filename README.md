@@ -1,4 +1,4 @@
-# Welcome to TEAM 09 [![Build Status](https://travis-ci.com/ECSE321-Fall2018/t09.svg?token=WDPhpGnigsQCoWp5WMJt&branch=mark)](https://travis-ci.com/ECSE321-Fall2018/t09/builds/87110237#L2557)
+# Welcome to TEAM 09 [![Build Status](https://travis-ci.com/ECSE321-Fall2018/t09.svg?token=ft4Mh1yYXz7QX8b1Dzq2&branch=master)](https://travis-ci.com/ECSE321-Fall2018/t09)
 
 ## Log: 2018/10/26
 
