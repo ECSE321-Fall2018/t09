@@ -8,10 +8,20 @@ android:id="@+id/recylcer_layout">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Final Destination"
+        android:text=" - Final Destination"
         android:id="@+id/final_destination"
         android:textColor="#000"
-        android:textSize="20sp"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@id/start_destination"
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Start Destination"
+            android:id="@+id/start_destination"
+            android:textColor="#000"
+            android:textSize="14sp"
     />
 
     <TextView
@@ -23,6 +33,16 @@ android:id="@+id/recylcer_layout">
             android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@id/final_destination"
             />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price: $25"
+            android:id="@+id/costField"
+            android:textColor="#000"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/car_capacity"
+    />
 
     <TextView
             android:layout_width="wrap_content"

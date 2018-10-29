@@ -35,6 +35,10 @@ public class HttpUtils {
         client.get(context,getAbsoluteUrl(url),headers,params,responseHandler);
     }
 
+    public static void addHeader(String header, String value) { client.addHeader(header, value);}
+
+    public static void removeHeader(String header) { client.removeHeader(header);}
+
     public static void get(Context context, String url, Header[] headers, RequestParams params, AsyncHttpResponseHandler responseHandler){
         client.get(context, getAbsoluteUrl(url),headers,params,responseHandler);
     }

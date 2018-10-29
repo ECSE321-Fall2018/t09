@@ -2,17 +2,11 @@ package ca.mcgill.ecse321.rideshare9;
 
 import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+import ca.mcgill.ecse321.rideshare9.modelObjects.Stop;
 
 import java.util.ArrayList;
 
@@ -45,7 +39,7 @@ public class StopList_adapter extends BaseAdapter {
         TextView stopAt = (TextView) v.findViewById(R.id.stopAt_textview);
         TextView cost = (TextView) v.findViewById(R.id.cost_stop_textview);
 
-        String stopString = stopList.get(i).getStopName();
+        String stopString = stopList.get(i).getName();
         Float costString = stopList.get(i).getPrice();
 
         stopAt.setText("Stop at " + stopString);
