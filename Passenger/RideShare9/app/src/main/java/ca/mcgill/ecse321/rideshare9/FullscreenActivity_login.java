@@ -22,8 +22,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import ca.mcgill.ecse321.rideshare9.user.UserActivity;
+import ca.mcgill.ecse321.rideshare9.user.map.MapsActivity;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
@@ -255,6 +258,7 @@ public class FullscreenActivity_login extends AppCompatActivity {
                 //goto the logged screen
                 Intent intent = new Intent(getApplicationContext(),UserActivity.class);
                 Bundle userbundle = new Bundle();
+                userbundle.putString("token",sharedPre.getString("token",""));
                 userbundle.putString("username",namefield.getText().toString());
                 intent.putExtra("bundle",userbundle);
                 startActivity(intent);

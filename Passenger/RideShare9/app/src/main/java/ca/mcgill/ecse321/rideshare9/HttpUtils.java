@@ -6,6 +6,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpEntity;
 
 public class HttpUtils {
@@ -30,6 +31,10 @@ public class HttpUtils {
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
+    public static void get(Context context, String url, Header[] headers, RequestParams params,AsyncHttpResponseHandler responseHandler){
+        client.get(context,getAbsoluteUrl(url),headers,params,responseHandler);
+    }
+
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.post(getAbsoluteUrl(url), params, responseHandler);
     }
@@ -45,6 +50,7 @@ public class HttpUtils {
     public static void postByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.post(url, params, responseHandler);
     }
+
 
     private static String getAbsoluteUrl(String relativeUrl) {
         return baseUrl + relativeUrl;
