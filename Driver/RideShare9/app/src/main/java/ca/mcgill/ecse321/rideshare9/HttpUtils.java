@@ -48,14 +48,18 @@ public class HttpUtils {
         client.post(context, getAbsoluteUrl(url),entity, contenttype, responseHandler);
     }
 
+    public static void post(Context context, String url, Header[] headers, HttpEntity entity, String contentType, AsyncHttpResponseHandler responseHandler){
+        client.post(context,getAbsoluteUrl(url),headers,entity,contentType,responseHandler);
+    }
+
     public static void getByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.get(url, params, responseHandler);
     }
 
     public static void postByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.post(url, params, responseHandler);
-    }
 
+    }
     private static String getAbsoluteUrl(String relativeUrl) {
         return baseUrl + relativeUrl;
     }

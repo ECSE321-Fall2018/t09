@@ -28,15 +28,18 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="RideShare9"
             android:theme="@style/FullscreenTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".RideShare9"
-            android:label="@string/title_activity_ride_share9"></activity>
+            android:label="@string/title_activity_ride_share9" />
+        <activity
+            android:name=".AddVehicleActivity"
+            android:label="@string/title_activity_add_vehicle"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ChangeVehicle"
+            android:label="@string/title_activity_change_vehicle"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

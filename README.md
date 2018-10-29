@@ -1,48 +1,4 @@
-# Welcome to TEAM 09 [![Build Status](https://travis-ci.com/ECSE321-Fall2018/t09.svg?token=WDPhpGnigsQCoWp5WMJt&branch=mark)](https://travis-ci.com/ECSE321-Fall2018/t09/builds/87110237#L2557)
-## Update of 2018/10/20: Just two tips
-
-- Make sure to use descriptive Ids when modify the view
-- When you want to send a request to  the backend that requires a role Anthorization, you can choose to use a request method from AsyncHttpClient that has a Header[] as argument, and put the Token as a basicHeader in the Header[]. This is a little troublesome since you have to give a Header[] for every request method, but it is the only approach I found for now that works for both AsyncHttpClient and Bearer Token. 
-For example: 
-```
- public void test(View view){
-        Header[] headers = {new BasicHeader("Authorization","Bearer "+getsavedToken(getApplicationContext()))};
-        HttpUtils.get(getApplicationContext(), "adv/get-logged-adv", headers, new RequestParams(), new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                log.d("Failure","");
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                log.d("Success",responseString);
-            }
-        });
-    }
-```
-
-## Update of 2018/10/18: Start of Sprint2: Android Application for Driver and Passenger 
-
-### Features implemented (for both Driver and Passenger) : 
-#### 1. Login Activity:
-
-- User can enter username and password to login by send a post request to the backend.
-- Can switch to Signup Screen.
-- User can check "remeber me" to remeber the password (Achived with sharedpreferences)
-#### 2. SignUp Activity:
-
-- User can enter username, password to signup by send a post request to the backend.
-- The second password textfield will validate password input,otherwise register button is disabled.
-
----
-
-## Update of 2018/10/03: Good luck on your EXAMS!!! OS and Ocaml!!!
-
-- Concluded that security feature will not block mockit from unit testing, but security features needs integration test, which is not part of our project
-- Able to junit test our api with mockit, example provided on UserController; Remind: update your pom.xml
-- Solved ALL bonus problems
-
-
+# Welcome to TEAM 09
 ## WANTED: Bonus 3 solution: logging
 
 - Logging (i.e., all API interactions should be recorded in a log file for posterity, debugging, and data mining purposes)
@@ -53,11 +9,7 @@ For example:
 - API names should follow create, get, delete, update naming convension
 
 ## API Endpoints
-**IMPORTANT**: A JWT authorization token is given in the response header after the user logs into the app. **All** requests that do **not** have the
-Role: GLOBAL will need to provide this authorization token in the headers of the request.
-Example:
-- Header name: Authorization
-- Header value: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKdWxpYW5UZXN0IiwiZXhwIjoxNTM4OTY0NzkyfQ.z5EqLwlCzonLzosFGBwveOmrgU-  LZ4wEK2LEJpO3WkIXQQszs4l78uQOmkOeu5r1Ae5HQllr1V3wtA05LXxt_A
+
 ### Login
 
  URL | Request | Parameter Format | Parameters | Role (ROLE_) 
@@ -68,15 +20,15 @@ Example:
 
  URL | Request | Parameter Format | Parameters | Role (ROLE_) 
  ------| ------ | ------ | ------ | ------ 
- /user/sign-up | POST | JSON | "username", "password", and "role" (MUST BE ONE OF: {"ROLE_DRIVER","ROLE_PASSENGER","ROLE_ADMIN"}) | GLOBAL 
+ /user/sign-up | POST | JSON | "username", "password", and "role" | GLOBAL 
  /user/get-is-unique | POST | JSON | "username" | GLOBAL 
  /user/get-user-by-uname | POST | JSON | "username" | ADMIN 
  /user/get-logged-user | GET | void | void | ADMIN, PASSENGER, DRIVER 
  /user/get-list-passenger-status | GET | void | void | ADMIN 
  /user/get-list-driver-status | GET | void | void | ADMIN 
  /user/get-list-users | GET | void | void | ADMIN 
- /user/update-status | PUT | JSON | "status" (MUST BE: {"ON_RIDE","STANDBY"}) | ADMIN, PASSENGER, DRIVER 
- /user/delete-usr | DELETE | JSON | "id" | ADMIN 
+ /user/update-status | PUT | JSON | "status" | ADMIN, PASSENGER, DRIVER 
+ /user/delete-usr | DELETE | JSON | "id" or "username" | ADMIN 
  /user/mainpg | GET | void | void | GLOBAL 
  /user/hello | GET | void | void | PASSENGER (for test) 
 
@@ -95,12 +47,10 @@ Example:
  Note: "Stop" attribute in update-adv overshadowed all previous records in a list
  
  ### MapperController
- used to add passengers to an advertised trip.
- 
  URL | Request | Parameter Format | Parameters | Role (ROLE_)
  ------| ------ | ------ | ------ | ------
- /map/add-map | POST | Path Parameter | "adv_id" | PASSENGER
- /map/admin/delete/{mapper_id} | DELETE | Path Variable | "mapper_id" | PASSENGER
+ /map/add-map | POST | Pathvariable | "adv_id" | PASSENGER
+ /map/delete | DELETE | PathVariable | "mapper_id" | PASSENGER
  /map/list-top-passengers | GET | void | void | ADMIN
  
  ### VehicleController
@@ -109,15 +59,14 @@ Example:
  /vehicle/add-car | POST | JSON | "color", "licencePlate", "maxSeat", "model" | DRIVER
  /vehicle/remove-car | DELETE | JSON | "id" | DRIVER, ADMIN
  /vehicle/get-cars | GET | void | void | DRIVER, ADMIN
- /vehicle/change-cars | PUT | JSON | "id"; Optional: "color", "licencePlate", "maxSeat", "model" | DRIVER
+ /vehicle/change-cars | PUT | JSON | "id", "driverId"; Optional: "color", "licencePlate", "maxSeat", "model" | DRIVER
  
  ### StopController
  URL | Request | Parameter Format | Parameters | Role (ROLE_)
  ------| ------ | ------ | ------ | ------
  /stop/add-stop | POST | JSON | "stopName", "price" | DRIVER
  /stop/change-stop | PUT | JSON | "id"; Optional: "stopName", "price" | DRIVER
- /stop/del-stop | DELETE | JSON | "id" | DRIVER
- /stop/get-stop-by-name/{name} | GET | Path Variable | "name" | DRIVER
+ /stop/del-stop | GET | JSON | "id" | DRIVER
 
 
 ## We need @2018/10/01

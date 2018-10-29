@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RideShare9</string>
+    <string name="app_name">RideShare9 for Driver</string>
 
     <string name="UsernameHint">Username</string>
     <string name="PasswordHint">Password</string>
@@ -20,6 +20,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_add_vehicle">Add Vehicle</string>
+    <string name="title_activity_change_vehicle">ChangeVehicle</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

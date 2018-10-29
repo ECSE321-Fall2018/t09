@@ -58,7 +58,7 @@ public class VehicleController {
      * @return deleted car
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/remove-car", method=RequestMethod.DELETE)
+    @RequestMapping(value = "/remove-car", method=RequestMethod.POST)
     public Vehicle removeCar(@RequestBody Vehicle car) {
     	
     	// TODO: Implement this, with principle "i can only delete my car", you can change parameter to non-json type
@@ -68,12 +68,15 @@ public class VehicleController {
     	if (!(authentication instanceof AnonymousAuthenticationToken)) {
     	    currentUserName = authentication.getName();
     	}
-    	if (car != null && car.getDriver() == urp.loadUserByUsername(currentUserName).getId()) {
-        	carService.removeVehicle(car.getId()); 
-        	return car;
-    	} else {
-    		return null; 
+    	long currdriver = urp.loadUserByUsername(currentUserName).getId(); 
+    	List<Vehicle> vs = carService.findAllVehicleByUid(currdriver); 
+    	for (Vehicle v: vs) {
+    		if (v.getDriver() == currdriver && v.getId() == car.getId()) {
+    			carService.removeVehicle(v.getId()); 
+    			return v; 
+    		}
     	}
+    	return null; 
     }
     
     /**
@@ -103,7 +106,7 @@ public class VehicleController {
      * @return change car
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/change-cars", method=RequestMethod.PUT)
+    @RequestMapping(value = "/change-cars", method=RequestMethod.POST)
     public Vehicle changelCar(@RequestBody Vehicle car) {
     	
     	// TODO: Implement this, with principle "i can only change my car", you can change parameter to non-json type
@@ -111,28 +114,17 @@ public class VehicleController {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	if (!(authentication instanceof AnonymousAuthenticationToken)) {
     	    currentUserName = authentication.getName();
-    	    User curr = urp.findUserByUsername(currentUserName); 
-    	    if (curr.getId() != car.getDriver()) {
-        		return new Vehicle(); 
-        	}
     	}
+    	long currdriver = urp.loadUserByUsername(currentUserName).getId(); 
+    	List<Vehicle> vs = carService.findAllVehicleByUid(currdriver); 
+    	for (Vehicle v: vs) {
+    		if (v.getDriver() == currdriver && v.getId() == car.getId()) {
+    			car.setDriver(currdriver); 
+    	    	return carService.updateVehicle(car); 
+    		}
+    	}
+    	return null; 
     	
-    	Vehicle oldcar=carService.findVehicle(car.getId());
-    	
-    	if (car.getLicencePlate() != null && !car.getLicencePlate().isEmpty() && !oldcar.getLicencePlate().equals(car.getLicencePlate())) {
-    		oldcar.setLicencePlate(car.getLicencePlate());
-    	}
-    	if (car.getColor() != null && !car.getColor().isEmpty() && !oldcar.getColor().equals(car.getColor())) {
-    		oldcar.setColor(car.getColor());
-    	}
-    	if (car.getModel() != null && !car.getModel().isEmpty() && !oldcar.getModel().equals(car.getModel())) {
-    		oldcar.setModel(car.getModel());
-    	}
-    	if (car.getMaxSeat() > 0 && oldcar.getMaxSeat()!=car.getMaxSeat()){
-    		oldcar.setMaxSeat(car.getMaxSeat());
-    	}
-    	
-    	return carService.updateVehicle(oldcar); 
     }
     
 }
