@@ -12,12 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ca.mcgill.ecse321.rideshare9.modelObjects.Advertisement;
-import ca.mcgill.ecse321.rideshare9.modelObjects.Stop;
-import ca.mcgill.ecse321.rideshare9.modelObjects.Vehicle;
+import ca.mcgill.ecse321.rideshare9.model.Advertisement;
+import ca.mcgill.ecse321.rideshare9.model.Stop;
+import ca.mcgill.ecse321.rideshare9.model.Vehicle;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -65,12 +66,21 @@ public class AdvertisementFragment extends Fragment {
 
                 for (int i = 0; i < advertisements.size(); i++) {
                     final int vehicleI =i;
-                    HttpUtils.get("/vehicle/get-car-by-id/", null, new JsonHttpResponseHandler(){
+                    HttpUtils.get("/vehicle/get-by-id/" + advertisements.get(i).getVehicle().getId(),
+                            null, new JsonHttpResponseHandler(){
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            super.onSuccess(statusCode, headers, response);
-                            advertisements.get(vehicleI).getVehicle().setColor(response.optString(""));
+                            advertisements.get(vehicleI).getVehicle()
+                                    .setColor(response.optString("color"));
+                            advertisements.get(vehicleI).getVehicle()
+                                    .setLicencePlate(response.optString("licencePlate"));
+                            advertisements.get(vehicleI).getVehicle()
+                                    .setMaxSeat(response.optInt("maxSeat"));
+                            advertisements.get(vehicleI).getVehicle()
+                                    .setModel(response.optString("model"));
+                            advertisementsAdapter.notifyDataSetChanged();
                         }
+
                     });
                     for (int j = 0; j < advertisements.get(i).getStops().size(); j++) {
                         final int finalI = i;

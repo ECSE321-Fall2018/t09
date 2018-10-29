@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.rideshare9.modelObjects;
+package ca.mcgill.ecse321.rideshare9.model;
 
  import org.json.JSONObject;
 public class Stop {

@@ -18,7 +18,7 @@ android:id="@+id/recylcer_layout">
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" Start Destination"
+            android:text="Start Destination"
             android:id="@+id/start_destination"
             android:textColor="#000"
             android:textSize="14sp"
@@ -34,15 +34,7 @@ android:id="@+id/recylcer_layout">
             app:layout_constraintTop_toBottomOf="@id/final_destination"
             />
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Price: $25"
-            android:id="@+id/costField"
-            android:textColor="#000"
-            android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@id/car_capacity"
-    />
+
 
     <TextView
             android:layout_width="wrap_content"
@@ -53,6 +45,16 @@ android:id="@+id/recylcer_layout">
             android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@id/stop_list"
            />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vehicle: Red Honda Civic"
+            android:id="@+id/vehicleField"
+            android:textColor="#000"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/car_capacity"
+    />
 
     <TextView
             android:layout_width="match_parent"
@@ -74,6 +76,8 @@ android:id="@+id/recylcer_layout">
             android:gravity="right"
             app:layout_constraintTop_toBottomOf="@id/date"
     />
+
+
 
 
 

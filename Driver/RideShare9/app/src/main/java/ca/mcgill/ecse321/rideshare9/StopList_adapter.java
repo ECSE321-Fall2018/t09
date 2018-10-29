@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import ca.mcgill.ecse321.rideshare9.modelObjects.Stop;
+import ca.mcgill.ecse321.rideshare9.model.Stop;
 
 import java.util.ArrayList;
 

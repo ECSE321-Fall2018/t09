@@ -5,8 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.*;
 import android.widget.*;
-import ca.mcgill.ecse321.rideshare9.modelObjects.Advertisement;
-import ca.mcgill.ecse321.rideshare9.modelObjects.Stop;
+import ca.mcgill.ecse321.rideshare9.model.Advertisement;
+import ca.mcgill.ecse321.rideshare9.model.Stop;
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public TextView adStartTime;
         public TextView adStops;
         public TextView carCapacity;
+        public TextView adVehicle;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -38,6 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             adStartTime = itemView.findViewById(R.id.time);
             adStops = itemView.findViewById(R.id.stop_list);
             carCapacity = itemView.findViewById(R.id.car_capacity);
+            adVehicle = itemView.findViewById(R.id.vehicleField);
         }
     }
 
@@ -67,6 +70,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView adStartTime = viewHolder.adStartTime;
         TextView adStops = viewHolder.adStops;
         TextView carCapacity = viewHolder.carCapacity;
+        TextView adVehicle = viewHolder.adVehicle;
+
 
         // set adTitle, adStartLocation text
         adTitle.setText(" - " + advertisement.getTitle());
@@ -76,13 +81,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         String[] dateAndTime = advertisement.getStartTime().split(" ");
         String[] departDate = dateAndTime[0].split("-");
         String[] departTime = dateAndTime[1].split(":");
-        adStartDate.setText(departDate[2]+"/"+departDate[1]+"/"+departDate[0]);
-        adStartTime.setText(departTime[0]+":"+departTime[1]);
+        adStartDate.setText("Departs on " + departDate[2]+"/"+departDate[1]+"/"+departDate[0]);
+        adStartTime.setText("Leaves at " + departTime[0]+":"+departTime[1]);
 
+        //Set Car Related Text Fields
+        carCapacity.setText("Available Seats: " + advertisement.getAvailableSeats() + "/" + advertisement.getVehicle().getMaxSeat());
+        adVehicle.setText("Vehicle: " + advertisement.getVehicle().getColor() + " " + advertisement.getVehicle().getModel());
         // set adStops with their price
         String list = "";
         for (Stop stop : advertisement.getStops()) {
-            list += (stop.getName() + " (" + stop.getPrice() + ") " +  ", ");
+            list += (stop.getName() + " ($" + stop.getPrice() + ") " +  ", ");
         }
         list = list.substring(0, list.length() - 2);
         adStops.setText(list);
