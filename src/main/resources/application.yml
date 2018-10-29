@@ -1,13 +1,13 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   application:
     name: auth-service
   datasource:
-    url : jdbc:postgresql://ec2-54-227-244-12.compute-1.amazonaws.com:5432/dcr140e89ana42
-    username : qafeaqjghxcbjb
-    password : 85817c07188d377702c79fe357b6e3b4fdc16618769d1db640bd455f2a562493
+    url : jdbc:postgresql://ec2-23-23-80-20.compute-1.amazonaws.com:5432/dfhd1136i0pjsc
+    username : lgoqlblnxemzzv
+    password : 44aa24baf6221edbcc29bf245edfa72003514cea1f455512ecb376773cea4cdf
     driverClassName : org.postgresql.Driver
 logging:
   level:
