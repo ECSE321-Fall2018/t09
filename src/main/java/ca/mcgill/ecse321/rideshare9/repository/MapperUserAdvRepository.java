@@ -59,7 +59,7 @@ public class MapperUserAdvRepository {
 
 	@Transactional
 	public List<MapperUserAdv> findNamedAdv(String uname) {
-	    TypedQuery<MapperUserAdv> query = em.createQuery("SELECT a FROM MapperUserAdv a WHERE a.passenger = :uname", MapperUserAdv.class).setParameter("qLocation", "%" + uname + "%");
+	    TypedQuery<MapperUserAdv> query = em.createQuery("SELECT a FROM MapperUserAdv a WHERE a.passenger = :uname", MapperUserAdv.class).setParameter("uname", "%" + uname + "%");
 	    return query.getResultList();
 	}
 	
