@@ -26,7 +26,7 @@ public class AdvertisementsAdapter extends RecyclerView.Adapter<AdvertisementsAd
         public void onClick(View v) {
             int itemPos = recyclerView.getChildLayoutPosition(v);
             Advertisement advertisement = advertisements.get(itemPos);
-            Toast.makeText(context, advertisement.getTitle(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, advertisement.getTitle(), Toast.LENGTH_LONG).show();
             Intent intent = new Intent(context, AdvertisementViewerActivity.class);
             intent.putExtra("advertisement_data", advertisement);
             context.startActivity(intent);

@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -123,11 +125,17 @@ public class JourneyBrowserFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_journey_browser, container, false);
         rvAdvertisements = view.findViewById(R.id.rvAdvertisements);
-        rvAdvertisements.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        rvAdvertisements.addItemDecoration(
+                new DividerItemDecoration(
+                        rvAdvertisements.getContext(), layoutManager.getOrientation()
+                )
+        );
+        rvAdvertisements.setLayoutManager(layoutManager);
         advertisementsAdapter = new AdvertisementsAdapter(advertisements);
         rvAdvertisements.setAdapter(advertisementsAdapter);
 

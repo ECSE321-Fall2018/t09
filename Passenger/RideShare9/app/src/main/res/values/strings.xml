@@ -33,4 +33,5 @@
     <string name="yudixie">yudixie</string>
     <string name="hereIsYourCurrentTrip">Here is your current trip !</string>
     <string name="label_stops"><u>Stops</u></string>
+    <string name="advertisement_viewer_join_button">Join Journey</string>
 </resources>
