@@ -31,5 +31,6 @@
     <string name="switchAccText">Change Account</string>
     <string name="helpContact">Contact 514-834-7080 \nfor help!</string>
     <string name="yudixie">yudixie</string>
-  <string name="hereIsYourCurrentTrip">Here is your current trip !</string>
+    <string name="hereIsYourCurrentTrip">Here is your current trip !</string>
+    <string name="homerefresh">Refresh</string>
 </resources>

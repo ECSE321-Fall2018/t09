@@ -8,6 +8,7 @@ import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import cz.msebera.android.httpclient.Header;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,10 @@ public class HttpUtils {
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.get(getAbsoluteUrl(url), params, responseHandler);
+    }
+
+    public static void get(Context context, String url, Header[] headers, RequestParams params,AsyncHttpResponseHandler responseHandler){
+        client.get(context,getAbsoluteUrl(url),headers,params,responseHandler);
     }
 
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {

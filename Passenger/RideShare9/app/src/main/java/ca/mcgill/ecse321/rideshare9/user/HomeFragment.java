@@ -5,24 +5,32 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Button;
+
 
 import com.hanks.htextview.base.HTextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import ca.mcgill.ecse321.rideshare9.HttpUtils;
 
 import ca.mcgill.ecse321.rideshare9.R;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import static com.loopj.android.http.AsyncHttpClient.log;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,28 +89,109 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.d("3","onCreateView_Fragment");
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rvtrace);
+        final View view = inflater.inflate(R.layout.fragment_home, container, false);final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rvtrace);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        final List<Trace> traceList = new ArrayList<>(10);
-        traceList.add(new Trace("2016-05-25 17:48:00", "London"));
-        traceList.add(new Trace("2016-05-25 14:13:00", "Paris"));
-        traceList.add(new Trace("2016-05-25 13:01:04", "Moscow"));
-        traceList.add(new Trace("2016-05-25 12:19:47", "Beijing"));
-        traceList.add(new Trace("2016-05-25 11:12:44", "Tokyo"));
+        final HTextView hTextView = (HTextView) view.findViewById(R.id.GreetingText);
+        final HTextView hereisyour = (HTextView) view.findViewById(R.id.hereisyourcurrent);
+        final Button refreshbutton = (Button) view.findViewById(R.id.homerefreshButton);
+        refreshbutton.setVisibility(view.GONE);
+        final Header[] headers = {new BasicHeader("Authorization","Bearer "+getArguments().getString("token"))};
 
+        final List<Trace> traceList = new ArrayList<>(10);
+
+
+        refreshbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HttpUtils.get(getContext(),"user/get-logged-user",headers,new RequestParams(),new JsonHttpResponseHandler(){
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        hereisyour.animateText("Sorry, Failure to load data.");
+                    }
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        try {
+                            if(response.getString("status").equals("ON_RIDE")){
+                                if(getContext()!=null) {
+                                    traceList.add(new Trace("2016-05-25 17:48:00", "London"));
+                                    traceList.add(new Trace("2016-05-25 14:13:00", "Paris"));
+                                    traceList.add(new Trace("2016-05-25 13:01:04", "Moscow"));
+                                    traceList.add(new Trace("2016-05-25 12:19:47", "Beijing"));
+                                    traceList.add(new Trace("2016-05-25 11:12:44", "Tokyo"));
+                                    hereisyour.animateText("Here is your current trip:");
+                                    recyclerView.setVisibility(view.VISIBLE);
+                                    TraceListAdapter adapter = new TraceListAdapter(getContext(), traceList);
+                                    recyclerView.setAdapter(adapter);
+                                    recyclerView.scheduleLayoutAnimation();
+                                }
+                            }
+                            else{
+                                hereisyour.animateText("You do not currently on a trip");
+                                recyclerView.setVisibility(view.GONE);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
+        HttpUtils.get(getContext(),"user/get-logged-user",headers,new RequestParams(),new JsonHttpResponseHandler(){
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                hereisyour.animateText("Sorry, Failure to load data.");
+            }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    if(response.getString("status").equals("ON_RIDE")) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                hereisyour.animateText("Here is your current trip:");
+                            }
+                        },4400);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(getContext()!=null) {
+                                    traceList.add(new Trace("2016-05-25 17:48:00", "London"));
+                                    traceList.add(new Trace("2016-05-25 14:13:00", "Paris"));
+                                    traceList.add(new Trace("2016-05-25 13:01:04", "Moscow"));
+                                    traceList.add(new Trace("2016-05-25 12:19:47", "Beijing"));
+                                    traceList.add(new Trace("2016-05-25 11:12:44", "Tokyo"));
+                                    TraceListAdapter adapter = new TraceListAdapter(getContext(), traceList);
+                                    recyclerView.setAdapter(adapter);
+                                    recyclerView.scheduleLayoutAnimation();
+                                    refreshbutton.setVisibility(view.VISIBLE);
+                                }
+                            }
+                        },5000);
+                    }
+                    else{
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(getContext()!=null) {
+                                    hereisyour.animateText("You do not currently on a trip");
+                                    refreshbutton.setVisibility(view.VISIBLE);
+                                }
+                            }
+                        },4400);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                TraceListAdapter adapter = new TraceListAdapter(getContext(),traceList);
-                recyclerView.setAdapter(adapter);
-                recyclerView.scheduleLayoutAnimation();
+                log.d("Bearer in user", getArguments().getString("token"));
             }
         },5400);
 
-        final HTextView hTextView = (HTextView) view.findViewById(R.id.GreetingText);
-        final HTextView hereisyour = (HTextView) view.findViewById(R.id.hereisyourcurrent);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -125,13 +214,6 @@ public class HomeFragment extends Fragment {
             }
         },3200);
 
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                hereisyour.animateText("Here is your current trip:");
-            }
-        },4400);
         return view;
     }
 
