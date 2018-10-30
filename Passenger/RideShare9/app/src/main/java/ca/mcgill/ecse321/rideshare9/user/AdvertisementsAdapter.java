@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.rideshare9.user;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,6 +27,9 @@ public class AdvertisementsAdapter extends RecyclerView.Adapter<AdvertisementsAd
             int itemPos = recyclerView.getChildLayoutPosition(v);
             Advertisement advertisement = advertisements.get(itemPos);
             Toast.makeText(context, advertisement.getTitle(), Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(context, AdvertisementViewerActivity.class);
+            intent.putExtra("advertisement_data", advertisement);
+            context.startActivity(intent);
         }
     };
 
