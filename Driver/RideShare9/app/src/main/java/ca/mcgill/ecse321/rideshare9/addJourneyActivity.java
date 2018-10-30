@@ -1,15 +1,18 @@
 package ca.mcgill.ecse321.rideshare9;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
+import ca.mcgill.ecse321.rideshare9.HttpUtils;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -21,6 +24,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -29,32 +33,54 @@ public class addJourneyActivity extends AppCompatActivity {
      Spinner seatingSpinner, vehicleSpinner ;
      ListView stopListView;
      StopList_adapter stopAdapter;
-
-    private List<String> vehicleList = new ArrayList<>();
-    private ArrayAdapter<String> vehicleAdapter;
+     private List<Vehicle> vehicleList = new ArrayList<>();
+     private ArrayAdapter<Vehicle> vehicleAdapter;
+     private Set<Long> stops_Set;
+     int maxSeats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_journey);
 
-        //control the vehicle spinner
+        // Get initial content for vehicle spinner
+        getCarsList();
+
+        // fill the vehicle spinner
         vehicleSpinner =  findViewById(R.id.spinnerVehicle);
         vehicleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, vehicleList);
         vehicleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         vehicleSpinner.setAdapter(vehicleAdapter);
 
-        // Get initial content for spinners
-        refreshVehicleList(this.getCurrentFocus(), vehicleAdapter ,vehicleList);
+
+
+        // available max seating
+        vehicleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Vehicle user = (Vehicle) parent.getSelectedItem();
+                maxSeats = user.getMaxSeat();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
 
 
         //control the seating spinner
         seatingSpinner = findViewById(R.id.spinnerSeating);
-        Integer[] items = new Integer[]{0,1,2,3,4};
+        Integer[] items = new Integer[ maxSeats + 1];
+        for (int i=0 ; i < maxSeats + 1 ;i++){
+            items[i]=i;
+        }
         ArrayAdapter<Integer> adapter2 = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, items);
         seatingSpinner.setAdapter(adapter2);
 
-//        // control the stop list
+//        //control the stop list
 //        stopListView = (ListView) findViewById(R.id.stop_list);
 //        stopListView.setEmptyView(emptyText_stopLv);
 //        stopAdapter = new StopList_adapter();
@@ -227,24 +253,29 @@ public class addJourneyActivity extends AppCompatActivity {
     public void setDate(int id, int d, int m, int y) {
         TextView tv = (TextView) findViewById(id);
         tv.setText(String.format("%02d-%02d-%04d", d, m + 1, y));
+        Vehicle testVehicle = new Vehicle(100, "5678OBJ", "BMW", "Black", 4, 213);
+        vehicleList.add(testVehicle);
+        Vehicle testVehicle2 = new Vehicle(432, "`233BJ", "Audi", "Blue", 4, 213);
+        vehicleList.add(testVehicle2);
     }
 
-    private void refreshVehicleList(View v, final ArrayAdapter<String>  adapter, final List<String> vehicleDesc) {
-        HttpUtils.get("/vehicle/get-cars", new RequestParams(), new JsonHttpResponseHandler() {
+    private void getCarsList() {
+
+        //  Get SharedPreferences which holds the JWT Token
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
+        String authentication = "Bearer " + sharedPreferences.getString("token", null);
+
+        //  Set headers for the request
+        HttpUtils.addHeader("Authorization", authentication);
+
+
+
+        HttpUtils.get("vehicle/get-cars", new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                vehicleDesc.clear();
-                vehicleDesc.add("Please select...");
-                for( int i = 0; i < response.length(); i++){
-                    try {
-                        vehicleDesc.add(response.getJSONObject(i).getString("model") + " " + response.getJSONObject(i).getString("colour") );
-                    } catch (Exception e) {
-                        error += e.getMessage();
-                    }
-                    refreshErrorMessage();
-                }
-                adapter.notifyDataSetChanged();
+                vehicleList.addAll(advertisementsFromJSONArray(response));
+
             }
 
             @Override
@@ -256,6 +287,33 @@ public class addJourneyActivity extends AppCompatActivity {
                 }
                 refreshErrorMessage();
             }
+
         });
     }
+
+
+    private List<Vehicle> advertisementsFromJSONArray(JSONArray jsonAdArray) {
+        int vehicleCount = jsonAdArray.length();
+        List<Vehicle> vehicles = new ArrayList<>();
+
+        for (int i = 0; i < vehicleCount; i++) {
+            JSONObject advertisement = jsonAdArray.optJSONObject(i);
+            vehicles.add(advertisementFromJSONObject(advertisement));
+        }
+
+        return vehicles;
+    }
+
+    private Vehicle advertisementFromJSONObject(JSONObject jsonAdObject) {
+        long vehicleId = jsonAdObject.optInt("id");
+        String licencePlate = jsonAdObject.optString("licencePlate");
+        String model = jsonAdObject.optString("model");
+        String color = jsonAdObject.optString("color");
+        int maxSeat = jsonAdObject.optInt("maxSeat");
+        long driver = jsonAdObject.optLong("driver");
+
+        return new Vehicle(vehicleId, licencePlate , model , color , maxSeat , driver);
+    }
+
+
 }
