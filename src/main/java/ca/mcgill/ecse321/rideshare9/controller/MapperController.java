@@ -59,6 +59,19 @@ public class MapperController {
     	return null; 
     }
     
+    @PreAuthorize("hasRole('PASSENGER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+    @RequestMapping(value = "/get-map", method=RequestMethod.GET)
+    @ResponseBody
+    public List<MapperUserAdv> getLoggedMap() {
+                
+        String currentUserName = ""; 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            currentUserName = authentication.getName();
+        }
+        return mserv.findNamedAdv(currentUserName); 
+    }
+    
     /**
      * Passenger: delete journey/mapper
      * @param journey/mapper (JSON)
