@@ -16,7 +16,7 @@
 
 ## Passenger App Description
 
-### Passenger App Description (Version for Release)
+#### Passenger App Description (Version for Release)
 Enjoy great trips at low price on RideShare9. Sharing is more simple and efficient with our new App.
 
 ##### HOW SIMPLE?
@@ -25,18 +25,18 @@ Enjoy great trips at low price on RideShare9. Sharing is more simple and efficie
 ##### Current Trips and More - See current trips in the home tab and click for a map view.  
 ##### Know Your Past Trips - Check all past trip in detail in the history tab. 
 
-### Passenger App Description (Version for Development and Grading)
-#### Sign Up
+#### Passenger App Description (Version for Development and Grading)
+##### Sign Up
 Users can sign up as a passenger and needs to input a username and a password twice on the sign-up page. An error message will be given for username existing, password mismatching or illegal inputs. The sign-up button works only when there is no error. After signing up, the log-in page is displayed.
-#### Log In
+##### Log In
 Users can log in their accounts and choose to keep logging in for convenience. An error message will be given for username not existing, password mismatching or illegal inputs. The log-in button works only when there is no error. After logging in, the home tab is displayed.
-#### Home Tab
+##### Home Tab
 The home tab is portal where greeting messages and a current & upcoming trip list (if any) are displayed. The trip list is refreshed continuously. By clicking a trip, user can see a map with the destination indicated. In the map view, user can open google map to navigate.
-#### Journey Browser Tab
+##### Journey Browser Tab
 The journey browser tab shows all available trips. User can choose to sort by price, time or stop.
-#### User Profile Tab
+##### User Profile Tab
 The user profile tab displays user information and number of trips. User can log out in this tab.
-#### History trip Tab
+##### History trip Tab
 The history trip tab displays all past trips in detail (time, price and destination).
 
 
