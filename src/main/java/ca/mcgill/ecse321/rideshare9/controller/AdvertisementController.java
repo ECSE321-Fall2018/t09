@@ -107,13 +107,14 @@ public class AdvertisementController {
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
     @RequestMapping(value = "/delete-adv", method=RequestMethod.DELETE)
-    public Advertisement delAdv(@RequestBody Advertisement adv) {
+    public String delAdv(@RequestBody Advertisement adv) {
     	for (Advertisement a: this.myAdv()) {
     		if (a.getId() == adv.getId()) {
-    			return advService.removeAdv(adv.getId()); 
+    			advService.removeAdv(adv.getId());
+    			return "Successfully deleted";
     		}
     	}
-    	return null; 
+    	return "Could not delete";
     }
     
     
