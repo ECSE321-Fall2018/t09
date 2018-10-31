@@ -1,14 +1,26 @@
 package ca.mcgill.ecse321.rideshare9;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import ca.mcgill.ecse321.rideshare9.model.Advertisement;
 import ca.mcgill.ecse321.rideshare9.model.Stop;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.ByteArrayEntity;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.protocol.HTTP;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
@@ -30,6 +42,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public TextView adStops;
         public TextView carCapacity;
         public TextView adVehicle;
+        public Button modifyButton;
+        public Button deleteButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -41,6 +55,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             adStops = itemView.findViewById(R.id.stop_list);
             carCapacity = itemView.findViewById(R.id.car_capacity);
             adVehicle = itemView.findViewById(R.id.vehicleField);
+            modifyButton = itemView.findViewById(R.id.modifyAdButton);
+            deleteButton = itemView.findViewById(R.id.deleteAdButton);
         }
     }
 
@@ -61,7 +77,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder viewHolder, final int i) {
         Advertisement advertisement = advertisements.get(i);
 
         TextView adTitle = viewHolder.adTitle;
@@ -71,6 +87,55 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView adStops = viewHolder.adStops;
         TextView carCapacity = viewHolder.carCapacity;
         TextView adVehicle = viewHolder.adVehicle;
+        Button modifyButton = viewHolder.modifyButton;
+        Button deleteButton = viewHolder.deleteButton;
+
+        deleteButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Advertisement toDelete = advertisements.get(i);
+                advertisements.remove(i);
+
+                RequestParams requestParams = new RequestParams();
+
+                requestParams.put("id",toDelete.getId());
+
+                Header[] headers = {new BasicHeader("Authorization","Bearer " + FullscreenActivity.getsavedToken(v.getContext())),
+                        new BasicHeader("Content-Type", "application/json")};
+
+
+
+                HttpUtils.delete(v.getContext(),"/adv/delete-adv", headers, requestParams,new TextHttpResponseHandler(){
+
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, String response) {
+                        Log.d("ok", "removed");
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String throwable, Throwable errorResponse) {
+                        Log.d("error","advertisement not deleted properly");
+                    }
+                });
+
+                //or some other task
+                notifyDataSetChanged();
+            }
+        });
+
+        modifyButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //do something
+                Intent intent = new Intent(context, ChangeAdvertisement.class);
+                Bundle b = new Bundle();
+                b.putLong("key", advertisements.get(i).getId()); //Your id
+                intent.putExtras(b); //Put your id to your next Intent
+                context.startActivity(intent);
+                notifyDataSetChanged();
+            }
+        });
 
 
         // set adTitle, adStartLocation text
@@ -85,7 +150,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         adStartTime.setText("Leaves at " + departTime[0]+":"+departTime[1]);
 
         //Set Car Related Text Fields
-        carCapacity.setText("Available Seats: " + advertisement.getAvailableSeats() + "/" + advertisement.getVehicle().getMaxSeat());
+        carCapacity.setText(String.format("Available Seats: %d/%d", advertisement.getAvailableSeats(), advertisement.getVehicle().getMaxSeat()));
         adVehicle.setText("Vehicle: " + advertisement.getVehicle().getColor() + " " + advertisement.getVehicle().getModel());
         // set adStops with their price
         String list = "";

@@ -43,14 +43,23 @@ public class HttpUtils {
         client.get(context, getAbsoluteUrl(url),headers,params,responseHandler);
     }
 
+
+
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.post(getAbsoluteUrl(url), params, responseHandler);
+    }
+
+    public static void delete(Context context,String url, Header[] headers, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        client.delete(context,getAbsoluteUrl(url),headers, params,responseHandler);
     }
 
 
     public static void post(Context context, String url, HttpEntity entity,String contenttype, AsyncHttpResponseHandler responseHandler ){
         client.post(context, getAbsoluteUrl(url),entity, contenttype, responseHandler);
     }
+
+
+
 
     public static void getByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.get(url, params, responseHandler);

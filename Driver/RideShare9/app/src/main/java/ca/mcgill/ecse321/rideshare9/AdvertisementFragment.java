@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.rideshare9;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -163,6 +164,12 @@ public class AdvertisementFragment extends Fragment {
         return view;
     }
 
+    public void toAddTrip(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this.getActivity(), addJourneyActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -178,12 +185,7 @@ public class AdvertisementFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+
 
 
 

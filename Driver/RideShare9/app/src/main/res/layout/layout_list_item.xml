@@ -4,11 +4,12 @@
                                              android:layout_height="wrap_content"
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
                                              android:padding="15dp"
-android:id="@+id/recylcer_layout">
+android:id="@+id/recylcer_layout"
+tools:context=".AdvertisementFragment">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" - Final Destination"
+        android:text="@string/final_destination"
         android:id="@+id/final_destination"
         android:textColor="#000"
         android:textSize="14sp"
@@ -18,7 +19,7 @@ android:id="@+id/recylcer_layout">
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start Destination"
+            android:text="@string/start_destination"
             android:id="@+id/start_destination"
             android:textColor="#000"
             android:textSize="14sp"
@@ -27,7 +28,7 @@ android:id="@+id/recylcer_layout">
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start, Stop B, Stop C, Final Destination"
+            android:text="@string/start_stop_b_stop_c_final_destination"
             android:id="@+id/stop_list"
             android:textColor="#000"
             android:textSize="12sp"
@@ -39,7 +40,7 @@ android:id="@+id/recylcer_layout">
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Capacity: 2/6"
+            android:text="@string/capacity_2_6"
             android:id="@+id/car_capacity"
             android:textColor="#000"
             android:textSize="12sp"
@@ -49,17 +50,35 @@ android:id="@+id/recylcer_layout">
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vehicle: Red Honda Civic"
+            android:text="@string/vehicle_red_honda_civic"
             android:id="@+id/vehicleField"
             android:textColor="#000"
             android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@id/car_capacity"
     />
 
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/vehicleField"
+            android:text="@string/modify"
+            android:id="@+id/modifyAdButton"
+
+            />
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete"
+            android:id="@+id/deleteAdButton"
+            app:layout_constraintLeft_toRightOf="@id/modifyAdButton"
+            app:layout_constraintTop_toBottomOf="@id/vehicleField"
+    />
+
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="10/22/2018"
+            android:text="@string/_10_22_2018"
             android:id="@+id/date"
             android:textColor="#666"
             android:textSize="12sp"
@@ -69,7 +88,7 @@ android:id="@+id/recylcer_layout">
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Depart: 3:29 pm"
+            android:text="@string/depart_3_29_pm"
             android:id="@+id/time"
             android:textColor="#666"
             android:textSize="12sp"

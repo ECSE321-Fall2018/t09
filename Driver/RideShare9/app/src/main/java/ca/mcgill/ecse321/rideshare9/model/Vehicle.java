@@ -1,6 +1,9 @@
 package ca.mcgill.ecse321.rideshare9.model;
 
-public class Vehicle {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Vehicle implements Parcelable {
 
     private long id;
     private String licencePlate;
@@ -9,7 +12,19 @@ public class Vehicle {
     private int maxSeat;
     private long driver;
 
-    public Vehicle(){
+    public static final Parcelable.Creator<Vehicle> CREATOR = new Creator<Vehicle>() {
+        @Override
+        public Vehicle createFromParcel(Parcel source) {
+            return new Vehicle(source);
+        }
+            @Override
+            public Vehicle[] newArray(int size) {
+                return new Vehicle[size];
+            }
+        };
+
+    public Vehicle()
+    {
 
     }
 
@@ -21,6 +36,17 @@ public class Vehicle {
         this.maxSeat = maxSeat;
         this.driver = driver;
     }
+
+    protected Vehicle(Parcel in) {
+        id = in.readLong();
+        licencePlate = in.readString();
+        model = in.readString();
+        color = in.readString();
+        maxSeat = in.readInt();
+        driver = in.readLong();
+    }
+
+
 
     public long getId() {
         return id;
@@ -68,5 +94,20 @@ public class Vehicle {
 
     public void setDriver(long driver) {
         this.driver = driver;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(licencePlate);
+        dest.writeString(model);
+        dest.writeString(color);
+        dest.writeInt(maxSeat);
+        dest.writeLong(driver);
     }
 }

@@ -1,12 +1,14 @@
 package ca.mcgill.ecse321.rideshare9.model;
 
+ import android.os.Parcel;
+ import android.os.Parcelable;
  import org.json.JSONObject;
-public class Stop {
+public class Stop implements Parcelable {
     private long id;
     private String name;
     private float price;
 
-    public Stop() {
+    public Stop(){
 
     }
 
@@ -15,6 +17,24 @@ public class Stop {
         this.name = name;
         this.price = price;
     }
+
+    public Stop(Parcel parcel){
+        this.id = parcel.readLong();
+        this.name = parcel.readString();
+        this.price = parcel.readFloat();
+    }
+
+    public static final Parcelable.Creator<Stop> CREATOR = new Creator<Stop>() {
+        @Override
+        public Stop createFromParcel(Parcel source) {
+            return new Stop(source);
+        }
+
+        @Override
+        public Stop[] newArray(int size) {
+            return new Stop[size];
+        }
+    };
 
     @Override
     public String toString() {
@@ -52,4 +72,18 @@ public class Stop {
 
         return new Stop(stopId, stopName, stopPrice);
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(name);
+        dest.writeFloat(price);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+
+}
