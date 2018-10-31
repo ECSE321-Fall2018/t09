@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,7 +60,7 @@ public class AdvertisementController {
 	
 	@PreAuthorize("hasRole('DRIVER') or hasRole('PASSENGER') or hasRole('BOSSLI') or hasRole('ADMIN')")
 	@GetMapping(value = "/get-by-id/{id}")
-	public Advertisement getAdvById(@RequestParam(value = "id") long id) {
+	public Advertisement getAdvById(@PathVariable(name = "id") long id) {
 		return advService.findAdv(id);
 	}
 	
