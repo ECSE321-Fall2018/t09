@@ -11,6 +11,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * DO NOT EDIT IT ON YOUR OWN!!!
+ * ATTENTION: DON'T EDIT ANY CLASS WHOSE NAME HAS "User" or "Security" or "service" or related! Otherwise, no one can log in this system anymore! 
+ * if you have suggestions, please contact me in group chat! 
+ * @author yuxiangma
+ */
+
+
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable, UserDetails {
@@ -92,4 +100,24 @@ public class User implements Serializable, UserDetails {
 	public UserStatus getStatus() {
 		return this.status;
 	}
+	@Override
+    public boolean equals(Object o) { 
+  
+        // If the object is compared with itself then return true   
+        if (o == this) { 
+            return true; 
+        } 
+  
+        /* Check if o is an instance of Complex or not 
+          "null instanceof [type]" also returns false */
+        if (!(o instanceof User)) { 
+            return false; 
+        } 
+          
+        // typecast o to Complex so that we can compare data members  
+        User u = (User) o; 
+          
+        // Compare the data members and return accordingly  
+        return (u.getPassword() == this.getPassword()) && (u.getUsername() == this.getUsername()) && (u.getRole() == this.getRole()); 
+    }
 }

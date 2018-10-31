@@ -17,6 +17,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * JWTLoginFilter + JWTAuthenticationFilter
  */
 
+/**
+ * DO NOT EDIT IT ON YOUR OWN!!!
+ * ATTENTION: DON'T EDIT ANY CLASS WHOSE NAME HAS "User" or "Security" or "service" or related! Otherwise, no one can log in this system anymore! 
+ * if you have suggestions, please contact me in group chat! 
+ * @author yuxiangma
+ */
+
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -36,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/crud/sign-up").permitAll()
+                .antMatchers("/user/sign-up", "/user/get-is-unique", "/user/mainpg").permitAll()
                 //.antMatchers(HttpMethod.POST, "/adv/passenger/get-all-adv").permitAll() uncomment this and remove advcontroller @PreAuth to enable anyone access advertisement search
                 .anyRequest().authenticated()
                 .and()

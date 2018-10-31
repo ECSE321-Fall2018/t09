@@ -1,6 +1,8 @@
 package ca.mcgill.ecse321.rideshare9.repository;
 import java.util.List;
 
+
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,6 +11,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.rideshare9.entity.User;
+
+/**
+ * DO NOT EDIT IT ON YOUR OWN!!!
+ * ATTENTION: DON'T EDIT ANY CLASS WHOSE NAME HAS "User" or "Security" or "service" or related! Otherwise, no one can log in this system anymore! 
+ * if you have suggestions, please contact me in group chat! 
+ * @author yuxiangma
+ */
+
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 	@Query("select t from User t where t.username = :name")

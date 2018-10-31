@@ -1,7 +1,12 @@
 package ca.mcgill.ecse321.rideshare9.entity;
 import javax.persistence.JoinColumns;
+
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -14,6 +19,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "tb_advertisement")
@@ -38,25 +47,16 @@ public class Advertisement {
 	public String getTitle() {
 		return this.title;
 	}
+	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date startTime;
 
-	private String startTime;
-
-	public void setStartTime(String value) {
+	public void setStartTime(Date value) {
 		this.startTime = value;
 	}
 	@Column(name = "startTime")
-	public String getStartTime() {
+	public Date getStartTime() {
 		return this.startTime;
-	}
-
-	private String startDate;
-
-	public void setStartDate(String value) {
-		this.startDate = value;
-	}
-	@Column(name = "startDate")
-	public String getStartDate() {
-		return this.startDate;
 	}
 
 	private String startLocation;
@@ -98,15 +98,15 @@ public class Advertisement {
 	 * </pre>
 	 */
 	
-	private List<Long> stops;
+	private Set<Long> stops;
 	
-	public void setStops(List<Long> stops) {
+	public void setStops(Set<Long> stops) {
 		this.stops = stops;
 	}
 	@ElementCollection
-	public List<Long> getStops() {
+	public Set<Long> getStops() {
 		if (this.stops == null) {
-			this.stops = new ArrayList<Long>();
+			this.stops = new HashSet<Long>();
 		}
 		return this.stops;
 	}
@@ -123,11 +123,7 @@ public class Advertisement {
 	public void setVehicle(long value) {
 		this.vehicle = value;
 	}
-	/*@JoinColumns( {
-        @JoinColumn(name = "vehicle_color", referencedColumnName = "color"),
-        @JoinColumn(name = "vehicle_model", referencedColumnName = "id"),
-        @JoinColumn(name = "vehicle_Licence", referencedColumnName = "licencePlate"),
-    })*/
+
 	@Column(name = "vehicle")
 	public long getVehicle() {
 		return this.vehicle;
@@ -148,4 +144,5 @@ public class Advertisement {
 	public void setDriver(long driver) {
 		this.driver = driver;
 	}
+	
 }

@@ -17,6 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * DO NOT EDIT IT ON YOUR OWN!!!
+ * ATTENTION: DON'T EDIT ANY CLASS WHOSE NAME HAS "User" or "Security" or "service" or related! Otherwise, no one can log in this system anymore! 
+ * if you have suggestions, please contact me in group chat! 
+ * @author yuxiangma
+ */
 
 public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 	
