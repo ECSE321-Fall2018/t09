@@ -45,7 +45,7 @@ public class MapperController {
     @PreAuthorize("hasRole('PASSENGER') or hasRole('ADMIN') or hasRole('BOSSLI')")
     @RequestMapping(value = "/add-map", method=RequestMethod.POST)
     @ResponseBody
-    public MapperUserAdv addMap(@RequestParam("adv_id") long aid) {
+    public String addMap(@RequestParam("adv_id") long aid) {
     	
     	// TODO : Make this method return the added Mapper with Mapper ID
     	
@@ -70,13 +70,14 @@ public class MapperController {
     				advertisement.setStatus(TripStatus.CLOSED);
     			}
     			advService.updateAdv(advertisement);
-    			return mserv.createMapper(userId, advId);
+    			mserv.createMapper(userId, advId);
+    			return "Success";
     		}
     		else {
-				return null;
+				return "Failure";
 			}        	
     	}
-    	return null; 
+    	return "Failure";
     }
     
     @PreAuthorize("hasRole('PASSENGER') or hasRole('ADMIN') or hasRole('BOSSLI')")
