@@ -6,12 +6,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -26,13 +28,14 @@ import ca.mcgill.ecse321.rideshare9.R;
 import cz.msebera.android.httpclient.Header;
 
 
-public class JourneyBrowserFragment extends Fragment {
+public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private OnFragmentInteractionListener mListener;
     private final static List<Journey> JOURNEYS = new ArrayList<>();
     private RecyclerView rvAdvertisements;
     private JourneyAdapter journeyAdapter;
     private LinearLayoutManager layoutManager;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public JourneyBrowserFragment() {
         // Required empty public constructor
@@ -44,6 +47,8 @@ public class JourneyBrowserFragment extends Fragment {
     }
 
     private void getAvailableTrips() {
+        // show refresh animation
+        swipeRefreshLayout.setRefreshing(true);
 
         //  Get SharedPreferences which holds the JWT Token
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
@@ -74,10 +79,15 @@ public class JourneyBrowserFragment extends Fragment {
                                 });
                     }
                 }
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                swipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(getContext(), "Could not get journeys", Toast.LENGTH_LONG).show();
             }
         });
-
-
     }
 
     private List<Journey> advertisementsFromJSONArray(JSONArray jsonAdArray) {
@@ -134,6 +144,10 @@ public class JourneyBrowserFragment extends Fragment {
         journeyAdapter = new JourneyAdapter(JOURNEYS);
         rvAdvertisements.setAdapter(journeyAdapter);
 
+        // SwipeRefreshLayout
+        swipeRefreshLayout = view.findViewById(R.id.journey_browser_swipe_container);
+        swipeRefreshLayout.setOnRefreshListener(this);
+
         getAvailableTrips();
 
         // Inflate the layout for this fragment
@@ -148,6 +162,12 @@ public class JourneyBrowserFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void onRefresh() {
+        JOURNEYS.clear();
+        getAvailableTrips();
     }
 
     public interface OnFragmentInteractionListener {
