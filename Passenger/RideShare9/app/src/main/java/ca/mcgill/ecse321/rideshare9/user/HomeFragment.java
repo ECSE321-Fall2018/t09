@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.rideshare9.user;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import com.hanks.htextview.base.HTextView;
@@ -27,6 +29,7 @@ import com.loopj.android.http.SyncHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +38,7 @@ import ca.mcgill.ecse321.rideshare9.HttpUtils;
 
 import ca.mcgill.ecse321.rideshare9.R;
 
+import ca.mcgill.ecse321.rideshare9.map.MapsActivity;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.message.BasicHeader;
@@ -148,7 +152,17 @@ public class HomeFragment extends Fragment {
         mapbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                log.d("itemCount",recyclerView.getAdapter().getItemCount()+"");
+                String locationlist[] = new String[recyclerView.getAdapter().getItemCount()];
+                for(int count = 0; count<locationlist.length;count++){
+                    TextView textView = (TextView)recyclerView.findViewHolderForAdapterPosition(count).
+                            itemView.findViewById(R.id.tvAcceptStation);
+                    locationlist[count] = textView.getText().toString();
+                    log.d("check",locationlist[count]);
+                    Intent intent = new Intent(getContext(), MapsActivity.class);
+                    intent.putExtra("locationlist",locationlist);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -299,7 +313,6 @@ public class HomeFragment extends Fragment {
                                                 response.getJSONArray("stops").getInt(i),new RequestParams(),new JsonHttpResponseHandler(){
                                                     @Override
                                                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                                                        super.onFailure(statusCode, headers, throwable, errorResponse);
                                                     }
 
                                                     @Override
