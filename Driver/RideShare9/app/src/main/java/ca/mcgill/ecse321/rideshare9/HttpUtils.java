@@ -43,7 +43,9 @@ public class HttpUtils {
         client.get(context, getAbsoluteUrl(url),headers,params,responseHandler);
     }
 
-
+    public static void put(Context context, String url, RequestParams params, AsyncHttpResponseHandler responseHandler){
+        client.put(context,getAbsoluteUrl(url),params,responseHandler);
+    }
 
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.post(getAbsoluteUrl(url), params, responseHandler);

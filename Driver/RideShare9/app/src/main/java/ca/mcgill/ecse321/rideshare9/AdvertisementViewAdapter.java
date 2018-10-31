@@ -13,23 +13,17 @@ import ca.mcgill.ecse321.rideshare9.model.Stop;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
-import cz.msebera.android.httpclient.protocol.HTTP;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class AdvertisementViewAdapter extends RecyclerView.Adapter<AdvertisementViewAdapter.ViewHolder> {
     private RecyclerView recyclerView;
     private List<Advertisement> advertisements;
     private Context context;
 
 
-    public RecyclerViewAdapter(List<Advertisement> advertisements) {
+    public AdvertisementViewAdapter(List<Advertisement> advertisements) {
         this.advertisements = advertisements;
     }
 
@@ -68,17 +62,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @NonNull
     @Override
-    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public AdvertisementViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View advertisementView = inflater.inflate(R.layout.layout_list_item, viewGroup, false);
-        return new RecyclerViewAdapter.ViewHolder(advertisementView);
+        View advertisementView = inflater.inflate(R.layout.advertisement_item, viewGroup, false);
+        return new AdvertisementViewAdapter.ViewHolder(advertisementView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder viewHolder, final int i) {
-        Advertisement advertisement = advertisements.get(i);
+    public void onBindViewHolder(@NonNull AdvertisementViewAdapter.ViewHolder viewHolder, final int i) {
+        final Advertisement advertisement = advertisements.get(i);
 
         TextView adTitle = viewHolder.adTitle;
         TextView adStartLocation = viewHolder.adStartLocation;
@@ -128,12 +122,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
                 //do something
-                Intent intent = new Intent(context, ChangeAdvertisement.class);
-                Bundle b = new Bundle();
-                b.putLong("key", advertisements.get(i).getId()); //Your id
-                intent.putExtras(b); //Put your id to your next Intent
+                Intent intent = new Intent(context, ChangeAdvertisementActivity.class);
+                Advertisement ad = advertisements.get(i);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("advertisement_data",ad);
+                intent.putExtras(bundle); //Put your id to your next Intent
                 context.startActivity(intent);
-                notifyDataSetChanged();
             }
         });
 

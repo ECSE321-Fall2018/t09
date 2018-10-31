@@ -19,7 +19,6 @@ import ca.mcgill.ecse321.rideshare9.model.Vehicle;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -31,11 +30,11 @@ public class AdvertisementFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private final static List<Advertisement> advertisements = new ArrayList<>();
     private RecyclerView rvAdvertisements;
-    private RecyclerViewAdapter advertisementsAdapter;
+    private AdvertisementViewAdapter advertisementsAdapter;
     private LinearLayoutManager layoutManager;
 
 
-    private RecyclerViewAdapter viewAdapter;
+    private AdvertisementViewAdapter viewAdapter;
 
 
     public AdvertisementFragment() {
@@ -155,7 +154,7 @@ public class AdvertisementFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_advertisement, container, false);
         rvAdvertisements = view.findViewById(R.id.trip_recylcer);
         rvAdvertisements.setLayoutManager(new LinearLayoutManager(getContext()));
-        advertisementsAdapter = new RecyclerViewAdapter(advertisements);
+        advertisementsAdapter = new AdvertisementViewAdapter(advertisements);
         rvAdvertisements.setAdapter(advertisementsAdapter);
 
         getTripList();
