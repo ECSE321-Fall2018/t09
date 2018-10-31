@@ -11,6 +11,9 @@
     <string name="signuppassword">Enter your Password</string>
     <string name="signuppasswordconfirm">Confirm your Password</string>
     <string name="signuptitle">Signup for Free</string>
+    <string name="iampassenger">I am a Passeneger</string>
+    />
+    <string name="imdriver">I am a Driver</string>
     <string name="signupbutton">Register!</string>
     <string name="toLogin">Already a member? login here</string>
     <string name="title_activity_ride_share9">RideShare9</string>
@@ -19,8 +22,57 @@
     <string name="title_vehicle">Vehicle</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 
+
+
+
+    <string name="startLocationHint">Your start Location</string>
+    <string name="endLocationHint">Your end Location</string>
+    <string name="chooseVehicle">Select your vehicle</string>
+    <string name="availableSeating">Avaialble Seating</string>
+    <string name="addStopsText">Edit Stop</string>
+    <string name="titleAddJourney">Informations of your trip</string>
+    <string name="finalCostHint">Cost for full trip</string>
+    <string name="stopAt_text">Stop At Ottawa</string>
+    <string name="costStop_text">For 300 </string>
+    <string name="starttime_label">Start time?</string>
+    <string name="starttime_first">10:00</string>
+    <string name="startdate_label">Start date?</string>
+    <string name="startdate_first">01-01-2018</string>
+
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cancel_Button">Cancel</string>
+    <string name="Format_Date_Time">yyyy-MM-dd HH:mm:ss</string>
+    <string name="Start_time_hint">hh:mm:ss</string>
+    <string name="Format_Date">yyyy-mm-dd</string>
+    <string name="Trip_title">Title of Your Trip</string>
+    <string name="delete_advertisement">Delete Advertisement?</string>
+    <string name="Delete">delete</string>
+    <string name="Cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="capacity_2_6">Capacity: 2/6</string>
+    <string name="start_stop_b_stop_c_final_destination">Start, Stop B, Stop C, Final Destination</string>
+    <string name="start_destination">Start Destination</string>
+    <string name="final_destination">- Final Destination</string>
+    <string name="vehicle_red_honda_civic">Vehicle: Red Honda Civic</string>
+    <string name="_10_22_2018">10/22/2018</string>
+    <string name="depart_3_29_pm">Depart: 3:29 pm</string>
+    <string name="modify">Modify</string>
+    <string name="modify">Modify</string>
+    <string name="stops">Stops:</string>
+    <string name="advertisement_title">Advertisement Title:</string>
+    <string name="start_location">start location:</string>
+    <string name="start_date">start date:</string>
+    <string name="start_time">start time:</string>
+    <string name="vehicle">Vehicle:</string>
+
+    />
+    />
 </resources>
