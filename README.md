@@ -19,11 +19,11 @@
 ### Passenger App Description (Version for Release)
 Enjoy great trips at low price on RideShare9. Sharing is more simple and efficient with our new App.
 
-HOW SIMPLE?
-One Step Sign Up - Sign up in a minute to enjoy your trip.
-Find a Trip in Your Way - Browse journey and sort by price, time or stop.
-Current Trips and More - See current trips in the home tab and click for a map view.  
-Know Your Past Trips - Check all past trip in detail in the history tab. 
+##### HOW SIMPLE?
+##### One Step Sign Up - Sign up in a minute to enjoy your trip.
+##### Find a Trip in Your Way - Browse journey and sort by price, time or stop.
+##### Current Trips and More - See current trips in the home tab and click for a map view.  
+##### Know Your Past Trips - Check all past trip in detail in the history tab. 
 
 ### Passenger App Description (Version for Development and Grading)
 #### Sign Up
