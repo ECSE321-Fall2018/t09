@@ -46,16 +46,24 @@
                     android:textSize="18sp"
                     android:textStyle="normal|bold" />
 
-                <Button
-                    android:id="@+id/homerefreshButton"
-                    android:layout_width="116dp"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/googleMapIcon"
+                    android:layout_width="90dp"
+                    android:layout_height="31dp"
+                    android:layout_gravity="bottom"
                     android:layout_weight="1"
-                    android:background="@color/colorSecondary"
-                    android:gravity="center"
-                    android:text="@string/homerefresh"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                    android:clickable="true"
+                    android:paddingBottom="2dp"
+                    android:src="@mipmap/google_map_icon_png_transparent" />
+
+                <ImageView
+                    android:id="@+id/refreshList"
+                    android:layout_width="90dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:src="@drawable/ic_refresh_black_36dp" />
 
             </LinearLayout>
 

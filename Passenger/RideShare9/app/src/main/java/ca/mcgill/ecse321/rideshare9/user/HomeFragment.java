@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.rideshare9.user;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 
 import com.hanks.htextview.base.HTextView;
@@ -95,16 +97,21 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        //Disable thread restriction
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
         final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rvtrace);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         final HTextView hTextView = (HTextView) view.findViewById(R.id.GreetingText);
         final HTextView hereisyour = (HTextView) view.findViewById(R.id.hereisyourcurrent);
-        final Button refreshbutton = (Button) view.findViewById(R.id.homerefreshButton);
+        final ImageView refreshbutton = (ImageView) view.findViewById(R.id.refreshList);
+        final ImageView mapbutton = (ImageView) view.findViewById(R.id.googleMapIcon);
         refreshbutton.setVisibility(view.GONE);
+        mapbutton.setVisibility(view.GONE);
 
 
         final Header[] headers = {new BasicHeader("Authorization","Bearer "+getArguments().getString("token"))};
@@ -137,6 +144,15 @@ public class HomeFragment extends Fragment {
                 });
             }
         });
+
+        mapbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+
+
         HttpUtils.get(getContext(),"user/get-logged-user",headers,new RequestParams(),new JsonHttpResponseHandler(){
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
@@ -168,6 +184,7 @@ public class HomeFragment extends Fragment {
                                 if(getContext()!=null) {
                                     hereisyour.animateText("You do not currently on a trip");
                                     refreshbutton.setVisibility(view.VISIBLE);
+                                    mapbutton.setVisibility(view.VISIBLE);
                                 }
                             }
                         },4400);
@@ -259,7 +276,8 @@ public class HomeFragment extends Fragment {
         final List<Trace> traceList = new ArrayList<>(20);
         HttpUtils.addHeader("Authorization","Bearer "+getArguments().getString("token"));
         final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rvtrace);
-        final Button refreshbutton = (Button) view.findViewById(R.id.homerefreshButton);
+        final ImageView refreshbutton = (ImageView) view.findViewById(R.id.refreshList);
+        final ImageView mapbutton = (ImageView) view.findViewById(R.id.googleMapIcon);
 
         HttpUtils.get("map/get-map",new RequestParams(),new JsonHttpResponseHandler(){
             @Override
@@ -303,6 +321,7 @@ public class HomeFragment extends Fragment {
                                         recyclerView.setAdapter(adapter);
                                         recyclerView.scheduleLayoutAnimation();
                                         refreshbutton.setVisibility(view.VISIBLE);
+                                        mapbutton.setVisibility(view.VISIBLE);
                                         log.d("traces",traceList.get(0).getAcceptStation()+""+traceList.get(1).getAcceptStation());
 
                                     }
