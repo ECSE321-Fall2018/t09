@@ -28,6 +28,11 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
+import ca.mcgill.ecse321.rideshare9.map.MapsActivity;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.loopj.android.http.AsyncHttpClient.log;
 
@@ -191,6 +196,16 @@ public class FullscreenActivity_login extends AppCompatActivity {
         Intent intent = new Intent(this, FullscreenActivity_signup.class);
         startActivity(intent);
         finish();
+
+        //Test case for map
+        /*Intent intent = new Intent(this, MapsActivity.class);
+        String locallist[] = new String[4];
+        locallist[0] = "3425 Rue Univeristy";
+        locallist[1] = "1420 Rue du Fort";
+        locallist[2] = "1824 Rue Sainte-Catherine O";
+        locallist[3] = "201 Rue Berlioz";
+        intent.putExtra("locationlist",locallist);
+        startActivity(intent);*/
     }
 
     public void login(View view) {
@@ -257,9 +272,10 @@ public class FullscreenActivity_login extends AppCompatActivity {
 
                 //goto the logged screen
                 Intent intent = new Intent(getApplicationContext(),UserActivity.class);
-                Bundle userBundle = new Bundle();
-                userBundle.putString("username", namefield.getText().toString());
-                intent.putExtra("bundle", userBundle);
+                Bundle userbundle = new Bundle();
+                userbundle.putString("username",namefield.getText().toString());
+                userbundle.putString("token",sharedPre.getString("token",""));
+                intent.putExtra("bundle",userbundle);
                 startActivity(intent);
                 finish();
             }

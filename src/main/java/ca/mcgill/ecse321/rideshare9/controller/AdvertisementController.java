@@ -59,8 +59,8 @@ public class AdvertisementController {
 	
 	@PreAuthorize("hasRole('DRIVER') or hasRole('PASSENGER') or hasRole('BOSSLI') or hasRole('ADMIN')")
 	@GetMapping(value = "/get-by-id/{id}")
-	public Advertisement getAdvById(@RequestParam(value = "id") long id) {
-		return advService.findAdv(id);
+	public Advertisement getAdvById(@RequestParam(value = "id") String id) {
+		return advService.findAdv(Long.parseLong(id));
 	}
 	
     /**
