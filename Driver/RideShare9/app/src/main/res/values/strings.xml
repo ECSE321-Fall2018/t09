@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">RideShare9 for Driver</string>
+
+    <string name="UsernameHint">Username</string>
+    <string name="PasswordHint">Password</string>
+    <string name="LoginButton">Login</string>
+    <string name="ToSignup">Not a member? Join RideShare9 now!</string>
+
+    <string name="remeberme">Remeber me</string>
+    <string name="signupname">Enter your Username</string>
+    <string name="signuppassword">Enter your Password</string>
+    <string name="signuppasswordconfirm">Confirm your Password</string>
+    <string name="signuptitle">Signup for Free</string>
+    <string name="signupbutton">Register!</string>
+    <string name="toLogin">Already a member? login here</string>
+    <string name="title_activity_ride_share9">RideShare9</string>
+    <string name="title_home">Home</string>
+    <string name="title_advertisement">Advertisement</string>
+    <string name="title_vehicle">Vehicle</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_add_vehicle">Add Vehicle</string>
+    <string name="title_activity_change_vehicle">ChangeVehicle</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+</resources>

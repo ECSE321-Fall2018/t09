@@ -58,7 +58,11 @@ public class VehicleController {
      * @return deleted car
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+<<<<<<< HEAD
     @RequestMapping(value = "/remove-car", method=RequestMethod.DELETE)
+=======
+    @RequestMapping(value = "/remove-car", method=RequestMethod.POST)
+>>>>>>> a9a644d41c53ffa39d1449d41543e886e245a484
     public Vehicle removeCar(@RequestBody Vehicle car) {
     	
     	// TODO: Implement this, with principle "i can only delete my car", you can change parameter to non-json type
@@ -68,12 +72,24 @@ public class VehicleController {
     	if (!(authentication instanceof AnonymousAuthenticationToken)) {
     	    currentUserName = authentication.getName();
     	}
+<<<<<<< HEAD
     	if (car != null && car.getDriver() == urp.loadUserByUsername(currentUserName).getId()) {
         	carService.removeVehicle(car.getId()); 
         	return car;
     	} else {
     		return null; 
     	}
+=======
+    	long currdriver = urp.loadUserByUsername(currentUserName).getId(); 
+    	List<Vehicle> vs = carService.findAllVehicleByUid(currdriver); 
+    	for (Vehicle v: vs) {
+    		if (v.getDriver() == currdriver && v.getId() == car.getId()) {
+    			carService.removeVehicle(v.getId()); 
+    			return v; 
+    		}
+    	}
+    	return null; 
+>>>>>>> a9a644d41c53ffa39d1449d41543e886e245a484
     }
     
     /**
@@ -103,7 +119,11 @@ public class VehicleController {
      * @return change car
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
+<<<<<<< HEAD
     @RequestMapping(value = "/change-cars", method=RequestMethod.PUT)
+=======
+    @RequestMapping(value = "/change-cars", method=RequestMethod.POST)
+>>>>>>> a9a644d41c53ffa39d1449d41543e886e245a484
     public Vehicle changelCar(@RequestBody Vehicle car) {
     	
     	// TODO: Implement this, with principle "i can only change my car", you can change parameter to non-json type
@@ -111,6 +131,7 @@ public class VehicleController {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	if (!(authentication instanceof AnonymousAuthenticationToken)) {
     	    currentUserName = authentication.getName();
+<<<<<<< HEAD
     	    User curr = urp.findUserByUsername(currentUserName); 
     	    if (curr.getId() != car.getDriver()) {
         		return new Vehicle(); 
@@ -133,6 +154,19 @@ public class VehicleController {
     	}
     	
     	return carService.updateVehicle(oldcar); 
+=======
+    	}
+    	long currdriver = urp.loadUserByUsername(currentUserName).getId(); 
+    	List<Vehicle> vs = carService.findAllVehicleByUid(currdriver); 
+    	for (Vehicle v: vs) {
+    		if (v.getDriver() == currdriver && v.getId() == car.getId()) {
+    			car.setDriver(currdriver); 
+    	    	return carService.updateVehicle(car); 
+    		}
+    	}
+    	return null; 
+    	
+>>>>>>> a9a644d41c53ffa39d1449d41543e886e245a484
     }
     
 }

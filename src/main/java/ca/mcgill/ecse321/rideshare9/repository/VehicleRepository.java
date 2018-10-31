@@ -37,11 +37,9 @@ public class VehicleRepository {
 	}
 	
 	@Transactional
-	public void removeVehicle(long id) {
-		Vehicle car = findVehicle(id);
-	    if (car != null) {
-	      em.remove(car);
-	    }
+	public void removeVehicle(Long id) {
+		Vehicle toRemove = em.find(Vehicle.class, id); 
+		em.remove(toRemove);
 	}
 	
 	/**
