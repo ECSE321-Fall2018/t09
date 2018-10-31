@@ -142,7 +142,17 @@ public class AdvertisementRepository {
 	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a WHERE a.driver = :uid", Advertisement.class).setParameter("uid", uid);
 	    return query.getResultList();
 	}
-	
+	/**
+	 * List all advertisement posted by one user
+	 * @param void
+	 * @return list of best driver and his count
+	 */
+	@Transactional
+	public String findAllAdvCount(Long uid) {
+	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a WHERE a.driver = :uid", Advertisement.class).setParameter("uid", uid);
+	    Integer count = query.getResultList().size(); 
+	    return count.toString();
+	}
 	/**
 	 * Sort Driver by count of advertisement posted
 	 * @param void

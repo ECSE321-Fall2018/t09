@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
 import ca.mcgill.ecse321.rideshare9.entity.TripStatus;
@@ -88,6 +89,23 @@ public class AdvertisementController {
         currentUserName = authentication.getName();
         if (userv.loadUserByUsername(currentUserName) != null) {
                 return advService.findAllAdv(userv.loadUserByUsername(currentUserName).getId());
+    	} else {
+    		return null; 
+    	}
+    }
+    
+    /**
+     * show all advertisement a logged in driver posted
+     * @return List
+     */
+    @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
+    @RequestMapping(value = "/get-logged-adv-count", method=RequestMethod.GET)
+    public String myAdvCount() {    	
+    	String currentUserName = null; 
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        currentUserName = authentication.getName();
+        if (userv.loadUserByUsername(currentUserName) != null) {
+                return advService.findAllAdvCount(userv.loadUserByUsername(currentUserName).getId());
     	} else {
     		return null; 
     	}
@@ -204,5 +222,10 @@ public class AdvertisementController {
     		}
     	}
     }
-
+    @PreAuthorize("hasRole('DRIVER') or hasRole('PASSENGER') or hasRole('BOSSLI') or hasRole('ADMIN')")
+	@GetMapping(value = "/get-by-id/{id}")
+	public Advertisement getAdvById(@RequestParam(value = "id") long id) {
+		return advService.findAdv(id);
+	}
+    
 }

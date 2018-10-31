@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 spring:
   jpa:
     hibernate:
@@ -28,34 +27,3 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
   file: logging/rideshare9.log
-=======
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
-      show-sql: true
-      database: postgresql
-      database-platform: org.hibernate.dialect.PostgreSQLDialect
-      open-in-view: false
-      generate-ddl: false
-  application:
-    name: auth-service
-  datasource:
-    url : jdbc:postgresql://ec2-50-17-225-140.compute-1.amazonaws.com:5432/deqodj0m21jrci
-    username : rxplqoalkhgupc
-    password : 1c52d9632f4d94eeb8decb72822d7fe00d85e79adf12c106895604c16bff5c28
-    driverClassName : org.postgresql.Driver
-logging:
-  level:
-    root: INFO
-    org.hibernate: INFO
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
-    com.itmuch.youran.persistence: ERROR
-    org.springframework.web: ERROR
-    ca.mcgill.ecse321.rideshare9: DEBUG
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-  file: logging/rideshare9.log
->>>>>>> a9a644d41c53ffa39d1449d41543e886e245a484

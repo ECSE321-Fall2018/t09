@@ -64,4 +64,10 @@ public class VehicleRepository {
 	    TypedQuery<Vehicle> query = em.createQuery("SELECT c FROM Vehicle c WHERE c.driver = :qUid", Vehicle.class).setParameter("qUid", uid);
 	    return query.getResultList();
 	}
+	@Transactional
+	public String findAllVehicleCountByUid(long uid) {
+	    TypedQuery<Vehicle> query = em.createQuery("SELECT c FROM Vehicle c WHERE c.driver = :qUid", Vehicle.class).setParameter("qUid", uid);
+	    Integer a = query.getResultList().size();
+	    return a.toString(); 
+	}
 }

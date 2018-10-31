@@ -58,11 +58,7 @@ public class VehicleController {
      * @return deleted car
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
-<<<<<<< HEAD
-    @RequestMapping(value = "/remove-car", method=RequestMethod.DELETE)
-=======
     @RequestMapping(value = "/remove-car", method=RequestMethod.POST)
->>>>>>> a9a644d41c53ffa39d1449d41543e886e245a484
     public Vehicle removeCar(@RequestBody Vehicle car) {
     	
     	// TODO: Implement this, with principle "i can only delete my car", you can change parameter to non-json type
@@ -72,14 +68,6 @@ public class VehicleController {
     	if (!(authentication instanceof AnonymousAuthenticationToken)) {
     	    currentUserName = authentication.getName();
     	}
-<<<<<<< HEAD
-    	if (car != null && car.getDriver() == urp.loadUserByUsername(currentUserName).getId()) {
-        	carService.removeVehicle(car.getId()); 
-        	return car;
-    	} else {
-    		return null; 
-    	}
-=======
     	long currdriver = urp.loadUserByUsername(currentUserName).getId(); 
     	List<Vehicle> vs = carService.findAllVehicleByUid(currdriver); 
     	for (Vehicle v: vs) {
@@ -89,7 +77,6 @@ public class VehicleController {
     		}
     	}
     	return null; 
->>>>>>> a9a644d41c53ffa39d1449d41543e886e245a484
     }
     
     /**
@@ -111,7 +98,24 @@ public class VehicleController {
     	return carService.findAllVehicleByUid(urp.loadUserByUsername(currentUserName).getId()); 
     }
     
-    
+    /**
+     * Driver: get all his car
+     * @return all his car
+     */
+    @PreAuthorize("hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+    @RequestMapping(value = "/get-cars-count", method=RequestMethod.GET)
+    public String getAllCarCount() {
+    	
+    	// TODO: Implement this, with principle "i can only get my cars", you can change parameter to non-json type
+    	
+    	String currentUserName = null; 
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	if (!(authentication instanceof AnonymousAuthenticationToken)) {
+    	    currentUserName = authentication.getName();
+    	}
+    	
+    	return carService.findAllVehicleCountByUid(urp.loadUserByUsername(currentUserName).getId()); 
+    }
     
     /**
      * Driver: change his car
@@ -119,11 +123,7 @@ public class VehicleController {
      * @return change car
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
-<<<<<<< HEAD
     @RequestMapping(value = "/change-cars", method=RequestMethod.PUT)
-=======
-    @RequestMapping(value = "/change-cars", method=RequestMethod.POST)
->>>>>>> a9a644d41c53ffa39d1449d41543e886e245a484
     public Vehicle changelCar(@RequestBody Vehicle car) {
     	
     	// TODO: Implement this, with principle "i can only change my car", you can change parameter to non-json type
@@ -131,30 +131,6 @@ public class VehicleController {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	if (!(authentication instanceof AnonymousAuthenticationToken)) {
     	    currentUserName = authentication.getName();
-<<<<<<< HEAD
-    	    User curr = urp.findUserByUsername(currentUserName); 
-    	    if (curr.getId() != car.getDriver()) {
-        		return new Vehicle(); 
-        	}
-    	}
-    	
-    	Vehicle oldcar=carService.findVehicle(car.getId());
-    	
-    	if (car.getLicencePlate() != null && !car.getLicencePlate().isEmpty() && !oldcar.getLicencePlate().equals(car.getLicencePlate())) {
-    		oldcar.setLicencePlate(car.getLicencePlate());
-    	}
-    	if (car.getColor() != null && !car.getColor().isEmpty() && !oldcar.getColor().equals(car.getColor())) {
-    		oldcar.setColor(car.getColor());
-    	}
-    	if (car.getModel() != null && !car.getModel().isEmpty() && !oldcar.getModel().equals(car.getModel())) {
-    		oldcar.setModel(car.getModel());
-    	}
-    	if (car.getMaxSeat() > 0 && oldcar.getMaxSeat()!=car.getMaxSeat()){
-    		oldcar.setMaxSeat(car.getMaxSeat());
-    	}
-    	
-    	return carService.updateVehicle(oldcar); 
-=======
     	}
     	long currdriver = urp.loadUserByUsername(currentUserName).getId(); 
     	List<Vehicle> vs = carService.findAllVehicleByUid(currdriver); 
@@ -166,7 +142,6 @@ public class VehicleController {
     	}
     	return null; 
     	
->>>>>>> a9a644d41c53ffa39d1449d41543e886e245a484
     }
     
 }

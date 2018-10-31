@@ -71,7 +71,8 @@ public class MapperController {
     	if (!(authentication instanceof AnonymousAuthenticationToken)) {
     	    currentUserName = authentication.getName();
     	}
-    	return mserv.findNamedAdv(currentUserName); 
+    	
+    	return mserv.findNamedAdv(userv.loadUserByUsername(currentUserName).getId()); 
     }
     /**
      * Passenger: delete journey/mapper
