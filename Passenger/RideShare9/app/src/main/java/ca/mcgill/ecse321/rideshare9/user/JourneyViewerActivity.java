@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.TextHttpResponseHandler;
 
 import ca.mcgill.ecse321.rideshare9.HttpUtils;
 import ca.mcgill.ecse321.rideshare9.R;
@@ -64,16 +63,20 @@ public class JourneyViewerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(context, "works", Toast.LENGTH_SHORT).show();
-                HttpUtils.post("/map/add-map?adv_id=" + journey.getId(), null, new AsyncHttpResponseHandler() {
+                HttpUtils.post("/map/add-map?adv_id=" + journey.getId(), null, new TextHttpResponseHandler() {
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        Toast.makeText(context, "Enjoy your journey!", Toast.LENGTH_LONG).show();
-                        finish();
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        Toast.makeText(context, "Error joining trip", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        Log.i("JoinJourney", "Could not join journey");
+                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        if (responseString.equals("Success")) {
+                            Toast.makeText(context, "Enjoy your journey!", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(context, "Last seat gone! :(", Toast.LENGTH_LONG).show();
+                        }
+                        finish();
                     }
                 });
             }
