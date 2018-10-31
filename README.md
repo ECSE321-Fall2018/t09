@@ -1,5 +1,10 @@
 # Welcome to TEAM 09 [![Build Status](https://travis-ci.com/ECSE321-Fall2018/t09.svg?token=ft4Mh1yYXz7QX8b1Dzq2&branch=master)](https://travis-ci.com/ECSE321-Fall2018/t09)
 
+## Log: 2018/10/31
+
+- Added a list of the Driver's journey/advertisements to the Driver App
+- Added Modify/Delete Buttons for the Driver's journey/advertisements
+
 ## Log: 2018/10/29
 
 - Added a new Vehicle API endpoint, vehicle/get-by-id/{id}
