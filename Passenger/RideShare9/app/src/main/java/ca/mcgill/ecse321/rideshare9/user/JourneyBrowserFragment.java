@@ -99,6 +99,13 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
             journeys.add(advertisementFromJSONObject(advertisement));
         }
 
+        // remove journeys that don't have status "REGISTERING"
+        for (Journey journey : journeys) {
+            if (!journey.getStatus().equals("REGISTERING")) {
+                journeys.remove(journey);
+            }
+        }
+
         return journeys;
     }
 
