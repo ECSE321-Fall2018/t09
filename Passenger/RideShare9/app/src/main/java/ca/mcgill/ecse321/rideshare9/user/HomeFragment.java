@@ -1,9 +1,13 @@
 package ca.mcgill.ecse321.rideshare9.user;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,14 +16,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import com.hanks.htextview.base.HTextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.SyncHttpClient;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +38,12 @@ import ca.mcgill.ecse321.rideshare9.HttpUtils;
 
 import ca.mcgill.ecse321.rideshare9.R;
 
+import ca.mcgill.ecse321.rideshare9.map.MapsActivity;
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.message.BasicHeader;
+
+import static android.content.Context.MODE_PRIVATE;
 import static com.loopj.android.http.AsyncHttpClient.log;
 
 /**
@@ -87,42 +101,40 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("3","onCreateView_Fragment");
+
+        //Disable thread restriction
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_home, container, false);final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rvtrace);
+        final View view = inflater.inflate(R.layout.fragment_home, container, false);
+        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rvtrace);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         final HTextView hTextView = (HTextView) view.findViewById(R.id.GreetingText);
         final HTextView hereisyour = (HTextView) view.findViewById(R.id.hereisyourcurrent);
-        final Button refreshbutton = (Button) view.findViewById(R.id.homerefreshButton);
+        final ImageView refreshbutton = (ImageView) view.findViewById(R.id.refreshList);
+        final ImageView mapbutton = (ImageView) view.findViewById(R.id.googleMapIcon);
         refreshbutton.setVisibility(view.GONE);
+        mapbutton.setVisibility(view.GONE);
+
+
         final Header[] headers = {new BasicHeader("Authorization","Bearer "+getArguments().getString("token"))};
-
-        final List<Trace> traceList = new ArrayList<>(10);
-
-
         refreshbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 HttpUtils.get(getContext(),"user/get-logged-user",headers,new RequestParams(),new JsonHttpResponseHandler(){
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        hereisyour.animateText("Sorry, Failure to load data.");
+                        hereisyour.animateText("Sorry, Please try again");
                     }
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         try {
                             if(response.getString("status").equals("ON_RIDE")){
-                                if(getContext()!=null) {
-                                    traceList.add(new Trace("2016-05-25 17:48:00", "London"));
-                                    traceList.add(new Trace("2016-05-25 14:13:00", "Paris"));
-                                    traceList.add(new Trace("2016-05-25 13:01:04", "Moscow"));
-                                    traceList.add(new Trace("2016-05-25 12:19:47", "Beijing"));
-                                    traceList.add(new Trace("2016-05-25 11:12:44", "Tokyo"));
+                                if(getContext()!=null)
+                                {
+                                    loadCurrentTrip(view);
                                     hereisyour.animateText("Here is your current trip:");
-                                    recyclerView.setVisibility(view.VISIBLE);
-                                    TraceListAdapter adapter = new TraceListAdapter(getContext(), traceList);
-                                    recyclerView.setAdapter(adapter);
-                                    recyclerView.scheduleLayoutAnimation();
                                 }
                             }
                             else{
@@ -136,6 +148,25 @@ public class HomeFragment extends Fragment {
                 });
             }
         });
+
+        mapbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                log.d("itemCount",recyclerView.getAdapter().getItemCount()+"");
+                String locationlist[] = new String[recyclerView.getAdapter().getItemCount()];
+                for(int count = 0; count<locationlist.length;count++){
+                    TextView textView = (TextView)recyclerView.findViewHolderForAdapterPosition(count).
+                            itemView.findViewById(R.id.tvAcceptStation);
+                    locationlist[count] = textView.getText().toString();
+                    log.d("check",locationlist[count]);
+                    Intent intent = new Intent(getContext(), MapsActivity.class);
+                    intent.putExtra("locationlist",locationlist);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
         HttpUtils.get(getContext(),"user/get-logged-user",headers,new RequestParams(),new JsonHttpResponseHandler(){
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
@@ -155,15 +186,7 @@ public class HomeFragment extends Fragment {
                             @Override
                             public void run() {
                                 if(getContext()!=null) {
-                                    traceList.add(new Trace("2016-05-25 17:48:00", "London"));
-                                    traceList.add(new Trace("2016-05-25 14:13:00", "Paris"));
-                                    traceList.add(new Trace("2016-05-25 13:01:04", "Moscow"));
-                                    traceList.add(new Trace("2016-05-25 12:19:47", "Beijing"));
-                                    traceList.add(new Trace("2016-05-25 11:12:44", "Tokyo"));
-                                    TraceListAdapter adapter = new TraceListAdapter(getContext(), traceList);
-                                    recyclerView.setAdapter(adapter);
-                                    recyclerView.scheduleLayoutAnimation();
-                                    refreshbutton.setVisibility(view.VISIBLE);
+                                    loadCurrentTrip(view);
                                 }
                             }
                         },5000);
@@ -175,6 +198,7 @@ public class HomeFragment extends Fragment {
                                 if(getContext()!=null) {
                                     hereisyour.animateText("You do not currently on a trip");
                                     refreshbutton.setVisibility(view.VISIBLE);
+                                    mapbutton.setVisibility(view.VISIBLE);
                                 }
                             }
                         },4400);
@@ -260,5 +284,78 @@ public class HomeFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void loadCurrentTrip(final View view){
+        final List<Trace> traceList = new ArrayList<>(20);
+        HttpUtils.addHeader("Authorization","Bearer "+getArguments().getString("token"));
+        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rvtrace);
+        final ImageView refreshbutton = (ImageView) view.findViewById(R.id.refreshList);
+        final ImageView mapbutton = (ImageView) view.findViewById(R.id.googleMapIcon);
+
+        HttpUtils.get("map/get-map",new RequestParams(),new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                if(response.length()>0) {
+                    try {
+                        HttpUtils.get("adv/get-by-id/"+response.getJSONObject(response.length()-1).getInt("advertisement"),
+                                new RequestParams(),new JsonHttpResponseHandler(){
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                                        try {
+                                            log.d("Youcan","reachhere1");
+                                            traceList.add(new Trace("StartLocation",response.getString("startLocation")));
+                                            SyncHttpClient syncHttpClient = new SyncHttpClient();
+                                            syncHttpClient.addHeader("Authorization","Bearer "+getArguments().getString("token"));
+                                            for (int i = 0; i<response.getJSONArray("stops").length();i++){
+                                                syncHttpClient.get("https://mysterious-hollows-14613.herokuapp.com/stop/get-by-id/"+
+                                                response.getJSONArray("stops").getInt(i),new RequestParams(),new JsonHttpResponseHandler(){
+                                                    @Override
+                                                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                                                    }
+
+                                                    @Override
+                                                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                                        log.d("Youcan","reachhere3");
+                                                        try {
+                                                            traceList.add(new Trace("Stop " +traceList.size(),response.getString("stopName")));
+                                                            log.d("stop1",traceList.get(0).getAcceptStation());
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        TraceListAdapter adapter = new TraceListAdapter(getContext(), traceList);
+                                        recyclerView.setAdapter(adapter);
+                                        recyclerView.scheduleLayoutAnimation();
+                                        refreshbutton.setVisibility(view.VISIBLE);
+                                        mapbutton.setVisibility(view.VISIBLE);
+                                        log.d("traces",traceList.get(0).getAcceptStation()+""+traceList.get(1).getAcceptStation());
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+
+                                    }
+                                });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                log.d("Error","Fail to load data");
+            }
+        });
+
+
     }
 }

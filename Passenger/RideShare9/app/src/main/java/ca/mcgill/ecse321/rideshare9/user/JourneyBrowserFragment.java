@@ -46,6 +46,12 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+    }
+
     private void getAvailableTrips() {
         // show refresh animation
         swipeRefreshLayout.setRefreshing(true);
@@ -100,11 +106,13 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
         }
 
         // remove journeys that don't have status "REGISTERING"
+        List<Journey> journeysToRemove = new ArrayList<>();
         for (Journey journey : journeys) {
             if (!journey.getStatus().equals("REGISTERING")) {
-                journeys.remove(journey);
+                journeysToRemove.add(journey);
             }
         }
+        journeys.removeAll(journeysToRemove);
 
         return journeys;
     }
@@ -173,6 +181,10 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
 
     @Override
     public void onRefresh() {
+        refresh();
+    }
+
+    private void refresh() {
         JOURNEYS.clear();
         getAvailableTrips();
     }
