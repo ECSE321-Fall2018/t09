@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/brighterPrimary"
     android:padding="10dp"
-    tools:context=".user.AdvertisementViewerActivity"
+    tools:context=".user.JourneyViewerActivity"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <ScrollView

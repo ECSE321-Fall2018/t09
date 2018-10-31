@@ -8,35 +8,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
 import ca.mcgill.ecse321.rideshare9.R;
 
-public class AdvertisementsAdapter extends RecyclerView.Adapter<AdvertisementsAdapter.ViewHolder> {
+public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.ViewHolder> {
 
     private RecyclerView recyclerView;
-    private List<Advertisement> advertisements;
+    private List<Journey> journeys;
     private Context context;
     private final View.OnClickListener advertisementOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             int itemPos = recyclerView.getChildLayoutPosition(v);
-            Advertisement advertisement = advertisements.get(itemPos);
-            //Toast.makeText(context, advertisement.getTitle(), Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(context, AdvertisementViewerActivity.class);
-            intent.putExtra("advertisement_data", advertisement);
+            Journey journey = journeys.get(itemPos);
+            //Toast.makeText(context, journey.getTitle(), Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(context, JourneyViewerActivity.class);
+            intent.putExtra("advertisement_data", journey);
             context.startActivity(intent);
         }
     };
 
 
-
-    public AdvertisementsAdapter(List<Advertisement> advertisements) {
-        this.advertisements = advertisements;
+    public JourneyAdapter(List<Journey> journeys) {
+        this.journeys = journeys;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -66,18 +62,18 @@ public class AdvertisementsAdapter extends RecyclerView.Adapter<AdvertisementsAd
 
     @NonNull
     @Override
-    public AdvertisementsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public JourneyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View advertisementView = inflater.inflate(R.layout.item_advertisement, viewGroup, false);
+        View advertisementView = inflater.inflate(R.layout.item_journey, viewGroup, false);
         advertisementView.setOnClickListener(advertisementOnClickListener);
-        return new AdvertisementsAdapter.ViewHolder(advertisementView);
+        return new JourneyAdapter.ViewHolder(advertisementView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdvertisementsAdapter.ViewHolder viewHolder, int i) {
-        Advertisement advertisement = advertisements.get(i);
+    public void onBindViewHolder(@NonNull JourneyAdapter.ViewHolder viewHolder, int i) {
+        Journey journey = journeys.get(i);
 
         TextView adTitle = viewHolder.adTitle;
         TextView adStartLocation = viewHolder.adStartLocation;
@@ -86,17 +82,17 @@ public class AdvertisementsAdapter extends RecyclerView.Adapter<AdvertisementsAd
         TextView adStops = viewHolder.adStops;
 
         // set adTitle, adStartLocation text
-        adTitle.setText(advertisement.getTitle());
-        adStartLocation.setText(advertisement.getStartLocation());
+        adTitle.setText(journey.getTitle());
+        adStartLocation.setText(journey.getStartLocation());
 
         // set adStartDate and adStartTime text
-        String[] dateAndTime = advertisement.getStartTime().split(" ");
+        String[] dateAndTime = journey.getStartTime().split(" ");
         adStartDate.setText(dateAndTime[0]);
         adStartTime.setText(dateAndTime[1]);
 
         // set adStops
         String list = "";
-        for (Stop stop : advertisement.getStops()) {
+        for (Stop stop : journey.getStops()) {
             list += (stop.getName() + ", ");
         }
         list = list.substring(0, list.length() - 2);
@@ -105,6 +101,6 @@ public class AdvertisementsAdapter extends RecyclerView.Adapter<AdvertisementsAd
 
     @Override
     public int getItemCount() {
-        return advertisements.size();
+        return journeys.size();
     }
 }

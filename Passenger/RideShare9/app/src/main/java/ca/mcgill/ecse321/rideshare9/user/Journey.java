@@ -2,20 +2,11 @@ package ca.mcgill.ecse321.rideshare9.user;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
-
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.mcgill.ecse321.rideshare9.HttpUtils;
-import cz.msebera.android.httpclient.Header;
-
-public class Advertisement implements Parcelable {
+public class Journey implements Parcelable {
 
     private long id;
     private int availableSeats;
@@ -27,24 +18,24 @@ public class Advertisement implements Parcelable {
     private String status;
     private List<Stop> stops;
 
-    public static final Parcelable.Creator<Advertisement> CREATOR = new Parcelable.Creator<Advertisement>(){
+    public static final Parcelable.Creator<Journey> CREATOR = new Parcelable.Creator<Journey>() {
 
         @Override
-        public Advertisement createFromParcel(Parcel source) {
-            return new Advertisement(source);
+        public Journey createFromParcel(Parcel source) {
+            return new Journey(source);
         }
 
         @Override
-        public Advertisement[] newArray(int size) {
-            return new Advertisement[size];
+        public Journey[] newArray(int size) {
+            return new Journey[size];
         }
     };
 
-    public Advertisement() {
+    public Journey() {
     }
 
     @SuppressWarnings("unchecked")
-    public Advertisement(Parcel parcel) {
+    public Journey(Parcel parcel) {
         this.id = parcel.readLong();
         this.availableSeats = parcel.readInt();
         this.vehicleId = parcel.readInt();
@@ -57,8 +48,8 @@ public class Advertisement implements Parcelable {
         this.stops = parcel.readArrayList(Stop.class.getClassLoader());
     }
 
-    public Advertisement(int id, int availableSeats, int vehicleId, int driverId, String title,
-                         String startTime, String startLocation, String status, List<Stop> stops) {
+    public Journey(int id, int availableSeats, int vehicleId, int driverId, String title,
+                   String startTime, String startLocation, String status, List<Stop> stops) {
         this.id = id;
         this.availableSeats = availableSeats;
         this.vehicleId = vehicleId;

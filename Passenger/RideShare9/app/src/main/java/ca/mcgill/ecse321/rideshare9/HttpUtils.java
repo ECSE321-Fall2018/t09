@@ -6,14 +6,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import ca.mcgill.ecse321.rideshare9.user.Advertisement;
-import ca.mcgill.ecse321.rideshare9.user.Stop;
 import cz.msebera.android.httpclient.HttpEntity;
 
 public class HttpUtils {
