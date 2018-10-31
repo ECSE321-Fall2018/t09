@@ -262,8 +262,11 @@ public class FullscreenActivity_login extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 //save up bearer token
-                Log.d("Token", headers[2].getValue().replaceFirst("Bearer ", ""));
-                saveUserToken(getApplicationContext(), headers[2].getValue().replaceFirst("Bearer ", ""));
+                //add header token to HttpUtils for future requests
+                String token = headers[2].getValue();
+                HttpUtils.addHeader("Authorization", token);
+                Log.d("Token", token.replaceFirst("Bearer ", ""));
+                saveUserToken(getApplicationContext(), token.replaceFirst("Bearer ", ""));
                 SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
                 Log.d("Saved token", sharedPre.getString("token", ""));
 

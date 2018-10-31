@@ -1,19 +1,12 @@
 package ca.mcgill.ecse321.rideshare9.user;
 
-import android.util.Log;
-
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.mcgill.ecse321.rideshare9.HttpUtils;
-import cz.msebera.android.httpclient.Header;
-
-public class Advertisement {
+public class Journey implements Parcelable {
 
     private long id;
     private int availableSeats;
@@ -25,11 +18,38 @@ public class Advertisement {
     private String status;
     private List<Stop> stops;
 
-    public Advertisement() {
+    public static final Parcelable.Creator<Journey> CREATOR = new Parcelable.Creator<Journey>() {
+
+        @Override
+        public Journey createFromParcel(Parcel source) {
+            return new Journey(source);
+        }
+
+        @Override
+        public Journey[] newArray(int size) {
+            return new Journey[size];
+        }
+    };
+
+    public Journey() {
     }
 
-    public Advertisement(int id, int availableSeats, int vehicleId, int driverId, String title,
-                         String startTime, String startLocation, String status, List<Stop> stops) {
+    @SuppressWarnings("unchecked")
+    public Journey(Parcel parcel) {
+        this.id = parcel.readLong();
+        this.availableSeats = parcel.readInt();
+        this.vehicleId = parcel.readInt();
+        this.driverId = parcel.readInt();
+        this.title = parcel.readString();
+        this.startTime = parcel.readString();
+        this.startLocation = parcel.readString();
+        this.status = parcel.readString();
+        this.stops = new ArrayList<>();
+        this.stops = parcel.readArrayList(Stop.class.getClassLoader());
+    }
+
+    public Journey(int id, int availableSeats, int vehicleId, int driverId, String title,
+                   String startTime, String startLocation, String status, List<Stop> stops) {
         this.id = id;
         this.availableSeats = availableSeats;
         this.vehicleId = vehicleId;
@@ -118,4 +138,21 @@ public class Advertisement {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(getId());
+        dest.writeInt(getAvailableSeats());
+        dest.writeInt(getVehicleId());
+        dest.writeInt(getDriverId());
+        dest.writeString(getTitle());
+        dest.writeString(getStartTime());
+        dest.writeString(getStartLocation());
+        dest.writeString(getStatus());
+        dest.writeList(getStops());
+    }
 }
