@@ -73,8 +73,6 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        if(this == null)
-            return "Please select a vehicle";
         String description = model + " " + color + " " + licencePlate ;
         return description;
     }

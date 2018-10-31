@@ -122,7 +122,7 @@ public class RideShare9 extends AppCompatActivity implements VehicleFragment.OnF
 
     public void toAddTrip(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this, addJourneyActivity.class);
+        Intent intent = new Intent(this, AddJourneyActivity.class);
         startActivity(intent);
     }
 }

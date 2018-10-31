@@ -248,7 +248,6 @@
                     android:id="@+id/Layout_listStops"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:background="@drawable/border"
                     android:orientation="vertical">
 
 
@@ -272,7 +271,7 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Add Stop" />
+                        android:text="@string/addStop_Button" />
                 </LinearLayout>
 
                 <Space
@@ -283,14 +282,15 @@
                     android:id="@+id/Layout_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/Btn_addJourney"
-                        android:layout_width="196dp"
+                        android:layout_width="137dp"
                         android:layout_height="match_parent"
-                        android:text="Add Journey"
-                        android:onClick="addJourney"/>
+                        android:onClick="addJourney"
+                        android:text="@string/AddJourney_Button" />
 
                     <Button
                         android:id="@+id/Btn_cancelJourney"

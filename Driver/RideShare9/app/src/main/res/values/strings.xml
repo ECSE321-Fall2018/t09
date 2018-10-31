@@ -52,6 +52,8 @@
     <string name="Start_time_hint">hh:mm:ss</string>
     <string name="Format_Date">yyyy-mm-dd</string>
     <string name="Trip_title">Title of Your Trip</string>
+    <string name="addStop_Button">Add Stop</string>
+    <string name="AddJourney_Button">Add Journey</string>
 
     />
     />

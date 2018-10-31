@@ -19,6 +19,10 @@ public class HttpUtils {
         baseUrl = DEFAULT_BASE_URL;
     }
 
+    public static void addHeader(String header, String value) {
+        client.addHeader(header, value);
+    }
+
     public static String getBaseUrl() {
         return baseUrl;
     }

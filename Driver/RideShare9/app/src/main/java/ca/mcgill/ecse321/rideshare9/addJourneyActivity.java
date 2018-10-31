@@ -4,15 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import ca.mcgill.ecse321.rideshare9.HttpUtils;
+import android.widget.Toast;
+
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -28,7 +27,7 @@ import java.util.Set;
 
 import cz.msebera.android.httpclient.Header;
 
-public class addJourneyActivity extends AppCompatActivity {
+public class AddJourneyActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private String error = null; //tutorial
      Spinner seatingSpinner, vehicleSpinner ;
      ListView stopListView;
@@ -36,6 +35,7 @@ public class addJourneyActivity extends AppCompatActivity {
      private List<Vehicle> vehicleList = new ArrayList<>();
      private ArrayAdapter<Vehicle> vehicleAdapter;
      private Set<Long> stops_Set;
+     ArrayAdapter<Integer> seatingAdapter;
      int maxSeats;
 
     @Override
@@ -55,30 +55,20 @@ public class addJourneyActivity extends AppCompatActivity {
 
 
         // available max seating
-        vehicleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Vehicle user = (Vehicle) parent.getSelectedItem();
-                maxSeats = user.getMaxSeat();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        vehicleSpinner.setOnItemSelectedListener(this);
 
 
 
 
         //control the seating spinner
         seatingSpinner = findViewById(R.id.spinnerSeating);
-        Integer[] items = new Integer[ maxSeats + 1];
-        for (int i=0 ; i < maxSeats + 1 ;i++){
+        Integer[] items = new Integer[maxSeats+1];
+        for (int i=0 ; i < items.length ;i++){
             items[i]=i;
         }
-        ArrayAdapter<Integer> adapter2 = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, items);
-        seatingSpinner.setAdapter(adapter2);
+        seatingAdapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, items);
+        seatingSpinner.setAdapter(seatingAdapter);
+
 
 //        //control the stop list
 //        stopListView = (ListView) findViewById(R.id.stop_list);
@@ -127,7 +117,7 @@ public class addJourneyActivity extends AppCompatActivity {
         //String startTime = year;
 
         // cost of trip
-        tv = (TextView) findViewById(R.id.finalcostText);
+        tv =  findViewById(R.id.finalcostText);
         String fullTripCost = tv.getText().toString() ; // change type depending on request parameter
 
         // Vehicle
@@ -253,28 +243,23 @@ public class addJourneyActivity extends AppCompatActivity {
     public void setDate(int id, int d, int m, int y) {
         TextView tv = (TextView) findViewById(id);
         tv.setText(String.format("%02d-%02d-%04d", d, m + 1, y));
-        Vehicle testVehicle = new Vehicle(100, "5678OBJ", "BMW", "Black", 4, 213);
-        vehicleList.add(testVehicle);
-        Vehicle testVehicle2 = new Vehicle(432, "`233BJ", "Audi", "Blue", 4, 213);
-        vehicleList.add(testVehicle2);
+
     }
 
     private void getCarsList() {
 
         //  Get SharedPreferences which holds the JWT Token
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("config", Context.MODE_PRIVATE);
         String authentication = "Bearer " + sharedPreferences.getString("token", null);
 
         //  Set headers for the request
         HttpUtils.addHeader("Authorization", authentication);
 
-
-
         HttpUtils.get("vehicle/get-cars", new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                vehicleList.addAll(advertisementsFromJSONArray(response));
+                vehicleList.addAll(vehiclesFromJSONArray(response));
 
             }
 
@@ -292,19 +277,19 @@ public class addJourneyActivity extends AppCompatActivity {
     }
 
 
-    private List<Vehicle> advertisementsFromJSONArray(JSONArray jsonAdArray) {
+    private List<Vehicle> vehiclesFromJSONArray(JSONArray jsonAdArray) {
         int vehicleCount = jsonAdArray.length();
         List<Vehicle> vehicles = new ArrayList<>();
 
         for (int i = 0; i < vehicleCount; i++) {
             JSONObject advertisement = jsonAdArray.optJSONObject(i);
-            vehicles.add(advertisementFromJSONObject(advertisement));
+            vehicles.add(vehicleFromJSONObject(advertisement));
         }
 
         return vehicles;
     }
 
-    private Vehicle advertisementFromJSONObject(JSONObject jsonAdObject) {
+    private Vehicle vehicleFromJSONObject(JSONObject jsonAdObject) {
         long vehicleId = jsonAdObject.optInt("id");
         String licencePlate = jsonAdObject.optString("licencePlate");
         String model = jsonAdObject.optString("model");
@@ -316,4 +301,16 @@ public class addJourneyActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Vehicle user = (Vehicle) parent.getSelectedItem();
+        maxSeats = user.getMaxSeat();
+        //seatingAdapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

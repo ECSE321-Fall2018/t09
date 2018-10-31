@@ -88,7 +88,7 @@ public class AdvertisementFragment extends Fragment {
 
     public void toAddTrip(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this.getContext(), addJourneyActivity.class);
+        Intent intent = new Intent(this.getContext(), AddJourneyActivity.class);
         startActivity(intent);
     }
 

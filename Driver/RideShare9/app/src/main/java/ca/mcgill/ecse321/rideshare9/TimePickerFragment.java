@@ -30,7 +30,7 @@ public class TimePickerFragment extends DialogFragment
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        addJourneyActivity myActivity = (addJourneyActivity) getActivity();
+        AddJourneyActivity myActivity = (AddJourneyActivity) getActivity();
         myActivity.setTime(getArguments().getInt("id"), hourOfDay, minute);
     }
 }

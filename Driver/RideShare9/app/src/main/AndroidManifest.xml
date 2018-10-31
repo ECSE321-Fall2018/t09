@@ -39,7 +39,7 @@
             android:label="@string/title_activity_ride_share9"></activity>
             android:label="@string/title_activity_fullscreen_signup"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".addJourneyActivity">
+        <activity android:name=".AddJourneyActivity">
         </activity>
 
     </application>
