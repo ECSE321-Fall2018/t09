@@ -11,10 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
 import org.w3c.dom.Text;
 
 import ca.mcgill.ecse321.rideshare9.FullscreenActivity_login;
+import ca.mcgill.ecse321.rideshare9.HttpUtils;
 import ca.mcgill.ecse321.rideshare9.R;
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.message.BasicHeader;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,6 +85,7 @@ public class YouFragment extends Fragment {
         usernameDisply.setText(getArguments().getString("username",""));
         //add listener to switch account;
         TextView switchaccount = (TextView)view.findViewById(R.id.switchAccText);
+        final TextView statstext = (TextView)view.findViewById(R.id.statsText);
 
         switchaccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +93,29 @@ public class YouFragment extends Fragment {
                 Intent intent = new Intent(getContext(), FullscreenActivity_login.class);
                 startActivity(intent);
                 getActivity().finish();
+            }
+        });
+
+        statstext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Header[] headers = {new BasicHeader("Authorization","Bearer "+getArguments().getString("token"))};
+                HttpUtils.get(getContext(),"map/get-map",headers,new RequestParams(),new JsonHttpResponseHandler(){
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                        if(statstext.getText().equals("Statistic")) {
+                            statstext.setText("You had " + response.length() + " trips!");
+                        }
+                        else{
+                            statstext.setText("Statistic");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                        statstext.setText("There is a problem.");
+                    }
+                });
             }
         });
         return view;
