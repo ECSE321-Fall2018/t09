@@ -28,6 +28,11 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
+import ca.mcgill.ecse321.rideshare9.map.MapsActivity;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.loopj.android.http.AsyncHttpClient.log;
 
@@ -190,6 +195,17 @@ public class FullscreenActivity_login extends AppCompatActivity {
         // Do something in response to button
         Intent intent = new Intent(this, FullscreenActivity_signup.class);
         startActivity(intent);
+        finish();
+
+        //Test case for map
+        /*Intent intent = new Intent(this, MapsActivity.class);
+        String locallist[] = new String[4];
+        locallist[0] = "3425 Rue Univeristy";
+        locallist[1] = "1420 Rue du Fort";
+        locallist[2] = "1824 Rue Sainte-Catherine O";
+        locallist[3] = "201 Rue Berlioz";
+        intent.putExtra("locationlist",locallist);
+        startActivity(intent);*/
     }
 
     public void login(View view) {
@@ -246,14 +262,22 @@ public class FullscreenActivity_login extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 //save up bearer token
-                Log.d("Token", headers[2].getValue().replaceFirst("Bearer ", ""));
-                saveUserToken(getApplicationContext(), headers[2].getValue().replaceFirst("Bearer ", ""));
+                //add header token to HttpUtils for future requests
+                String token = headers[2].getValue();
+                HttpUtils.addHeader("Authorization", token);
+                Log.d("Token", token.replaceFirst("Bearer ", ""));
+                saveUserToken(getApplicationContext(), token.replaceFirst("Bearer ", ""));
                 SharedPreferences sharedPre=getSharedPreferences("config", MODE_PRIVATE);
                 Log.d("Saved token", sharedPre.getString("token", ""));
 
                 //goto the logged screen
                 Intent intent = new Intent(getApplicationContext(),UserActivity.class);
+                Bundle userbundle = new Bundle();
+                userbundle.putString("username",namefield.getText().toString());
+                userbundle.putString("token",sharedPre.getString("token",""));
+                intent.putExtra("bundle",userbundle);
                 startActivity(intent);
+                finish();
             }
 
             @Override

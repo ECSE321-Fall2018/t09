@@ -3,20 +3,14 @@ package ca.mcgill.ecse321.rideshare9.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.mcgill.ecse321.rideshare9.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
-import ca.mcgill.ecse321.rideshare9.entity.TripStatus;
-import ca.mcgill.ecse321.rideshare9.entity.User;
-import ca.mcgill.ecse321.rideshare9.entity.Vehicle;
 import ca.mcgill.ecse321.rideshare9.repository.VehicleRepository;
 import ca.mcgill.ecse321.rideshare9.service.impl.UserServiceImpl;
 
@@ -134,5 +128,16 @@ public class VehicleController {
     	
     	return carService.updateVehicle(oldcar); 
     }
-    
+
+	/**
+	 * Driver: Find stop by Id
+	 * Core API endpoint: Driver-1.3
+	 * @param id of the vehicle
+	 * @return found vehicle
+	 */
+	@PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('BOSSLI') or hasRole('ADMING')")
+	@RequestMapping(value = "/get-by-id/{id}", method = RequestMethod.GET)
+	public Vehicle findVehicleById(@PathVariable(name="id") long id) {
+		return carService.findVehicle(id);
+	}
 }

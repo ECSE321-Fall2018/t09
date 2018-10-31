@@ -1,10 +1,44 @@
-# Welcome to TEAM 09 [![Build Status](https://travis-ci.com/ECSE321-Fall2018/t09.svg?token=WDPhpGnigsQCoWp5WMJt&branch=mark)](https://travis-ci.com/ECSE321-Fall2018/t09/builds/87110237#L2557)
+# Welcome to TEAM 09 [![Build Status](https://travis-ci.com/ECSE321-Fall2018/t09.svg?token=ft4Mh1yYXz7QX8b1Dzq2&branch=master)](https://travis-ci.com/ECSE321-Fall2018/t09)
+
+## Log: 2018/10/29
+
+- Added a new Vehicle API endpoint, vehicle/get-by-id/{id}
+
+## Log: 2018/10/26
+
+- Update profile UI for Passenger.
 
 ## Log: 2018/10/23
 
 - **Add a feature to check for duplicate username for signup**, immediately after the username field lost focus, a error message will be shown when found the username already exist in database. The register button will be disabled until username is correct. 
 - **Can now show error message when login fails.** 
 - **Create a UI prototype for passenger app**, using BottomNavigation, ViewPager, FragmentStatePagerAdapter. 
+
+## Passenger App Description
+
+#### Passenger App Description (Version for Release)
+Enjoy great trips at low price on RideShare9. Sharing is more simple and efficient with our new App.
+
+##### HOW SIMPLE?
+##### One Step Sign Up - Sign up in a minute to enjoy your trip.
+##### Find a Trip in Your Way - Browse journey and sort by price, time or stop.
+##### Current Trips and More - See current trips in the home tab and click for a map view.  
+##### Know Your Past Trips - Check all past trip in detail in the history tab. 
+
+#### Passenger App Description (Version for Development and Grading)
+##### Sign Up
+Users can sign up as a passenger and needs to input a username and a password twice on the sign-up page. An error message will be given for username existing, password mismatching or illegal inputs. The sign-up button works only when there is no error. After signing up, the log-in page is displayed.
+##### Log In
+Users can log in their accounts and choose to keep logging in for convenience. An error message will be given for username not existing, password mismatching or illegal inputs. The log-in button works only when there is no error. After logging in, the home tab is displayed.
+##### Home Tab
+The home tab is portal where greeting messages and a current & upcoming trip list (if any) are displayed. The trip list is refreshed continuously. By clicking a trip, user can see a map with the destination indicated. In the map view, user can open google map to navigate.
+##### Journey Browser Tab
+The journey browser tab shows all available trips. User can choose to sort by price, time or stop.
+##### User Profile Tab
+The user profile tab displays user information and number of trips. User can log out in this tab.
+##### History trip Tab
+The history trip tab displays all past trips in detail (time, price and destination).
+
 
 ## Design of Passenger UI
 
@@ -105,6 +139,7 @@ Example:
  /adv/get-logged-adv | GET | void | void | DRIVER 
  /adv/get-top-driver | GET | void | void | ADMIN, PASSENGER, DRIVER 
  /adv/get-list-adv | GET | void | void | ADMIN, PASSENGER, DRIVER 
+ /adv/get-by-id/{id} | GET | integer | "id" | ADMIN, PASSENGER, DRIVER
  /adv/update-adv | PUT | JSON | Essential: "id", "stops"; Optional: "title", "startTime",  "startLocation", "seatAvailable", "vehicle" | DRIVER 
  /adv/delete-adv | DELETE | JSON | "id" | DRIVER
  
@@ -126,10 +161,12 @@ Example:
  /vehicle/remove-car | DELETE | JSON | "id" | DRIVER, ADMIN
  /vehicle/get-cars | GET | void | void | DRIVER, ADMIN
  /vehicle/change-cars | PUT | JSON | "id"; Optional: "color", "licencePlate", "maxSeat", "model" | DRIVER
+ /vehicle/get-by-id/{id} | GET | void | void | DRIVER, ADMIN
  
  ### StopController
  URL | Request | Parameter Format | Parameters | Role (ROLE_)
  ------| ------ | ------ | ------ | ------
+ /stop/get-by-id/{id} | GET | integer | "id" | DRIVER, PASSENGER, ADMIN
  /stop/add-stop | POST | JSON | "stopName", "price" | DRIVER
  /stop/change-stop | PUT | JSON | "id"; Optional: "stopName", "price" | DRIVER
  /stop/del-stop | DELETE | JSON | "id" | DRIVER

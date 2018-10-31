@@ -9,7 +9,6 @@
     <string name="PasswordHint">Password</string>
     <string name="LoginButton">Login</string>
     <string name="ToSignup">Not a member? Join RideShare9 now!</string>
-
     <string name="title_activity_fullscreen_signup">FullscreenActivity_signup</string>
     <string name="rememberMe">Remember me</string>
     <string name="signupname">Enter your Username</string>
@@ -17,7 +16,6 @@
     <string name="signuppasswordconfirm">Confirm your Password</string>
     <string name="signuptitle">Signup for Free</string>
     <string name="iampassenger">I am a Passenger</string>
-    />
     <string name="imdriver">I am a Driver</string>
     <string name="signupbutton">Register!</string>
     <string name="toLogin">Already a member? login here</string>
@@ -27,9 +25,14 @@
     <string name="title_adv">Available Journeys</string>
     <string name="title_history">Past Journeys</string>
     <string name="title_current_trips">Current Journeys</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="statistics">Statistic</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    />
-    />
+    <string name="journey_browser_refresh_button">Refresh</string>
+    <string name="switchAccText">Change Account</string>
+    <string name="helpContact">Contact 514-834-7080 \nfor help!</string>
+    <string name="yudixie">yudixie</string>
+    <string name="hereIsYourCurrentTrip">Here is your current trip !</string>
+    <string name="label_stops"><u>Stops</u></string>
+    <string name="advertisement_viewer_join_button">Join Journey</string>
+    <string name="homerefresh">Refresh</string>
 </resources>
