@@ -73,7 +73,6 @@ Name | description | features
 You | Show user's account info and updateable | features
 Home | Show user's current trip | features
 Advertisement | Browser for Advertisement list | features
-History | Show user's historic trips | features
 
 ## Update of 2018/10/20: Two tips
 
