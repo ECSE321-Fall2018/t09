@@ -19,6 +19,30 @@
 - **Can now show error message when login fails.** 
 - **Create a UI prototype for passenger app**, using BottomNavigation, ViewPager, FragmentStatePagerAdapter. 
 
+
+## Driver App Description
+
+#### Driver App Description (Version for Release)
+Take a passenger to save costs on RideShare9. Sharing is more simple and efficient with our new App.
+
+##### HOW SIMPLE?
+##### One Step Sign Up - Sign up in a minute to post an advertisement.
+##### Manage Vehicles in Your Way - Have more than one vehicles registered and update information easily.
+##### Have Multiple Stops - Set more stops to increase the chance to find a passenger  
+
+#### Driver App Description (Version for Development and Grading)
+##### Sign Up
+User can sign up as a driver and needs to input a username and a password twice on the sign-up page. An error message will be given for username existing, password mismatching or illegal inputs. The sign-up button works only when there is no error. After signing up, the log-in page is displayed.
+##### Log In
+User can log in their account and choose to keep logging in for convenience. An error message will be given for username not existing, password mismatching or illegal inputs. The log-in button works only when there is no error. After logging in, the advertisement tab is displayed.
+##### Advertisement Tab
+User can post an advertisement in the advertisement tab by typing time, price, stops and selecting a vehicle. 
+##### Vehicle Tab
+The vehicle tab shows a list of vehicles that user registered. User can add a car by giving model, license plate, colour and number of seats. User may update or delete any vehicle in the list. 
+##### Home Tab
+The vehicle tab is a portal displays user information and number of trips. User can also change their status here, on ride or standby.
+
+
 ## Passenger App Description
 
 #### Passenger App Description (Version for Release)
@@ -27,22 +51,19 @@ Enjoy great trips at low price on RideShare9. Sharing is more simple and efficie
 ##### HOW SIMPLE?
 ##### One Step Sign Up - Sign up in a minute to enjoy your trip.
 ##### Find a Trip in Your Way - Browse journey and sort by price, time or stop.
-##### Current Trips and More - See current trips in the home tab and click for a map view.  
-##### Know Your Past Trips - Check all past trip in detail in the history tab. 
+##### Current Trips and More - See current trips in the home tab and click for a map view.   
 
 #### Passenger App Description (Version for Development and Grading)
 ##### Sign Up
-Users can sign up as a passenger and needs to input a username and a password twice on the sign-up page. An error message will be given for username existing, password mismatching or illegal inputs. The sign-up button works only when there is no error. After signing up, the log-in page is displayed.
+User can sign up as a passenger and needs to input a username and a password twice on the sign-up page. An error message will be given for username existing, password mismatching or illegal inputs. The sign-up button works only when there is no error. After signing up, the log-in page is displayed.
 ##### Log In
-Users can log in their accounts and choose to keep logging in for convenience. An error message will be given for username not existing, password mismatching or illegal inputs. The log-in button works only when there is no error. After logging in, the home tab is displayed.
+User can log in their account and choose to keep logging in for convenience. An error message will be given for username not existing, password mismatching or illegal inputs. The log-in button works only when there is no error. After logging in, the home tab is displayed.
 ##### Home Tab
 The home tab is portal where greeting messages and a current & upcoming trip list (if any) are displayed. The trip list is refreshed continuously. By clicking a trip, user can see a map with the destination indicated. In the map view, user can open google map to navigate.
 ##### Journey Browser Tab
 The journey browser tab shows all available trips. User can choose to sort by price, time or stop.
 ##### User Profile Tab
 The user profile tab displays user information and number of trips. User can log out in this tab.
-##### History trip Tab
-The history trip tab displays all past trips in detail (time, price and destination).
 
 
 ## Design of Passenger UI
