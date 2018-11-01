@@ -25,7 +25,7 @@ public class ChangeAdvertisementActivity extends AppCompatActivity {
     private Advertisement advertisement;
     // stops recyclerView
     private RecyclerView rvStops;
-    private StopsAdapter adapter;
+    private ChangeAdStopsAdapter adapter;
     private LinearLayoutManager layoutManager;
     // Views
     private EditText finalDestinationField;
@@ -51,7 +51,7 @@ public class ChangeAdvertisementActivity extends AppCompatActivity {
         rvStops = findViewById(R.id.rvStopsForJourney);
         layoutManager = new LinearLayoutManager(this);
         rvStops.setLayoutManager(layoutManager);
-        adapter = new StopsAdapter(advertisement.getStops());
+        adapter = new ChangeAdStopsAdapter(advertisement.getStops());
         rvStops.setAdapter(adapter);
 
 
@@ -75,8 +75,6 @@ public class ChangeAdvertisementActivity extends AppCompatActivity {
                 params.put("startTime",(String)null);
                 params.put("stops",(String)null);
                 params.put("vehicle",0);
-                
-
 
                 HttpUtils.put(context,"/adv/update-adv/", params, new AsyncHttpResponseHandler() {
                     @Override

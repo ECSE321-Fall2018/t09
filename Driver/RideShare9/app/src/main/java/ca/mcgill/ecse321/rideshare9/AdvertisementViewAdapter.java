@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.rideshare9;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,11 +11,21 @@ import android.view.*;
 import android.widget.*;
 import ca.mcgill.ecse321.rideshare9.model.Advertisement;
 import ca.mcgill.ecse321.rideshare9.model.Stop;
+
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.message.BasicHeader;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.entity.ByteArrayEntity;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.protocol.HTTP;
+
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public class AdvertisementViewAdapter extends RecyclerView.Adapter<AdvertisementViewAdapter.ViewHolder> {
@@ -90,16 +101,27 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
                 Advertisement toDelete = advertisements.get(i);
                 advertisements.remove(i);
 
-                RequestParams requestParams = new RequestParams();
+                // requestParams.put("id",toDelete.getId());
 
-                requestParams.put("id",toDelete.getId());
+                Header[] headers = {new BasicHeader("Authorization","Bearer " + FullscreenActivity.getsavedToken(v.getContext()))};
 
-                Header[] headers = {new BasicHeader("Authorization","Bearer " + FullscreenActivity.getsavedToken(v.getContext())),
-                        new BasicHeader("Content-Type", "application/json")};
+                /*package the content from textfield into json body*/
+                JSONObject jsonObject = new JSONObject();
+                try{
+                    jsonObject.put("id",toDelete.getId());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                /*convert the jsonbdoy into string entity that can be sent*/
+                ByteArrayEntity entity = null;
+                try {
+                    entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
+                    entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+                }catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
 
-
-
-                HttpUtils.delete(v.getContext(),"/adv/delete-adv", headers, requestParams,new TextHttpResponseHandler(){
+                HttpUtils.post(v.getContext(), "adv/delete-adv", headers, entity, "application/json",new TextHttpResponseHandler(){
 
 
                     @Override
@@ -122,7 +144,7 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
             @Override
             public void onClick(View v) {
                 //do something
-                Intent intent = new Intent(context, ChangeAdvertisementActivity.class);
+                Intent intent = new Intent(v.getContext(), ChangeAdvertisementActivity.class);
                 Advertisement ad = advertisements.get(i);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("advertisement_data",ad);
