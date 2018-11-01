@@ -7,9 +7,11 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.*;
 
+import ca.mcgill.ecse321.rideshare9.model.Vehicle;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -29,7 +31,7 @@ public class AddJourneyActivity extends AppCompatActivity implements AdapterView
     private String error = null; //tutorial
      Spinner seatingSpinner, vehicleSpinner ;
      ListView stopListView;
-     StopList_adapter stopAdapter;
+     CreateAdStopsAdapter stopAdapter;
      private List<Vehicle> vehicleList = new ArrayList<>();
      private ArrayAdapter<Vehicle> vehicleAdapter;
      private Set<Long> stops_Set;
@@ -70,7 +72,7 @@ public class AddJourneyActivity extends AppCompatActivity implements AdapterView
 
        //control the stop list
         stopListView = (ListView) findViewById(R.id.stop_list);
-        stopAdapter = new StopList_adapter();
+        stopAdapter = new CreateAdStopsAdapter();
         stopListView.setAdapter(stopAdapter);
         stopAdapter.notifyDataSetChanged();
 
@@ -89,6 +91,7 @@ public class AddJourneyActivity extends AppCompatActivity implements AdapterView
 
         final EditText stopName = new EditText(this);
         final EditText price = new EditText(this );
+        price.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         LinearLayout lay = new LinearLayout(this);
         lay.setOrientation(LinearLayout.VERTICAL);
@@ -100,13 +103,33 @@ public class AddJourneyActivity extends AppCompatActivity implements AdapterView
         alertDialog.setPositiveButton("Make Stop",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int which) {
-                        //TODO add-stop http request
+                        SharedPreferences sharedPreferences = getSharedPreferences("config", Context.MODE_PRIVATE);
+                        String authentication = "Bearer " + sharedPreferences.getString("token", null);
+
+                        //  Set headers for the request
+                        HttpUtils.addHeader("Authorization", authentication);
+
+                        RequestParams params = new RequestParams();
+                        params.put("stopName",stopName.getText());
+                        params.put("price",price.getText());
+
+                        HttpUtils.post("stop/add-stop",params,new JsonHttpResponseHandler(){
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                super.onSuccess(statusCode, headers, response);
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                                super.onFailure(statusCode, headers, responseString, throwable);
+                            }
+                        });
                         Toast.makeText(getApplicationContext(),"Stop Added", Toast.LENGTH_SHORT).show();
 
                     }
                 });
-        // Setting Negative "NO" Button
-        alertDialog.setNegativeButton("Can",
+        // Setting Negative Cancel Button
+        alertDialog.setNegativeButton("Cancel",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 

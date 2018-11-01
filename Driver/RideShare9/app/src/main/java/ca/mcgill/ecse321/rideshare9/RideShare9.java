@@ -33,7 +33,7 @@ public class RideShare9 extends AppCompatActivity implements VehicleFragment.OnF
         HomeFragment.OnFragmentInteractionListener, AdvertisementFragment.OnFragmentInteractionListener {
 
     private ActionBar toolbar;
-
+    private String error;
 
 
     @Override
@@ -84,6 +84,19 @@ public class RideShare9 extends AppCompatActivity implements VehicleFragment.OnF
 
     }
 
+    private void refreshErrorMessage() {
+        // set the error message
+        TextView tvError = (TextView) findViewById(R.id.error_addJourney);
+        tvError.setText(error);
+
+        if (error == null || error.length() == 0) {
+            tvError.setVisibility(View.GONE);
+        } else {
+            tvError.setVisibility(View.VISIBLE);
+        }
+
+    }
+
 
     /*
     protected void xuxue() {
@@ -120,9 +133,5 @@ public class RideShare9 extends AppCompatActivity implements VehicleFragment.OnF
 
     }
 
-    public void toAddTrip(View view) {
-        // Do something in response to button
-        Intent intent = new Intent(this, AddJourneyActivity.class);
-        startActivity(intent);
-    }
+
 }

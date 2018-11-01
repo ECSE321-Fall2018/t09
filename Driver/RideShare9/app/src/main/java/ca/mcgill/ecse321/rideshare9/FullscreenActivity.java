@@ -217,7 +217,7 @@ public class FullscreenActivity extends AppCompatActivity {
         }catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        HttpUtils.post(getApplicationContext(),"login",entity,"application/json",new TextHttpResponseHandler(){
+        HttpUtils.post(getApplicationContext(),"login", entity,"application/json",new TextHttpResponseHandler(){
             @Override
             public void onFinish() {
                 super.onFinish();
