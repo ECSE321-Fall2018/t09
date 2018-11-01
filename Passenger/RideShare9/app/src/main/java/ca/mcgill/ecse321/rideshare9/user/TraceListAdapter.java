@@ -23,6 +23,10 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.traceList = traceList;
     }
 
+    public List<Trace> getTraceList(){
+        return traceList;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(inflater.inflate(R.layout.item_trace, parent, false));

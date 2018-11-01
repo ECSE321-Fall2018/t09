@@ -152,13 +152,12 @@ public class HomeFragment extends Fragment {
         mapbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                log.d("itemCount",recyclerView.getAdapter().getItemCount()+"");
                 String locationlist[] = new String[recyclerView.getAdapter().getItemCount()];
+                TraceListAdapter traceListAdapter = (TraceListAdapter)recyclerView.getAdapter();
                 for(int count = 0; count<locationlist.length;count++){
-                    TextView textView = (TextView)recyclerView.findViewHolderForAdapterPosition(count).
-                            itemView.findViewById(R.id.tvAcceptStation);
-                    locationlist[count] = textView.getText().toString();
-                    log.d("check",locationlist[count]);
+                    if(traceListAdapter.getTraceList().get(count)!=null){
+                        locationlist[count] = traceListAdapter.getTraceList().get(count).getAcceptStation();
+                    }
                 }
                 Intent intent = new Intent(getContext(), MapsActivity.class);
                 intent.putExtra("locationlist",locationlist);
@@ -189,7 +188,7 @@ public class HomeFragment extends Fragment {
                                     loadCurrentTrip(view);
                                 }
                             }
-                        },5000);
+                        },4700);
                     }
                     else{
                         new Handler().postDelayed(new Runnable() {
@@ -208,15 +207,6 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                log.d("Bearer in user", getArguments().getString("token"));
-            }
-        },5400);
-
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -239,17 +229,6 @@ public class HomeFragment extends Fragment {
         },3200);
 
         return view;
-    }
-
-    public String getEmojiByUnicode(int unicode){
-        return new String(Character.toChars(unicode));
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
