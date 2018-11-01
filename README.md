@@ -15,7 +15,7 @@
 
 ## Log: 2018/10/23
 
-- **Add a feature to check for duplicate username for signup**, immediately after the username field lost focus, a error message will be shown when found the username already exist in database. The register button will be disabled until username is correct. 
+- **Add a feature to check for duplicate username for signup**, immediately after the username field loses focus, a error message will be shown when found the username already exists in database. The register button will be disabled until the username is correct. 
 - **Can now show error message when login fails.** 
 - **Create a UI prototype for passenger app**, using BottomNavigation, ViewPager, FragmentStatePagerAdapter. 
 
@@ -23,30 +23,30 @@
 ## Driver App Description
 
 #### Driver App Description (Version for Release)
-Take a passenger to save costs with RideShare9. Sharing is more simple and efficient with our new App.
+Take a passenger on your next trip to save costs with RideShare9. Sharing is simple with our new App.
 
 ##### HOW SIMPLE?
 ##### One Step Sign Up - Sign up in a minute to post an advertisement.
-##### Manage Vehicles in Your Way - Have more than one vehicles registered and update information easily.
-##### Have Multiple Stops - Set more stops to increase the chance to find a passenger  
+##### Manage Vehicles in Your Way - Have more than one vehicle registered and update information easily.
+##### Have Multiple Stops - Add more stops to find more passengers
 
 #### Driver App Description (Version for Development and Grading)
 ##### Sign Up
-User can sign up as a driver and needs to input a username and a password twice on the sign-up page. An error message will be given for username existing, password mismatching or illegal inputs. The sign-up button works only when there is no error. After signing up, the log-in page is displayed.
+Users can sign up as a driver through a username and a password on the sign-up page. An error message will be given for an existing username , mismatching passwords or illegal inputs. The sign-up button works only when there is no error. After signing up, the log-in page is displayed.
 ##### Log In
-User can log in their account and choose to keep logging in for convenience. An error message will be given for username not existing, password mismatching or illegal inputs. The log-in button works only when there is no error. After logging in, the advertisement tab is displayed.
+Users can log in their account and choose to keep logging in for convenience. An error message will be given for non-existent usernames,mismatching passwords  or illegal inputs. The log-in button works only when there is no error. After logging in, the advertisement tab is displayed.
 ##### Advertisement Tab
-User can post an advertisement in the advertisement tab by typing time, price, stops and selecting a vehicle. 
+Users can post an advertisement in the advertisement tab by typing time, price, stops and selecting a vehicle. 
 ##### Vehicle Tab
-The vehicle tab shows a list of vehicles that user registered. User can add a car by giving model, license plate, colour and number of seats. User may update or delete any vehicle in the list. 
+The vehicle tab shows a list of vehicles that a user has registered. Users can add a car by giving model, license plate, colour and number of seats. Users may update or delete any vehicle in the list. 
 ##### Home Tab
-The vehicle tab is a portal displays user information and number of trips. User can also change their status here, on ride or standby.
+The home tab is a portal that displays user information and the number of their trips. User can also change their statuses here,from on ride to standby and vice versa.
 
 
 ## Passenger App Description
 
 #### Passenger App Description (Version for Release)
-Enjoy great trips at low price with RideShare9. Sharing is more simple and efficient with our new App.
+Enjoy great trips at low prices with RideShare9. Sharing is more simple and efficient with our new App.
 
 ##### HOW SIMPLE?
 ##### One Step Sign Up - Sign up in a minute to enjoy your trip.
@@ -55,15 +55,15 @@ Enjoy great trips at low price with RideShare9. Sharing is more simple and effic
 
 #### Passenger App Description (Version for Development and Grading)
 ##### Sign Up
-User can sign up as a passenger and needs to input a username and a password twice on the sign-up page. An error message will be given for username existing, password mismatching or illegal inputs. The sign-up button works only when there is no error. After signing up, the log-in page is displayed.
+Users can sign up as a passenger and need to input a username and a password twice on the sign-up page. An error message will be given for an existing username , mismatching passwords  or illegal inputs. The sign-up button works only when there is no error. After signing up, the log-in page is displayed.
 ##### Log In
-User can log in their account and choose to keep logging in for convenience. An error message will be given for username not existing, password mismatching or illegal inputs. The log-in button works only when there is no error. After logging in, the home tab is displayed.
+Users can log in their account and choose to keep logging in for convenience. An error message will be given for non-existent username,mismatching passwords or illegal inputs. The log-in button works only when there is no error. After logging in, the home tab is displayed.
 ##### Home Tab
-The home tab is portal where greeting messages and a current & upcoming trip list (if any) are displayed. The trip list is refreshed continuously. By clicking a trip, user can see a map with the destination indicated. In the map view, user can open google map to navigate.
+The home tab is a portal where greeting messages and a current & upcoming trip list (if any) are displayed. The trip list is refreshed continuously. By clicking a trip, users can see a map with the destination indicated. In the map view, users can open google map to navigate.
 ##### Journey Browser Tab
 The journey browser tab shows all available trips. User can choose to sort by price, time or stop.
 ##### User Profile Tab
-The user profile tab displays user information and number of trips. User can log out in this tab.
+The user profile tab displays user's information and the number of their trips. Users can log out in this tab.
 
 
 ## Design of Passenger UI
@@ -75,9 +75,9 @@ Home | Show user's current trip | features
 Advertisement | Browser for Advertisement list | features
 History | Show user's historic trips | features
 
-## Update of 2018/10/20: Just two tips
+## Update of 2018/10/20: Two tips
 
-- Make sure to use descriptive Ids when modify the view
+- Make sure to use descriptive Ids when modifying the view
 - When you want to send a request to  the backend that requires a role Anthorization, you can choose to use a request method from AsyncHttpClient that has a Header[] as argument, and put the Token as a basicHeader in the Header[]. This is a little troublesome since you have to give a Header[] for every request method, but it is the only approach I found for now that works for both AsyncHttpClient and Bearer Token. 
 For example: 
 ```
