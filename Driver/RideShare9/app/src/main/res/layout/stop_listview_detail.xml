@@ -32,7 +32,7 @@
                 android:textSize="18sp" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/imageButton_delete"
                 android:layout_width="78dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
