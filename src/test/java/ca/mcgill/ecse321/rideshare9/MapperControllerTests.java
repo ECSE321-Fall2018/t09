@@ -149,7 +149,7 @@ public class MapperControllerTests {
 				// .andDo(print())
 				.andExpect(status().isOk()).andReturn();
 		String responseContent = result.getResponse().getContentAsString();
-		assertEquals(responseContent, mapperJson);
+		assertEquals(responseContent, "Success");
 	}
 
 	@Test
