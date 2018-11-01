@@ -36,4 +36,7 @@
     <string name="advertisement_viewer_join_button">Join Journey</string>
     <string name="homerefresh">Refresh</string>
     <string name="viewOnmap">view these stops on Google Map</string>
+    <string name="searchStop">Search for a stop here</string>
+    <string name="sortbyPrice">Sort by Price</string>
+    <string name="sortByCarModel">Sort by CarType</string>
 </resources>

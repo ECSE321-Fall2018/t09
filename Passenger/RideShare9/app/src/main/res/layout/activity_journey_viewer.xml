@@ -40,6 +40,20 @@
                 android:textSize="22sp" />
 
             <TextView
+                android:id="@+id/driversInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/carColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="28sp" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/label_stops"
@@ -54,7 +68,8 @@
                 android:clickable="true"
                 android:onClick="startMap"
                 android:text="@string/viewOnmap"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorAccent"
+                android:textSize="21sp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvStopsForJourney"

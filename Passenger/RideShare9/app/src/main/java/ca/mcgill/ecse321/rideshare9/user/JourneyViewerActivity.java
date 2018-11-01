@@ -11,7 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import ca.mcgill.ecse321.rideshare9.HttpUtils;
 import ca.mcgill.ecse321.rideshare9.R;
@@ -41,8 +46,11 @@ public class JourneyViewerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey_viewer);
 
-        journey = getIntent().getParcelableExtra("advertisement_data");
+        final TextView carModel = (TextView)findViewById(R.id.driversInfo);
+        final TextView carColor = (TextView)findViewById(R.id.carColor);
 
+        journey = getIntent().getParcelableExtra("advertisement_data");
+        log.d("checkDriver",journey.getVehicleId()+"");
         rvStops = findViewById(R.id.rvStopsForJourney);
         layoutManager = new LinearLayoutManager(this);
         rvStops.setLayoutManager(layoutManager);
@@ -62,6 +70,24 @@ public class JourneyViewerActivity extends AppCompatActivity {
         // get the Join Trip button
         adJoinButton = findViewById(R.id.advertisement_viewer_join_button);
 
+        HttpUtils.addHeader("Authorization","Bearer "+getIntent().getStringExtra("token"));
+        HttpUtils.get("vehicle/get-by-id/"+journey.getVehicleId(),new RequestParams(),new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    carModel.setText("Vehicle model: "+response.getString("model"));
+                    carColor.setText("Vehicle color: "+response.getString("color"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                carModel.setText("Vehicle model: "+"Unknown");
+                carColor.setText("Vehicle color: "+"Unknown");
+            }
+        });
         // set onClickListener
         adJoinButton.setOnClickListener(new View.OnClickListener() {
             @Override

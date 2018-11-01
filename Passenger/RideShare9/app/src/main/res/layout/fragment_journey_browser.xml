@@ -17,10 +17,49 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatTextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Search Features here" />
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/searchText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:ems="10"
+                    android:hint="@string/searchStop"
+                    android:inputType="textEmailAddress" />
+
+                <ImageView
+                    android:id="@+id/searchIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:src="@drawable/ic_search_black_24dp" />
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/sortByPrice"
+                    android:layout_width="133dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sortbyPrice" />
+
+                <RadioButton
+                    android:id="@+id/SortByCarModel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sortByCarModel" />
+            </RadioGroup>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvAdvertisements"

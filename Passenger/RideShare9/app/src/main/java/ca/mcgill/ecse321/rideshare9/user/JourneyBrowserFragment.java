@@ -13,19 +13,30 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.SyncHttpClient;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import ca.mcgill.ecse321.rideshare9.HttpUtils;
 import ca.mcgill.ecse321.rideshare9.R;
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.ByteArrayEntity;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.protocol.HTTP;
+
+import static com.loopj.android.http.AsyncHttpClient.log;
 
 
 public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
@@ -49,7 +60,6 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
     @Override
     public void onResume() {
         super.onResume();
-        refresh();
     }
 
     private void getAvailableTrips() {
@@ -117,6 +127,19 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
         return journeys;
     }
 
+    public ByteArrayEntity json2Entity(JSONObject jsonObject){
+        ByteArrayEntity entity = null;
+        try {
+            entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        }catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return entity;
+    }
+
+
+
     private Journey advertisementFromJSONObject(JSONObject jsonAdObject) {
         int adId = jsonAdObject.optInt("id");
         int adSeatsAvailable = jsonAdObject.optInt("seatAvailable");
@@ -147,17 +170,26 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_journey_browser, container, false);
+        final View view = inflater.inflate(R.layout.fragment_journey_browser, container, false);
         rvAdvertisements = view.findViewById(R.id.rvAdvertisements);
+        final ImageView searchIcon = (ImageView)view.findViewById(R.id.searchIcon);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvAdvertisements.addItemDecoration(
                 new DividerItemDecoration(
                         rvAdvertisements.getContext(), layoutManager.getOrientation()
                 )
         );
+
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchForStop(view);
+            }
+        });
         rvAdvertisements.setLayoutManager(layoutManager);
         journeyAdapter = new JourneyAdapter(JOURNEYS);
         rvAdvertisements.setAdapter(journeyAdapter);
+        journeyAdapter.settoken(getArguments().getString("token"));
 
         // SwipeRefreshLayout
         swipeRefreshLayout = view.findViewById(R.id.journey_browser_swipe_container);
@@ -185,8 +217,88 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
     }
 
     private void refresh() {
+        RecyclerView rv = getView().findViewById(R.id.rvAdvertisements);
+        rv.setAdapter(journeyAdapter);
         JOURNEYS.clear();
         getAvailableTrips();
+    }
+
+    public void searchForStop(final View view){
+        final RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.rvAdvertisements);
+        TextView searchText = (TextView)view.findViewById(R.id.searchText);
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("stop",searchText.getText());
+            jsonObject.put("startLocation","");
+            jsonObject.put("startTimeX","1000-11-11 11:11:11");
+            jsonObject.put("startTimeY","3000-11-11 11:11:11");
+            jsonObject.put("sortByPrice","true");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ByteArrayEntity entity = json2Entity(jsonObject);
+
+        HttpUtils.addHeader("Authorization","Bearer "+getArguments().getString("token"));
+        HttpUtils.post(getContext(),"adv/get-adv-search",entity,"application/json",new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                final List<Journey>journeyList = new ArrayList<Journey>(response.length());
+                final SyncHttpClient syncHttpClient = new SyncHttpClient();
+                log.d("checkOnSearch",response.length()+"");
+                List<Integer>arr = new ArrayList<>(response.length());
+                for(int iter = 0;iter<response.length();iter++){
+                    try {
+                        if(!arr.contains(response.getJSONObject(iter).getJSONObject("adv").getInt("id"))){
+                            arr.add(response.getJSONObject(iter).getJSONObject("adv").getInt("id"));
+                            journeyList.add(advertisementFromJSONObject(response.getJSONObject(iter).getJSONObject("adv")));
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                log.d("size here",journeyList.size()+"");
+                log.d("size for a single one",journeyList.get(1).getStops().get(0).getId()+"");
+                for(int iter =0; iter<journeyList.size();iter++){
+                    final int iter4 = iter;
+                    for(int iter2 = 0; iter2<journeyList.get(iter).getStops().size();iter2++){
+                        final int iter3 = iter2;
+                        Header[] headers1 = {new BasicHeader("Authorization","Bearer "+getArguments().getString("token"))};
+                        syncHttpClient.get(getContext(),
+                                "https://mysterious-hollows-14613.herokuapp.com/stop/get-by-id/"+journeyList.get(iter).
+                                        getStops().get(iter2).getId(),headers1,new RequestParams(),new JsonHttpResponseHandler(){
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                        try {
+                                            float temp = (float)response.getDouble("price");
+                                            journeyList.get(iter4).getStops().get(iter3).setName(response.getString("stopName"));
+                                            journeyList.get(iter4).getStops().get(iter3).setPrice(temp);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                                            log.d("Failure","NOGOod");
+                                    }
+                                });
+
+                    }
+                }
+                JourneyAdapter jAd = new JourneyAdapter(journeyList);
+                jAd.settoken(getArguments().getString("token"));
+                recyclerView.setAdapter(jAd);
+                //TODO
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                log.d("error","wrong");
+            }
+        });
     }
 
     public interface OnFragmentInteractionListener {

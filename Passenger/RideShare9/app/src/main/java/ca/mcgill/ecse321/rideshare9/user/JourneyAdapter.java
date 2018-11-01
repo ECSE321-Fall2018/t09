@@ -18,6 +18,7 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.ViewHold
     private RecyclerView recyclerView;
     private List<Journey> journeys;
     private Context context;
+    private String token;
     private final View.OnClickListener advertisementOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -26,10 +27,16 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.ViewHold
             //Toast.makeText(context, journey.getTitle(), Toast.LENGTH_LONG).show();
             Intent intent = new Intent(context, JourneyViewerActivity.class);
             intent.putExtra("advertisement_data", journey);
+            if(token!=null) {
+                intent.putExtra("token", token);
+            }
             context.startActivity(intent);
         }
     };
 
+    public void settoken(String tokenS){
+        token = tokenS;
+    }
 
     public JourneyAdapter(List<Journey> journeys) {
         this.journeys = journeys;
