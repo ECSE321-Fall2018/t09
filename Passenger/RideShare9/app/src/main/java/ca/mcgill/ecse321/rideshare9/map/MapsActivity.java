@@ -140,33 +140,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     public void getLocationByGoogleApi(String locationlist[]){
         for(int i = 0; i<locationlist.length;i++) {
-            AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-            asyncHttpClient.get("https://maps.googleapis.com/maps/api/geocode/json?address=" +
-                            locationlist[i].replaceAll(" ","+") + "&key=AIzaSyCtROZ_vTXe8C6S01_5VILbwOOTF-kpS10",
-                    new RequestParams(), new JsonHttpResponseHandler() {
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            log.d("good", "success");
-                            LatLng latLng = new LatLng(0,0);
-                            String locationname = "";
-                            try {
-                                latLng = new LatLng(Double.parseDouble(response.getJSONArray("results").getJSONObject(0).
-                                        getJSONObject("geometry").getJSONObject("location").getString("lat")), Double.parseDouble(response.getJSONArray("results").getJSONObject(0).
-                                        getJSONObject("geometry").getJSONObject("location").getString("lng")));
-                                log.d("confirm","markerPlaced");
-                                locationname = response.getJSONArray("results").getJSONObject(0).getString("formatted_address");
-                            } catch (JSONException e) {
+            if(locationlist[i]!=null) {
+                AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+                asyncHttpClient.get("https://maps.googleapis.com/maps/api/geocode/json?address=" +
+                                locationlist[i].replaceAll(" ", "+") + "&key=AIzaSyCtROZ_vTXe8C6S01_5VILbwOOTF-kpS10",
+                        new RequestParams(), new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                log.d("good", "success");
+                                LatLng latLng = new LatLng(0, 0);
+                                String locationname = "";
+                                try {
+                                    latLng = new LatLng(Double.parseDouble(response.getJSONArray("results").getJSONObject(0).
+                                            getJSONObject("geometry").getJSONObject("location").getString("lat")), Double.parseDouble(response.getJSONArray("results").getJSONObject(0).
+                                            getJSONObject("geometry").getJSONObject("location").getString("lng")));
+                                    log.d("confirm", "markerPlaced");
+                                    locationname = response.getJSONArray("results").getJSONObject(0).getString("formatted_address");
+                                } catch (JSONException e) {
+                                }
+                                gMap.addMarker(new MarkerOptions().position(latLng).title(locationname));
+                                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17));
                             }
-                            gMap.addMarker(new MarkerOptions().position(latLng).title(locationname));
-                            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17));
-                        }
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                            log.d("failure", "error");
-                            LatLng latLng = new LatLng(0,0);
-                            gMap.addMarker(new MarkerOptions().position(latLng).title("location not found"));
-                        }
-                    });
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                                log.d("failure", "error");
+                                LatLng latLng = new LatLng(0, 0);
+                                gMap.addMarker(new MarkerOptions().position(latLng).title("location not found"));
+                            }
+                        });
+            }
         }
     }
     @Override

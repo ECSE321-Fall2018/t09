@@ -193,12 +193,13 @@ public class FullscreenActivity_login extends AppCompatActivity {
 
     public void toSignup(View view) {
         // Do something in response to button
+
         Intent intent = new Intent(this, FullscreenActivity_signup.class);
         startActivity(intent);
         finish();
 
-        //Test case for map
-        /*Intent intent = new Intent(this, MapsActivity.class);
+        /*//Test case for map
+        Intent intent = new Intent(this, MapsActivity.class);
         String locallist[] = new String[4];
         locallist[0] = "3425 Rue Univeristy";
         locallist[1] = "1420 Rue du Fort";

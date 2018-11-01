@@ -159,10 +159,10 @@ public class HomeFragment extends Fragment {
                             itemView.findViewById(R.id.tvAcceptStation);
                     locationlist[count] = textView.getText().toString();
                     log.d("check",locationlist[count]);
-                    Intent intent = new Intent(getContext(), MapsActivity.class);
-                    intent.putExtra("locationlist",locationlist);
-                    startActivity(intent);
                 }
+                Intent intent = new Intent(getContext(), MapsActivity.class);
+                intent.putExtra("locationlist",locationlist);
+                startActivity(intent);
             }
         });
 
@@ -287,7 +287,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void loadCurrentTrip(final View view){
-        final List<Trace> traceList = new ArrayList<>(20);
+        final List<Trace> traceList = new ArrayList<>(30);
         HttpUtils.addHeader("Authorization","Bearer "+getArguments().getString("token"));
         final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rvtrace);
         final ImageView refreshbutton = (ImageView) view.findViewById(R.id.refreshList);
