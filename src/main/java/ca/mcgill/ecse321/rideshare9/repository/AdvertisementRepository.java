@@ -169,7 +169,7 @@ public class AdvertisementRepository {
 	 */
 	@Transactional
 	public List<AdvResponse> findAdvByCriteriaSortByPrice(AdvQuery q) {		
-	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a WHERE a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY a.startTime ASC", Advertisement.class)
+		TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY v.model ASC", Advertisement.class)
 	    		.setParameter("qLocation", "%" + q.getStartLocation() + "%").setParameter("start", q.getStartTimeX(), TemporalType.DATE).setParameter("end", q.getStartTimeY(), TemporalType.DATE);
 	    TypedQuery<Stop> query2 = em.createQuery("SELECT s FROM Stop s WHERE s.stopName LIKE :qName ORDER BY s.price ASC", Stop.class).setParameter("qName", "%" + q.getStop() + "%");
 	    ArrayList<Advertisement> resAdv = (ArrayList<Advertisement>)query.getResultList(); 
@@ -192,7 +192,7 @@ public class AdvertisementRepository {
 	 */
 	@Transactional
 	public List<AdvResponse> findAdvByCriteriaSortByTime(AdvQuery q) {		
-	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a WHERE a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY a.startTime ASC", Advertisement.class)
+		TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY v.model ASC", Advertisement.class)
 	    		.setParameter("qLocation", "%" + q.getStartLocation() + "%").setParameter("start", q.getStartTimeX(), TemporalType.DATE).setParameter("end", q.getStartTimeY(), TemporalType.DATE);
 	    TypedQuery<Stop> query2 = em.createQuery("SELECT s FROM Stop s WHERE s.stopName LIKE :qName ORDER BY s.price ASC", Stop.class).setParameter("qName", "%" + q.getStop() + "%");
 	    ArrayList<Advertisement> resAdv = (ArrayList<Advertisement>)query.getResultList(); 
@@ -215,8 +215,8 @@ public class AdvertisementRepository {
 	 */
 	@Transactional
 	public List<AdvResponse> findAdvByCriteriaAndColorSortByTime(AdvQuery q) {		
-	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.color = :qVColor AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY a.startTime ASC", Advertisement.class)
-	    		.setParameter("qLocation", "%" + q.getStartLocation() + "%").setParameter("start", q.getStartTimeX(), TemporalType.DATE).setParameter("end", q.getStartTimeY(), TemporalType.DATE).setParameter("qVColor", q.getvColor());
+		 TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.color = :qVColor AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY v.model ASC", Advertisement.class)
+		    		.setParameter("qLocation", "%" + q.getStartLocation() + "%").setParameter("start", q.getStartTimeX(), TemporalType.DATE).setParameter("end", q.getStartTimeY(), TemporalType.DATE).setParameter("qVColor", q.getvColor());
 	    TypedQuery<Stop> query2 = em.createQuery("SELECT s FROM Stop s WHERE s.stopName LIKE :qName ORDER BY s.price ASC", Stop.class).setParameter("qName", "%" + q.getStop() + "%");
 	    List<Stop> resStop = query2.getResultList();
 	    ArrayList<Advertisement> resAdv = (ArrayList<Advertisement>)query.getResultList(); 
@@ -237,7 +237,7 @@ public class AdvertisementRepository {
 	 */
 	@Transactional
 	public List<AdvResponse> findAdvByCriteriaAndColorSortByPrice(AdvQuery q) {		
-	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.color = :qVColor AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY a.startTime ASC", Advertisement.class)
+		TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.color = :qVColor AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY v.model ASC", Advertisement.class)
 	    		.setParameter("qLocation", "%" + q.getStartLocation() + "%").setParameter("start", q.getStartTimeX(), TemporalType.DATE).setParameter("end", q.getStartTimeY(), TemporalType.DATE).setParameter("qVColor", q.getvColor());
 	    TypedQuery<Stop> query2 = em.createQuery("SELECT s FROM Stop s WHERE s.stopName LIKE :qName ORDER BY s.price ASC", Stop.class).setParameter("qName", "%" + q.getStop() + "%");
 	    List<Stop> resStop = query2.getResultList();
@@ -259,7 +259,7 @@ public class AdvertisementRepository {
 	 */
 	@Transactional
 	public List<AdvResponse> findAdvByCriteriaAndModelSortByTime(AdvQuery q) {		
-	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.model = :qVModel AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY a.startTime ASC", Advertisement.class)
+		TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.model = :qVModel AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY v.model ASC", Advertisement.class)
 	    		.setParameter("qLocation", "%" + q.getStartLocation() + "%").setParameter("start", q.getStartTimeX(), TemporalType.DATE).setParameter("end", q.getStartTimeY(), TemporalType.DATE).setParameter("qVModel", q.getvModel());
 	    TypedQuery<Stop> query2 = em.createQuery("SELECT s FROM Stop s WHERE s.stopName LIKE :qName ORDER BY s.price ASC", Stop.class).setParameter("qName", "%" + q.getStop() + "%");
 	    List<Stop> resStop = query2.getResultList();
@@ -281,7 +281,7 @@ public class AdvertisementRepository {
 	 */
 	@Transactional
 	public List<AdvResponse> findAdvByCriteriaAndModelSortByPrice(AdvQuery q) {		
-	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.model = :qVModel AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY a.startTime ASC", Advertisement.class)
+		TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.model = :qVModel AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY v.model ASC", Advertisement.class)
 	    		.setParameter("qLocation", "%" + q.getStartLocation() + "%").setParameter("start", q.getStartTimeX(), TemporalType.DATE).setParameter("end", q.getStartTimeY(), TemporalType.DATE).setParameter("qVModel", q.getvModel());
 	    TypedQuery<Stop> query2 = em.createQuery("SELECT s FROM Stop s WHERE s.stopName LIKE :qName ORDER BY s.price ASC", Stop.class).setParameter("qName", "%" + q.getStop() + "%");
 	    List<Stop> resStop = query2.getResultList();
@@ -303,7 +303,7 @@ public class AdvertisementRepository {
 	 */
 	@Transactional
 	public List<AdvResponse> findAdvByCriteriaAndModelAndColorSortByPrice(AdvQuery q) {		
-	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.color = :qVColor AND v.model = :qVModel AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY a.startTime ASC", Advertisement.class)
+		TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.color = :qVColor AND v.model = :qVModel AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY v.model ASC", Advertisement.class)
 	    		.setParameter("qLocation", "%" + q.getStartLocation() + "%").setParameter("start", q.getStartTimeX(), TemporalType.DATE).setParameter("end", q.getStartTimeY(), TemporalType.DATE).setParameter("qVColor", q.getvColor()).setParameter("qVModel", q.getvModel());
 	    TypedQuery<Stop> query2 = em.createQuery("SELECT s FROM Stop s WHERE s.stopName LIKE :qName ORDER BY s.price ASC", Stop.class).setParameter("qName", "%" + q.getStop() + "%");
 	    List<Stop> resStop = query2.getResultList();
@@ -325,7 +325,7 @@ public class AdvertisementRepository {
 	 */
 	@Transactional
 	public List<AdvResponse> findAdvByCriteriaAndModelAndColorSortByTime(AdvQuery q) {		
-	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.color = :qVColor AND v.model = :qVModel AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY a.startTime ASC", Advertisement.class)
+		TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a JOIN Vehicle v ON a.vehicle = v.id WHERE v.color = :qVColor AND v.model = :qVModel AND a.startLocation LIKE :qLocation AND a.startTime BETWEEN :start AND :end ORDER BY v.model ASC", Advertisement.class)
 	    		.setParameter("qLocation", "%" + q.getStartLocation() + "%").setParameter("start", q.getStartTimeX(), TemporalType.DATE).setParameter("end", q.getStartTimeY(), TemporalType.DATE).setParameter("qVColor", q.getvColor()).setParameter("qVModel", q.getvModel());
 	    TypedQuery<Stop> query2 = em.createQuery("SELECT s FROM Stop s WHERE s.stopName LIKE :qName ORDER BY s.price ASC", Stop.class).setParameter("qName", "%" + q.getStop() + "%");
 	    List<Stop> resStop = query2.getResultList();
