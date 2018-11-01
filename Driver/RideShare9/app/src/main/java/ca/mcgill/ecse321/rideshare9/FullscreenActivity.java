@@ -217,7 +217,7 @@ public class FullscreenActivity extends AppCompatActivity {
         }catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        HttpUtils.post(getApplicationContext(),"login", entity,"application/json",new TextHttpResponseHandler(){
+        HttpUtils.post(getApplicationContext(),"login",entity,"application/json",new TextHttpResponseHandler(){
             @Override
             public void onFinish() {
                 super.onFinish();
@@ -247,6 +247,10 @@ public class FullscreenActivity extends AppCompatActivity {
     public static String getsavedToken(Context context){
         SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);
         return sharedPre.getString("token","");
+    }
+    public static String getsavedUname(Context context){
+        SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);
+        return sharedPre.getString("username","");
     }
     public static void saveUserInfo(Context context, String username, String password) {
         SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);

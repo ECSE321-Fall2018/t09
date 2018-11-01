@@ -12,11 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import ca.mcgill.ecse321.rideshare9.model.Advertisement;
 import ca.mcgill.ecse321.rideshare9.model.Stop;
 import ca.mcgill.ecse321.rideshare9.model.Vehicle;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.message.BasicHeader;
 
 public class AdvertisementFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
@@ -52,54 +55,8 @@ public class AdvertisementFragment extends Fragment {
     }
 
     private void getTripList() {
-        //  Get SharedPreferences which holds the JWT Token
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
-        String authentication = "Bearer " + sharedPreferences.getString("token", null);
 
         //  Set headers for the request
-        HttpUtils.addHeader("Authorization", authentication);
-
-        HttpUtils.get("adv/get-logged-adv", null, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                advertisements.addAll(advertisementsFromJSONArray(response));
-
-                for (int i = 0; i < advertisements.size(); i++) {
-                    final int vehicleI =i;
-                    HttpUtils.get("/vehicle/get-by-id/" + advertisements.get(i).getVehicle().getId(),
-                            null, new JsonHttpResponseHandler(){
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            advertisements.get(vehicleI).getVehicle()
-                                    .setColor(response.optString("color"));
-                            advertisements.get(vehicleI).getVehicle()
-                                    .setLicencePlate(response.optString("licencePlate"));
-                            advertisements.get(vehicleI).getVehicle()
-                                    .setMaxSeat(response.optInt("maxSeat"));
-                            advertisements.get(vehicleI).getVehicle()
-                                    .setModel(response.optString("model"));
-                            advertisementsAdapter.notifyDataSetChanged();
-                        }
-
-                    });
-                    for (int j = 0; j < advertisements.get(i).getStops().size(); j++) {
-                        final int finalI = i;
-                        final int finalJ = j;
-                        HttpUtils.get("/stop/get-by-id/" + advertisements.get(i).getStops().get(j).getId(),
-                                null, new JsonHttpResponseHandler() {
-                                    @Override
-                                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                                        advertisements.get(finalI).getStops().get(finalJ)
-                                                .setName(response.optString("stopName"));
-                                        advertisements.get(finalI).getStops().get(finalJ)
-                                                .setPrice((float) response.optDouble("price"));
-                                        advertisementsAdapter.notifyDataSetChanged();
-                                    }
-                                });
-                    }
-                }
-            }
-        });
 
 
 
@@ -156,18 +113,75 @@ public class AdvertisementFragment extends Fragment {
         rvAdvertisements.setLayoutManager(new LinearLayoutManager(getContext()));
         advertisementsAdapter = new AdvertisementViewAdapter(advertisements);
         rvAdvertisements.setAdapter(advertisementsAdapter);
-
+        Button addTrip = view.findViewById(R.id.toAddTripButton);
+        addTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), addJourneyActivity.class);
+                startActivity(intent);
+            }
+        });
         getTripList();
+        Button refreshTrip = view.findViewById(R.id.refresh_trip);
+        refreshTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("config", Context.MODE_PRIVATE);
+                String authentication = "Bearer " + sharedPreferences.getString("token", null);
 
+                //  Set headers for the request
+                HttpUtils.addHeader("Authorization", authentication);
+
+
+                HttpUtils.get("adv/get-logged-adv", null, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                        advertisements.addAll(advertisementsFromJSONArray(response));
+
+                        for (int i = 0; i < advertisements.size(); i++) {
+                            final int vehicleI =i;
+                            HttpUtils.get("/vehicle/get-by-id/" + advertisements.get(i).getVehicle().getId(),
+                                    null, new JsonHttpResponseHandler(){
+                                        @Override
+                                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                            advertisements.get(vehicleI).getVehicle()
+                                                    .setColor(response.optString("color"));
+                                            advertisements.get(vehicleI).getVehicle()
+                                                    .setLicencePlate(response.optString("licencePlate"));
+                                            advertisements.get(vehicleI).getVehicle()
+                                                    .setMaxSeat(response.optInt("maxSeat"));
+                                            advertisements.get(vehicleI).getVehicle()
+                                                    .setModel(response.optString("model"));
+                                            advertisementsAdapter.notifyDataSetChanged();
+                                        }
+
+                                    });
+                            for (int j = 0; j < advertisements.get(i).getStops().size(); j++) {
+                                final int finalI = i;
+                                final int finalJ = j;
+                                HttpUtils.get("/stop/get-by-id/" + advertisements.get(i).getStops().get(j).getId(),
+                                        null, new JsonHttpResponseHandler() {
+                                            @Override
+                                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                                advertisements.get(finalI).getStops().get(finalJ)
+                                                        .setName(response.optString("stopName"));
+                                                advertisements.get(finalI).getStops().get(finalJ)
+                                                        .setPrice((float) response.optDouble("price"));
+                                                advertisementsAdapter.notifyDataSetChanged();
+                                            }
+                                        });
+                            }
+                        }
+                    }
+                });
+            }
+        });
+        refreshTrip.callOnClick();
         // Inflate the layout for this fragment
         return view;
     }
 
-    public void toAddTrip(View view) {
-        // Do something in response to button
-        Intent intent = new Intent(this.getActivity(), addJourneyActivity.class);
-        startActivity(intent);
-    }
+
 
     @Override
     public void onAttach(Context context) {
