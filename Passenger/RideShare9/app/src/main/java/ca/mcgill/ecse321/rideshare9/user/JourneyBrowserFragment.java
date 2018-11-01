@@ -246,7 +246,6 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 final List<Journey>journeyList = new ArrayList<Journey>(response.length());
                 final SyncHttpClient syncHttpClient = new SyncHttpClient();
-                log.d("checkOnSearch",response.length()+"");
                 List<Integer>arr = new ArrayList<>(response.length());
                 for(int iter = 0;iter<response.length();iter++){
                     try {
@@ -259,8 +258,6 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
                         e.printStackTrace();
                     }
                 }
-                log.d("size here",journeyList.size()+"");
-                log.d("size for a single one",journeyList.get(1).getStops().get(0).getId()+"");
                 for(int iter =0; iter<journeyList.size();iter++){
                     final int iter4 = iter;
                     for(int iter2 = 0; iter2<journeyList.get(iter).getStops().size();iter2++){

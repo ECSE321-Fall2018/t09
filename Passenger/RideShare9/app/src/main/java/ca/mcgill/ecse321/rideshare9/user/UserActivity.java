@@ -73,11 +73,6 @@ public class UserActivity extends AppCompatActivity implements YouFragment.OnFra
                     viewPager.setCurrentItem(2);
                     return true;
                 }
-                else if(menuItem.getItemId() == R.id.navigation_History){
-                    //TODO
-                    //Place saved for history
-                    return true;
-                }
                 return false;
             }
         });

@@ -16,9 +16,4 @@
         android:icon="@drawable/ic_face_black_24dp"
         android:title="@string/title_you" />
 
-    <item
-        android:id="@+id/navigation_History"
-        android:icon="@drawable/ic_history_black_24dp"
-        android:title="@string/title_history" />
-
 </menu>
