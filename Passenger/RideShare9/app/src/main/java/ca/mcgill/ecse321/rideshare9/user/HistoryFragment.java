@@ -4,13 +4,30 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ca.mcgill.ecse321.rideshare9.FullscreenActivity_login;
+import ca.mcgill.ecse321.rideshare9.HttpUtils;
 import ca.mcgill.ecse321.rideshare9.R;
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.message.BasicHeader;
+
+import static com.loopj.android.http.AsyncHttpClient.log;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +42,9 @@ public class HistoryFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    List<HistoryItem> list;
+    private ListView listView;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -68,8 +88,7 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
-        ListView listView = (ListView) view.findViewById(R.id.historyList);
-
+        final ListView listView = (ListView)view.findViewById(R.id.historyList);
         //this line is for test only
         String [] items = {" ", " "};
 
@@ -81,7 +100,52 @@ public class HistoryFragment extends Fragment {
         );
         listView.setAdapter(listViewAdapter);
 
+        Button refresh = view.findViewById(R.id.refresh_history);
+        refresh.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //do something
+                list=new ArrayList<HistoryItem>();
+
+                Header[] headers = {new BasicHeader("Authorization","Bearer "+getArguments().getString("token"))};
+                HttpUtils.get(getContext(), "map/get-map", headers, new RequestParams(), new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                        for (int i = 0; i < response.length(); i++) {
+                            Long id;
+                            Long advertisement;
+                            Long vehicle;
+                            String start = "";
+                            String time = "";
+                            try{
+                                id = Long.parseLong(response.getJSONObject(i).getString("id"));
+                                advertisement = Long.parseLong(response.getJSONObject(i).getString("advertisement"));
+                                vehicle = Long.parseLong(response.getJSONObject(i).getString("id"));
+                                start = response.getJSONObject(i).getString("color");
+                                time = response.getJSONObject(i).getString("color");
+                                HistoryItem item = new HistoryItem(id, advertisement, vehicle, start, time);
+                                list.add(item);
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                        listView.setAdapter(new HistoryAdapter(list, getActivity()));
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                        Log.d("vehicle", "cannot get vehicle");
+                    }
+                });
+            }
+        });
+
+        refresh.callOnClick();
         return view;
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
