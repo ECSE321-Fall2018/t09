@@ -35,4 +35,5 @@
     <string name="label_stops"><u>Stops</u></string>
     <string name="advertisement_viewer_join_button">Join Journey</string>
     <string name="homerefresh">Refresh</string>
+    <string name="viewOnmap">view these stops on Google Map</string>
 </resources>

@@ -47,6 +47,15 @@
                 android:textSize="30sp"
                 android:layout_marginTop="15dp" />
 
+            <TextView
+                android:id="@+id/viewonMap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="startMap"
+                android:text="@string/viewOnmap"
+                android:textColor="@color/colorAccent" />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvStopsForJourney"
                 android:layout_width="match_parent"

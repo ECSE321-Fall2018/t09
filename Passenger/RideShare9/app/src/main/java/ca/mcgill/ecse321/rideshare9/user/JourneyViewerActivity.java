@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.rideshare9.user;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +15,10 @@ import com.loopj.android.http.TextHttpResponseHandler;
 
 import ca.mcgill.ecse321.rideshare9.HttpUtils;
 import ca.mcgill.ecse321.rideshare9.R;
+import ca.mcgill.ecse321.rideshare9.map.MapsActivity;
 import cz.msebera.android.httpclient.Header;
+
+import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class JourneyViewerActivity extends AppCompatActivity {
     // journey sent in a bundle to the activity when it starts
@@ -81,5 +85,18 @@ public class JourneyViewerActivity extends AppCompatActivity {
                 });
             }
         });
+
+    }
+    public void startMap(View view){
+        StopsAdapter stopA = (StopsAdapter)rvStops.getAdapter();
+        String locationlist[] = new String[stopA.getstopList().size()];
+        for(int i = 0; i<locationlist.length;i++){
+            if(stopA.getstopList().get(i)!=null) {
+                locationlist[i] = stopA.getstopList().get(i).getName();
+            }
+        }
+        Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra("locationlist",locationlist);
+        startActivity(intent);
     }
 }

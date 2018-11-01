@@ -23,6 +23,9 @@ public class StopsAdapter extends RecyclerView.Adapter<StopsAdapter.ViewHolder> 
         this.stops = stops;
     }
 
+    public List<Stop> getstopList(){
+        return stops;
+    }
 
     @NonNull
     @Override
