@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".addJourneyActivity">
+    tools:context=".AddJourneyActivity">
 
 
 
@@ -259,7 +259,7 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/add_stops"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -269,36 +269,28 @@
                     <Button
                         android:id="@+id/Btn_addStop"
                         android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:onClick="addStop"
+                        android:layout_height="match_parent"
                         android:text="@string/addStop_Button" />
-                </LinearLayout>
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="17dp" />
 
-                <LinearLayout
-                    android:id="@+id/Layout_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/Btn_addJourney"
-                        android:layout_width="137dp"
+                        android:layout_width="100dp"
+                        android:layout_toRightOf="@id/Btn_addStop"
                         android:layout_height="match_parent"
                         android:onClick="addJourney"
                         android:text="@string/AddJourney_Button" />
 
                     <Button
                         android:id="@+id/Btn_cancelJourney"
-                        android:layout_width="125dp"
+                        android:layout_width="100dp"
+                        android:onClick="onCancel"
+                        android:layout_toRightOf="@id/Btn_addJourney"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="@string/cancel_Button" />
-                </LinearLayout>
+               `</RelativeLayout>
 
             </LinearLayout>
 

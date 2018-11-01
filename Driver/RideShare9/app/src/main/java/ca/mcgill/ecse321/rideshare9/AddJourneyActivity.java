@@ -1,16 +1,14 @@
 package ca.mcgill.ecse321.rideshare9;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -70,15 +68,57 @@ public class AddJourneyActivity extends AppCompatActivity implements AdapterView
         seatingSpinner.setAdapter(seatingAdapter);
 
 
-//        //control the stop list
-//        stopListView = (ListView) findViewById(R.id.stop_list);
-//        stopListView.setEmptyView(emptyText_stopLv);
-//        stopAdapter = new StopList_adapter();
-//        stopListView.setAdapter(stopAdapter);
-//        stopAdapter.notifyDataSetChanged();
+       //control the stop list
+        stopListView = (ListView) findViewById(R.id.stop_list);
+        stopAdapter = new StopList_adapter();
+        stopListView.setAdapter(stopAdapter);
+        stopAdapter.notifyDataSetChanged();
 
         // tutorial
         refreshErrorMessage();
+    }
+
+    public void addStop(View v ){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        //set the Alert Dialog Title
+        alertDialog.setTitle(R.string.create_stop);
+
+        //set StopName field
+        alertDialog.setMessage("Enter Stop Name then Price");
+
+        final EditText stopName = new EditText(this);
+        final EditText price = new EditText(this );
+
+        LinearLayout lay = new LinearLayout(this);
+        lay.setOrientation(LinearLayout.VERTICAL);
+        lay.addView(stopName);
+        lay.addView(price);
+        alertDialog.setView(lay);
+
+
+        alertDialog.setPositiveButton("Make Stop",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int which) {
+                        //TODO add-stop http request
+                        Toast.makeText(getApplicationContext(),"Stop Added", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+        // Setting Negative "NO" Button
+        alertDialog.setNegativeButton("Can",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.cancel();
+                    }
+                });
+
+        // closed
+
+        // Showing Alert Message
+        alertDialog.show();
+
     }
 
     public void addJourney(View v) {
@@ -164,6 +204,13 @@ public class AddJourneyActivity extends AppCompatActivity implements AdapterView
             }
         });
     }
+
+    public void onCancel(View v){
+        //got back to the main tab pages
+        Intent intent = new Intent(this, RideShare9.class);
+        startActivity(intent);
+    }
+
 
     private void refreshErrorMessage() {
         // set the error message
