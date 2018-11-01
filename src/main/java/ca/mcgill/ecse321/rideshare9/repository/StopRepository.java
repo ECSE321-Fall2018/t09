@@ -52,7 +52,7 @@ public class StopRepository {
 	 */
 	@Transactional
 	public Stop updateStop(Stop stp) {
-		em.merge(stp);
+		em.merge(stp); 
 		em.flush();
 	    return stp;
 	}

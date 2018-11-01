@@ -56,7 +56,6 @@ public class MapperUserAdvRepository {
 	    TypedQuery<MapperUserAdv> query = em.createQuery("SELECT a FROM MapperUserAdv a", MapperUserAdv.class);
 	    return query.getResultList();
 	}
-
 	@Transactional
 	public List<MapperUserAdv> findNamedAdv(Long uname) {
 	    TypedQuery<MapperUserAdv> query = em.createQuery("SELECT a FROM MapperUserAdv a WHERE a.passenger = :uname", MapperUserAdv.class).setParameter("uname", uname);

@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
 import ca.mcgill.ecse321.rideshare9.entity.MapperUserAdv;
-import ca.mcgill.ecse321.rideshare9.entity.TripStatus;
 import ca.mcgill.ecse321.rideshare9.entity.User;
 import ca.mcgill.ecse321.rideshare9.entity.helper.MapperBestQuery;
 import ca.mcgill.ecse321.rideshare9.repository.AdvertisementRepository;
@@ -45,7 +43,7 @@ public class MapperController {
     @PreAuthorize("hasRole('PASSENGER') or hasRole('ADMIN') or hasRole('BOSSLI')")
     @RequestMapping(value = "/add-map", method=RequestMethod.POST)
     @ResponseBody
-    public String addMap(@RequestParam("adv_id") long aid) {
+    public MapperUserAdv addMap(@RequestParam("adv_id") long aid) {
     	
     	// TODO : Make this method return the added Mapper with Mapper ID
     	
@@ -56,43 +54,26 @@ public class MapperController {
     	}
     	User current_user = userv.loadUserByUsername(currentUserName); 
     	if (userv.findUserByUsername(currentUserName) != null) {
-    		long userId = current_user.getId();
-    		long advId = advService.findAdv(aid).getId();
-    		Advertisement advertisement = advService.findAdv(advId);
-    		
-    		// if advertisement availale seats > 0 then try to join the trip
-    		if (advertisement.getSeatAvailable() > 0) {
-    			// reduce the number of seats available by 1
-    			advertisement.setSeatAvailable(advertisement.getSeatAvailable() - 1);
-    			
-    			// if seats available is now 0 then change trip status to CLOSED
-    			if (advertisement.getSeatAvailable() == 0) {
-    				advertisement.setStatus(TripStatus.CLOSED);
-    			}
-    			advService.updateAdv(advertisement);
-    			mserv.createMapper(userId, advId);
-    			return "Success";
-    		}
-    		else {
-				return "Failure";
-			}        	
+        	return mserv.createMapper(current_user.getId(), advService.findAdv(aid).getId()); 
     	}
-    	return "Failure";
+    	return null; 
     }
-    
+    /**
+     * Passenger: get his registered journey
+     */
     @PreAuthorize("hasRole('PASSENGER') or hasRole('ADMIN') or hasRole('BOSSLI')")
     @RequestMapping(value = "/get-map", method=RequestMethod.GET)
     @ResponseBody
     public List<MapperUserAdv> getLoggedMap() {
-                
-        String currentUserName = ""; 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            currentUserName = authentication.getName();
-        }
-        return mserv.findNamedAdv(userv.loadUserByUsername(currentUserName).getId()); 
+    	    	
+    	String currentUserName = ""; 
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	if (!(authentication instanceof AnonymousAuthenticationToken)) {
+    	    currentUserName = authentication.getName();
+    	}
+    	
+    	return mserv.findNamedAdv(userv.loadUserByUsername(currentUserName).getId()); 
     }
-    
     /**
      * Passenger: delete journey/mapper
      * @param journey/mapper (JSON)
