@@ -43,7 +43,7 @@ public class StopList_adapter extends BaseAdapter {
         Float costString = stopList.get(i).getPrice();
 
         stopAt.setText("Stop at " + stopString);
-        cost.setText("Cost" + cost);
+        cost.setText("Cost" + costString);
 
         return v;
     }

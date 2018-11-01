@@ -55,4 +55,5 @@
     <string name="advertisement_title">Advertisement Title:</string>
     <string name="start_location">start location:</string>
     <string name="title_activity_stepped_add_adv">New Advertisement</string>
+    <string name="Starting_Location">Starting Location</string>
 </resources>
