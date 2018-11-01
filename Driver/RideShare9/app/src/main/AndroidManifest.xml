@@ -27,8 +27,7 @@
             android:name=".FullscreenActivity_signup"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="RideShare9"
-            android:theme="@style/FullscreenTheme">
-        </activity>
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".RideShare9"
             android:label="@string/title_activity_ride_share9" />
@@ -39,7 +38,14 @@
         <activity
             android:name=".ChangeVehicle"
             android:label="@string/title_activity_change_vehicle"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".addJourneyActivity" />
+        <activity android:name=".ChangeAdvertisementActivity" />
     </application>
 
 </manifest>

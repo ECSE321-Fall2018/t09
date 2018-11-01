@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -28,11 +29,10 @@ public class AddVehicleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_vehicle);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
 
     }
+
 
     public void addNewVehicle(View v) throws Exception {
         error = "";
@@ -73,7 +73,7 @@ public class AddVehicleActivity extends AppCompatActivity {
 
         /* Validate that all field is filled */
         if(model.getText().toString().trim().equals("") || licencePlate.getText().toString().trim().equals("")
-                || colorTx.trim().equals("") || maxSeatTx > 10 || maxSeatTx < 1){
+                || colorTx.trim().equals("") || maxSeatTx > 9 || maxSeatTx < 1){
             errortx.setText("One of the field is not valid");
             return;
         }
@@ -86,12 +86,7 @@ public class AddVehicleActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    String uid = response.getString("id");
-                    errortx.setText("Vehicle created! with id = " + uid + " REMEMBER IT");
-                } catch (Exception ue) {
-                    errortx.setText("Unable to create account.");
-                }
+                finish();
 
             }
 

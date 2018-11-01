@@ -80,37 +80,9 @@ public class RideShare9 extends AppCompatActivity implements VehicleFragment.OnF
         });
 
 
+
     }
-    /*
-    protected void xuxue() {
-        String v = "徐学最强大!";
-        Header[] headers = {new BasicHeader("Authorization","Bearer "+getsavedToken(getApplicationContext()))};
-        HttpUtils.get(getApplicationContext(), "user/get-logged-user", headers, new RequestParams(), new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                log.d("Failure","");
-            }
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                String uid = "";
-                String uname = "";
-                String status = "";
-                try {
-                    JSONObject uinfo = new JSONObject(responseString);
-                    uid = uinfo.getString("id");
-                    uname = uinfo.getString("username");
-                    status = uinfo.getString("status");
-                    mTextMessage.setText(uname + "\n" + "My RideID: " + uid + "\n" + "My RideStatus: " + status);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                log.d("Success",responseString);
-            }
-        });
-        mTextMessage.setText(v);
-    }*/
     @Override
     public void onFragmentInteraction(Uri uri) {
 

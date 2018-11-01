@@ -248,6 +248,10 @@ public class FullscreenActivity extends AppCompatActivity {
         SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);
         return sharedPre.getString("token","");
     }
+    public static String getsavedUname(Context context){
+        SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);
+        return sharedPre.getString("username","");
+    }
     public static void saveUserInfo(Context context, String username, String password) {
         SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPre.edit();

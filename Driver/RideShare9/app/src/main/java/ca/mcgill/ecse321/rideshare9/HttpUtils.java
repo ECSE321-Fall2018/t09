@@ -52,6 +52,10 @@ public class HttpUtils {
         client.post(context,getAbsoluteUrl(url),headers,entity,contentType,responseHandler);
     }
 
+    public static void put(Context context, String url, Header[] headers, HttpEntity entity, String contentType, AsyncHttpResponseHandler responseHandler){
+        client.put(context,getAbsoluteUrl(url),headers,entity,contentType,responseHandler);
+    }
+
     public static void getByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.get(url, params, responseHandler);
     }
@@ -60,6 +64,14 @@ public class HttpUtils {
         client.post(url, params, responseHandler);
 
     }
+    public static void delete(Context context,String url, Header[] headers, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        client.delete(context,getAbsoluteUrl(url),headers, params,responseHandler);
+    }
+    public static void addHeader(String header, String value) { client.addHeader(header, value);}
+    public static void put(Context context, String url, RequestParams params, AsyncHttpResponseHandler responseHandler){
+        client.put(context,getAbsoluteUrl(url),params,responseHandler);
+    }
+    public static void removeHeader(String header) { client.removeHeader(header);}
     private static String getAbsoluteUrl(String relativeUrl) {
         return baseUrl + relativeUrl;
     }

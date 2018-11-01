@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,8 +36,6 @@ public class ChangeVehicle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_vehicle);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         Bundle b = getIntent().getExtras();
         Long valueVid = -1L; // or other values
@@ -148,7 +147,7 @@ public class ChangeVehicle extends AppCompatActivity {
             return;
         }
         Header[] headers = {new BasicHeader("Authorization","Bearer " + FullscreenActivity.getsavedToken(getApplicationContext()))};
-        HttpUtils.post(getApplicationContext(),"/vehicle/change-cars", headers, entity,"application/json",new JsonHttpResponseHandler(){
+        HttpUtils.put(getApplicationContext(),"/vehicle/change-cars", headers, entity,"application/json",new JsonHttpResponseHandler(){
             @Override
             public void onFinish() {
 
@@ -156,12 +155,6 @@ public class ChangeVehicle extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    String uid = response.getString("id");
-                    errortx.setText("Vehicle created! with id = " + uid + " REMEMBER IT");
-                } catch (Exception ue) {
-                    errortx.setText("Unable to create account. but success");
-                }
                 finish();
             }
 

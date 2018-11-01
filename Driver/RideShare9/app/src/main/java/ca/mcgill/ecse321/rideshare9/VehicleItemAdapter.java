@@ -11,11 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,7 +61,9 @@ public class VehicleItemAdapter extends BaseAdapter /*implements ListAdapter*/ {
         TextView listItemText = (TextView)view.findViewById(R.id.list_item_title);
         TextView colorText = (TextView)view.findViewById(R.id.list_item_color);
         TextView licenceText = (TextView)view.findViewById(R.id.list_item_licence);
-        listItemId.setText(idsTitles.get(position).getId().toString());
+        TextView maxSeat = (TextView)view.findViewById(R.id.list_item_max_seat);
+        maxSeat.setText("Seats: " + idsTitles.get(position).getMaxSeat().toString());
+        listItemId.setText("ID: " + idsTitles.get(position).getId().toString());
         listItemText.setText(idsTitles.get(position).getModel());
         colorText.setText(idsTitles.get(position).getColor());
         licenceText.setText(idsTitles.get(position).getLicencePlate());
@@ -123,7 +122,6 @@ public class VehicleItemAdapter extends BaseAdapter /*implements ListAdapter*/ {
                 notifyDataSetChanged();
             }
         });
-
 
         return view;
     }

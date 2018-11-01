@@ -89,7 +89,7 @@ public class VehicleFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view= inflater.inflate(R.layout.fragment_vehicle , container, false);
-        final ListView listView = (ListView)view.findViewById(R.id.listview_vehicle);
+        listView = (ListView)view.findViewById(R.id.listview_vehicle);
         Button addVehicleBtn = view.findViewById(R.id.add_vehicle);
         addVehicleBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -112,28 +112,19 @@ public class VehicleFragment extends Fragment {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                         for (int i = 0; i < response.length(); i++) {
-                            Long id;
-                            String model = "";
-                            String licence = "";
-                            String color = "";
                             try{
-                                id = Long.parseLong(response.getJSONObject(i).getString("id"));
-                                model = response.getJSONObject(i).getString("model");
-                                licence = response.getJSONObject(i).getString("licencePlate");
-                                color = response.getJSONObject(i).getString("color");
-                                VehicleItem vitem = new VehicleItem(id, model);
-                                vitem.setModel(model);
-                                vitem.setLicencePlate(licence);
-                                vitem.setColor(color);
+                                VehicleItem vitem = new VehicleItem(Long.parseLong(response.getJSONObject(i).getString("id")), response.getJSONObject(i).getString("model"));
+                                vitem.setLicencePlate(response.getJSONObject(i).getString("licencePlate"));
+                                vitem.setColor(response.getJSONObject(i).getString("color"));
+                                vitem.setMaxSeat(Integer.parseInt(response.getJSONObject(i).getString("maxSeat")));
                                 Log.d("catched vehicle", vitem.getModel());
                                 list.add(vitem);
-
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
 
                         }
-                        listView.setAdapter(new VehicleItemAdapter(getActivity(), list));
+                        listView.setAdapter(new VehicleItemAdapter(getContext(), list));
                     }
 
                     @Override
@@ -163,6 +154,7 @@ public class VehicleFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
     }
 
     @Override
