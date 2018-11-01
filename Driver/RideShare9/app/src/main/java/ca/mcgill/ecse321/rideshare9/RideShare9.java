@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.rideshare9;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,7 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -33,7 +31,7 @@ public class RideShare9 extends AppCompatActivity implements VehicleFragment.OnF
         HomeFragment.OnFragmentInteractionListener, AdvertisementFragment.OnFragmentInteractionListener {
 
     private ActionBar toolbar;
-    private String error;
+
 
 
     @Override
@@ -82,56 +80,11 @@ public class RideShare9 extends AppCompatActivity implements VehicleFragment.OnF
         });
 
 
-    }
-
-    private void refreshErrorMessage() {
-        // set the error message
-        TextView tvError = (TextView) findViewById(R.id.error_addJourney);
-        tvError.setText(error);
-
-        if (error == null || error.length() == 0) {
-            tvError.setVisibility(View.GONE);
-        } else {
-            tvError.setVisibility(View.VISIBLE);
-        }
 
     }
 
-
-    /*
-    protected void xuxue() {
-        String v = "徐学最强大!";
-        Header[] headers = {new BasicHeader("Authorization","Bearer "+getsavedToken(getApplicationContext()))};
-        HttpUtils.get(getApplicationContext(), "user/get-logged-user", headers, new RequestParams(), new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                log.d("Failure","");
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                String uid = "";
-                String uname = "";
-                String status = "";
-                try {
-                    JSONObject uinfo = new JSONObject(responseString);
-                    uid = uinfo.getString("id");
-                    uname = uinfo.getString("username");
-                    status = uinfo.getString("status");
-                    mTextMessage.setText(uname + "\n" + "My RideID: " + uid + "\n" + "My RideStatus: " + status);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                log.d("Success",responseString);
-            }
-        });
-        mTextMessage.setText(v);
-    }*/
     @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
-
-
 }

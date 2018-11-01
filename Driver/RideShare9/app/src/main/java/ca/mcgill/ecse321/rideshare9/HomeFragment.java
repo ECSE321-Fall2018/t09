@@ -4,9 +4,32 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import java.io.UnsupportedEncodingException;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.ByteArrayEntity;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.protocol.HTTP;
+
+import static ca.mcgill.ecse321.rideshare9.FullscreenActivity.getsavedToken;
 
 
 /**
@@ -64,7 +87,132 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view= inflater.inflate(R.layout.fragment_home , container, false);
+        TextView unameTx = view.findViewById(R.id.unameTXV);
+        unameTx.setText(FullscreenActivity.getsavedUname(view.getContext()));
+        final Switch status = view.findViewById(R.id.state_switch);
+        final TextView statusTx = view.findViewById(R.id.status_text);
+        final TextView countTx = view.findViewById(R.id.countRide);
+        final TextView countTripTx = view.findViewById(R.id.count_vehicle_text);
+        status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Header[] headers = {new BasicHeader("Authorization","Bearer "+getsavedToken(getContext()))};
+
+                if (isChecked) {
+                    JSONObject jsonObject = new JSONObject();
+                    try{
+                        jsonObject.put("status","ON_RIDE");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    /*convert the jsonbdoy into string entity that can be sent*/
+                    ByteArrayEntity entity = null;
+                    try {
+                        entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
+                        entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+                    }catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
+                    HttpUtils.put(getContext(), "user/update-status", headers, entity, "application/json", new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            statusTx.setText("On ride");
+                        }
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            Log.d("status", "cannot update driver status");
+                        }
+                    });
+                } else {
+                    JSONObject jsonObject = new JSONObject();
+                    try{
+                        jsonObject.put("status","STANDBY");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    /*convert the jsonbdoy into string entity that can be sent*/
+                    ByteArrayEntity entity = null;
+                    try {
+                        entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
+                        entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+                    }catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    HttpUtils.put(getContext(), "user/update-status", headers, entity, "application/json", new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            statusTx.setText("Standby");
+                        }
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            Log.d("status", "cannot update driver status");
+                        }
+                    });
+                }
+            }
+        });
+        Button refresh_home = view.findViewById(R.id.home_refresh);
+        refresh_home.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+
+                Header[] headers = {new BasicHeader("Authorization","Bearer "+getsavedToken(v.getContext()))};
+                HttpUtils.get(v.getContext(), "/adv/get-logged-adv-count", headers, new RequestParams(), new TextHttpResponseHandler() {
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        countTx.setText("0");
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        countTx.setText(responseString);
+                    }
+                });
+                HttpUtils.get(v.getContext(), "/vehicle/get-cars-count", headers, new RequestParams(), new TextHttpResponseHandler() {
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        countTripTx.setText("0");
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        countTripTx.setText(responseString);
+                    }
+                });
+
+                HttpUtils.get(v.getContext(), "/user/get-logged-user", headers, new RequestParams(), new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
+                        try {
+                            String ustatus = response.getString("status");
+                            if (ustatus.equals("ON_RIDE")) {
+                                status.setChecked(true);
+                                statusTx.setText("On ride");
+                            } else {
+                                status.setChecked(false);
+                                statusTx.setText("Standby");
+                            }
+                        } catch (Exception ue) {
+                            ue.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        super.onFailure(statusCode, headers, throwable, errorResponse);
+
+                    }
+                });
+
+            }
+        });
+        refresh_home.callOnClick();
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -10,39 +10,38 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import ca.mcgill.ecse321.rideshare9.model.Advertisement;
 import ca.mcgill.ecse321.rideshare9.model.Stop;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
-import ca.mcgill.ecse321.rideshare9.R;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.message.BasicHeader;
 
-public class StopsAdapter extends RecyclerView.Adapter<StopsAdapter.ViewHolder> {
+public class ChangeAdStopsAdapter extends RecyclerView.Adapter<ChangeAdStopsAdapter.ViewHolder> {
     private List<Stop> stops;
     private Context context;
 
-    public StopsAdapter(List<Stop> stops) {
+    public ChangeAdStopsAdapter(List<Stop> stops) {
         this.stops = stops;
     }
 
 
     @NonNull
     @Override
-    public StopsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ChangeAdStopsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View stopView = inflater.inflate(R.layout.item_stop, viewGroup, false);
-        return new StopsAdapter.ViewHolder(stopView);
+        return new ChangeAdStopsAdapter.ViewHolder(stopView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StopsAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ChangeAdStopsAdapter.ViewHolder viewHolder, int i) {
         final Stop stop = stops.get(i);
 
         viewHolder.stopName.setText(stop.getName());
@@ -50,7 +49,7 @@ public class StopsAdapter extends RecyclerView.Adapter<StopsAdapter.ViewHolder> 
         viewHolder.deleteStop.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                 stops.remove(stop);
+                stops.remove(stop);
 
                 RequestParams requestParams = new RequestParams();
 
