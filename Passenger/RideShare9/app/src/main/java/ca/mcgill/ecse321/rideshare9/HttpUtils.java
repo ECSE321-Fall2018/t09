@@ -6,10 +6,11 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpEntity;
 
 public class HttpUtils {
-    public static final String DEFAULT_BASE_URL = "https://group9-carpool.herokuapp.com/";
+    public static final String DEFAULT_BASE_URL = "https://mysterious-hollows-14613.herokuapp.com/";
 
     private static String baseUrl;
     private static AsyncHttpClient client = new AsyncHttpClient();
@@ -26,15 +27,28 @@ public class HttpUtils {
         HttpUtils.baseUrl = baseUrl;
     }
 
+    public static void addHeader(String header, String value) {
+        client.addHeader(header, value);
+    }
+
+    public static void removeHeader(String header) {
+        client.removeHeader(header);
+    }
+
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.get(getAbsoluteUrl(url), params, responseHandler);
+    }
+
+    public static void get(Context context, String url, Header[] headers, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        client.get(context,getAbsoluteUrl(url),headers,params,responseHandler);
     }
 
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.post(getAbsoluteUrl(url), params, responseHandler);
     }
 
-    public static void post(Context context, String url, HttpEntity entity,String contenttype, AsyncHttpResponseHandler responseHandler ){
+    public static void post(Context context, String url, HttpEntity entity, String contenttype,
+                             AsyncHttpResponseHandler responseHandler) {
         client.post(context, getAbsoluteUrl(url),entity, contenttype, responseHandler);
     }
 
@@ -49,4 +63,5 @@ public class HttpUtils {
     private static String getAbsoluteUrl(String relativeUrl) {
         return baseUrl + relativeUrl;
     }
+
 }

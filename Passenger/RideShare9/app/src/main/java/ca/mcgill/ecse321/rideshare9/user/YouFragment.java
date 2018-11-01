@@ -1,14 +1,27 @@
 package ca.mcgill.ecse321.rideshare9.user;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.w3c.dom.Text;
+
+import ca.mcgill.ecse321.rideshare9.FullscreenActivity_login;
+import ca.mcgill.ecse321.rideshare9.HttpUtils;
 import ca.mcgill.ecse321.rideshare9.R;
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.message.BasicHeader;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +67,7 @@ public class YouFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d("2","onCreate_Fragment");
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -64,8 +78,47 @@ public class YouFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("3","onCreateView_Fragment");
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_you, container, false);
+        View view = inflater.inflate(R.layout.fragment_you, container, false);
+        TextView usernameDisply = (TextView)view.findViewById(R.id.profileUsernameText);
+        usernameDisply.setText(getArguments().getString("username",""));
+        //add listener to switch account;
+        TextView switchaccount = (TextView)view.findViewById(R.id.switchAccText);
+        final TextView statstext = (TextView)view.findViewById(R.id.statsText);
+
+        switchaccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), FullscreenActivity_login.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+
+        statstext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Header[] headers = {new BasicHeader("Authorization","Bearer "+getArguments().getString("token"))};
+                HttpUtils.get(getContext(),"map/get-map",headers,new RequestParams(),new JsonHttpResponseHandler(){
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                        if(statstext.getText().equals("Statistic")) {
+                            statstext.setText("You had " + response.length() + " trips!");
+                        }
+                        else{
+                            statstext.setText("Statistic");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                        statstext.setText("There is a problem.");
+                    }
+                });
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -77,6 +130,7 @@ public class YouFragment extends Fragment {
 
     @Override
     public void onAttach(Context context) {
+        Log.d("1","onAttach_Fragment");
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
@@ -88,8 +142,13 @@ public class YouFragment extends Fragment {
 
     @Override
     public void onDetach() {
+        Log.d("5","onDetach_Fragment");
         super.onDetach();
         mListener = null;
+    }
+
+    public String getEmojiByUnicode(int unicode){
+        return new String(Character.toChars(unicode));
     }
 
     /**
