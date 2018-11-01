@@ -23,7 +23,7 @@
 ## Driver App Description
 
 #### Driver App Description (Version for Release)
-Take a passenger to save costs on RideShare9. Sharing is more simple and efficient with our new App.
+Take a passenger to save costs with RideShare9. Sharing is more simple and efficient with our new App.
 
 ##### HOW SIMPLE?
 ##### One Step Sign Up - Sign up in a minute to post an advertisement.
@@ -46,7 +46,7 @@ The vehicle tab is a portal displays user information and number of trips. User 
 ## Passenger App Description
 
 #### Passenger App Description (Version for Release)
-Enjoy great trips at low price on RideShare9. Sharing is more simple and efficient with our new App.
+Enjoy great trips at low price with RideShare9. Sharing is more simple and efficient with our new App.
 
 ##### HOW SIMPLE?
 ##### One Step Sign Up - Sign up in a minute to enjoy your trip.
