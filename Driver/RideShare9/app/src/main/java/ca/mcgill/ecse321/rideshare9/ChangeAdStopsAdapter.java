@@ -22,10 +22,10 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.message.BasicHeader;
 
 public class ChangeAdStopsAdapter extends RecyclerView.Adapter<ChangeAdStopsAdapter.ViewHolder> {
-    private ArrayList<Stop> stops;
+    private List<Stop> stops;
     private Context context;
 
-    public ChangeAdStopsAdapter(ArrayList<Stop> stops) {
+    public ChangeAdStopsAdapter(List<Stop> stops) {
         this.stops = stops;
     }
 
@@ -60,7 +60,7 @@ public class ChangeAdStopsAdapter extends RecyclerView.Adapter<ChangeAdStopsAdap
 
 
 
-                HttpUtils.delete(v.getContext(),"/stop/del-stop", headers, requestParams,new TextHttpResponseHandler(){
+                HttpUtils.delete(v.getContext(),"/stop/delete-adv", headers, requestParams,new TextHttpResponseHandler(){
 
 
                     @Override

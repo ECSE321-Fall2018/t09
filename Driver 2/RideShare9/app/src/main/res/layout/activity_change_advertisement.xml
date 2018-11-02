@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:padding="10dp"
+                                             tools:context=".ChangeAdvertisementActivity"
+                                             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" tools:layout_editor_absoluteY="119dp"
+            tools:layout_editor_absoluteX="10dp">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/advertisement_viewer_title"
+                        android:text="@string/advertisement_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp"/>
+                <EditText
+                        android:layout_width="match_parent"
+                        android:hint="@string/advertisement_title"
+                        android:layout_toEndOf="@id/advertisement_viewer_title"
+                        android:layout_toRightOf="@id/advertisement_viewer_title"
+                        android:id="@+id/advertisement_title_textfield"
+                        android:layout_height="30dp"
+                        android:textSize="9dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/advertisement_viewer_startsAtLocation"
+                        android:text="@string/Starting_Location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp"/>
+
+                <EditText
+                        android:layout_width="match_parent"
+                        android:hint="@string/Starting_Location"
+                        android:layout_toEndOf="@id/advertisement_viewer_startsAtLocation"
+                        android:layout_toRightOf="@id/advertisement_viewer_startsAtLocation"
+                        android:id="@+id/advertisement_start_textfield"
+                        android:layout_height="30dp"
+                        android:textSize="12sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/advertisement_viewer_seating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/availableSeating"
+                        android:textColor="#131d21"
+                        android:textSize="15sp"/>
+                <EditText
+                        android:layout_width="100dp"
+                        android:hint="@string/availableSeating"
+                        android:layout_toEndOf="@id/advertisement_viewer_seating"
+                        android:layout_toRightOf="@id/advertisement_viewer_seating"
+                        android:inputType="number"
+                        android:id="@+id/advertisement_seating_textfield"
+                        android:layout_height="30dp"
+                        android:textSize="9dp"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                    android:id="@+id/Layout_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/starttime_label"
+                        android:textSize="18sp" />
+
+                <TextView
+                        android:id="@+id/starttime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:onClick="showTimePickerDialog"
+                        android:text="@string/starttime_first"
+                        android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/Layout_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/startdate_label"
+                        android:textSize="18sp" />
+
+                <TextView
+                        android:id="@+id/startDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:onClick="showDatePickerDialog"
+                        android:text="@string/startdate_first"
+                        android:textSize="18sp" />
+            </LinearLayout>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chooseVehicle"
+                    android:textColor="#131d21"
+                    android:textSize="20sp"
+                    android:layout_marginTop="15dp"/>
+
+
+            <ListView
+                    android:id="@+id/listview_vehicle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                     />
+
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stops"
+                    android:textColor="#131d21"
+                    android:textSize="20sp"
+                    android:layout_marginTop="15dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvStopsForJourney"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"/>
+
+            <Button
+                    android:id="@+id/advertisement_confirm_modify_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/modify"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>

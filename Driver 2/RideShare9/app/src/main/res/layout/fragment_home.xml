@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/unameTXV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="130dp"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="42dp"
+            android:fontFamily="sans-serif-thin"
+            android:paddingLeft="10sp"
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textSize="36sp" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="124dp"
+            android:background="?android:attr/listDivider" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_alignTop="@+id/unameTXV"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="26dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="-18dp"
+            android:src="@drawable/ic_baseline_account_circle_24px" />
+
+        <TextView
+            android:id="@+id/countRide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/imageView"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="62dp"
+            android:layout_marginTop="186dp"
+            android:text="0"
+            android:textSize="36sp"
+            app:fontFamily="@font/roboto_thin" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/imageView"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="276dp"
+            android:text="Trip Completed"
+            android:textSize="28sp"
+            app:fontFamily="@font/roboto_thin" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="235dp"
+            android:layout_marginLeft="235dp"
+            android:layout_marginTop="177dp"
+            android:src="@drawable/ic_baseline_card_travel_24px" />
+
+        <TextView
+            android:id="@+id/count_vehicle_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/countRide"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="-1dp"
+            android:layout_marginBottom="288dp"
+            android:text="0"
+            android:textSize="36sp"
+            app:fontFamily="@font/roboto_thin" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="353dp"
+            android:layout_marginEnd="108dp"
+            android:layout_marginRight="108dp"
+            android:src="@drawable/ic_baseline_directions_car_24px" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="182dp"
+            android:layout_marginLeft="182dp"
+            android:layout_marginBottom="207dp"
+            android:text="Vehicle Owned"
+            android:textSize="28sp"
+            app:fontFamily="@font/roboto_thin" />
+
+        <Switch
+            android:id="@+id/state_switch"
+            android:layout_width="91dp"
+            android:layout_height="68dp"
+            android:layout_alignStart="@+id/countRide"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="-81dp"
+            android:layout_marginBottom="98dp"
+            android:scaleX="2"
+            android:scaleY="2" />
+
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="210dp"
+            android:layout_marginLeft="210dp"
+            android:layout_marginBottom="108dp"
+            android:text="On Ride"
+            android:textSize="36sp"
+            app:fontFamily="@font/roboto_thin" />
+
+        <Button
+            android:id="@+id/home_refresh"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="47dp"
+            android:layout_marginEnd="34dp"
+            android:layout_marginRight="34dp"
+            android:background="@drawable/ic_baseline_refresh_24px" />
+
+    </RelativeLayout>
+</FrameLayout>

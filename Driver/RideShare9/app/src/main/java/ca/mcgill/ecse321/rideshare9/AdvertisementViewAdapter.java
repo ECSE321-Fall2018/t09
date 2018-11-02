@@ -173,7 +173,10 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
         for (Stop stop : advertisement.getStops()) {
             list += (stop.getName() + " ($" + stop.getPrice() + ") " +  ", ");
         }
-        list = list.substring(0, list.length() - 2);
+        if (list.length() > 3) {
+            list = list.substring(0, list.length() - 2);
+        }
+
         adStops.setText(list);
     }
 

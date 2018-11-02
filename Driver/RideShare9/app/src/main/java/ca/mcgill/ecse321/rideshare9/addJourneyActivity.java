@@ -3,20 +3,28 @@ package ca.mcgill.ecse321.rideshare9;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import ca.mcgill.ecse321.rideshare9.model.Stop;
+import ca.mcgill.ecse321.rideshare9.model.Vehicle;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
@@ -35,14 +43,16 @@ import cz.msebera.android.httpclient.Header;
 
 public class addJourneyActivity extends AppCompatActivity {
     private String error = null; //tutorial
-     Spinner seatingSpinner, vehicleSpinner ;
-     JSONArray stopJSON;
-
+    Spinner seatingSpinner, vehicleSpinner ;
+    JSONArray stopJSON;
+    ListView stopListView;
+    StopList_adapter stopAdapter;
 
 
     private List<String> vehicleList = new ArrayList<>();
     private ArrayAdapter<String> vehicleAdapter;
     private SharedPreferences sharedPre;
+    private final List<Stop> stopList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,37 +60,141 @@ public class addJourneyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_journey);
 
         //control the vehicle spinner
+        vehicleList = new ArrayList<>();
         vehicleSpinner =  findViewById(R.id.spinnerVehicle);
-        vehicleAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, vehicleList);
+        vehicleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, vehicleList);
         vehicleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        vehicleSpinner.setAdapter(vehicleAdapter);
+        Header[] headers = {new BasicHeader("Authorization","Bearer " + FullscreenActivity.getsavedToken(getApplicationContext()))};
 
-        // Get initial content for spinners
+        HttpUtils.get(getApplicationContext(), "vehicle/get-cars", headers, new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                for (int i = 0; i < response.length(); i++) {
+                    try{
+                        Vehicle vitem = new Vehicle();
+                        vitem.setId(Long.parseLong(response.getJSONObject(i).getString("id")));
+                        vitem.setModel(response.getJSONObject(i).getString("model"));
+                        vitem.setLicencePlate(response.getJSONObject(i).getString("licencePlate"));
+                        vitem.setColor(response.getJSONObject(i).getString("color"));
+                        vitem.setMaxSeat(Integer.parseInt(response.getJSONObject(i).getString("maxSeat")));
+                        Log.d("catched vehicle", vitem.getModel());
+                        vehicleList.add("id: " + vitem.getId() + ", model: " + vitem.getModel() + ", seats: " + vitem.getMaxSeat());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-        refreshVehicleList(this.getCurrentFocus(), vehicleAdapter ,vehicleList, "participants");
-        seatingSpinner = findViewById(R.id.spinnerSeating);
-        // Available seating spinner
-        Integer[] items1 = new Integer[]{1,2,3,4};
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, items1);
-        seatingSpinner.setAdapter(adapter);
+                }
+                vehicleSpinner.setAdapter(vehicleAdapter);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                Log.d("vehicle", "cannot get vehicle");
+            }
+        });
 
         //control the seating spinner
 
 
-      /*  // control the stop list
-        stopListView = (ListView) findViewById(R.id.stop_list);
-        stopListView.setEmptyView(emptyText_stopLv);
-        stopAdapter = new StopList_adapter();
-        stopListView.setAdapter(stopAdapter);
-        stopAdapter.notifyDataSetChanged(); */
+        // control the stop list
 
-       sharedPre=getSharedPreferences("config", MODE_PRIVATE);
+
+
+        sharedPre=getSharedPreferences("config", MODE_PRIVATE);
 
         // tutorial
         refreshErrorMessage();
     }
 
+    public void addStop(View v ){
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
+            //set the Alert Dialog Title
+            alertDialog.setTitle("Create Stop");
+
+            //set StopName field
+            alertDialog.setMessage("Enter Stop Name then Price");
+
+            final EditText stopName = new EditText(this);
+            final EditText price = new EditText(this );
+            price.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+            LinearLayout lay = new LinearLayout(this);
+            lay.setOrientation(LinearLayout.VERTICAL);
+            lay.addView(stopName);
+            lay.addView(price);
+            alertDialog.setView(lay);
+            stopListView = (ListView) findViewById(R.id.stop_list);
+
+
+            alertDialog.setPositiveButton("Make Stop",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int which) {
+
+
+                            JSONObject jsonObject = new JSONObject();
+                            try{
+                                jsonObject.put("stopName", stopName.getText());
+                                jsonObject.put("price", price.getText());
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            /*convert the jsonbdoy into string entity that can be sent*/
+                            ByteArrayEntity entity = null;
+                            try {
+                                entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
+                                entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+                            }catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+                            //  Set headers for the request
+
+                            Header[] headers = {new BasicHeader("Authorization","Bearer " + FullscreenActivity.getsavedToken(getApplicationContext()))};
+                            HttpUtils.post(getApplicationContext(), "stop/add-stop",headers, entity, "application/json", new JsonHttpResponseHandler(){
+                                @Override
+                                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                    // TODO: Add global
+                                    Stop s = new Stop();
+                                    s.setName(stopName.getText().toString());
+                                    try{
+                                        s.setId(Long.parseLong(response.getString("id")));
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    s.setPrice(Float.parseFloat(price.getText().toString()));
+                                    stopList.add(s);
+
+                                    stopListView = findViewById(R.id.stop_list);
+                                    stopListView.setAdapter(new StopList_adapter(stopList, getApplicationContext()));
+
+                                }
+
+                                @Override
+                                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                                    super.onFailure(statusCode, headers, responseString, throwable);
+                                }
+                            });
+                            Toast.makeText(getApplicationContext(),"Stop Added", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+            // Setting Negative Cancel Button
+            alertDialog.setNegativeButton("Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            dialog.cancel();
+                        }
+                    });
+
+            // closed
+
+            // Showing Alert Message
+            alertDialog.show();
+
+        }
 
     public void addJourney(View v) {
         // Title of trip
@@ -95,7 +209,8 @@ public class addJourneyActivity extends AppCompatActivity {
         tv = (TextView) findViewById(R.id.endLocationText);
         String endLocation = tv.getText().toString();
 
-
+        tv = (TextView) findViewById(R.id.trip_title_text);
+        String tripTitle = tv.getText().toString();
 
         // start time
         tv = (TextView) findViewById(R.id.starttime);
@@ -114,67 +229,71 @@ public class addJourneyActivity extends AppCompatActivity {
         int month = Integer.parseInt(comps[1]);
         int day = Integer.parseInt(comps[0]);
 
-        // cost of trip
-        tv = (TextView) findViewById(R.id.finalcostText);
-        String fullTripCost = tv.getText().toString() ; // change type depending on request parameter
+
 
         // Vehicle
-        long id_vehicle = vehicleSpinner.getSelectedItemId();
-
-        // available seating
-        int  availableSeats = 0;
-        try {
-            availableSeats = Integer.parseInt(seatingSpinner.getSelectedItem().toString());
-        } catch(NumberFormatException nfe) {
-            System.out.println("Could not parse " + nfe);
+        String vehicle = vehicleSpinner.getSelectedItem().toString().substring(4);
+        String id = "";
+        for (int i = 0; i < vehicle.length(); i++) {
+            if (!Character.isDigit(vehicle.charAt(i))) {
+                break;
+            }
+            id = id + vehicle.charAt(i);
         }
 
+
+        // available seating00
+        String seat = vehicleSpinner.getSelectedItem().toString();
+        String maxseat = seat.substring(seat.indexOf("seats: ") + "seats: ".length());
         if(startLocation.trim().equals("") || endLocation.trim().equals("")){
             Log.d("Error", "One of the required fields is Empty");
             return;
         }
 
-        // Reminder: calling the service looks like this:
-        // http://192.168.56.50:8088/createEvent?eventName=tst&date=2013-10-23&startTime=00:00&endTime=23:59
 
-        RequestParams rp = new RequestParams();
+        String startDateTime = year+"-"+month+"-"+day+" "+startHours+":"+startMinutes+":"+"00";
 
-
-
-        NumberFormat formatter = new DecimalFormat("00");
-        rp.add("date", year + "-" + formatter.format(month) + "-" + formatter.format(day));
-        rp.add("startTime", formatter.format(startHours) + ":" + formatter.format(startMinutes));
-
-
-        JSONArray jsonStop = postStop(endLocation, fullTripCost);
+        JSONArray stopList = new JSONArray();
+        ListView stopListView = findViewById(R.id.stop_list);
+        for (int i = 0; i < stopListView.getCount(); i++) {
+            stopList.put(stopListView.getAdapter().getItemId(i));
+        }
+        JSONObject toAddAdv = new JSONObject();
 
 
-
-        HttpUtils.post("/adv/create-adv", rp, new JsonHttpResponseHandler() {
+        try {
+            toAddAdv.put("title", tripTitle);
+            toAddAdv.put("startTime", startDateTime);
+            toAddAdv.put("startLocation", startLocation);
+            toAddAdv.put("seatAvailable", Integer.parseInt(maxseat));
+            toAddAdv.put("stops", stopList);
+            toAddAdv.put("vehicle", Integer.parseInt(id));
+            Log.d("json", toAddAdv.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ByteArrayEntity entity = null;
+        try {
+            entity = new ByteArrayEntity(toAddAdv.toString().getBytes("UTF-8"));
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        }catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        Header[] headers = {new BasicHeader("Authorization","Bearer " + FullscreenActivity.getsavedToken(getApplicationContext()))};
+        HttpUtils.post(getApplicationContext(),"/adv/create-adv", headers, entity,"application/json",new JsonHttpResponseHandler(){
             @Override
             public void onFinish() {
-                super.onFinish();
-                ((TextView) findViewById(R.id.trip_title_text)).setText("");
-                ((TextView) findViewById(R.id.startLocationText)).setText("");
-                ((TextView) findViewById(R.id.endLocationText)).setText("");
-                ((TextView) findViewById(R.id.finalcostText)).setText("");
+
             }
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                refreshErrorMessage();
-
-
-
+                finish();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
+                super.onFailure(statusCode, headers, throwable, errorResponse);
             }
         });
 
@@ -293,35 +412,6 @@ public class addJourneyActivity extends AppCompatActivity {
         tv.setText(String.format("%02d-%02d-%04d", d, m + 1, y));
     }
 
-    private void refreshVehicleList(View v, final ArrayAdapter<String>  adapter, final List<String> names, String restFunctionName) {
-        HttpUtils.get(restFunctionName, new RequestParams(), new JsonHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                names.clear();
-                names.add("Please select...");
-                for( int i = 0; i < response.length(); i++){
-                    try {
-                        names.add(response.getJSONObject(i).getString("name"));
-                    } catch (Exception e) {
-                        error += e.getMessage();
-                    }
-                    refreshErrorMessage();
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
-        });
-    }
 
     public static void saveStopInfo(Context context, String location, String cost) {
         SharedPreferences sharedPre=context.getSharedPreferences("config", context.MODE_PRIVATE);
@@ -329,5 +419,8 @@ public class addJourneyActivity extends AppCompatActivity {
         editor.putString("location", location);
         editor.putString("cost", cost);
         editor.commit();
+    }
+    public void myback(View view) {
+        finish();
     }
 }

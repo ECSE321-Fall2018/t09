@@ -23,10 +23,16 @@
             android:textSize="20sp"
             android:textColor="#000"/>
 
-    <Button android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/deleteStopButton"
-            android:text="@string/delete"/>
+    <Button
+        android:id="@+id/deleteStopButton"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="14dp"
+        android:background="@drawable/ic_baseline_delete_forever_24px"
+        android:backgroundTint="#000000"
+        android:textColor="#FFFFFF" />
+
 
 </LinearLayout>

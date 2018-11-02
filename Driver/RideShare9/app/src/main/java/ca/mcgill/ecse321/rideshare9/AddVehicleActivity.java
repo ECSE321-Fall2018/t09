@@ -97,4 +97,5 @@ public class AddVehicleActivity extends AppCompatActivity {
             }
         });
     }
+
 }

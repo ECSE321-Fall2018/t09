@@ -128,7 +128,7 @@ public class AdvertisementFragment extends Fragment {
             public void onClick(View v) {
                 SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("config", Context.MODE_PRIVATE);
                 String authentication = "Bearer " + sharedPreferences.getString("token", null);
-
+                advertisements.clear();
                 //  Set headers for the request
                 HttpUtils.addHeader("Authorization", authentication);
 

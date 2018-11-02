@@ -67,6 +67,7 @@ public class HttpUtils {
     public static void delete(Context context,String url, Header[] headers, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.delete(context,getAbsoluteUrl(url),headers, params,responseHandler);
     }
+
     public static void addHeader(String header, String value) { client.addHeader(header, value);}
     public static void put(Context context, String url, RequestParams params, AsyncHttpResponseHandler responseHandler){
         client.put(context,getAbsoluteUrl(url),params,responseHandler);
