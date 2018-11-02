@@ -252,7 +252,7 @@ public class FullscreenActivity_signup extends AppCompatActivity {
         namecheckingOBJ.put("username",nametx.getText().toString());
 
         syncHttpClient.post(getApplicationContext(),
-                "https://rideshare9.herokuapp.com/user/get-is-unique", json2Entity(namecheckingOBJ),
+                "https://mysterious-hollows-14613.herokuapp.com/user/get-is-unique", json2Entity(namecheckingOBJ),
                 "application/json", new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
