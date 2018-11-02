@@ -40,7 +40,6 @@ public class JourneyViewerActivity extends AppCompatActivity {
 
     private Context context = this;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +47,8 @@ public class JourneyViewerActivity extends AppCompatActivity {
 
         final TextView carModel = (TextView)findViewById(R.id.driversInfo);
         final TextView carColor = (TextView)findViewById(R.id.carColor);
+        final TextView statusTex = (TextView)findViewById(R.id.advStatus);
+        final TextView availableSeats = (TextView)findViewById(R.id.seatsTex);
 
         journey = getIntent().getParcelableExtra("advertisement_data");
         log.d("checkDriver",journey.getVehicleId()+"");
@@ -66,6 +67,8 @@ public class JourneyViewerActivity extends AppCompatActivity {
         adTitle.setText(journey.getTitle());
         adStartLocation.setText(journey.getStartLocation());
         adStartDateAndTime.setText(journey.getStartTime());
+        statusTex.setText(journey.getStatus());
+        availableSeats.setText(journey.getAvailableSeats()+"");
 
         // get the Join Trip button
         adJoinButton = findViewById(R.id.advertisement_viewer_join_button);

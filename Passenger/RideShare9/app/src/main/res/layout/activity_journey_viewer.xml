@@ -26,6 +26,20 @@
                 android:textSize="40sp" />
 
             <TextView
+                android:id="@+id/advStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/seatsTex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="18sp" />
+
+            <TextView
                 android:id="@+id/advertisement_viewer_startsAtLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

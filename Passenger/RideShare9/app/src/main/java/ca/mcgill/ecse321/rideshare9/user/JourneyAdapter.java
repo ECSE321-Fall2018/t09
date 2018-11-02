@@ -102,7 +102,7 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.ViewHold
         for (Stop stop : journey.getStops()) {
             list += (stop.getName() + ", ");
         }
-        list = list.substring(0, list.length() - 2);
+        if (list.length()>3) list = list.substring(0, list.length() - 2);
         adStops.setText(list);
     }
 
