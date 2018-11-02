@@ -61,6 +61,7 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
     @Override
     public void onResume() {
         super.onResume();
+        refresh();
     }
 
     private void getAvailableTrips() {
@@ -196,7 +197,7 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
         swipeRefreshLayout = view.findViewById(R.id.journey_browser_swipe_container);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        getAvailableTrips();
+        //getAvailableTrips();
 
         // Inflate the layout for this fragment
         return view;
@@ -218,8 +219,8 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
     }
 
     private void refresh() {
-        RecyclerView rv = getView().findViewById(R.id.rvAdvertisements);
-        rv.setAdapter(journeyAdapter);
+        //RecyclerView rv = getView().findViewById(R.id.rvAdvertisements);
+        //rv.setAdapter(journeyAdapter);
         JOURNEYS.clear();
         getAvailableTrips();
     }
