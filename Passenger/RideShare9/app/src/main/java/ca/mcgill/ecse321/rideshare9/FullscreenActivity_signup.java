@@ -160,6 +160,20 @@ public class FullscreenActivity_signup extends AppCompatActivity {
             }
         });
 
+        passwordtx.addTextChangedListener(new TextValidator(passwordtx) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if(passwordtx2.getText().toString().equals(passwordtx.getText().toString())){
+                    errortx.setText("");
+                    signupButton.setClickable(true);
+                }
+                else{
+                    errortx.setText("Password Not Match!");
+                    signupButton.setClickable(false);
+                }
+            }
+        });
+
         /*username field listener, show error if duplicate username is found*/
        nametx.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener(){
             @Override
@@ -248,11 +262,9 @@ public class FullscreenActivity_signup extends AppCompatActivity {
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
                         if (responseString.equals("false")){
                             checkDuplicate.add(1);
-                            log.d("checksignup",checkDuplicate.size()+""+responseString);
                         }
                         else{
                             checkDuplicate.add(0);
-                            log.d("checksignup",checkDuplicate.size()+""+responseString);
                         }
                     }
                 });
