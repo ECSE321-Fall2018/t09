@@ -152,16 +152,18 @@ public class HomeFragment extends Fragment {
         mapbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String locationlist[] = new String[recyclerView.getAdapter().getItemCount()];
-                TraceListAdapter traceListAdapter = (TraceListAdapter)recyclerView.getAdapter();
-                for(int count = 0; count<locationlist.length;count++){
-                    if(traceListAdapter.getTraceList().get(count)!=null){
-                        locationlist[count] = traceListAdapter.getTraceList().get(count).getAcceptStation();
+                if(recyclerView.getAdapter()!=null) {
+                    String locationlist[] = new String[recyclerView.getAdapter().getItemCount()];
+                    TraceListAdapter traceListAdapter = (TraceListAdapter) recyclerView.getAdapter();
+                    for (int count = 0; count < locationlist.length; count++) {
+                        if (traceListAdapter.getTraceList().get(count) != null) {
+                            locationlist[count] = traceListAdapter.getTraceList().get(count).getAcceptStation();
+                        }
                     }
+                    Intent intent = new Intent(getContext(), MapsActivity.class);
+                    intent.putExtra("locationlist", locationlist);
+                    startActivity(intent);
                 }
-                Intent intent = new Intent(getContext(), MapsActivity.class);
-                intent.putExtra("locationlist",locationlist);
-                startActivity(intent);
             }
         });
 
