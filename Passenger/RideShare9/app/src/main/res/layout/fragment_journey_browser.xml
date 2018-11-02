@@ -35,7 +35,7 @@
                 <ImageView
                     android:id="@+id/searchIcon"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="51dp"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:src="@drawable/ic_search_black_24dp" />

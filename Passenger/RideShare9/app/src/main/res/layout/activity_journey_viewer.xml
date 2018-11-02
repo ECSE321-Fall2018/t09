@@ -22,6 +22,7 @@
                 android:id="@+id/advertisement_viewer_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_menu_black_36dp"
                 android:textColor="@android:color/black"
                 android:textSize="40sp" />
 
@@ -29,29 +30,33 @@
                 android:id="@+id/advStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_note_add_black_24dp"
                 android:text="TextView"
-                android:textSize="18sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/seatsTex"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_event_seat_black_24dp"
                 android:text="TextView"
-                android:textSize="18sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/advertisement_viewer_startsAtLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_location_on_black_24dp"
                 android:textColor="@android:color/black"
-                android:textSize="25sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/advertisement_viewer_startsAtDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
                 android:textColor="#131d21"
-                android:textSize="22sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/driversInfo"
@@ -70,10 +75,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/ic_public_black_36dp"
                 android:text="@string/label_stops"
                 android:textColor="#131d21"
-                android:textSize="30sp"
-                android:layout_marginTop="15dp" />
+                android:textSize="36sp" />
 
             <TextView
                 android:id="@+id/viewonMap"
