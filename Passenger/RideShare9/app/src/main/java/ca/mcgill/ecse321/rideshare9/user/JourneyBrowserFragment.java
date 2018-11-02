@@ -257,7 +257,8 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
                 List<Integer>arr = new ArrayList<>(response.length());
                 for(int iter = 0;iter<response.length();iter++){
                     try {
-                        if(!arr.contains(response.getJSONObject(iter).getJSONObject("adv").getInt("id"))){
+                        if(!arr.contains(response.getJSONObject(iter).getJSONObject("adv").getInt("id"))&&
+                                response.getJSONObject(iter).getJSONObject("adv").getString("status").equals("REGISTERING")){
                             arr.add(response.getJSONObject(iter).getJSONObject("adv").getInt("id"));
                             journeyList.add(advertisementFromJSONObject(response.getJSONObject(iter).getJSONObject("adv")));
                         }

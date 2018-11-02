@@ -68,7 +68,7 @@ public class JourneyViewerActivity extends AppCompatActivity {
         adStartLocation.setText(journey.getStartLocation());
         adStartDateAndTime.setText(journey.getStartTime());
         statusTex.setText(journey.getStatus());
-        availableSeats.setText(journey.getAvailableSeats()+"");
+        availableSeats.setText(journey.getAvailableSeats()+" Seats Remaining");
 
         // get the Join Trip button
         adJoinButton = findViewById(R.id.advertisement_viewer_join_button);
