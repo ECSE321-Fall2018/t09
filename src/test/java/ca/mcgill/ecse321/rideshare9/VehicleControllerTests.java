@@ -138,7 +138,7 @@ public class VehicleControllerTests {
 		
 		when(userDao.loadUserByUsername(anyString())).thenReturn(testDriver);
 		
-		MvcResult result = mvc.perform(delete("/vehicle/remove-car")
+		MvcResult result = mvc.perform(post("/vehicle/remove-car")
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(vehicleJson))
 				.andExpect(status().isOk())

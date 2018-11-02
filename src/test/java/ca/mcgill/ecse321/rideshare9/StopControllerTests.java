@@ -126,7 +126,7 @@ public class StopControllerTests {
 		String sJson = jsonStop.write(s).getJson();
 		//set repository response
 		MvcResult result = mvc.perform(
-				delete("/stop/del-stop")
+				post("/stop/del-stop")
 					.contentType(MediaType.APPLICATION_JSON_UTF8)
 					.content(sJson))
 				//.andDo(print())

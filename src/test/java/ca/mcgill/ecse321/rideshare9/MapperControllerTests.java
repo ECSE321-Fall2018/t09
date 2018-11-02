@@ -165,7 +165,7 @@ public class MapperControllerTests {
 
 		when(mapRepo.findMap(1)).thenReturn(mapper);
 
-		MvcResult result = mvc.perform(delete("/map/admin/delete/1"))
+		MvcResult result = mvc.perform(post("/map/admin/delete/1"))
 				// .andDo(print())
 				.andExpect(status().isOk()).andReturn();
 		String responseContent = result.getResponse().getContentAsString();
