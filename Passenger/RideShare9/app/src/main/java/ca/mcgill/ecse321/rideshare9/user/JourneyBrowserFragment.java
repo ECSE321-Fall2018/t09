@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -227,13 +228,20 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
         final RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.rvAdvertisements);
         TextView searchText = (TextView)view.findViewById(R.id.searchText);
         JSONObject jsonObject = new JSONObject();
+        final RadioButton sortbyprice= (RadioButton)view.findViewById(R.id.sortByPrice);
 
         try {
             jsonObject.put("stop",searchText.getText());
             jsonObject.put("startLocation","");
             jsonObject.put("startTimeX","1000-11-11 11:11:11");
             jsonObject.put("startTimeY","3000-11-11 11:11:11");
-            jsonObject.put("sortByPrice","true");
+
+            if(sortbyprice.isChecked()){
+                jsonObject.put("sortByPrice","true");
+            }
+            else{
+                jsonObject.put("sortByPrice","false");
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

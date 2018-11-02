@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.rideshare9;
 
 import android.annotation.SuppressLint;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,13 +13,17 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.SyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
@@ -110,6 +115,9 @@ public class FullscreenActivity_signup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         setContentView(R.layout.activity_fullscreen_signup);
 
@@ -212,16 +220,46 @@ public class FullscreenActivity_signup extends AppCompatActivity {
         return entity;
     }
 
+
     /* create a new user account*/
     public void addParticipant(View v) throws Exception {
         /*get all required components for the method*/
+        SyncHttpClient syncHttpClient = new SyncHttpClient();
         error = "";
+        final List<Integer>checkDuplicate = new ArrayList<>(1);
         final TextView nametx = (TextView) findViewById(R.id.signUpname);
         final TextView passwordtx = (TextView) findViewById(R.id.signUppassword);
         final TextView passwordtx2 = (TextView) findViewById(R.id.confirmPassword);
         final RadioButton aPasseneger = (RadioButton) findViewById(R.id.iamPassenger);
         final RadioButton aDriver = (RadioButton) findViewById(R.id.iamDriver);
         final TextView errortx = (TextView) findViewById(R.id.errormsg);
+
+        JSONObject namecheckingOBJ = new JSONObject();
+        namecheckingOBJ.put("username",nametx.getText().toString());
+
+        syncHttpClient.post(getApplicationContext(),
+                "https://mysterious-hollows-14613.herokuapp.com/user/get-is-unique", json2Entity(namecheckingOBJ),
+                "application/json", new TextHttpResponseHandler() {
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        if (responseString.equals("false")){
+                            checkDuplicate.add(1);
+                            log.d("checksignup",checkDuplicate.size()+""+responseString);
+                        }
+                        else{
+                            checkDuplicate.add(0);
+                            log.d("checksignup",checkDuplicate.size()+""+responseString);
+                        }
+                    }
+                });
+        if(checkDuplicate.get(0)==1){
+            errortx.setText("Sorry, this username already exist");
+            return;
+        }
 
 
 
