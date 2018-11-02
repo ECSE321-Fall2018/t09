@@ -3,14 +3,21 @@ package ca.mcgill.ecse321.rideshare9.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.mcgill.ecse321.rideshare9.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
+import ca.mcgill.ecse321.rideshare9.entity.TripStatus;
+import ca.mcgill.ecse321.rideshare9.entity.User;
+import ca.mcgill.ecse321.rideshare9.entity.Vehicle;
 import ca.mcgill.ecse321.rideshare9.repository.VehicleRepository;
 import ca.mcgill.ecse321.rideshare9.service.impl.UserServiceImpl;
 
@@ -52,7 +59,7 @@ public class VehicleController {
      * @return deleted car
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/remove-car", method=RequestMethod.DELETE)
+    @RequestMapping(value = "/remove-car", method=RequestMethod.POST)
     public Vehicle removeCar(@RequestBody Vehicle car) {
     	
     	// TODO: Implement this, with principle "i can only delete my car", you can change parameter to non-json type
@@ -62,12 +69,15 @@ public class VehicleController {
     	if (!(authentication instanceof AnonymousAuthenticationToken)) {
     	    currentUserName = authentication.getName();
     	}
-    	if (car != null && car.getDriver() == urp.loadUserByUsername(currentUserName).getId()) {
-        	carService.removeVehicle(car.getId()); 
-        	return car;
-    	} else {
-    		return null; 
+    	long currdriver = urp.loadUserByUsername(currentUserName).getId(); 
+    	List<Vehicle> vs = carService.findAllVehicleByUid(currdriver); 
+    	for (Vehicle v: vs) {
+    		if (v.getDriver() == currdriver && v.getId() == car.getId()) {
+    			carService.removeVehicle(v.getId()); 
+    			return v; 
+    		}
     	}
+    	return null; 
     }
     
     /**
@@ -89,7 +99,24 @@ public class VehicleController {
     	return carService.findAllVehicleByUid(urp.loadUserByUsername(currentUserName).getId()); 
     }
     
-    
+    /**
+     * Driver: get all his car
+     * @return all his car
+     */
+    @PreAuthorize("hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+    @RequestMapping(value = "/get-cars-count", method=RequestMethod.GET)
+    public String getAllCarCount() {
+    	
+    	// TODO: Implement this, with principle "i can only get my cars", you can change parameter to non-json type
+    	
+    	String currentUserName = null; 
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	if (!(authentication instanceof AnonymousAuthenticationToken)) {
+    	    currentUserName = authentication.getName();
+    	}
+    	
+    	return carService.findAllVehicleCountByUid(urp.loadUserByUsername(currentUserName).getId()); 
+    }
     
     /**
      * Driver: change his car
@@ -105,31 +132,19 @@ public class VehicleController {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	if (!(authentication instanceof AnonymousAuthenticationToken)) {
     	    currentUserName = authentication.getName();
-    	    User curr = urp.findUserByUsername(currentUserName); 
-    	    if (curr.getId() != car.getDriver()) {
-        		return new Vehicle(); 
-        	}
     	}
+    	long currdriver = urp.loadUserByUsername(currentUserName).getId(); 
+    	List<Vehicle> vs = carService.findAllVehicleByUid(currdriver); 
+    	for (Vehicle v: vs) {
+    		if (v.getDriver() == currdriver && v.getId() == car.getId()) {
+    			car.setDriver(currdriver); 
+    	    	return carService.updateVehicle(car); 
+    		}
+    	}
+    	return null; 
     	
-    	Vehicle oldcar=carService.findVehicle(car.getId());
-    	
-    	if (car.getLicencePlate() != null && !car.getLicencePlate().isEmpty() && !oldcar.getLicencePlate().equals(car.getLicencePlate())) {
-    		oldcar.setLicencePlate(car.getLicencePlate());
-    	}
-    	if (car.getColor() != null && !car.getColor().isEmpty() && !oldcar.getColor().equals(car.getColor())) {
-    		oldcar.setColor(car.getColor());
-    	}
-    	if (car.getModel() != null && !car.getModel().isEmpty() && !oldcar.getModel().equals(car.getModel())) {
-    		oldcar.setModel(car.getModel());
-    	}
-    	if (car.getMaxSeat() > 0 && oldcar.getMaxSeat()!=car.getMaxSeat()){
-    		oldcar.setMaxSeat(car.getMaxSeat());
-    	}
-    	
-    	return carService.updateVehicle(oldcar); 
     }
-
-	/**
+    /**
 	 * Driver: Find stop by Id
 	 * Core API endpoint: Driver-1.3
 	 * @param id of the vehicle
@@ -140,4 +155,5 @@ public class VehicleController {
 	public Vehicle findVehicleById(@PathVariable(name="id") long id) {
 		return carService.findVehicle(id);
 	}
+    
 }

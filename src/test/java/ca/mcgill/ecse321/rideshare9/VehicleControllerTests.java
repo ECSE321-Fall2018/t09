@@ -147,7 +147,7 @@ public class VehicleControllerTests {
 				.andReturn();
 		String responseContent = result.getResponse().getContentAsString();
 		assertEquals(responseContent, vehicleJson);
-		verify(vehicleDao).removeVehicle(22);
+		verify(vehicleDao).removeVehicle(22L);
 	}
 	
 	@Test
