@@ -191,7 +191,7 @@ public class AdvertisementControllerTests{
 	
 		//start the actual test
 		MvcResult result = mvc.perform(
-				delete("/adv/delete-adv")
+				post("/adv/delete-adv")
 					.contentType(MediaType.APPLICATION_JSON_UTF8)
 					.content(objAsJson)
 					.session(session))
