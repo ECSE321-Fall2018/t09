@@ -134,7 +134,7 @@ public class HomeFragment extends Fragment {
                                 if(getContext()!=null)
                                 {
                                     loadCurrentTrip(view);
-                                    hereisyour.animateText("Here is your current trip:");
+                                    hereisyour.animateText("Here is your latest trip:");
                                 }
                             }
                             else{
@@ -174,34 +174,43 @@ public class HomeFragment extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
-                    if(response.getString("status").equals("ON_RIDE")) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                hereisyour.animateText("Here is your current trip:");
-                            }
-                        },4400);
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                if(getContext()!=null) {
-                                    loadCurrentTrip(view);
-                                }
-                            }
-                        },4700);
+                    if(response.getString("role").equals("ROLE_DRIVER"))
+                    {
+                        hereisyour.animateText("Please use a Driver App");
                     }
-                    else{
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                if(getContext()!=null) {
-                                    hereisyour.animateText("You do not currently on a trip");
-                                    refreshbutton.setVisibility(view.VISIBLE);
-                                    mapbutton.setVisibility(view.VISIBLE);
+                    else {
+                    try {
+                        if(response.getString("status").equals("ON_RIDE")) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    hereisyour.animateText("Here is your latest trip:");
                                 }
-                            }
-                        },4400);
-                    }
+                            },4400);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if(getContext()!=null) {
+                                        loadCurrentTrip(view);
+                                    }
+                                }
+                            },4700);
+                        }
+                        else{
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if(getContext()!=null) {
+                                        hereisyour.animateText("You do not currently on a trip");
+                                        refreshbutton.setVisibility(view.VISIBLE);
+                                        mapbutton.setVisibility(view.VISIBLE);
+                                    }
+                                }
+                            },4400);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }}
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -245,7 +254,6 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onDetach() {
-        Log.d("5","onDetach_Fragment");
         super.onDetach();
         mListener = null;
     }
@@ -283,7 +291,6 @@ public class HomeFragment extends Fragment {
                                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                                         try {
-                                            log.d("Youcan","reachhere1");
                                             traceList.add(new Trace("StartLocation",response.getString("startLocation")));
                                             SyncHttpClient syncHttpClient = new SyncHttpClient();
                                             syncHttpClient.addHeader("Authorization","Bearer "+getArguments().getString("token"));
@@ -296,10 +303,8 @@ public class HomeFragment extends Fragment {
 
                                                     @Override
                                                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                                                        log.d("Youcan","reachhere3");
                                                         try {
                                                             traceList.add(new Trace("Stop " +traceList.size(),response.getString("stopName")));
-                                                            log.d("stop1",traceList.get(0).getAcceptStation());
                                                         } catch (JSONException e) {
                                                             e.printStackTrace();
                                                         }
