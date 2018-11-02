@@ -147,10 +147,6 @@ public class YouFragment extends Fragment {
         mListener = null;
     }
 
-    public String getEmojiByUnicode(int unicode){
-        return new String(Character.toChars(unicode));
-    }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
