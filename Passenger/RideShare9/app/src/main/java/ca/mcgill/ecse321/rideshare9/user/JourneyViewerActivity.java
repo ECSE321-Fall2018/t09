@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -110,7 +111,8 @@ public class JourneyViewerActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        if (responseString.equals("Success")) {
+                        Log.i("Join Trip", "onSuccess: "+responseString);
+                        if (responseString.length() > 0) {
                             Toast.makeText(context, "Enjoy your journey!", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(context, "Last seat gone! :(", Toast.LENGTH_LONG).show();
