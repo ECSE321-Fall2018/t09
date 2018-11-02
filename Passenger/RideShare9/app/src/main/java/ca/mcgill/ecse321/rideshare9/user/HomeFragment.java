@@ -280,22 +280,26 @@ public class HomeFragment extends Fragment {
         final ImageView refreshbutton = (ImageView) view.findViewById(R.id.refreshList);
         final ImageView mapbutton = (ImageView) view.findViewById(R.id.googleMapIcon);
 
+        HttpUtils.addHeader("Authorization","Bearer "+getArguments().getString("token"));
+        log.d("1", " You can reach here");
         HttpUtils.get("map/get-map",new RequestParams(),new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 if(response.length()>0) {
                     try {
+                        log.d("2", " You can reach here");
                         HttpUtils.get("adv/get-by-id/"+response.getJSONObject(response.length()-1).getInt("advertisement"),
                                 new RequestParams(),new JsonHttpResponseHandler(){
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                                         try {
+                                            log.d("3", " You can reach here");
                                             traceList.add(new Trace("StartLocation",response.getString("startLocation")));
                                             SyncHttpClient syncHttpClient = new SyncHttpClient();
                                             syncHttpClient.addHeader("Authorization","Bearer "+getArguments().getString("token"));
                                             for (int i = 0; i<response.getJSONArray("stops").length();i++){
-                                                syncHttpClient.get("https://rideshare9.herokuapp.com/stop/get-by-id/"+
+                                                syncHttpClient.get("https://mysterious-hollows-14613.herokuapp.com/stop/get-by-id/"+
                                                 response.getJSONArray("stops").getInt(i),new RequestParams(),new JsonHttpResponseHandler(){
                                                     @Override
                                                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
@@ -304,6 +308,7 @@ public class HomeFragment extends Fragment {
                                                     @Override
                                                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                                                         try {
+                                                            log.d("8", " You can reach here");
                                                             traceList.add(new Trace("Stop " +traceList.size(),response.getString("stopName")));
                                                         } catch (JSONException e) {
                                                             e.printStackTrace();
@@ -319,8 +324,6 @@ public class HomeFragment extends Fragment {
                                         recyclerView.scheduleLayoutAnimation();
                                         refreshbutton.setVisibility(view.VISIBLE);
                                         mapbutton.setVisibility(view.VISIBLE);
-                                        log.d("traces",traceList.get(0).getAcceptStation()+""+traceList.get(1).getAcceptStation());
-
                                     }
 
                                     @Override

@@ -5,12 +5,13 @@ import android.content.Context;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpEntity;
 
 public class HttpUtils {
-    public static final String DEFAULT_BASE_URL = "https://rideshare9.herokuapp.com/";
+    public static final String DEFAULT_BASE_URL = "https://mysterious-hollows-14613.herokuapp.com/";
 
     private static String baseUrl;
     private static AsyncHttpClient client = new AsyncHttpClient();
@@ -51,7 +52,9 @@ public class HttpUtils {
                              AsyncHttpResponseHandler responseHandler) {
         client.post(context, getAbsoluteUrl(url),entity, contenttype, responseHandler);
     }
-
+    public static void put(Context context, String url, HttpEntity entity, String contentType,AsyncHttpResponseHandler responseHandler){
+        client.put(context,getAbsoluteUrl(url),entity,contentType,responseHandler);
+    }
     public static void getByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.get(url, params, responseHandler);
     }

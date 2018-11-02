@@ -18,10 +18,15 @@ import com.loopj.android.http.TextHttpResponseHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+
 import ca.mcgill.ecse321.rideshare9.HttpUtils;
 import ca.mcgill.ecse321.rideshare9.R;
 import ca.mcgill.ecse321.rideshare9.map.MapsActivity;
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.ByteArrayEntity;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.protocol.HTTP;
 
 import static com.loopj.android.http.AsyncHttpClient.log;
 
@@ -100,6 +105,7 @@ public class JourneyViewerActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         Toast.makeText(context, "Error joining trip", Toast.LENGTH_LONG).show();
+
                     }
 
                     @Override
@@ -109,6 +115,24 @@ public class JourneyViewerActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(context, "Last seat gone! :(", Toast.LENGTH_LONG).show();
                         }
+                        JSONObject jsonObjectp =new JSONObject();
+                        try {
+                            jsonObjectp.put("status","ON_RIDE");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        HttpUtils.put(getApplicationContext(), "user/update-status", json2Entity(jsonObjectp),
+                                "application/json", new TextHttpResponseHandler() {
+                                    @Override
+                                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                                        log.d("Failure","Sad");
+                                    }
+
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                                        log.d("Success","happy");
+                                    }
+                                });
                         finish();
                     }
                 });
@@ -116,6 +140,18 @@ public class JourneyViewerActivity extends AppCompatActivity {
         });
 
     }
+
+    public ByteArrayEntity json2Entity(JSONObject jsonObject){
+        ByteArrayEntity entity = null;
+        try {
+            entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        }catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return entity;
+    }
+
     public void startMap(View view){
         StopsAdapter stopA = (StopsAdapter)rvStops.getAdapter();
         String locationlist[] = new String[stopA.getstopList().size()];
