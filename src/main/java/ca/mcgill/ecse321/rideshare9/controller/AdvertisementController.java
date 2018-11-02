@@ -57,12 +57,7 @@ public class AdvertisementController {
 	private AdvertisementRepository advService;
 	@Autowired
 	private UserService userv; 
-	
-	@PreAuthorize("hasRole('DRIVER') or hasRole('PASSENGER') or hasRole('BOSSLI') or hasRole('ADMIN')")
-	@GetMapping(value = "/get-by-id/{id}")
-	public Advertisement getAdvById(@PathVariable(name = "id") long id) {
-		return advService.findAdv(id);
-	}
+
 	
     /**
      * driver: create advertisement
@@ -101,20 +96,35 @@ public class AdvertisementController {
     }
     
     /**
+     * show all advertisement a logged in driver posted
+     * @return List
+     */
+    @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
+    @RequestMapping(value = "/get-logged-adv-count", method=RequestMethod.GET)
+    public String myAdvCount() {    	
+    	String currentUserName = null; 
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        currentUserName = authentication.getName();
+        if (userv.loadUserByUsername(currentUserName) != null) {
+                return advService.findAllAdvCount(userv.loadUserByUsername(currentUserName).getId());
+    	} else {
+    		return null; 
+    	}
+    }
+    
+    /**
      * driver: delete advertisement, but only id needed
      * @param adv (JSON)
      * @return deleted adv
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/delete-adv", method=RequestMethod.DELETE)
-    public String delAdv(@RequestBody Advertisement adv) {
+    @RequestMapping(value = "/delete-adv", method=RequestMethod.POST)
+    public void delAdv(@RequestBody Advertisement adv) {
     	for (Advertisement a: this.myAdv()) {
     		if (a.getId() == adv.getId()) {
-    			advService.removeAdv(adv.getId());
-    			return "Successfully deleted";
+    			advService.removeAdv(adv.getId()); 
     		}
     	}
-    	return "Could not delete";
     }
     
     
@@ -212,4 +222,10 @@ public class AdvertisementController {
     		}
     	}
     }
+    @PreAuthorize("hasRole('DRIVER') or hasRole('PASSENGER') or hasRole('BOSSLI') or hasRole('ADMIN')")
+	@GetMapping(value = "/get-by-id/{id}")
+	public Advertisement getAdvById(@PathVariable(value = "id") long id) {
+		return advService.findAdv(id);
+	}
+    
 }

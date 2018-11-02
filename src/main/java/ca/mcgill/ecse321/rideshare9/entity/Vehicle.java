@@ -19,6 +19,7 @@ public class Vehicle {
 	private int maxSeat;
 	private long driver; 
 	
+
 	@Column(name = "driver_id")
 	public long getDriver() {
 		return driver;

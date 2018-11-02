@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.rideshare9.repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -39,10 +40,8 @@ public class StopRepository {
 	 */
 	@Transactional
 	public void removeStop(long id) {
-		Stop stp = findStop(id);
-	    if (stp != null) {
-	      em.remove(stp);
-	    }
+		Stop stp = em.find(Stop.class, id);
+	    em.remove(stp);
 	}
 	
 	/**
@@ -52,7 +51,7 @@ public class StopRepository {
 	 */
 	@Transactional
 	public Stop updateStop(Stop stp) {
-		em.merge(stp);
+		em.merge(stp); 
 		em.flush();
 	    return stp;
 	}
@@ -65,6 +64,8 @@ public class StopRepository {
 	public Stop findStopbyName(String name) {
 	    return em.find(Stop.class, name);
 	}
+	
+	@Transactional
 	public List<Stop> findAllStop() {
 	    TypedQuery<Stop> query = em.createQuery("SELECT s FROM Stop s", Stop.class);
 	    return query.getResultList();

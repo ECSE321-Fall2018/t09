@@ -37,11 +37,9 @@ public class VehicleRepository {
 	}
 	
 	@Transactional
-	public void removeVehicle(long id) {
-		Vehicle car = findVehicle(id);
-	    if (car != null) {
-	      em.remove(car);
-	    }
+	public void removeVehicle(Long id) {
+		Vehicle toRemove = em.find(Vehicle.class, id); 
+		em.remove(toRemove);
 	}
 	
 	/**
@@ -65,5 +63,11 @@ public class VehicleRepository {
 	public List<Vehicle> findAllVehicleByUid(long uid) {
 	    TypedQuery<Vehicle> query = em.createQuery("SELECT c FROM Vehicle c WHERE c.driver = :qUid", Vehicle.class).setParameter("qUid", uid);
 	    return query.getResultList();
+	}
+	@Transactional
+	public String findAllVehicleCountByUid(long uid) {
+	    TypedQuery<Vehicle> query = em.createQuery("SELECT c FROM Vehicle c WHERE c.driver = :qUid", Vehicle.class).setParameter("qUid", uid);
+	    Integer a = query.getResultList().size();
+	    return a.toString(); 
 	}
 }

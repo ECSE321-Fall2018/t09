@@ -2,7 +2,10 @@ package ca.mcgill.ecse321.rideshare9.controller;
 
 import ca.mcgill.ecse321.rideshare9.entity.User;
 import ca.mcgill.ecse321.rideshare9.entity.UserStatus;
+import ca.mcgill.ecse321.rideshare9.jwt.JWTLoginFilter;
 import ca.mcgill.ecse321.rideshare9.service.UserService;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +16,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -135,7 +139,7 @@ public class UserController {
      * @param 
      * @return str("Ok")
      */
-
+    
     @PreAuthorize("hasRole('PASSENGER') or hasRole('BOSSLI')")
     @GetMapping("/hello")
     public String helloW(){
@@ -192,4 +196,5 @@ public class UserController {
 		return userService.deleteUserByUname(username);
          
     }
+    
 }

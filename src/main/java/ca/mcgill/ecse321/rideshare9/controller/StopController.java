@@ -61,7 +61,7 @@ public class StopController {
      * @return deleted stop
      */
     @PreAuthorize("hasRole('DRIVER') or hasRole('BOSSLI')")
-    @RequestMapping(value = "/del-stop", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/del-stop", method = RequestMethod.POST)
     public Stop delStop(@RequestBody Stop sp) {
     	if (sp != null) {
         	stopService.removeStop(sp.getId()); 
@@ -81,7 +81,6 @@ public class StopController {
     public Stop findStopByName(@PathVariable(name="stopName") String stpName) {
     	return stopService.findStopbyName(stpName);
     }
-
     /**
      * Driver: Find stop by Id
      * Core API endpoint: Driver-1.3
@@ -93,4 +92,5 @@ public class StopController {
     public Stop findStopById(@PathVariable(name="id") long id) {
     	return stopService.findStopById(id);
     }
+    
 }
