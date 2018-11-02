@@ -10,7 +10,7 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpEntity;
 
 public class HttpUtils {
-    public static final String DEFAULT_BASE_URL = "https://mysterious-hollows-14613.herokuapp.com/";
+    public static final String DEFAULT_BASE_URL = "https://rideshare9.herokuapp.com/";
 
     private static String baseUrl;
     private static AsyncHttpClient client = new AsyncHttpClient();

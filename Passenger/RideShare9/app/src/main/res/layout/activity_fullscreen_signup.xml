@@ -103,18 +103,22 @@
 
                 <RadioButton
                     android:id="@+id/iamPassenger"
+                    android:buttonTint="@android:color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="@string/iampassenger" />
+                    android:text="@string/iampassenger"
+                    android:textColor="@android:color/white" />
 
                 <RadioButton
                     android:id="@+id/iamDriver"
+                    android:buttonTint="@android:color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/imdriver" />
+                    android:text="@string/imdriver"
+                    android:textColor="@android:color/white" />
             </RadioGroup>
 
             <Space
@@ -137,7 +141,8 @@
                 android:clickable="true"
                 android:gravity="center"
                 android:onClick="toLogin"
-                android:text="@string/toLogin" />
+                android:text="@string/toLogin"
+                android:textSize="14sp" />
 
         </LinearLayout>
 

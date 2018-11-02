@@ -288,7 +288,7 @@ public class HomeFragment extends Fragment {
                                             SyncHttpClient syncHttpClient = new SyncHttpClient();
                                             syncHttpClient.addHeader("Authorization","Bearer "+getArguments().getString("token"));
                                             for (int i = 0; i<response.getJSONArray("stops").length();i++){
-                                                syncHttpClient.get("https://mysterious-hollows-14613.herokuapp.com/stop/get-by-id/"+
+                                                syncHttpClient.get("https://rideshare9.herokuapp.com/stop/get-by-id/"+
                                                 response.getJSONArray("stops").getInt(i),new RequestParams(),new JsonHttpResponseHandler(){
                                                     @Override
                                                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {

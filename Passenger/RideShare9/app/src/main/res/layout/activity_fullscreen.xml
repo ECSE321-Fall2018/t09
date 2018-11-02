@@ -96,15 +96,18 @@
                 android:layout_width="151dp"
                 android:layout_height="wrap_content"
                 android:text="@string/loginError"
-                android:textColor="@android:color/holo_red_light" />
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp" />
 
             <CheckBox
                 android:id="@+id/rmbMe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
+                android:buttonTint="@android:color/white"
                 android:gravity="center"
-                android:text="@string/rememberMe" />
+                android:text="@string/rememberMe"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/loginButton"
@@ -125,7 +128,8 @@
                 android:clickable="true"
                 android:gravity="center"
                 android:onClick="toSignup"
-                android:text="@string/ToSignup" />
+                android:text="@string/ToSignup"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
