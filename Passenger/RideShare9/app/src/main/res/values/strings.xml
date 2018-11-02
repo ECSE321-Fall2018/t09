@@ -41,4 +41,5 @@
     <string name="sortByCarModel">Sort by CarType</string>
     <string name="startTime">Search from this time</string>
     <string name="endTime">To this Time</string>
+    <string name="searchStart">Search by startlocation</string>
 </resources>

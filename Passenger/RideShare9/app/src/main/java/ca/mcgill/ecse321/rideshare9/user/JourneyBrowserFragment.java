@@ -229,10 +229,10 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
         TextView searchText = (TextView)view.findViewById(R.id.searchText);
         JSONObject jsonObject = new JSONObject();
         final RadioButton sortbyprice= (RadioButton)view.findViewById(R.id.sortByPrice);
-
+        TextView startlocationtext = (TextView)view.findViewById(R.id.searchStartlocation);
         try {
             jsonObject.put("stop",searchText.getText());
-            jsonObject.put("startLocation","");
+            jsonObject.put("startLocation",startlocationtext.getText().toString());
             jsonObject.put("startTimeX","1000-11-11 11:11:11");
             jsonObject.put("startTimeY","3000-11-11 11:11:11");
 

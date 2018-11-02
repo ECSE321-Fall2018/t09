@@ -15,6 +15,7 @@
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@android:color/white"
             android:orientation="vertical">
 
             <LinearLayout
@@ -23,28 +24,14 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/searchText"
+                    android:id="@+id/searchStartlocation"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:background="@android:color/white"
                     android:ems="10"
-                    android:hint="@string/searchStop"
-                    android:inputType="textEmailAddress" />
-
-                <ImageView
-                    android:id="@+id/searchIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="51dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:src="@drawable/ic_search_black_24dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                    android:hint="@string/searchStart"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="15dp" />
 
                 <RadioGroup
                     android:id="@+id/radioGroup"
@@ -56,6 +43,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@android:color/white"
                         android:checked="true"
                         android:drawableLeft="@drawable/ic_attach_money_yellow_a200_24dp"
                         android:text="@string/sortbyPrice"
@@ -63,27 +51,56 @@
 
                     <RadioButton
                         android:id="@+id/SortByCarModel"
-                        android:layout_width="match_parent"
+                        android:layout_width="183dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@android:color/white"
                         android:drawableLeft="@drawable/ic_directions_car_red_400_24dp"
                         android:text="@string/sortByCarModel"
                         android:textStyle="normal|bold" />
                 </RadioGroup>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/searchText"
+                    android:layout_width="229dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:ems="10"
+                    android:hint="@string/searchStop"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="15dp" />
+
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/searchIcon"
+                    android:layout_width="183dp"
+                    android:layout_height="51dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:clickable="true"
+                    android:src="@drawable/ic_search_black_24dp" />
 
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvAdvertisements"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@android:color/white" />
 
         </android.support.v7.widget.LinearLayoutCompat>
 
