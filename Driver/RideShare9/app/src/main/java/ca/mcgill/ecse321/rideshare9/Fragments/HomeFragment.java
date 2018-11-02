@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.rideshare9;
+package ca.mcgill.ecse321.rideshare9.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -17,13 +17,14 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 
+import ca.mcgill.ecse321.rideshare9.FullscreenActivity;
+import ca.mcgill.ecse321.rideshare9.HttpUtils;
+import ca.mcgill.ecse321.rideshare9.R;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;

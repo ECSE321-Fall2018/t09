@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".Fragments.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -68,9 +68,9 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/imageView"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="276dp"
-            android:text="Trip Completed"
+            android:layout_marginStart="219dp"
+            android:layout_marginTop="279dp"
+            android:text="Trip"
             android:textSize="28sp"
             app:fontFamily="@font/roboto_thin" />
 

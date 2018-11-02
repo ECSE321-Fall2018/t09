@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.rideshare9;
+package ca.mcgill.ecse321.rideshare9.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,20 +14,20 @@ import android.widget.ListView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+import ca.mcgill.ecse321.rideshare9.AddVehicleActivity;
+import ca.mcgill.ecse321.rideshare9.FullscreenActivity;
+import ca.mcgill.ecse321.rideshare9.HttpUtils;
+import ca.mcgill.ecse321.rideshare9.R;
+import ca.mcgill.ecse321.rideshare9.VehicleItem;
+import ca.mcgill.ecse321.rideshare9.Adapter.VehicleItemAdapter;
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
-
-import static com.loopj.android.http.AsyncHttpClient.log;
 
 
 /**

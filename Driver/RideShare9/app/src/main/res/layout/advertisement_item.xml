@@ -5,7 +5,7 @@
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
                                              android:padding="15dp"
 android:id="@+id/recylcer_layout"
-tools:context=".AdvertisementFragment">
+tools:context=".Fragments.AdvertisementFragment">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,22 +58,40 @@ tools:context=".AdvertisementFragment">
     />
 
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/vehicleField"
-            android:text="@string/modify"
-            android:id="@+id/modifyAdButton"
-
-            />
+        android:id="@+id/modifyAdButton"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ic_baseline_edit_24px"
+        android:textColor="#FFFFFF"
+        android:textSize="8sp"
+        app:layout_constraintTop_toBottomOf="@id/vehicleField"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/delete"
-            android:id="@+id/deleteAdButton"
-            app:layout_constraintLeft_toRightOf="@id/modifyAdButton"
-            app:layout_constraintTop_toBottomOf="@id/vehicleField"
-    />
+        android:id="@+id/deleteAdButton"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ic_baseline_delete_forever_24px"
+        android:textColor="#FFFFFF"
+        android:textSize="8sp"
+        app:layout_constraintLeft_toRightOf="@id/modifyAdButton"
+        app:layout_constraintTop_toBottomOf="@id/vehicleField" />
+
+    <Button
+        android:id="@+id/complete_button"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ic_baseline_check_circle_24px"
+        android:textColor="#FFFFFF"
+        android:textSize="8sp"
+        app:layout_constraintLeft_toRightOf="@id/modifyAdButton"
+        app:layout_constraintTop_toBottomOf="@id/vehicleField" />
+
 
     <TextView
             android:layout_width="match_parent"
@@ -86,16 +104,28 @@ tools:context=".AdvertisementFragment">
     />
 
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/depart_3_29_pm"
-            android:id="@+id/time"
-            android:textColor="#666"
-            android:textSize="12sp"
-            android:gravity="right"
-            app:layout_constraintTop_toBottomOf="@id/date"
-    />
+        android:id="@+id/trip_status"
+        android:layout_width="match_parent"
+        android:layout_height="17dp"
+        android:layout_marginTop="8dp"
+        android:gravity="right"
+        android:text="TextView"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/car_capacity"
+        tools:layout_editor_absoluteX="3dp" />
 
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="right"
+        android:text="@string/depart_3_29_pm"
+        android:textColor="#666"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/date"
+        tools:layout_editor_absoluteX="16dp" />
 
 
 

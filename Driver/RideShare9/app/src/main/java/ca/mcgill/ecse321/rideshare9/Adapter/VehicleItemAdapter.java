@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.rideshare9;
+package ca.mcgill.ecse321.rideshare9.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +20,11 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.mcgill.ecse321.rideshare9.ChangeVehicle;
+import ca.mcgill.ecse321.rideshare9.FullscreenActivity;
+import ca.mcgill.ecse321.rideshare9.HttpUtils;
+import ca.mcgill.ecse321.rideshare9.R;
+import ca.mcgill.ecse321.rideshare9.VehicleItem;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;

@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.rideshare9;
+package ca.mcgill.ecse321.rideshare9.Adapter;
 
 
 import android.support.v4.app.Fragment;

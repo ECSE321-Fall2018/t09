@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.rideshare9;
+package ca.mcgill.ecse321.rideshare9.Fragments;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -7,7 +7,10 @@ import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
 import android.widget.TimePicker;
 
-public class TimePickerFragment extends DialogFragment
+import ca.mcgill.ecse321.rideshare9.ChangeAdvertisementActivity;
+import ca.mcgill.ecse321.rideshare9.addJourneyActivity;
+
+public class TimePickerFragmentChange extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
 
     String label;
@@ -30,7 +33,7 @@ public class TimePickerFragment extends DialogFragment
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        addJourneyActivity myActivity = (addJourneyActivity) getActivity();
+        ChangeAdvertisementActivity myActivity = (ChangeAdvertisementActivity) getActivity();
         myActivity.setTime(getArguments().getInt("id"), hourOfDay, minute);
     }
 }

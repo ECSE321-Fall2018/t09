@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.rideshare9;
+package ca.mcgill.ecse321.rideshare9.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,11 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import ca.mcgill.ecse321.rideshare9.Adapter.AdvertisementViewAdapter;
+import ca.mcgill.ecse321.rideshare9.HttpUtils;
+import ca.mcgill.ecse321.rideshare9.R;
+import ca.mcgill.ecse321.rideshare9.addJourneyActivity;
 import ca.mcgill.ecse321.rideshare9.model.Advertisement;
 import ca.mcgill.ecse321.rideshare9.model.Stop;
 import ca.mcgill.ecse321.rideshare9.model.Vehicle;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.message.BasicHeader;
 
 public class AdvertisementFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
@@ -128,7 +130,7 @@ public class AdvertisementFragment extends Fragment {
             public void onClick(View v) {
                 SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("config", Context.MODE_PRIVATE);
                 String authentication = "Bearer " + sharedPreferences.getString("token", null);
-
+                advertisements.clear();
                 //  Set headers for the request
                 HttpUtils.addHeader("Authorization", authentication);
 

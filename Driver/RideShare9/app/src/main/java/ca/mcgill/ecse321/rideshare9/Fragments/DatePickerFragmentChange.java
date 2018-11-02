@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.rideshare9;
+package ca.mcgill.ecse321.rideshare9.Fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -8,7 +8,10 @@ import android.widget.DatePicker;
 
 import java.util.Calendar;
 
-public class DatePickerFragment extends DialogFragment
+import ca.mcgill.ecse321.rideshare9.ChangeAdvertisementActivity;
+import ca.mcgill.ecse321.rideshare9.addJourneyActivity;
+
+public class DatePickerFragmentChange extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
     @Override
@@ -32,7 +35,7 @@ public class DatePickerFragment extends DialogFragment
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        addJourneyActivity myActivity = (addJourneyActivity) getActivity();
+        ChangeAdvertisementActivity myActivity = (ChangeAdvertisementActivity) getActivity();
         myActivity.setDate(getArguments().getInt("id"), day, month , year);
     }
 }

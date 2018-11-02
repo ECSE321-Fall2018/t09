@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdvertisementFragment">
+    tools:context=".Fragments.AdvertisementFragment">
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
 
@@ -95,9 +95,8 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="100sp"
-            android:layout_weight="1" />
-
+            android:layout_height="60dp"
+            />
 
 
     </LinearLayout>

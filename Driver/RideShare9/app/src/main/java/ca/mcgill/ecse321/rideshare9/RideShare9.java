@@ -1,30 +1,22 @@
 package ca.mcgill.ecse321.rideshare9;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.TextHttpResponseHandler;
 
-import org.json.JSONObject;
-
+import ca.mcgill.ecse321.rideshare9.Adapter.BottomBarAdapter;
+import ca.mcgill.ecse321.rideshare9.Fragments.AdvertisementFragment;
+import ca.mcgill.ecse321.rideshare9.Fragments.HomeFragment;
+import ca.mcgill.ecse321.rideshare9.Fragments.VehicleFragment;
 import ca.mcgill.ecse321.rideshare9.dummy.NoSwipePager;
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.message.BasicHeader;
 
-import static ca.mcgill.ecse321.rideshare9.FullscreenActivity.getsavedToken;
 import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class RideShare9 extends AppCompatActivity implements VehicleFragment.OnFragmentInteractionListener,

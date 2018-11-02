@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.rideshare9;
+package ca.mcgill.ecse321.rideshare9.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import ca.mcgill.ecse321.rideshare9.FullscreenActivity;
+import ca.mcgill.ecse321.rideshare9.HttpUtils;
+import ca.mcgill.ecse321.rideshare9.R;
 import ca.mcgill.ecse321.rideshare9.model.Stop;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.loopj.android.http.RequestParams;

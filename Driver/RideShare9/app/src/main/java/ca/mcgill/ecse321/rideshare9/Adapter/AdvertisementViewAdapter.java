@@ -1,26 +1,27 @@
-package ca.mcgill.ecse321.rideshare9;
+package ca.mcgill.ecse321.rideshare9.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+
+import ca.mcgill.ecse321.rideshare9.ChangeAdvertisementActivity;
+import ca.mcgill.ecse321.rideshare9.FullscreenActivity;
+import ca.mcgill.ecse321.rideshare9.HttpUtils;
+import ca.mcgill.ecse321.rideshare9.R;
 import ca.mcgill.ecse321.rideshare9.model.Advertisement;
 import ca.mcgill.ecse321.rideshare9.model.Stop;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
@@ -49,6 +50,8 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
         public TextView adVehicle;
         public Button modifyButton;
         public Button deleteButton;
+        public TextView adStatus;
+        public Button completeButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -62,6 +65,8 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
             adVehicle = itemView.findViewById(R.id.vehicleField);
             modifyButton = itemView.findViewById(R.id.modifyAdButton);
             deleteButton = itemView.findViewById(R.id.deleteAdButton);
+            adStatus = itemView.findViewById(R.id.trip_status);
+            completeButton = itemView.findViewById(R.id.complete_button);
         }
     }
 
@@ -92,14 +97,15 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
         TextView adStops = viewHolder.adStops;
         TextView carCapacity = viewHolder.carCapacity;
         TextView adVehicle = viewHolder.adVehicle;
+        TextView adStatus = viewHolder.adStatus;
         Button modifyButton = viewHolder.modifyButton;
         Button deleteButton = viewHolder.deleteButton;
+        Button completeButton = viewHolder.completeButton;
 
         deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Advertisement toDelete = advertisements.get(i);
-                advertisements.remove(i);
 
                 // requestParams.put("id",toDelete.getId());
 
@@ -109,6 +115,7 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
                 JSONObject jsonObject = new JSONObject();
                 try{
                     jsonObject.put("id",toDelete.getId());
+                    jsonObject.put("status", "CANCELLED");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -121,7 +128,7 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
                     e.printStackTrace();
                 }
 
-                HttpUtils.post(v.getContext(), "adv/delete-adv", headers, entity, "application/json",new TextHttpResponseHandler(){
+                HttpUtils.put(v.getContext(), "adv/update-adv", headers, entity, "application/json",new TextHttpResponseHandler(){
 
 
                     @Override
@@ -134,7 +141,52 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
                         Log.d("error","advertisement not deleted properly");
                     }
                 });
+                toDelete.setStatus("CANCELLED");
+                //or some other task
+                notifyDataSetChanged();
+            }
+        });
 
+        completeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Advertisement toDelete = advertisements.get(i);
+
+                // requestParams.put("id",toDelete.getId());
+
+                Header[] headers = {new BasicHeader("Authorization","Bearer " + FullscreenActivity.getsavedToken(v.getContext()))};
+
+                /*package the content from textfield into json body*/
+                JSONObject jsonObject = new JSONObject();
+                try{
+                    jsonObject.put("id",toDelete.getId());
+                    jsonObject.put("status", "COMPLETE");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                /*convert the jsonbdoy into string entity that can be sent*/
+                ByteArrayEntity entity = null;
+                try {
+                    entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
+                    entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+                }catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+                HttpUtils.put(v.getContext(), "adv/update-adv", headers, entity, "application/json",new TextHttpResponseHandler(){
+
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, String response) {
+                        Log.d("ok", "removed");
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String throwable, Throwable errorResponse) {
+                        Log.d("error","advertisement not deleted properly");
+                    }
+                });
+                toDelete.setStatus("COMPLETE");
                 //or some other task
                 notifyDataSetChanged();
             }
@@ -146,12 +198,12 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
                 //do something
                 Intent intent = new Intent(v.getContext(), ChangeAdvertisementActivity.class);
                 Advertisement ad = advertisements.get(i);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("advertisement_data",ad);
-                intent.putExtras(bundle); //Put your id to your next Intent
+
+                intent.putExtra("adv_id", ad.getId());
                 context.startActivity(intent);
             }
         });
+
 
 
         // set adTitle, adStartLocation text
@@ -173,8 +225,12 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
         for (Stop stop : advertisement.getStops()) {
             list += (stop.getName() + " ($" + stop.getPrice() + ") " +  ", ");
         }
-        list = list.substring(0, list.length() - 2);
+        if (list.length() > 3) {
+            list = list.substring(0, list.length() - 2);
+        }
+
         adStops.setText(list);
+        adStatus.setText(advertisement.getStatus());
     }
 
     @Override
