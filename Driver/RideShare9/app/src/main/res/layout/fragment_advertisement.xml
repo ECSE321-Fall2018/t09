@@ -35,7 +35,7 @@
                 android:paddingLeft="10sp"
                 android:paddingTop="10sp"
                 android:paddingBottom="10sp"
-                android:text="My Advertisement"
+                android:text="My Trip"
                 android:textColor="#000000"
                 android:textSize="30sp" />
 
