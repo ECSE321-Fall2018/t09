@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.rideshare9;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ public class DatePickerFragment extends DialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current date as the default date in the picker
         final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
+        int year = 2018;
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
@@ -32,7 +33,11 @@ public class DatePickerFragment extends DialogFragment
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        addJourneyActivity myActivity = (addJourneyActivity) getActivity();
-        myActivity.setDate(getArguments().getInt("id"), day, month , year);
+        Activity myActivity =  getActivity();
+        if(myActivity instanceof ChangeAdvertisementActivity) {
+            ((ChangeAdvertisementActivity) myActivity).setDate(getArguments().getInt("id"), day,month,year);
+        } else if (myActivity instanceof addJourneyActivity){
+            ((addJourneyActivity) myActivity).setDate(getArguments().getInt("id"), day,month,year);
+        }
     }
 }

@@ -166,8 +166,7 @@ public class addJourneyActivity extends AppCompatActivity {
                                     s.setPrice(Float.parseFloat(price.getText().toString()));
                                     stopList.add(s);
 
-                                    stopListView = findViewById(R.id.stop_list);
-                                    stopListView.setAdapter(new StopList_adapter(stopList, getApplicationContext()));
+
 
                                 }
 

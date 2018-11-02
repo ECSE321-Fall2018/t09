@@ -40,13 +40,15 @@
             android:label="@string/title_activity_change_vehicle"
             android:theme="@style/AppTheme.NoActionBar" />
 
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".addJourneyActivity"
                   android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ChangeAdvertisementActivity" />
+        <activity android:name=".ChangeAdvertisementActivity"
+                  android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".VehicleManager"
             android:label="@string/title_activity_vehicle_manager"

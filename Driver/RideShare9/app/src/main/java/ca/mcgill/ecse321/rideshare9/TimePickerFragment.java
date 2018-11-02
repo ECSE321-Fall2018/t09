@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.rideshare9;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -30,7 +31,11 @@ public class TimePickerFragment extends DialogFragment
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        addJourneyActivity myActivity = (addJourneyActivity) getActivity();
-        myActivity.setTime(getArguments().getInt("id"), hourOfDay, minute);
+        Activity myActivity =  getActivity();
+        if(myActivity instanceof ChangeAdvertisementActivity) {
+             ((ChangeAdvertisementActivity) myActivity).setTime(getArguments().getInt("id"), hourOfDay, minute);
+        } else if (myActivity instanceof addJourneyActivity){
+            ((addJourneyActivity) myActivity).setTime(getArguments().getInt("id"), hourOfDay, minute);
+        }
     }
 }

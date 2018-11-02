@@ -51,7 +51,6 @@ public class Advertisement implements Parcelable {
         this.startTime = parcel.readString();
         this.startLocation = parcel.readString();
         this.status = parcel.readString();
-        this.stops = new ArrayList<>();
         this.stops = parcel.readArrayList(Stop.class.getClassLoader());
     }
 
@@ -130,7 +129,7 @@ public class Advertisement implements Parcelable {
         return stops;
     }
 
-    public void setStops(List<Stop> stops) {
+    public void setStops(ArrayList<Stop> stops) {
         this.stops = stops;
     }
 
@@ -154,6 +153,6 @@ public class Advertisement implements Parcelable {
         dest.writeString(startTime);
         dest.writeString(startLocation);
         dest.writeString(status);
-        dest.writeTypedList(stops);
+        dest.writeList(stops);
     }
 }
