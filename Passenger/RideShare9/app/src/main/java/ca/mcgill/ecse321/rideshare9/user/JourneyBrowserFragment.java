@@ -274,7 +274,7 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
                         final int iter3 = iter2;
                         Header[] headers1 = {new BasicHeader("Authorization","Bearer "+getArguments().getString("token"))};
                         syncHttpClient.get(getContext(),
-                                "https://rideshare9.herokuapp.com/stop/get-by-id/"+journeyList.get(iter).
+                                "https://mysterious-hollows-14613.herokuapp.com/stop/get-by-id/"+journeyList.get(iter).
                                         getStops().get(iter2).getId(),headers1,new RequestParams(),new JsonHttpResponseHandler(){
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
