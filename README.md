@@ -5,7 +5,7 @@
 
 URL | Request | Parameter Format | Parameters | Role (ROLE_)
 ------| ------ | ------ | ------ | ------
-/map/list-top-passengers | POST | "startTimeX", "startTimeY" | void | ADMIN, PASSENGER, DRIVER 
+/map/get-top-passengers | POST | "startTimeX", "startTimeY" | void | ADMIN, PASSENGER, DRIVER 
 /adv/get-top-drivers | POST | "startTimeX", "startTimeY" | void | ADMIN, PASSENGER, DRIVER 
 /adv/get-top-adv | POST | "startTimeX", "startTimeY" | void | ADMIN, PASSENGER, DRIVER 
 /user/get-list-driver-active/{name} | GET | (name) | (name) | ADMIN 
