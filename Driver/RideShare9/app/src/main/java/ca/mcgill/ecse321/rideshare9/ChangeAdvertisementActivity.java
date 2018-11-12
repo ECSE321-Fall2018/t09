@@ -289,6 +289,7 @@ public class ChangeAdvertisementActivity extends AppCompatActivity {
             toAddAdv.put("seatAvailable", Integer.parseInt(maxseat));
             toAddAdv.put("stops", stopList);
             toAddAdv.put("vehicle", Integer.parseInt(id));
+            toAddAdv.put("endLocation", ((Stop)stopListView.getAdapter().getItem(stopListView.getCount() - 1)).getName());
             Log.d("json", toAddAdv.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -393,7 +394,7 @@ public class ChangeAdvertisementActivity extends AppCompatActivity {
                         vitem.setModel(response.getJSONObject(i).getString("model"));
                         vitem.setLicencePlate(response.getJSONObject(i).getString("licencePlate"));
                         vitem.setColor(response.getJSONObject(i).getString("color"));
-                        vitem.setMaxSeat(Integer.parseInt(response.getJSONObject(i).getString("maxSeat")));
+                        vitem.setMaxSeat(Integer.parseInt(response.getJSONObject(i).getString("maxSeat"))); 
                         Log.d("catched vehicle", vitem.getModel());
                         vehicleList.add("id: " + vitem.getId() + ", model: " + vitem.getModel() + ", seats: " + vitem.getMaxSeat());
                     } catch (Exception e) {
