@@ -1,5 +1,17 @@
 # Welcome to TEAM 09 [![Build Status](https://travis-ci.com/ECSE321-Fall2018/t09.svg?token=ft4Mh1yYXz7QX8b1Dzq2&branch=master)](https://travis-ci.com/ECSE321-Fall2018/t09)
 
+## Log: 2018/11/11
+- Extra RideShare9 Backend API
+
+URL | Request | Parameter Format | Parameters | Role (ROLE_)
+------| ------ | ------ | ------ | ------
+/map/list-top-passengers | POST | "startTimeX", "startTimeY" | void | ADMIN, PASSENGER, DRIVER 
+/adv/get-top-drivers | POST | "startTimeX", "startTimeY" | void | ADMIN, PASSENGER, DRIVER 
+/adv/get-top-adv | POST | "startTimeX", "startTimeY" | void | ADMIN, PASSENGER, DRIVER 
+/user/get-list-driver-active/{name} | GET | (name) | (name) | ADMIN 
+/user/get-list-passenger-active/{name} | GET | (name) | (name) | ADMIN
+/adv/get-active-adv/{name} | GET | (name) | (name) | ADMIN
+
 ## Log: 2018/10/31
 
 - Added a list of the Driver's journey/advertisements to the Driver App
@@ -162,7 +174,7 @@ Example:
  /adv/create-adv | POST | JSON | "id", "title", "startTime",  "startLocation", "seatAvailable",  "stops", "vehicle" | DRIVER 
  /adv/get-adv-search | POST | JSON | Essential: "stop", "startLocation", "startTimeX", "startTimeY", "sortByPrice"; Optional: "vColor", "vModel" | ADMIN, PASSENGER, DRIVER 
  /adv/get-logged-adv | GET | void | void | DRIVER 
- /adv/get-top-driver | GET | void | void | ADMIN, PASSENGER, DRIVER 
+ /adv/get-top-drivers | POST | "startTimeX", "startTimeY" | void | ADMIN, PASSENGER, DRIVER 
  /adv/get-list-adv | GET | void | void | ADMIN, PASSENGER, DRIVER 
  /adv/get-by-id/{id} | GET | integer | "id" | ADMIN, PASSENGER, DRIVER
  /adv/update-adv | PUT | JSON | Essential: "id", "stops"; Optional: "title", "startTime",  "startLocation", "seatAvailable", "vehicle" | DRIVER 
@@ -177,7 +189,7 @@ Example:
  ------| ------ | ------ | ------ | ------
  /map/add-map | POST | Path Parameter | "adv_id" | PASSENGER
  /map/admin/delete/{mapper_id} | DELETE | Path Variable | "mapper_id" | PASSENGER
- /map/list-top-passengers | GET | void | void | ADMIN
+ /map/list-top-passengers | POST | "startTimeX", "startTimeY" | void | ADMIN
  
  ### VehicleController
  URL | Request | Parameter Format | Parameters | Role (ROLE_)
