@@ -264,6 +264,7 @@ public class addJourneyActivity extends AppCompatActivity {
             toAddAdv.put("seatAvailable", Integer.parseInt(maxseat));
             toAddAdv.put("stops", stopList);
             toAddAdv.put("vehicle", Integer.parseInt(id));
+            toAddAdv.put("endLocation", ((Stop)stopListView.getAdapter().getItem(stopListView.getCount() - 1)).getName());
             Log.d("json", toAddAdv.toString());
         } catch (Exception e) {
             e.printStackTrace();
