@@ -68,6 +68,16 @@ public class Advertisement {
 	public String getStartLocation() {
 		return this.startLocation;
 	}
+	
+	private String endLocation;
+
+	public void setEndLocation(String value) {
+		this.endLocation = value;
+	}
+	@Column(name = "endLocation")
+	public String getEndLocation() {
+		return this.endLocation;
+	}
 
 	private TripStatus status;
 

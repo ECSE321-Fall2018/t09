@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.rideshare9.controller;
 import ca.mcgill.ecse321.rideshare9.entity.User;
 import ca.mcgill.ecse321.rideshare9.entity.UserStatus;
 import ca.mcgill.ecse321.rideshare9.jwt.JWTLoginFilter;
+import ca.mcgill.ecse321.rideshare9.repository.UserRepository;
 import ca.mcgill.ecse321.rideshare9.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -32,6 +33,8 @@ import java.util.List;
 public class UserController {
 	@Autowired
     private UserService userService;
+	@Autowired
+	private UserRepository uRepo; 
     
     
     /**
@@ -48,20 +51,22 @@ public class UserController {
     /**
      * Admin: Retrive all user profiles, Modify this if you would like just user status
      * Core API endpoint: Admin-1 in README.md at Mark branch
+     * @param query Name
      * @return List<User>
      */
     @PreAuthorize("hasRole('ADMIN') or hasRole('BOSSLI')")
-    @GetMapping("/get-list-driver-status")
-    public List<HashMap<String, UserStatus>> driverStatusList(){
+    @GetMapping("/get-list-driver-active/{name}")
+    public List<HashMap<String, UserStatus>> driverStatusList(@PathVariable(value = "name") String name){
 
     	ArrayList<HashMap<String, UserStatus>> arrl = new ArrayList<HashMap<String, UserStatus>>(); 
-    	List<User> allU = userService.getUsers(); 
-    	
+    	List<User> allU = uRepo.findByUsernameWithStatus(name); 
     	for (User usr: allU) {
     		if (usr.getRole().equals("ROLE_DRIVER")) {
     			HashMap<String, UserStatus> curr = new HashMap<String, UserStatus>();
     			curr.put(usr.getUsername(), usr.getStatus()); 
-    			arrl.add(curr); 
+    			if (usr.getStatus().equals(UserStatus.ON_RIDE)) {
+    				arrl.add(curr); 
+    			}
     		}
     			 
     	}  	
@@ -70,20 +75,22 @@ public class UserController {
     /**
      * Admin: Retrive all user profiles, Modify this if you would like just user status
      * Core API endpoint: Admin-1 in README.md at Mark branch
+     * @param query Name
      * @return List<User>
      */
     @PreAuthorize("hasRole('ADMIN') or hasRole('BOSSLI')")
-    @GetMapping("/get-list-passenger-status")
-    public List<HashMap<String, UserStatus>> passengerStatusList(){
+    @GetMapping("/get-list-passenger-active/{name}")
+    public List<HashMap<String, UserStatus>> passengerStatusList(@PathVariable(value = "name") String name){
 
     	ArrayList<HashMap<String, UserStatus>> arrl = new ArrayList<HashMap<String, UserStatus>>(); 
-    	List<User> allU = userService.getUsers(); 
-    	
+    	List<User> allU = uRepo.findByUsernameWithStatus(name); 
     	for (User usr: allU) {
     		if (usr.getRole().equals("ROLE_PASSENGER")) {
     			HashMap<String, UserStatus> curr = new HashMap<String, UserStatus>();
     			curr.put(usr.getUsername(), usr.getStatus()); 
-    			arrl.add(curr); 
+    			if (usr.getStatus().equals(UserStatus.ON_RIDE)) {
+    				arrl.add(curr); 
+    			}
     		}
     			 
     	}  	

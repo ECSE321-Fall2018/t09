@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -20,6 +21,7 @@ import ca.mcgill.ecse321.rideshare9.entity.Stop;
 import ca.mcgill.ecse321.rideshare9.entity.TripStatus;
 import ca.mcgill.ecse321.rideshare9.entity.User;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvBestQuery;
+import ca.mcgill.ecse321.rideshare9.entity.helper.AdvQuery;
 import ca.mcgill.ecse321.rideshare9.entity.helper.MapperBestQuery;
 import ca.mcgill.ecse321.rideshare9.service.impl.UserServiceImpl;
 
@@ -71,8 +73,8 @@ public class MapperUserAdvRepository {
 		return ((Long)query.getSingleResult()).intValue();
 	}
 	@Transactional
-	public List<MapperBestQuery> findBestPassenger() {
-	    Query query = em.createQuery("SELECT a.passenger, COUNT(a) FROM MapperUserAdv a GROUP BY a.passenger ORDER BY COUNT(a) DESC", Object[].class);
+	public List<MapperBestQuery> findBestPassenger(AdvQuery qry) {
+	    Query query = em.createQuery("SELECT m.passenger, COUNT(m) FROM MapperUserAdv m JOIN Advertisement a ON a.id = m.advertisement WHERE a.startTime BETWEEN :start AND :end GROUP BY m.passenger ORDER BY COUNT(m) DESC", Object[].class).setParameter("start", qry.getStartTimeX(), TemporalType.TIMESTAMP).setParameter("end", qry.getStartTimeY(), TemporalType.TIMESTAMP);
 	    List<Object[]> did_list = query.getResultList(); 
 	    ArrayList<MapperBestQuery> q = new ArrayList<MapperBestQuery>(); 
 	    for (Object[] i: did_list) {

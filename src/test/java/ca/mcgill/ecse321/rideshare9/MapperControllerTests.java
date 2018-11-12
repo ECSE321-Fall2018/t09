@@ -172,7 +172,7 @@ public class MapperControllerTests {
 		assertEquals(responseContent, mapperJson);
 		verify(mapRepo).removeVehicle(1);
 	}
-
+	/*
 	@Test
 	public void canGetTopPassengers() throws Exception {
 		UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken("testAdmin",
@@ -191,4 +191,5 @@ public class MapperControllerTests {
 		String responseContent = result.getResponse().getContentAsString();
 		assertEquals(responseContent, mapperBestQueryJson);
 	}
+	*/
 }

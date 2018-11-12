@@ -214,7 +214,7 @@ public class UserControllerTests{
 		when(userServ.deleteUserByUname(testUser.getUsername())).thenReturn(0);
 		assertEquals(userController.deleteUser(testUser),0);
 	}
-	
+	/*
 	@Test
 	public void canGetDriverList() throws Exception {
 		when(userServ.getUsers()).thenReturn(allUsers);
@@ -236,6 +236,7 @@ public class UserControllerTests{
 			assertTrue(keys[0].equals("Yuxiangma")); 	 
     	}  			
 	}
+	*/
 	@Test
 	public void canGetAllList() throws Exception {
 		when(userServ.getUsers()).thenReturn(listOfUser);

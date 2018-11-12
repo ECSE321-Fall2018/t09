@@ -24,6 +24,8 @@ import ca.mcgill.ecse321.rideshare9.entity.User;
 public interface UserRepository extends JpaRepository<User, Long>{
 	@Query("select t from User t where t.username = :name")
 	User findByUsername(@Param("name") String name);
+	@Query("select t from User t where lower(t.username) like lower(concat('%', :nameToFind,'%'))")
+	List<User> findByUsernameWithStatus(@Param("nameToFind") String name);
 	@Query("select t from User t where t.id = :id")
     User findByUID(@Param("id") Long id);
 	@Modifying

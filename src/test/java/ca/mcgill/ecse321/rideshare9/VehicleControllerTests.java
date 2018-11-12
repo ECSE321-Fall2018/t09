@@ -124,7 +124,7 @@ public class VehicleControllerTests {
 		String responseContent = result.getResponse().getContentAsString();
 		assertEquals(responseContent, vehicleJson);
 	}
-	/* TODO This entire test needs to be re-written.
+	
 	@Test
 	public void canDeleteVehicle() throws Exception {
 		UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken("testUsername", "testPassword", testDriver.getAuthorities());
@@ -138,7 +138,7 @@ public class VehicleControllerTests {
 		
 		when(userDao.loadUserByUsername(anyString())).thenReturn(testDriver);
 		
-		MvcResult result = mvc.perform(post("/vehicle/remove-car")
+		MvcResult result = mvc.perform(delete("/vehicle/remove-car")
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(vehicleJson))
 				.andExpect(status().isOk())
@@ -149,7 +149,7 @@ public class VehicleControllerTests {
 		assertEquals(responseContent, vehicleJson);
 		verify(vehicleDao).removeVehicle(22L);
 	}
-	*/
+	
 	@Test
 	public void canGetVehiclesByUserId() throws Exception {
 		Vehicle testVehicle2;
@@ -183,7 +183,7 @@ public class VehicleControllerTests {
 		String responseContent = result.getResponse().getContentAsString();
 		assertEquals(responseContent, vehiclesJson);
 	}
-	/* TODO This test needs to be updated.
+	
 	@Test
 	public void canUpdateVehicle() throws Exception {
 		Vehicle testVehicle2;
@@ -217,5 +217,5 @@ public class VehicleControllerTests {
 				.andReturn();
 		String responseContent = result.getResponse().getContentAsString();
 		assertEquals(responseContent, vehicle2Json);
-	}*/
+	}
 }

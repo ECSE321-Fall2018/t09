@@ -22,6 +22,7 @@ import ca.mcgill.ecse321.rideshare9.entity.User;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvBestQuery;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvQuery;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvResponse;
+import ca.mcgill.ecse321.rideshare9.entity.helper.RouteBestQuery;
 import ca.mcgill.ecse321.rideshare9.repository.AdvertisementRepository;
 import ca.mcgill.ecse321.rideshare9.service.UserService;
 
@@ -69,10 +70,10 @@ public class AdvertisementController {
     public Advertisement postAdv(@RequestBody Advertisement adv) {
 
     	String currentUserName = null; 
-   	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+   	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         currentUserName = authentication.getName();
         if (userv.loadUserByUsername(currentUserName) != null) {
-                return advService.createAdv(adv.getTitle(), adv.getStartTime(), adv.getStartLocation(), adv.getSeatAvailable(), adv.getStops(), adv.getVehicle(), userv.loadUserByUsername(currentUserName).getId());
+                return advService.createAdv(adv.getTitle(), adv.getStartTime(), adv.getStartLocation(), adv.getSeatAvailable(), adv.getStops(), adv.getVehicle(), userv.loadUserByUsername(currentUserName).getId(), adv.getEndLocation());
     	} else {
     		return null; 
         }
@@ -155,18 +156,16 @@ public class AdvertisementController {
     	if (adv.getStartLocation() != null && !adv.getStartLocation().isEmpty() && !adv.getStartLocation().equals(oldadv.getStartLocation())) {
     		oldadv.setStartLocation(adv.getStartLocation());
     	}
-    	if ((adv.getSeatAvailable() != 0) && (oldadv.getSeatAvailable() != adv.getSeatAvailable()) 
-    			|| (adv.getSeatAvailable() == 0) && (adv.getStatus() != null) && (adv.getStatus() != TripStatus.REGISTERING)) {
-    		oldadv.setSeatAvailable(adv.getSeatAvailable());
-    	}
     	if (adv.getStatus() != null && adv.getStatus() != oldadv.getStatus()) {
     		oldadv.setStatus(adv.getStatus());
     	}
     	if (adv.getVehicle() > 0 && (oldadv.getVehicle() != adv.getVehicle())) {
     		oldadv.setVehicle(adv.getVehicle());
     	}
-    	oldadv.setStops(adv.getStops()); 
-    	
+    	if (adv.getStatus() == null) {
+    		oldadv.setStops(adv.getStops()); 
+    		oldadv.setEndLocation(adv.getEndLocation()); 
+    	}
     	return advService.updateAdv(oldadv); 
     }
     
@@ -188,9 +187,20 @@ public class AdvertisementController {
      * @return list of all advertisements
      */
     @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
-    @GetMapping("/get-top-drivers")
-    public List<AdvBestQuery> getTopDriver() {
-        return advService.findBestDriver(); 
+    @PostMapping("/get-top-drivers")
+    public List<AdvBestQuery> getTopDriver(@RequestBody AdvQuery advCriteria) {
+        return advService.findBestDriver(advCriteria); 
+    }
+    /**
+     * All people: list all advertisement SELECT COUNT(*) FROM tb_adv WHERE role = 'ROLE_DRIVER' GROUPBY driver ORDERED BY COUNT(*) DESC
+     * Core API endpoint: Admin-2 in README.md at Mark branch: TOP DRIVER
+     * @param void
+     * @return list of all advertisements
+     */
+    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+    @PostMapping("/get-top-adv")
+    public List<RouteBestQuery> getTopRoute(@RequestBody AdvQuery advCriteria) {
+        return advService.findAllBestJourney(advCriteria); 
     }
     /**
      * All user: search advertisement by carrier json
@@ -227,5 +237,9 @@ public class AdvertisementController {
 	public Advertisement getAdvById(@PathVariable(value = "id") long id) {
 		return advService.findAdv(id);
 	}
-    
+    @PreAuthorize("hasRole('BOSSLI') or hasRole('ADMIN')")
+	@GetMapping(value = "/get-active-adv/{name}")
+	public List<Advertisement> getAdvActive(@PathVariable(value = "name") String name) {
+		return advService.findAllActiveJourney(name);
+	}
 }
