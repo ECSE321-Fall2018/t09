@@ -180,6 +180,11 @@ public class AdvertisementController {
         return advService.findAllAdv();
     }
     
+    @GetMapping("/active-advertisements")
+    public List<Advertisement> getActiveAdvertisements(){
+    	return advService.findActiveAdvertisements();
+    }
+    
     /**
      * All people: list all advertisement SELECT COUNT(*) FROM tb_adv WHERE role = 'ROLE_DRIVER' GROUPBY driver ORDERED BY COUNT(*) DESC
      * Core API endpoint: Admin-2 in README.md at Mark branch: TOP DRIVER

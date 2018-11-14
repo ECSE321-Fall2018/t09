@@ -385,6 +385,18 @@ public class AdvertisementRepository {
 	    }
 	    return q;
 	}
+	
+	@Transactional
+	public List<Advertisement> findActiveAdvertisements() {
+		List<Advertisement> activeAdvertisements = new ArrayList<>();
+		Date currentDate = new Date();
+		for (Advertisement ad : findAllAdv()) {
+			if (currentDate.after(ad.getStartTime()) && ad.getStatus() != TripStatus.COMPLETE) {
+				activeAdvertisements.add(ad);
+			}
+		}
+		return activeAdvertisements;
+	}
 }
 
 
