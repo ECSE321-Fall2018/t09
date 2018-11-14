@@ -180,6 +180,7 @@ public class AdvertisementController {
         return advService.findAllAdv();
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/active-advertisements")
     public List<Advertisement> getActiveAdvertisements(){
     	return advService.findActiveAdvertisements();
