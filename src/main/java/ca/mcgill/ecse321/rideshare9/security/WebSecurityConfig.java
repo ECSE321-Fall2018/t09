@@ -45,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/user/sign-up", "/user/get-is-unique", "/user/mainpg").permitAll()
+                .antMatchers(HttpMethod.GET, "/adv/active-advertisements").permitAll()
                 //.antMatchers(HttpMethod.POST, "/adv/passenger/get-all-adv").permitAll() uncomment this and remove advcontroller @PreAuth to enable anyone access advertisement search
                 .anyRequest().authenticated()
                 .and()
