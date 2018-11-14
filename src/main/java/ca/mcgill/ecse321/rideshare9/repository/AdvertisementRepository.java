@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter.FixedSpaceIndenter;
+
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvBestQuery;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvQuery;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvResponse;
@@ -127,6 +129,18 @@ public class AdvertisementRepository {
 	public List<Advertisement> findAllAdv() {
 	    TypedQuery<Advertisement> query = em.createQuery("SELECT a FROM Advertisement a", Advertisement.class);
 	    return query.getResultList();
+	}
+	
+	@Transactional
+	public List<Advertisement> findActiveAdvertisements() {
+		List<Advertisement> activeAdvertisements = new ArrayList<>();
+		Date currentDate = new Date();
+		for (Advertisement ad : findAllAdv()) {
+			if (currentDate.after(ad.getStartTime()) && ad.getStatus() != TripStatus.COMPLETE) {
+				activeAdvertisements.add(ad);
+			}
+		}
+		return activeAdvertisements;
 	}
 	
 	/**
