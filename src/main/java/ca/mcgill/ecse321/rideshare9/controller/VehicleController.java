@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import ca.mcgill.ecse321.rideshare9.entity.Vehicle;
 import ca.mcgill.ecse321.rideshare9.repository.VehicleRepository;
 import ca.mcgill.ecse321.rideshare9.service.impl.UserServiceImpl;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/vehicle")
 public class VehicleController {

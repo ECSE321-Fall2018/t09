@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,7 +50,7 @@ import ca.mcgill.ecse321.rideshare9.service.UserService;
  * Price					| StartTime 					|
  * --------------------------------------------------------------------------------------------------------------
  */
-
+@CrossOrigin
 @RestController
 @RequestMapping("/adv")
 public class AdvertisementController {

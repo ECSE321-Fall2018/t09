@@ -28,6 +28,7 @@ import java.util.List;
  * @author yuxiangma
  */
 
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {

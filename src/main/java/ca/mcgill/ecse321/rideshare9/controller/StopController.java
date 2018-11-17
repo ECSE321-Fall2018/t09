@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.rideshare9.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
 import ca.mcgill.ecse321.rideshare9.entity.Stop;
 import ca.mcgill.ecse321.rideshare9.repository.StopRepository;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/stop")
 public class StopController {
