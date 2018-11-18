@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import ca.mcgill.ecse321.rideshare9.entity.ActiveAdvertisement;
 import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
 import ca.mcgill.ecse321.rideshare9.entity.TripStatus;
 import ca.mcgill.ecse321.rideshare9.entity.User;
@@ -183,7 +185,7 @@ public class AdvertisementController {
     
     //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/active-advertisements")
-    public List<Advertisement> getActiveAdvertisements(){
+    public List<ActiveAdvertisement> getActiveAdvertisements(){
     	return advService.findActiveAdvertisements();
     }
     

@@ -387,15 +387,30 @@ public class AdvertisementRepository {
 	}
 	
 	@Transactional
-	public List<Advertisement> findActiveAdvertisements() {
+	public List<ActiveAdvertisement> findActiveAdvertisements() {
 		List<Advertisement> activeAdvertisements = new ArrayList<>();
+		List<ActiveAdvertisement> customActiveAdvertisements = new ArrayList<>();
 		Date currentDate = new Date();
 		for (Advertisement ad : findAllAdv()) {
 			if (currentDate.after(ad.getStartTime()) && ad.getStatus() != TripStatus.COMPLETE && ad.getStatus() != TripStatus.CANCELLED) {
 				activeAdvertisements.add(ad);
 			}
 		}
-		return activeAdvertisements;
+		for (Advertisement ad : activeAdvertisements) {			
+			User driver = urp.findUserByUID(ad.getDriver());
+			String driverUsername = "Unknown";
+			if (driver != null) {
+				driverUsername = driver.getUsername();
+			}			
+			Vehicle vehicle = vrp.findVehicle(ad.getVehicle());
+			List<Stop> stopList = new ArrayList<>();
+			for (Long stopId : ad.getStops()) {
+				stopList.add(srp.findStop(stopId));
+			}
+			ActiveAdvertisement activeAd = new ActiveAdvertisement(ad.getId(), ad.getTitle(), ad.getStartTime(), ad.getStartLocation(), ad.getEndLocation(), ad.getStatus(), ad.getSeatAvailable(), stopList, vehicle, driverUsername);
+			customActiveAdvertisements.add(activeAd);
+		}
+		return customActiveAdvertisements;
 	}
 }
 
