@@ -1,4 +1,5 @@
 package ca.mcgill.ecse321.rideshare9.service;
+import ca.mcgill.ecse321.rideshare9.entity.ActiveUser;
 import ca.mcgill.ecse321.rideshare9.entity.User;
 import ca.mcgill.ecse321.rideshare9.entity.UserStatus;
 
@@ -25,4 +26,6 @@ public interface UserService {
     User findUserByUsername(String uname); 
     int deleteUserByUID(Long uid); 
     int deleteUserByUname(String uname);
+    List<ActiveUser> findActiveDrivers();
+    List<ActiveUser> findActivePassengers();
 }

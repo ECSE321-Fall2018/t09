@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.rideshare9.controller;
 
+import ca.mcgill.ecse321.rideshare9.entity.ActiveUser;
 import ca.mcgill.ecse321.rideshare9.entity.User;
 import ca.mcgill.ecse321.rideshare9.entity.UserStatus;
 import ca.mcgill.ecse321.rideshare9.jwt.JWTLoginFilter;
@@ -152,6 +153,11 @@ public class UserController {
     @GetMapping("/hello")
     public String helloW(){
         return "Ok!";
+    }
+
+    @GetMapping("/active-users")
+    public List<ActiveUser> getActiveDrivers(){
+        return userService.findActiveDrivers();
     }
    
     
