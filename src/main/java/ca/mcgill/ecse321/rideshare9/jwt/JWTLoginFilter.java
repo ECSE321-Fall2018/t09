@@ -50,6 +50,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         try {
             token = Jwts.builder().setSubject(auth.getName()).setExpiration(new Date(Long.MAX_VALUE)) .signWith(SignatureAlgorithm.HS512, SIGNING_KEY) .compact();
             res.addHeader("Authorization", "Bearer " + token);
+            res.setHeader("Access-Control-Allow-Origin", "*");
         } catch (Exception e) {
             e.printStackTrace();
         }
