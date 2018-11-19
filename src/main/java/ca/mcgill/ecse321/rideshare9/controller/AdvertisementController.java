@@ -52,7 +52,6 @@ import ca.mcgill.ecse321.rideshare9.service.UserService;
  * Price					| StartTime 					|
  * --------------------------------------------------------------------------------------------------------------
  */
-@CrossOrigin
 @RestController
 @RequestMapping("/adv")
 public class AdvertisementController {
