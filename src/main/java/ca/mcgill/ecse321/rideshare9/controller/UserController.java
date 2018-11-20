@@ -155,7 +155,7 @@ public class UserController {
         return "Ok!";
     }
 
-    @GetMapping("/active-users")
+    @GetMapping("/active-drivers")
     public List<ActiveUser> getActiveDrivers(){
         return userService.findActiveDrivers();
     }
