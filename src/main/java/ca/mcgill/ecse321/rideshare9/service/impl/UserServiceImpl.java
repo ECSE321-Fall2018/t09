@@ -93,12 +93,14 @@ public class UserServiceImpl implements UserService {
         List<ActiveUser> newActiveUsers = new ArrayList<>();
         //Active is defined as ON_RIDE because it is one of the only two options
         for (User user : getUsers()) {
-            if(user.getRole().equals("ROLE_DRIVER")){
-                oldActiveUsers.add(user);
+            if(user.hasRole()) {
+                if (user.getRole().equals("ROLE_DRIVER")) {
+                    oldActiveUsers.add(user);
+                }
             }
         }
         for(User user : oldActiveUsers){
-            ActiveUser activeUser = new ActiveUser(user.getId(),user.getUsername(), user.getStatus().toString());
+            ActiveUser activeUser = new ActiveUser(user.getId(),user.getUsername(), user.getStatus().name());
             newActiveUsers.add(activeUser);
         }
         return newActiveUsers;
@@ -110,8 +112,10 @@ public class UserServiceImpl implements UserService {
         List<ActiveUser> newActiveUsers = new ArrayList<>();
         //Active is defined as ON_RIDE because it is one of the only two options
         for (User user : getUsers()) {
-            if(user.getRole().equals("ROLE_PASSENGER")){
-                oldActiveUsers.add(user);
+            if(user.hasRole()) {
+                if (user.getRole().equals("ROLE_PASSENGER")) {
+                    oldActiveUsers.add(user);
+                }
             }
         }
         for(User user : oldActiveUsers){

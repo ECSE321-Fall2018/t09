@@ -45,6 +45,8 @@ public class User implements Serializable, UserDetails {
 		return id;
 	}
 
+	public boolean hasRole(){return role != null;}
+
 	public String getUsername() {
 		return username;
 	}
