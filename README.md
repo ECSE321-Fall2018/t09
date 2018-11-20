@@ -2,15 +2,16 @@
 
 ## Log: 2018/11/11
 - Extra RideShare9 Backend API
+-Updated: 2018/11/20
 
 URL | Request | Parameter Format | Parameters | Role (ROLE_)
 ------| ------ | ------ | ------ | ------
 /map/get-top-passengers | POST | "startTimeX", "startTimeY" | void | ADMIN, PASSENGER, DRIVER 
 /adv/get-top-drivers | POST | "startTimeX", "startTimeY" | void | ADMIN, PASSENGER, DRIVER 
 /adv/get-top-adv | POST | "startTimeX", "startTimeY" | void | ADMIN, PASSENGER, DRIVER 
-/user/get-list-driver-active/{name} | GET | (name) | (name) | ADMIN 
-/user/get-list-passenger-active/{name} | GET | (name) | (name) | ADMIN
-/adv/get-active-adv/{name} | GET | (name) | (name) | ADMIN
+/user/active-drivers | GET | void | void | ADMIN 
+/user/active-passengers | GET | void | void | ADMIN
+/adv/get-active-adv/{name} | GET | (name) |  (name) | ADMIN
 
 ## Log: 2018/10/31
 
