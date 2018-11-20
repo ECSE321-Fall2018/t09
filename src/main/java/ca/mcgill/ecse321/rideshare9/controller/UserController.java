@@ -159,6 +159,11 @@ public class UserController {
     public List<ActiveUser> getActiveDrivers(){
         return userService.findActiveDrivers();
     }
+
+    @GetMapping("/active-passengers")
+    public List<ActiveUser> getActivePassengers(){
+        return userService.findActivePassengers();
+    }
    
     
     /**
