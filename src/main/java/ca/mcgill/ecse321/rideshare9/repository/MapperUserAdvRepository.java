@@ -79,9 +79,9 @@ public class MapperUserAdvRepository {
 	    ArrayList<MapperBestQuery> q = new ArrayList<MapperBestQuery>(); 
 	    for (Object[] i: did_list) {
 	    	MapperBestQuery currq = new MapperBestQuery(); 
-            currq.setBest(urp.findUserByUID((Long)i[0]));
-            currq.setCount((Long)i[1]);
-            q.add(currq); 
+            	currq.setBest(urp.findUserByUID((Long)i[0]));
+            	currq.setCount((Long)i[1]);
+		if (currq.getBest() != null) q.add(currq); 
 	    }
 	    return q;
 	}
