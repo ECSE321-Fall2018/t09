@@ -164,9 +164,9 @@ public class AdvertisementRepository {
 	    ArrayList<AdvBestQuery> q = new ArrayList<AdvBestQuery>(); 
 	    for (Object[] i: did_list) {
 	    	AdvBestQuery currq = new AdvBestQuery(); 
-            currq.setBest(urp.findUserByUID((Long)i[0]));
-            currq.setCount((Long)i[1]);
-            q.add(currq); 
+            	currq.setBest(urp.findUserByUID((Long)i[0]));
+            	currq.setCount((Long)i[1]);
+            	if (currq.getBest() != null) q.add(currq); 
 	    }
 	    return q;
 	}
