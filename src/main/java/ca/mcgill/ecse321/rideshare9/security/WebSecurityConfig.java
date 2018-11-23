@@ -51,7 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/user/sign-up", "/user/get-is-unique", "/user/mainpg", "/adv/active-advertisements", "/user/active-drivers", "/user/active-passengers").permitAll()
+                .antMatchers("/user/sign-up", "/user/get-is-unique", "/user/mainpg", "/adv/active-advertisements", "/user/active-drivers", "/user/active-passengers",
+                			"/adv/get-top-drivers", "/map/get-top-passengers", "/adv/get-top-adv").permitAll()
                 //.antMatchers(HttpMethod.GET, "/adv/active-advertisements").permitAll()
                 //.antMatchers(HttpMethod.POST, "/adv/passenger/get-all-adv").permitAll() uncomment this and remove advcontroller @PreAuth to enable anyone access advertisement search
                 .anyRequest().authenticated()
