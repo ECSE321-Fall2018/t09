@@ -69,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
-        String[] origins = {"*", "http://localhost:8087"};
+        String[] origins = {"*", "http://localhost:8087", "https://ride-sharer2.herokuapp.com"};
         configuration.setAllowedOrigins(Arrays.asList(origins));
         String[] methods = {"HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"};
         configuration.setAllowedMethods(Arrays.asList(methods));

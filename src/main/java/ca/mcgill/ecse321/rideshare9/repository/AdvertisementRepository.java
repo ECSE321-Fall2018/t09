@@ -392,7 +392,7 @@ public class AdvertisementRepository {
 		List<ActiveAdvertisement> customActiveAdvertisements = new ArrayList<>();
 		Date currentDate = new Date();
 		for (Advertisement ad : findAllAdv()) {
-			if (currentDate.after(ad.getStartTime()) && ad.getStatus() != TripStatus.COMPLETE && ad.getStatus() != TripStatus.CANCELLED) {
+			if (ad.getStatus() != TripStatus.COMPLETE && ad.getStatus() != TripStatus.CANCELLED) {
 				activeAdvertisements.add(ad);
 			}
 		}
