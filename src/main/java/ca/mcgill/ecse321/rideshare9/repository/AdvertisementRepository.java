@@ -378,10 +378,10 @@ public class AdvertisementRepository {
 	    ArrayList<RouteBestQuery> q = new ArrayList<RouteBestQuery>(); 
 	    for (Object[] i: did_list) {
 	    	RouteBestQuery currq = new RouteBestQuery(); 
-            currq.setStart((String)i[0]);
-            currq.setEnd((String)i[1]); 
-            currq.setCount((new Long((Long)i[2])).intValue());
-            q.add(currq); 
+	    currq.setStart((String)i[0]);
+	    currq.setEnd((String)i[1]); 
+	    currq.setCount((new Long((Long)i[2])).intValue());
+		    if ((currq.getStart() != null) && (currq.getEnd() != null)) q.add(currq); 
 	    }
 	    return q;
 	}
