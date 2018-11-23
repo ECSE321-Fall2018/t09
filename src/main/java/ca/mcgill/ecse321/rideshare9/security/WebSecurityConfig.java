@@ -3,6 +3,10 @@ import ca.mcgill.ecse321.rideshare9.jwt.JWTAuthenticationFilter;
 import ca.mcgill.ecse321.rideshare9.jwt.JWTLoginFilter;
 import ca.mcgill.ecse321.rideshare9.service.UserService;
 import ca.mcgill.ecse321.rideshare9.service.impl.CustomAuthenticationProvider;
+
+import java.util.Arrays;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,6 +16,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  * JWTLoginFilter + JWTAuthenticationFilter
@@ -55,6 +62,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")
                 .permitAll();
+    }
+    
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        final CorsConfiguration configuration = new CorsConfiguration();
+        String[] origins = {"http://localhost:8087", "https://ride-sharer2.herokuapp.com", "https://ride-sharer.herokuapp.com"};
+        configuration.setAllowedOrigins(Arrays.asList(origins));
+        String[] methods = {"HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"};
+        configuration.setAllowedMethods(Arrays.asList(methods));
+        // setAllowCredentials(true) is important, otherwise:
+        // The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request's credentials mode is 'include'.
+        configuration.setAllowCredentials(true);
+        // setAllowedHeaders is important! Without it, OPTIONS preflight request
+        // will fail with 403 Invalid CORS request
+        String[] headers = {"*"};
+        configuration.setAllowedHeaders(Arrays.asList(headers));
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Override
