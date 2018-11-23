@@ -98,7 +98,7 @@ public class MapperController {
      * @param journey/mapper (JSON)
      * @return deleted mapper
      */
-//    @PreAuthorize("hasRole('PASSENGER') or hasRole('BOSSLI') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('PASSENGER') or hasRole('BOSSLI') or hasRole('ADMIN')")
     @DeleteMapping("/admin/delete/{mapperid}")
     	public MapperUserAdv delMap(@PathVariable String mapperid) {
         	try {
@@ -116,7 +116,7 @@ public class MapperController {
      * Core API endpoint: Admin-2 in README.md at Mark branch
      * @return List<User>
      */
-    @PreAuthorize("hasRole('DRIVER') or hasRole('PASSENGER') or hasRole('BOSSLI') or hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('DRIVER') or hasRole('PASSENGER') or hasRole('BOSSLI') or hasRole('ADMIN')")
     @PostMapping("/get-top-passengers")
     public List<MapperBestQuery> getTopPassengers(@RequestBody AdvQuery advCriteria){   
         return mserv.findBestPassenger(advCriteria);
