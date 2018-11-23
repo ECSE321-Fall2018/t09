@@ -98,7 +98,7 @@ public class MapperController {
      * @param journey/mapper (JSON)
      * @return deleted mapper
      */
-    @PreAuthorize("hasRole('PASSENGER') or hasRole('BOSSLI') or hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('PASSENGER') or hasRole('BOSSLI') or hasRole('ADMIN')")
     @DeleteMapping("/admin/delete/{mapperid}")
     	public MapperUserAdv delMap(@PathVariable String mapperid) {
         	try {

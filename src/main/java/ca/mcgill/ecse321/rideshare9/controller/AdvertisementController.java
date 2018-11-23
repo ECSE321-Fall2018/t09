@@ -195,7 +195,7 @@ public class AdvertisementController {
      * @param void
      * @return list of all advertisements
      */
-    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+//    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
     @PostMapping("/get-top-drivers")
     public List<AdvBestQuery> getTopDriver(@RequestBody AdvQuery advCriteria) {
         return advService.findBestDriver(advCriteria); 
@@ -206,7 +206,7 @@ public class AdvertisementController {
      * @param void
      * @return list of all advertisements
      */
-    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
+//    @PreAuthorize("hasRole('PASSENGER') or hasRole('DRIVER') or hasRole('ADMIN') or hasRole('BOSSLI')")
     @PostMapping("/get-top-adv")
     public List<RouteBestQuery> getTopRoute(@RequestBody AdvQuery advCriteria) {
         return advService.findAllBestJourney(advCriteria);
