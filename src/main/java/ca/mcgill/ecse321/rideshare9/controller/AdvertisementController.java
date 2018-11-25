@@ -160,7 +160,11 @@ public class AdvertisementController {
     		oldadv.setStartLocation(adv.getStartLocation());
     	}
     	if (adv.getStatus() != null && adv.getStatus() != oldadv.getStatus()) {
-    		oldadv.setStatus(adv.getStatus());
+		if (oldadv.getStatus() == TripStatus.REGISTERING && adv.getStatus() != TripStatus.COMPLETE) {
+    			oldadv.setStatus(adv.getStatus());
+    		} else if (oldadv.getStatus() == TripStatus.ON_RIDE && adv.getStatus() == TripStatus.COMPLETE) {
+    			oldadv.setStatus(adv.getStatus());
+    		}
     	}
     	if (adv.getVehicle() > 0 && (oldadv.getVehicle() != adv.getVehicle())) {
     		oldadv.setVehicle(adv.getVehicle());
