@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/brighterPrimary"
     android:padding="10dp"
     tools:context=".user.JourneyViewerActivity"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -22,9 +21,15 @@
                 android:id="@+id/advertisement_viewer_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_menu_black_36dp"
+                android:gravity="center"
                 android:textColor="@android:color/black"
                 android:textSize="40sp" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="?android:attr/listDivider" />
 
             <TextView
                 android:id="@+id/advStatus"
@@ -58,19 +63,39 @@
                 android:textColor="#131d21"
                 android:textSize="24sp" />
 
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="?android:attr/listDivider" />
+
             <TextView
                 android:id="@+id/driversInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:textSize="28sp" />
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/carColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:textSize="28sp" />
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="14dp" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="?android:attr/listDivider" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -83,12 +108,13 @@
 
             <TextView
                 android:id="@+id/viewonMap"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
+                android:drawableLeft="@drawable/ic_arrow_forward_red_500_24dp"
+                android:drawableRight="@drawable/ic_arrow_back_red_a700_24dp"
                 android:onClick="startMap"
                 android:text="@string/viewOnmap"
-                android:textColor="@color/colorAccent"
                 android:textSize="21sp" />
 
             <android.support.v7.widget.RecyclerView

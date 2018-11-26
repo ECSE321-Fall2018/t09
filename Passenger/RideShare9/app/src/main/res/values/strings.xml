@@ -14,7 +14,7 @@
     <string name="signupname">Enter your Username</string>
     <string name="signuppassword">Enter your Password</string>
     <string name="signuppasswordconfirm">Confirm your Password</string>
-    <string name="signuptitle">Signup for Free</string>
+    <string name="signuptitle">SignUp</string>
     <string name="iampassenger">I am a Passenger</string>
     <string name="imdriver">I am a Driver</string>
     <string name="signupbutton">Register!</string>
@@ -22,9 +22,9 @@
     <string name="loginError">Error</string>
     <string name="title_activity_user">UserActivity</string>
     <string name="title_you">Profile</string>
-    <string name="title_adv">Available Journeys</string>
+    <string name="title_adv">Advertisements</string>
     <string name="title_history">Past Journeys</string>
-    <string name="title_current_trips">Current Journeys</string>
+    <string name="title_current_trips">Current</string>
     <string name="statistics">Statistic</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="journey_browser_refresh_button">Refresh</string>
@@ -36,10 +36,10 @@
     <string name="advertisement_viewer_join_button">Join Journey</string>
     <string name="homerefresh">Refresh</string>
     <string name="viewOnmap">view these stops on Google Map</string>
-    <string name="searchStop">Search for a stop here</string>
-    <string name="sortbyPrice">Sort by Price</string>
-    <string name="sortByCarModel">Sort by CarType</string>
+    <string name="searchStop">Enter a Stop name </string>
+    <string name="sortbyPrice">Price</string>
+    <string name="sortByCarModel">Car Type</string>
     <string name="startTime">Search from this time</string>
     <string name="endTime">To this Time</string>
-    <string name="searchStart">Search by startlocation</string>
+    <string name="searchStart">Enter a startlocation </string>
 </resources>

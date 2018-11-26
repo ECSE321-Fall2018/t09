@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.rideshare9;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
@@ -216,6 +217,7 @@ public class FullscreenActivity_login extends AppCompatActivity {
         //TODO
         error = "";
 
+
         CheckBox checkrmb = (CheckBox)findViewById(R.id.rmbMe);
         final TextView namefield = (TextView) findViewById(R.id.username);
         final TextView passwordfield = (TextView) findViewById(R.id.password);
@@ -251,7 +253,6 @@ public class FullscreenActivity_login extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         HttpUtils.post(getApplicationContext(), "login", entity, "application/json", new TextHttpResponseHandler() {
             @Override
             public void onFinish() {
@@ -264,6 +265,7 @@ public class FullscreenActivity_login extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 //save up bearer token
                 //add header token to HttpUtils for future requests
+
                 String token = headers[2].getValue();
                 HttpUtils.addHeader("Authorization", token);
                 Log.d("Token", token.replaceFirst("Bearer ", ""));

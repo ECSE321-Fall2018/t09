@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/brighterPrimary"
     android:orientation="horizontal"
     android:padding="10dp">
 
@@ -13,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        app:srcCompat="@drawable/ic_keyboard_arrow_right_white_24dp" />
+        app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp" />
 
     <TextView
         android:id="@+id/stop_name"

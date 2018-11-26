@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.rideshare9.user;
 
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;

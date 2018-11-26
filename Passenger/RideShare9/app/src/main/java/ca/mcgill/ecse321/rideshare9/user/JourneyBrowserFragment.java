@@ -1,11 +1,15 @@
 package ca.mcgill.ecse321.rideshare9.user;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,10 +17,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.content.Loader;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -40,7 +46,7 @@ import cz.msebera.android.httpclient.protocol.HTTP;
 import static com.loopj.android.http.AsyncHttpClient.log;
 
 
-public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,LoaderManager.LoaderCallbacks<Cursor> {
 
     private OnFragmentInteractionListener mListener;
     private final static List<Journey> JOURNEYS = new ArrayList<>();
@@ -49,12 +55,18 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
     private LinearLayoutManager layoutManager;
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
     public JourneyBrowserFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
     }
 
@@ -88,11 +100,13 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
                                 null, new JsonHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                                        JOURNEYS.get(finalI).getStops().get(finalJ)
-                                                .setName(response.optString("stopName"));
-                                        JOURNEYS.get(finalI).getStops().get(finalJ)
-                                                .setPrice((float) response.optDouble("price"));
-                                        journeyAdapter.notifyDataSetChanged();
+                                        if(JOURNEYS.size()>0) {
+                                            JOURNEYS.get(finalI).getStops().get(finalJ)
+                                                    .setName(response.optString("stopName"));
+                                            JOURNEYS.get(finalI).getStops().get(finalJ)
+                                                    .setPrice((float) response.optDouble("price"));
+                                            journeyAdapter.notifyDataSetChanged();
+                                        }
                                     }
                                 });
                     }
@@ -176,6 +190,7 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
         rvAdvertisements = view.findViewById(R.id.rvAdvertisements);
         final ImageView searchIcon = (ImageView)view.findViewById(R.id.searchIcon);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+
         rvAdvertisements.addItemDecoration(
                 new DividerItemDecoration(
                         rvAdvertisements.getContext(), layoutManager.getOrientation()
@@ -192,7 +207,6 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
         journeyAdapter = new JourneyAdapter(JOURNEYS);
         rvAdvertisements.setAdapter(journeyAdapter);
         journeyAdapter.settoken(getArguments().getString("token"));
-
         // SwipeRefreshLayout
         swipeRefreshLayout = view.findViewById(R.id.journey_browser_swipe_container);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -226,6 +240,9 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
     }
 
     public void searchForStop(final View view){
+        final ProgressDialog dialog = new ProgressDialog(getContext());
+        dialog.setTitle("Loading...");
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         final RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.rvAdvertisements);
         TextView searchText = (TextView)view.findViewById(R.id.searchText);
         JSONObject jsonObject = new JSONObject();
@@ -248,6 +265,8 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
         }
 
         ByteArrayEntity entity = json2Entity(jsonObject);
+
+        dialog.show();
 
         HttpUtils.addHeader("Authorization","Bearer "+getArguments().getString("token"));
         HttpUtils.post(getContext(),"adv/get-adv-search",entity,"application/json",new JsonHttpResponseHandler(){
@@ -298,6 +317,9 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
                 JourneyAdapter jAd = new JourneyAdapter(journeyList);
                 jAd.settoken(getArguments().getString("token"));
                 recyclerView.setAdapter(jAd);
+
+                dialog.dismiss();
+
                 //TODO
             }
 
@@ -306,6 +328,22 @@ public class JourneyBrowserFragment extends Fragment implements SwipeRefreshLayo
                 log.d("error","wrong");
             }
         });
+    }
+
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+
     }
 
     public interface OnFragmentInteractionListener {

@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.rideshare9.user;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -114,9 +115,9 @@ public class HomeFragment extends Fragment {
         final HTextView hereisyour = (HTextView) view.findViewById(R.id.hereisyourcurrent);
         final ImageView refreshbutton = (ImageView) view.findViewById(R.id.refreshList);
         final ImageView mapbutton = (ImageView) view.findViewById(R.id.googleMapIcon);
+
         refreshbutton.setVisibility(view.GONE);
         mapbutton.setVisibility(view.GONE);
-
 
         final Header[] headers = {new BasicHeader("Authorization","Bearer "+getArguments().getString("token"))};
         refreshbutton.setOnClickListener(new View.OnClickListener() {

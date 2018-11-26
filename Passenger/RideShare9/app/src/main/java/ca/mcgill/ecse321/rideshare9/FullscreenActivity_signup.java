@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.rideshare9;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -238,6 +239,7 @@ public class FullscreenActivity_signup extends AppCompatActivity {
     /* create a new user account*/
     public void addParticipant(View v) throws Exception {
         /*get all required components for the method*/
+
         SyncHttpClient syncHttpClient = new SyncHttpClient();
         error = "";
         final List<Integer>checkDuplicate = new ArrayList<>(1);
@@ -272,8 +274,6 @@ public class FullscreenActivity_signup extends AppCompatActivity {
             errortx.setText("Sorry, this username already exist");
             return;
         }
-
-
 
         /*package the content from textfield into json body*/
         JSONObject jsonObject = new JSONObject();
