@@ -85,6 +85,7 @@ public class Advertisement {
 		this.status = value;
 	}
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "status")
 	public TripStatus getStatus() {
 		return this.status;
