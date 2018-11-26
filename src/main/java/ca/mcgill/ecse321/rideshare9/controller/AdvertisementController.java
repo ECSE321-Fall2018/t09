@@ -173,7 +173,7 @@ public class AdvertisementController {
     		oldadv.setStops(adv.getStops()); 
     		oldadv.setEndLocation(adv.getEndLocation()); 
     	}
-	if (adv.getStatus() != TripStatus.REGISTERING) {
+	if (adv.getVehicle() > 0 && adv.getStatus() != TripStatus.REGISTERING) {
     		return oldadv; 
     	}
     	return advService.updateAdv(oldadv); 
