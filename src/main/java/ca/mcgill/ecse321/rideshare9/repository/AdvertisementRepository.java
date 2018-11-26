@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -45,6 +46,7 @@ import ca.mcgill.ecse321.rideshare9.service.impl.UserServiceImpl;
 @Repository
 public class AdvertisementRepository {
 	@Autowired
+	@PersistenceContext
 	protected EntityManager em;
 	@Autowired
 	protected VehicleRepository vrp; 
