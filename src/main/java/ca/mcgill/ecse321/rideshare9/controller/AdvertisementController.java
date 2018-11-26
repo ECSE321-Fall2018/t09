@@ -159,19 +159,20 @@ public class AdvertisementController {
     	if (adv.getStartLocation() != null && !adv.getStartLocation().isEmpty() && !adv.getStartLocation().equals(oldadv.getStartLocation())) {
     		oldadv.setStartLocation(adv.getStartLocation());
     	}
+	if (adv.getVehicle() > 0 && (oldadv.getVehicle() != adv.getVehicle())) {
+    		oldadv.setVehicle(adv.getVehicle());
+    	}
+    	if (adv.getStatus() == null) {
+    		oldadv.setStops(adv.getStops()); 
+    		oldadv.setEndLocation(adv.getEndLocation()); 
+    		return advService.updateAdv(oldadv); 
+    	}
     	if (adv.getStatus() != null && adv.getStatus() != oldadv.getStatus()) {
     		if ((oldadv.getStatus() == TripStatus.REGISTERING || oldadv.getStatus() == TripStatus.CLOSED) && adv.getStatus() != TripStatus.COMPLETE) {
     			oldadv.setStatus(adv.getStatus());
     		} else if (oldadv.getStatus() == TripStatus.ON_RIDE && adv.getStatus() == TripStatus.COMPLETE) {
     			oldadv.setStatus(adv.getStatus());
     		}
-    	}
-    	if (adv.getVehicle() > 0 && (oldadv.getVehicle() != adv.getVehicle())) {
-    		oldadv.setVehicle(adv.getVehicle());
-    	}
-    	if (adv.getStatus() == null) {
-    		oldadv.setStops(adv.getStops()); 
-    		oldadv.setEndLocation(adv.getEndLocation()); 
     	}
 	if (adv.getVehicle() > 0 && adv.getStatus() != TripStatus.REGISTERING) {
     		return oldadv; 
