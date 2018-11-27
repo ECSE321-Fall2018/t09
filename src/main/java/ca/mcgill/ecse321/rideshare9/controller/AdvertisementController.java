@@ -63,6 +63,8 @@ public class AdvertisementController {
 	private AdvertisementRepository advService;
 	@Autowired
 	private UserService userv; 
+	@Autowired
+	private MapperUserAdvRepository mserv; 
 
 	
     /**
