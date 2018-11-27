@@ -86,16 +86,21 @@
             android:background="?android:attr/listDivider"
             android:outlineAmbientShadowColor="#000000" />
 
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/trip_recylcer"
+        <android.support.v4.widget.SwipeRefreshLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swiperefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_height="580dp">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/trip_recylcer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="120dp"
             />
 
 

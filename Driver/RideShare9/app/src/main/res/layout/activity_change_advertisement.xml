@@ -4,9 +4,7 @@
                                              xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
-                                             android:padding="10dp"
-                                             tools:context=".ChangeAdvertisementActivity"
-                                             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                                             tools:context=".ChangeAdvertisementActivity">
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -43,10 +41,10 @@
                     android:id="@+id/addInfoTitle"
                     android:layout_width="298dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-thin"
                     android:text="Information of Your Trip"
-                    android:textSize="24sp"
                     android:textColor="@android:color/black"
-                    android:fontFamily="sans-serif-thin" />
+                    android:textSize="24sp" />
 
             </LinearLayout>
 
@@ -66,15 +64,15 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/Logo_startLocation"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/imageView4"
+                    android:layout_width="65dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:srcCompat="@android:drawable/ic_menu_compass" />
+                    app:srcCompat="@drawable/ic_baseline_location_on_24px" />
 
                 <EditText
                     android:id="@+id/modify_startLocationText"
-                    android:layout_width="249dp"
+                    android:layout_width="350dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/startLocationHint"
@@ -99,18 +97,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/starttime_label"
-                    android:textSize="18sp" />
+                    app:srcCompat="@drawable/ic_baseline_access_time_24px" />
 
                 <TextView
                     android:id="@+id/starttime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="end"
+                    android:layout_width="350dp"
+                    android:layout_height="45dp"
+                    android:gravity="center"
                     android:onClick="showTimePickerDialog"
                     android:text="@string/starttime_first"
                     android:textSize="18sp" />
@@ -122,18 +120,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="50dp"
+                    android:layout_height="45dp"
                     android:layout_weight="1"
-                    android:text="@string/startdate_label"
-                    android:textSize="18sp" />
+                    app:srcCompat="@drawable/ic_baseline_date_range_24px" />
 
                 <TextView
                     android:id="@+id/startDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
+                    android:layout_width="350dp"
+                    android:layout_height="45dp"
+                    android:gravity="center"
                     android:onClick="showDatePickerDialog"
                     android:text="@string/startdate_first"
                     android:textSize="18sp" />
@@ -148,18 +146,16 @@
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/vehicleText"
-                    android:layout_width="324dp"
-                    android:layout_height="match_parent"
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
                     android:layout_weight="1"
-                    android:text="@string/chooseVehicle"
-                    android:textSize="18sp"
-                    app:srcCompat="@mipmap/ic_lock_outline_black_24dp" />
+                    app:srcCompat="@drawable/ic_baseline_directions_car_24px" />
 
                 <Spinner
                     android:id="@+id/spinnerVehicle"
-                    android:layout_width="match_parent"
+                    android:layout_width="350dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:spinnerMode="dialog" />
@@ -178,20 +174,30 @@
 
 
             <LinearLayout
-                android:id="@+id/Layout_cost"
-                android:layout_width="match_parent"
+                android:id="@+id/Layout_available_seating_change"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:text="List of Stops"
+                    android:textSize="30sp"
+                    app:fontFamily="@font/roboto_thin" />
+
+                <Button
+                    android:id="@+id/Btn_addStop"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="8dp"
+                    android:background="@drawable/ic_baseline_add_box_24px"
+                    android:onClick="addStop"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/white" />
             </LinearLayout>
-
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="List of Stops"
-                android:textSize="18sp" />
 
             <ListView
                 android:id="@+id/stop_list"
@@ -199,26 +205,12 @@
                 android:layout_height="250dp">
 
             </ListView>
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="17dp" />
-            <LinearLayout
-                android:id="@+id/add_stops"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
 
-                <Button
-                    android:id="@+id/Btn_addStop"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#000000"
-                    android:onClick="addStop"
-                    android:text="Add Stop"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"
@@ -238,9 +230,10 @@
                     android:onClick="modifyJourney"
                     android:text="Modify Journey"
                     android:textColor="@android:color/white" />
+
                 <Space
                     android:layout_width="30dp"
-                    android:layout_height="30dp"/>
+                    android:layout_height="30dp" />
 
                 <Button
                     android:id="@+id/Btn_cancelJourney"
@@ -269,16 +262,6 @@
         android:background="@color/black_overlay"
         android:orientation="horizontal"
         tools:ignore="UselessParent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorSecondary"
-            android:baselineAligned="false"
-            android:gravity="center"
-            android:orientation="vertical">
-
-        </LinearLayout>
 
     </LinearLayout>
 

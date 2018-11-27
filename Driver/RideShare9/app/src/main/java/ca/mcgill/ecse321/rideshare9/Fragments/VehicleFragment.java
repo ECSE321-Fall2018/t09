@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,7 +100,7 @@ public class VehicleFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        Button refresh = view.findViewById(R.id.refresh_vehicle);
+        final Button refresh = view.findViewById(R.id.refresh_vehicle);
         refresh.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -135,6 +136,15 @@ public class VehicleFragment extends Fragment {
             }
         });
         refresh.callOnClick();
+        refresh.setVisibility(View.INVISIBLE);
+        final SwipeRefreshLayout pullToRefresh = view.findViewById(R.id.swiperefresh_vehicle);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh.callOnClick();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
         return view;
     }
 

@@ -212,6 +212,7 @@ public class HomeFragment extends Fragment {
 
             }
         });
+        refresh_home.setVisibility(View.INVISIBLE);
         refresh_home.callOnClick();
         return view;
     }

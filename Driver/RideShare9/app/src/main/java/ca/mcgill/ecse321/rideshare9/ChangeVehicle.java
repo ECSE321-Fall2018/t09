@@ -147,7 +147,7 @@ public class ChangeVehicle extends AppCompatActivity {
             return;
         }
         Header[] headers = {new BasicHeader("Authorization","Bearer " + FullscreenActivity.getsavedToken(getApplicationContext()))};
-        HttpUtils.put(getApplicationContext(),"/vehicle/change-cars", headers, entity,"application/json",new JsonHttpResponseHandler(){
+        HttpUtils.put(getApplicationContext(),"vehicle/change-cars", headers, entity,"application/json",new JsonHttpResponseHandler(){
             @Override
             public void onFinish() {
 

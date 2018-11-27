@@ -105,7 +105,7 @@ public class StopList_adapter extends BaseAdapter {
                     e.printStackTrace();
                 }
 
-                HttpUtils.post(v.getContext(),"/stop/del-stop", headers, entity,"application/json", new TextHttpResponseHandler(){
+                HttpUtils.post(v.getContext(),"stop/del-stop", headers, entity,"application/json", new TextHttpResponseHandler(){
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String response) {
                         Log.d("ok", "removed");

@@ -253,6 +253,7 @@ public class addJourneyActivity extends AppCompatActivity {
         ListView stopListView = findViewById(R.id.stop_list);
         for (int i = 0; i < stopListView.getCount(); i++) {
             stopList.put(stopListView.getAdapter().getItemId(i));
+
         }
         JSONObject toAddAdv = new JSONObject();
 
@@ -277,7 +278,7 @@ public class addJourneyActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         Header[] headers = {new BasicHeader("Authorization","Bearer " + FullscreenActivity.getsavedToken(getApplicationContext()))};
-        HttpUtils.post(getApplicationContext(),"/adv/create-adv", headers, entity,"application/json",new JsonHttpResponseHandler(){
+        HttpUtils.post(getApplicationContext(),"adv/create-adv", headers, entity,"application/json",new JsonHttpResponseHandler(){
             @Override
             public void onFinish() {
 

@@ -62,7 +62,7 @@ public class ChangeAdStopsAdapter extends RecyclerView.Adapter<ChangeAdStopsAdap
 
 
 
-                HttpUtils.delete(v.getContext(),"/stop/delete-adv", headers, requestParams,new TextHttpResponseHandler(){
+                HttpUtils.delete(v.getContext(),"stop/delete-adv", headers, requestParams,new TextHttpResponseHandler(){
 
 
                     @Override

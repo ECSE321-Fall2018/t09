@@ -140,7 +140,9 @@ public class ChangeAdvertisementActivity extends AppCompatActivity {
         alertDialog.setMessage("Enter Stop Name then Price");
 
         final EditText stopName = new EditText(this);
+        stopName.setHint("Enter Stop Name");
         final EditText price = new EditText(this );
+        price.setHint("Enter Stop Price");
         price.setInputType(InputType.TYPE_CLASS_NUMBER);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -280,6 +282,9 @@ public class ChangeAdvertisementActivity extends AppCompatActivity {
         }
         JSONObject toAddAdv = new JSONObject();
 
+        if (tripTitle.length() < 1 || startLocation.length() < 1) {
+            return;
+        }
 
         try {
             toAddAdv.put("id", advertisementId);
@@ -303,7 +308,7 @@ public class ChangeAdvertisementActivity extends AppCompatActivity {
         }
 
         Header[] headers = {new BasicHeader("Authorization","Bearer " + FullscreenActivity.getsavedToken(getApplicationContext()))};
-        HttpUtils.put(getApplicationContext(),"/adv/update-adv", headers, entity,"application/json",new JsonHttpResponseHandler(){
+        HttpUtils.put(getApplicationContext(),"adv/update-adv", headers, entity,"application/json",new JsonHttpResponseHandler(){
             @Override
             public void onFinish() {
 
@@ -360,7 +365,7 @@ public class ChangeAdvertisementActivity extends AppCompatActivity {
                 for (int i = 0; i < ad.getStops().size(); i++) {
                     final int vehicleI =i;
 
-                        HttpUtils.get("/stop/get-by-id/" + ad.getStops().get(i).getId(),
+                        HttpUtils.get("stop/get-by-id/" + ad.getStops().get(i).getId(),
                                 null, new JsonHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -394,7 +399,7 @@ public class ChangeAdvertisementActivity extends AppCompatActivity {
                         vitem.setModel(response.getJSONObject(i).getString("model"));
                         vitem.setLicencePlate(response.getJSONObject(i).getString("licencePlate"));
                         vitem.setColor(response.getJSONObject(i).getString("color"));
-                        vitem.setMaxSeat(Integer.parseInt(response.getJSONObject(i).getString("maxSeat"))); 
+                        vitem.setMaxSeat(Integer.parseInt(response.getJSONObject(i).getString("maxSeat")));
                         Log.d("catched vehicle", vitem.getModel());
                         vehicleList.add("id: " + vitem.getId() + ", model: " + vitem.getModel() + ", seats: " + vitem.getMaxSeat());
                     } catch (Exception e) {

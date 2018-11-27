@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -71,7 +72,8 @@ public class AdvertisementFragment extends Fragment {
 
         for (int i = 0; i < adCount; i++) {
             JSONObject advertisement = jsonAdArray.optJSONObject(i);
-            advertisements.add(advertisementFromJSONObject(advertisement));
+            Advertisement a = advertisementFromJSONObject(advertisement);
+            advertisements.add(a);
         }
 
         return advertisements;
@@ -124,7 +126,7 @@ public class AdvertisementFragment extends Fragment {
             }
         });
         getTripList();
-        Button refreshTrip = view.findViewById(R.id.refresh_trip);
+        final Button refreshTrip = view.findViewById(R.id.refresh_trip);
         refreshTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,7 +144,7 @@ public class AdvertisementFragment extends Fragment {
 
                         for (int i = 0; i < advertisements.size(); i++) {
                             final int vehicleI =i;
-                            HttpUtils.get("/vehicle/get-by-id/" + advertisements.get(i).getVehicle().getId(),
+                            HttpUtils.get("vehicle/get-by-id/" + advertisements.get(i).getVehicle().getId(),
                                     null, new JsonHttpResponseHandler(){
                                         @Override
                                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -161,7 +163,7 @@ public class AdvertisementFragment extends Fragment {
                             for (int j = 0; j < advertisements.get(i).getStops().size(); j++) {
                                 final int finalI = i;
                                 final int finalJ = j;
-                                HttpUtils.get("/stop/get-by-id/" + advertisements.get(i).getStops().get(j).getId(),
+                                HttpUtils.get("stop/get-by-id/" + advertisements.get(i).getStops().get(j).getId(),
                                         null, new JsonHttpResponseHandler() {
                                             @Override
                                             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -171,7 +173,7 @@ public class AdvertisementFragment extends Fragment {
                                                         .setPrice((float) response.optDouble("price"));
                                                 advertisementsAdapter.notifyDataSetChanged();
                                             }
-                                        });
+                                });
                             }
                         }
                     }
@@ -179,6 +181,15 @@ public class AdvertisementFragment extends Fragment {
             }
         });
         refreshTrip.callOnClick();
+        refreshTrip.setVisibility(View.INVISIBLE);
+        final SwipeRefreshLayout pullToRefresh = view.findViewById(R.id.swiperefresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshTrip.callOnClick();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
         // Inflate the layout for this fragment
         return view;
     }

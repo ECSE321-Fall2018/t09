@@ -97,7 +97,7 @@ public class VehicleItemAdapter extends BaseAdapter /*implements ListAdapter*/ {
                 }catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-                HttpUtils.post(v.getContext(),"/vehicle/remove-car", headers, entity,"application/json",new TextHttpResponseHandler(){
+                HttpUtils.post(v.getContext(),"vehicle/remove-car", headers, entity,"application/json",new TextHttpResponseHandler(){
 
 
                     @Override
