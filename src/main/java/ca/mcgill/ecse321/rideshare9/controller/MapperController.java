@@ -61,18 +61,21 @@ public class MapperController {
     	User current_user = userv.loadUserByUsername(currentUserName); 
     	if (userv.findUserByUsername(currentUserName) != null) {
     		Advertisement advFound = advService.findAdv(aid); 
-        	if (1 == (advFound.getSeatAvailable())) {
-        		advFound.setStatus(TripStatus.CLOSED); 
-        		advFound.setSeatAvailable(advFound.getSeatAvailable() - 1); 
-        		advService.updateAdv(advFound); 
-        		return mserv.createMapper(current_user.getId(), advFound.getId());
-        	}
-        	if (0 < (advFound.getSeatAvailable())) {
-        		advFound.setSeatAvailable(advFound.getSeatAvailable() - 1); 
-    			return mserv.createMapper(current_user.getId(), advFound.getId()); 
-    		}
-    		if (mserv.findRegCountById(advFound.getId()) >= (advFound.getSeatAvailable())) {
-    			return null; 
+		if (advFound.getStatus() == TripStatus.REGISTERING) {
+			if (1 == (advFound.getSeatAvailable())) {
+				advFound.setStatus(TripStatus.CLOSED); 
+				advFound.setSeatAvailable(advFound.getSeatAvailable() - 1); 
+				advService.updateAdv(advFound); 
+				return mserv.createMapper(current_user.getId(), advFound.getId());
+			}
+			if (0 < (advFound.getSeatAvailable())) {
+				advFound.setSeatAvailable(advFound.getSeatAvailable() - 1); 
+				advService.updateAdv(advFound); 
+				return mserv.createMapper(current_user.getId(), advFound.getId()); 
+			}
+			if (mserv.findRegCountById(advFound.getId()) >= (advFound.getSeatAvailable())) {
+				return null; 
+			}
     		}
     	}
     	return null; 
