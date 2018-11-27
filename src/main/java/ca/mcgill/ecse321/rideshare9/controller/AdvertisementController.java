@@ -22,11 +22,13 @@ import ca.mcgill.ecse321.rideshare9.entity.ActiveAdvertisement;
 import ca.mcgill.ecse321.rideshare9.entity.Advertisement;
 import ca.mcgill.ecse321.rideshare9.entity.TripStatus;
 import ca.mcgill.ecse321.rideshare9.entity.User;
+import ca.mcgill.ecse321.rideshare9.entity.UserStatus;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvBestQuery;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvQuery;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvResponse;
 import ca.mcgill.ecse321.rideshare9.entity.helper.RouteBestQuery;
 import ca.mcgill.ecse321.rideshare9.repository.AdvertisementRepository;
+import ca.mcgill.ecse321.rideshare9.repository.MapperUserAdvRepository;
 import ca.mcgill.ecse321.rideshare9.service.UserService;
 
 
@@ -61,6 +63,8 @@ public class AdvertisementController {
 	private AdvertisementRepository advService;
 	@Autowired
 	private UserService userv; 
+	@Autowired
+	private MapperUserAdvRepository mserv; 
 
 	
     /**
@@ -170,8 +174,12 @@ public class AdvertisementController {
     	if (adv.getStatus() != null && adv.getStatus() != oldadv.getStatus()) {
     		if ((oldadv.getStatus() == TripStatus.REGISTERING || oldadv.getStatus() == TripStatus.CLOSED) && adv.getStatus() != TripStatus.COMPLETE) {
     			oldadv.setStatus(adv.getStatus());
+			if (adv.getStatus() == TripStatus.ON_RIDE) {
+    				mserv.changeUserStatusByAdv(oldadv.getId(), UserStatus.ON_RIDE); 
+    			}
     		} else if (oldadv.getStatus() == TripStatus.ON_RIDE && adv.getStatus() == TripStatus.COMPLETE) {
     			oldadv.setStatus(adv.getStatus());
+			mserv.changeUserStatusByAdv(oldadv.getId(), UserStatus.STANDBY);
     		}
     	}
 	if (adv.getVehicle() > 0 && adv.getStatus() != TripStatus.REGISTERING) {

@@ -23,6 +23,7 @@ import ca.mcgill.ecse321.rideshare9.entity.User;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvBestQuery;
 import ca.mcgill.ecse321.rideshare9.entity.helper.AdvQuery;
 import ca.mcgill.ecse321.rideshare9.entity.helper.MapperBestQuery;
+import ca.mcgill.ecse321.rideshare9.entity.UserStatus;
 import ca.mcgill.ecse321.rideshare9.service.impl.UserServiceImpl;
 
 @Repository
@@ -84,5 +85,11 @@ public class MapperUserAdvRepository {
 		if (currq.getBest() != null) q.add(currq); 
 	    }
 	    return q;
+	}
+	@Transactional
+	public void changeUserStatusByAdv(long aid, UserStatus us) {
+		TypedQuery<MapperUserAdv> query = em.createQuery("SELECT a FROM MapperUserAdv a WHERE a.advertisement = :aid", MapperUserAdv.class).setParameter("aid", aid);
+		List<MapperUserAdv> ulist = query.getResultList(); 
+		for (MapperUserAdv u: ulist) urp.changeUserStatus(u.getPassenger(), us); 
 	}
 }
