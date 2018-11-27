@@ -88,8 +88,8 @@ public class MapperUserAdvRepository {
 	}
 	@Transactional
 	public void changeUserStatusByAdv(long aid, UserStatus us) {
-		TypedQuery<Long> query = em.createQuery("SELECT a.passenger FROM MapperUserAdv a WHERE a.advertisement = :aid", Long.class).setParameter("aid", aid);
-		List<Long> ulist = query.getResultList(); 
-		for (Long u: ulist) urp.changeUserStatus(u, us); 
+		TypedQuery<MapperUserAdv> query = em.createQuery("SELECT a FROM MapperUserAdv a WHERE a.advertisement = :aid", MapperUserAdv.class).setParameter("aid", aid);
+		List<MapperUserAdv> ulist = query.getResultList(); 
+		for (MapperUserAdv u: ulist) urp.changeUserStatus(u.getPassenger(), us); 
 	}
 }
