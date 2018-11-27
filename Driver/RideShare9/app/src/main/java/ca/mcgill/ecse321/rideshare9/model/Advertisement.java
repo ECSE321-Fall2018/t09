@@ -39,6 +39,7 @@ public class Advertisement implements Parcelable {
     private String status;
     private List<Stop> stops;
 
+
     public Advertisement() {
     }
 

@@ -64,7 +64,7 @@ public class CreateAdStopsAdapter extends BaseAdapter {
 
 
 
-                HttpUtils.delete(v.getContext(),"/stop/delete-adv", headers, requestParams,new TextHttpResponseHandler(){
+                HttpUtils.delete(v.getContext(),"stop/del-stop", headers, requestParams,new TextHttpResponseHandler(){
 
 
                     @Override

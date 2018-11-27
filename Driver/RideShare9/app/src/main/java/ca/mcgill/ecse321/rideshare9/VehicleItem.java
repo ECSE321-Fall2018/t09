@@ -36,6 +36,7 @@ public class VehicleItem {
     public String getModel() {
         return model;
     }
+
     public Long getId() {
         return id;
     }

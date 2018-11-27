@@ -92,6 +92,18 @@ tools:context=".Fragments.AdvertisementFragment">
         app:layout_constraintLeft_toRightOf="@id/modifyAdButton"
         app:layout_constraintTop_toBottomOf="@id/vehicleField" />
 
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="92dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ic_baseline_play_circle_filled_24px"
+        android:textColor="#FFFFFF"
+        android:textSize="8sp"
+        app:layout_constraintLeft_toRightOf="@id/modifyAdButton"
+        app:layout_constraintTop_toBottomOf="@id/vehicleField" />
+
 
     <TextView
             android:layout_width="match_parent"
@@ -126,7 +138,6 @@ tools:context=".Fragments.AdvertisementFragment">
         android:textSize="12sp"
         app:layout_constraintTop_toBottomOf="@id/date"
         tools:layout_editor_absoluteX="16dp" />
-
 
 
 

@@ -16,6 +16,7 @@ import ca.mcgill.ecse321.rideshare9.R;
 import ca.mcgill.ecse321.rideshare9.model.Advertisement;
 import ca.mcgill.ecse321.rideshare9.model.Stop;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.json.JSONException;
@@ -52,6 +53,7 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
         public Button deleteButton;
         public TextView adStatus;
         public Button completeButton;
+        public Button startButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -67,6 +69,7 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
             deleteButton = itemView.findViewById(R.id.deleteAdButton);
             adStatus = itemView.findViewById(R.id.trip_status);
             completeButton = itemView.findViewById(R.id.complete_button);
+            startButton = itemView.findViewById(R.id.start_button);
         }
     }
 
@@ -87,7 +90,7 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdvertisementViewAdapter.ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final AdvertisementViewAdapter.ViewHolder viewHolder, final int i) {
         final Advertisement advertisement = advertisements.get(i);
 
         TextView adTitle = viewHolder.adTitle;
@@ -101,6 +104,7 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
         Button modifyButton = viewHolder.modifyButton;
         Button deleteButton = viewHolder.deleteButton;
         Button completeButton = viewHolder.completeButton;
+        Button startButton = viewHolder.startButton;
 
         deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -114,7 +118,7 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
                 /*package the content from textfield into json body*/
                 JSONObject jsonObject = new JSONObject();
                 try{
-                    jsonObject.put("id",toDelete.getId());
+                    jsonObject.put("id", toDelete.getId());
                     jsonObject.put("status", "CANCELLED");
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -141,15 +145,15 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
                         Log.d("error","advertisement not deleted properly");
                     }
                 });
-                toDelete.setStatus("CANCELLED");
+
                 //or some other task
                 notifyDataSetChanged();
             }
         });
 
-        completeButton.setOnClickListener(new View.OnClickListener() {
+        startButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 Advertisement toDelete = advertisements.get(i);
 
                 // requestParams.put("id",toDelete.getId());
@@ -159,7 +163,90 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
                 /*package the content from textfield into json body*/
                 JSONObject jsonObject = new JSONObject();
                 try{
-                    jsonObject.put("id",toDelete.getId());
+                    jsonObject.put("id", toDelete.getId());
+                    jsonObject.put("status", "ON_RIDE");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                /*convert the jsonbdoy into string entity that can be sent*/
+                ByteArrayEntity entity = null;
+                try {
+                    entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
+                    entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+                }catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+                HttpUtils.put(v.getContext(), "adv/update-adv", headers, entity, "application/json",new JsonHttpResponseHandler(){
+
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        Log.d("ok", "removed");
+
+                        String s = "";
+                        try {
+                            s = response.getString("status");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (s.equals("COMPLETE")) return;
+
+                        JSONObject jsonObject = new JSONObject();
+                        try{
+                            jsonObject.put("status", "ON_RIDE");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        /*convert the jsonbdoy into string entity that can be sent*/
+                        ByteArrayEntity entity = null;
+                        try {
+                            entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
+                            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+                        }catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        Header[] newheaders = {new BasicHeader("Authorization","Bearer " + FullscreenActivity.getsavedToken(v.getContext()))};
+
+                        HttpUtils.put(v.getContext(), "user/update-status", newheaders, entity, "application/json",new TextHttpResponseHandler(){
+
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, String response) {
+                                Log.d("ok", "removed");
+
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, String throwable, Throwable errorResponse) {
+                                Log.d("error","advertisement not deleted properly");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String throwable, Throwable errorResponse) {
+                        Log.d("error","advertisement not deleted properly");
+                    }
+                });
+
+                //or some other task
+                notifyDataSetChanged();
+            }
+        });
+        completeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Advertisement toDelete = advertisements.get(i);
+
+                // requestParams.put("id",toDelete.getId());
+
+                Header[] headers = {new BasicHeader("Authorization","Bearer " + FullscreenActivity.getsavedToken(v.getContext()))};
+
+                /*package the content from textfield into json body*/
+                JSONObject jsonObject = new JSONObject();
+                try{
+                    jsonObject.put("id", toDelete.getId());
                     jsonObject.put("status", "COMPLETE");
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -173,12 +260,43 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
                     e.printStackTrace();
                 }
 
-                HttpUtils.put(v.getContext(), "adv/update-adv", headers, entity, "application/json",new TextHttpResponseHandler(){
+                HttpUtils.put(v.getContext(), "adv/update-adv", headers, entity, "application/json",new JsonHttpResponseHandler(){
 
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, String response) {
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
                         Log.d("ok", "removed");
+                        JSONObject jsonObject = new JSONObject();
+                        try{
+                            jsonObject.put("status", "STANDBY");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        /*convert the jsonbdoy into string entity that can be sent*/
+                        ByteArrayEntity entity = null;
+                        try {
+                            entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
+                            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+                        }catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        Header[] newheaders = {new BasicHeader("Authorization","Bearer " + FullscreenActivity.getsavedToken(v.getContext()))};
+
+                        HttpUtils.put(v.getContext(), "user/update-status", newheaders, entity, "application/json",new TextHttpResponseHandler(){
+
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, String response) {
+                                Log.d("ok", "removed");
+
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, String throwable, Throwable errorResponse) {
+                                Log.d("error","advertisement not deleted properly");
+                            }
+                        });
+
                     }
 
                     @Override
@@ -186,7 +304,36 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
                         Log.d("error","advertisement not deleted properly");
                     }
                 });
-                toDelete.setStatus("COMPLETE");
+
+                jsonObject = new JSONObject();
+                try{
+                    jsonObject.put("status", "STANDBY");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                /*convert the jsonbdoy into string entity that can be sent*/
+                entity = null;
+                try {
+                    entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
+                    entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+                }catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                Header[] newheaders = {new BasicHeader("Authorization","Bearer " + FullscreenActivity.getsavedToken(v.getContext()))};
+
+                HttpUtils.put(v.getContext(), "user/update-status", newheaders, entity, "application/json",new TextHttpResponseHandler(){
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, String response) {
+                        Log.d("ok", "removed");
+
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String throwable, Throwable errorResponse) {
+                        Log.d("error","advertisement not deleted properly");
+                    }
+                });
                 //or some other task
                 notifyDataSetChanged();
             }
@@ -198,7 +345,6 @@ public class AdvertisementViewAdapter extends RecyclerView.Adapter<Advertisement
                 //do something
                 Intent intent = new Intent(v.getContext(), ChangeAdvertisementActivity.class);
                 Advertisement ad = advertisements.get(i);
-
                 intent.putExtra("adv_id", ad.getId());
                 context.startActivity(intent);
             }
