@@ -25,7 +25,7 @@
 
                 <ImageView
                     android:id="@+id/searchIcon"
-                    android:layout_width="32dp"
+                    android:layout_width="83dp"
                     android:layout_height="51dp"
                     android:layout_weight="1"
                     android:background="@android:color/white"
@@ -82,13 +82,16 @@
                             android:checked="true"
                             android:drawableLeft="@drawable/ic_arrow_drop_up_black_18dp"
                             android:text="@string/sortbyPrice"
+                            android:buttonTint="@color/darkblue"
                             android:textColor="@android:color/darker_gray"
+                            android:textColorLink="@color/colorAccent"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <RadioButton
                             android:id="@+id/SortByCarModel"
                             android:layout_width="247dp"
+                            android:buttonTint="@color/darkblue"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@android:color/white"
@@ -98,12 +101,14 @@
                             android:textSize="18sp"
                             android:textStyle="normal|bold" />
                     </RadioGroup>
-
                 </LinearLayout>
-
-
-
             </LinearLayout>
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@color/darkblue" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvAdvertisements"
